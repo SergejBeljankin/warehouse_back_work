@@ -16,18 +16,19 @@ import javax.persistence.Table;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "TypesOfPrice")
+@Table(name = "types_of_price")
 public class TypeOfPrice {
 
     @Id
     @GeneratedValue()
-    @Column(name = "Id", unique = true)
+    @Column(name = "id", unique = true)
     private Long id;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "SortNumber")    private String sortNumber;
+    @Column(name = "sort_number")
+    private String sortNumber;
 }
 
 
