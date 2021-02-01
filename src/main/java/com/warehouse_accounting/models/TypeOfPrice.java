@@ -22,13 +22,12 @@ public class TypeOfPrice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true)
     private Long id;
 
-    @Column(name = "name")
+    @Column
     private String name;
 
-    @Column(name = "sort_number")
+    @Column
     private String sortNumber;
 }
 
