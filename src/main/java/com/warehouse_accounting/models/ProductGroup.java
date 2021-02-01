@@ -1,6 +1,7 @@
 package com.warehouse_accounting.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +19,7 @@ import javax.persistence.Table;
 @Table(name = "product_group")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder(toBuilder = true)
 public class ProductGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
