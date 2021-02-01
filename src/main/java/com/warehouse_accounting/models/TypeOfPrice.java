@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "types_of_price")
+@Table(name = "type_of_prices")
 public class TypeOfPrice {
 
     @Id
