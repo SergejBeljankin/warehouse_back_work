@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@Table
 @NoArgsConstructor
 @AllArgsConstructor
 public class Warehouse {
