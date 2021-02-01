@@ -18,12 +18,11 @@ import javax.persistence.Table;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "currencys")
+@Table(name = "currencies")
 public class Currency {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
 
     @Column
