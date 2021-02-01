@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "product_group")
+@Table(name = "product_groups")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
