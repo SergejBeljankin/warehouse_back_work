@@ -16,13 +16,13 @@ import javax.persistence.Table;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "TaxSystem")
+@Table(name = "tax_systems")
 public class TaxSystem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
     private String name;
-    @Column(name = "sortNumber")
+    @Column(name = "sort_number")
     private String sortNumber;
 }
