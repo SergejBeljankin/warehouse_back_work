@@ -28,7 +28,7 @@ public class ProductGroup {
     @Column
     private String name;
 
-    @Column(name = "sort_number")
+    @Column
     private String sortNumber;
 
     @ManyToOne
