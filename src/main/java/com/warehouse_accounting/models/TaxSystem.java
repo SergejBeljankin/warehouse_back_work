@@ -22,9 +22,9 @@ public class TaxSystem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column
     private String name;
 
-    @Column(name = "sort_number")
+    @Column
     private String sortNumber;
 }
