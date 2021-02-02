@@ -7,9 +7,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Data
@@ -69,7 +72,7 @@ public class Company {
     private String stamp;
 
 //    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "company_id")
+//    @JoinColumn(name = "legal_detail_id")
 //    private LegalDetail legalDetail;
 //    (OneToOne, LAZY) дождаться залития в dev
 }
