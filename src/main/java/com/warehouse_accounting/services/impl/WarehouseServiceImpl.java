@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -38,7 +40,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     public void update(WarehouseDto warehouseDto) {
         Optional<Warehouse> warehouseById = warehouseRepository.findById(warehouseDto.getId());
-        if (warehouseById.isPresent()){
+        if (warehouseById.isPresent()) {
             Warehouse warehouse = warehouseById.get();
             warehouse.setName(warehouseDto.getName());
             warehouse.setSortNumber(warehouseDto.getSortNumber());
@@ -54,6 +56,13 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     public void deleteById(Long id) {
         warehouseRepository.deleteById(id);
+    }
+
+    @Override
+    public List<WarehouseDto> findAll() {
+        return warehouseRepository.findAll().stream()
+                .map(this::toWarehouseDto)
+                .collect(Collectors.toList());
     }
 
     private WarehouseDto toWarehouseDto(Warehouse warehouse) {
