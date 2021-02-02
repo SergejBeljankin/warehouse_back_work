@@ -57,6 +57,6 @@ public class LegalDetail {
     @Column
     private LocalDate dateOfTheCertificate;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private TypeOfContractor typeOfContractor;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TypeOfContractor typeOfContractor;
 }
