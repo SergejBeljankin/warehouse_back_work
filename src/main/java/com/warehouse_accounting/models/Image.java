@@ -12,23 +12,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table( name = "images" )
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-
+@Entity
+@Table(name = "images")
 public class Image {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY )
-    @Column()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column()
+    @Column
     private String imageUrl;
 
-    @Column()
+    @Column
     private String sortNumber;
 }
