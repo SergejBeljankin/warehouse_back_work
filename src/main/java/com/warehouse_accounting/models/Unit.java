@@ -12,25 +12,25 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "units")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Entity
+@Table(name = "units")
 public class Unit {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
-    @Column()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column()
+    @Column
     private String shortName;
 
-    @Column()
+    @Column
     private String fullName;
 
-    @Column()
+    @Column
     private String sortNumber;
+    
 }
