@@ -22,6 +22,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "companies")
 public class Company {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -71,8 +72,7 @@ public class Company {
     @Column
     private String stamp;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "legal_detail_id")
-//    private LegalDetail legalDetail;
-//    (OneToOne, LAZY) дождаться залития в dev
+    @OneToOne(fetch = FetchType.LAZY)
+    private LegalDetail legalDetail;
+
 }
