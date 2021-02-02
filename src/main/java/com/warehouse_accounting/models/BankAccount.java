@@ -1,4 +1,4 @@
-package com.warehouse_accounting.models.dto;
+package com.warehouse_accounting.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Builder
 @Data
-@Table(name = "BankAccounts")
+@Table(name = "bank_accounts")
 @NoArgsConstructor
 @AllArgsConstructor
 public class BankAccount {
