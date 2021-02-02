@@ -15,7 +15,6 @@ import javax.persistence.Table;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Entity
 @Table(name = "type_of_prices")
 public class TypeOfPrice {
