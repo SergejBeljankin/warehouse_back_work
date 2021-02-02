@@ -17,15 +17,20 @@ public class Warehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name")
+
+    @Column(name = "names")
     private String name;
-    @Column(name = "sortNumber")
+
+    @Column(name = "sortNumbers")
     private String sortNumber;
-    @Column(name = "address")
+
+    @Column(name = "addresss")
     private String address;
-    @Column(name = "commentToAddress")
+
+    @Column(name = "commentToAddresss")
     private String commentToAddress;
-    @Column(name = "comment")
+
+    @Column(name = "comments")
     private String comment;
 
     public Warehouse(String name, String sortNumber, String address, String commentToAddress, String comment) {
