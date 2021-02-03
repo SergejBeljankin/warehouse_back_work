@@ -24,7 +24,7 @@ public class Warehouse {
     @Column(name = "sort_numbers")
     private String sortNumber;
 
-    @Column(name = "addresss")
+    @Column(name = "address")
     private String address;
 
     @Column(name = "comment_to_address")
