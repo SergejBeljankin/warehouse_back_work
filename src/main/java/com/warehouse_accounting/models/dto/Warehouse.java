@@ -27,7 +27,7 @@ public class Warehouse {
     @Column(name = "addresss")
     private String address;
 
-    @Column(name = "comment_to_addresss")
+    @Column(name = "comment_to_address")
     private String commentToAddress;
 
     @Column(name = "comments")
