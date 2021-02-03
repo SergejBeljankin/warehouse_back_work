@@ -27,25 +27,15 @@ public class BankAccount {
     @Column(name = "addresses")
     private String address;
 
-    @Column(name = "correspondentAccounts")
+    @Column(name = "correspondent_accounts")
     private String correspondentAccount;
 
     @Column(name = "accounts")
     private String account;
 
-    @Column(name = "mainAccounts")
+    @Column(name = "main_accounts")
     private Boolean mainAccount;
 
-    @Column(name = "sortNumbers")
+    @Column(name = "sort_numbers")
     private String sortNumber;
-
-    public BankAccount(String rcbic, String bank, String address, String correspondentAccount, String account, Boolean mainAccount, String sortNumber) {
-        this.rcbic = rcbic;
-        this.bank = bank;
-        this.address = address;
-        this.correspondentAccount = correspondentAccount;
-        this.account = account;
-        this.mainAccount = mainAccount;
-        this.sortNumber = sortNumber;
-    }
 }
