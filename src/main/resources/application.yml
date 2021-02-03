@@ -9,15 +9,15 @@ spring:
     password: root
     initialization-mode: always
 
-    jpa:
-      open-in-view: false
-      show-sql: true
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
       hibernate:
-        ddl-auto: create-drop
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.PostgreSQL95Dialect
-          current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
-          format_sql: false
-          jdbc:
-            timezone: UTC
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+        format_sql: false
+        jdbc:
+          timezone: UTC
