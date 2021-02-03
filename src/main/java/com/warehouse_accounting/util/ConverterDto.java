@@ -5,6 +5,10 @@ import com.warehouse_accounting.models.dto.CompanyDto;
 
 public class ConverterDto {
 
+    private ConverterDto() {
+
+    }
+
     public static Company convertToModel(CompanyDto dto) {
         return Company.builder()
                 .address(dto.getAddress())
