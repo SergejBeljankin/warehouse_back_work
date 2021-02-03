@@ -13,9 +13,9 @@ import javax.persistence.Table;
 import javax.persistence.Id;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "roles")
 public class Role {
