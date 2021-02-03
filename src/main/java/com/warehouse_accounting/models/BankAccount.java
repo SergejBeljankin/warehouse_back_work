@@ -18,24 +18,24 @@ public class BankAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "rcbics")
+    @Column(name = "rcbic")
     private String rcbic;
 
-    @Column(name = "banks")
+    @Column(name = "bank")
     private String bank;
 
-    @Column(name = "addresses")
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "correspondent_accounts")
+    @Column(name = "correspondent_account")
     private String correspondentAccount;
 
-    @Column(name = "accounts")
+    @Column(name = "account")
     private String account;
 
-    @Column(name = "main_accounts")
+    @Column(name = "main_account")
     private Boolean mainAccount;
 
-    @Column(name = "sort_numbers")
+    @Column(name = "sort_number")
     private String sortNumber;
 }
