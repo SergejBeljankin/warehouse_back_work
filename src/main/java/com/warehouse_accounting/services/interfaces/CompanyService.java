@@ -1,9 +1,11 @@
 package com.warehouse_accounting.services.interfaces;
 
 import com.warehouse_accounting.models.dto.CompanyDto;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface CompanyService {
     List<CompanyDto> getAll();
 

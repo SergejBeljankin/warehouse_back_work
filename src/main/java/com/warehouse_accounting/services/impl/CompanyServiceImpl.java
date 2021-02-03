@@ -4,53 +4,42 @@ import com.warehouse_accounting.models.Company;
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.repositories.CompanyRepository;
 import com.warehouse_accounting.services.interfaces.CompanyService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.warehouse_accounting.util.ConverterDto;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/*
-Используем JpaRepository
-Dto - это dto той сущности для которой создаётся сервис.
-Конструирование Dto делаем в запросе к базе
-List<Dto> getAll();
-
-Dto getById(Long id);
-
-void create(Dto dto);
-
-void update(Dto dto);
-
-void deleteById(Long id);
- */
-
+@Transactional
 public class CompanyServiceImpl implements CompanyService {
 
-    @Autowired
-    private CompanyRepository compRep;
+    private final CompanyRepository compRep;
+
+    public CompanyServiceImpl(CompanyRepository compRep) {
+        this.compRep = compRep;
+    }
 
     @Override
     public List<CompanyDto> getAll() {
-        List<Company> companies =  compRep.findAll();
-        return null;
+        return compRep.getAll();
     }
 
     @Override
     public CompanyDto getById(Long id) {
-        return null;
+        return compRep.getById(id);
     }
 
     @Override
     public void create(CompanyDto dto) {
-
+        compRep.save(ConverterDto.convertToModel(dto));
     }
 
     @Override
     public void update(CompanyDto dto) {
-
+        compRep.save(ConverterDto.convertToModel(dto));
     }
 
     @Override
     public void deleteById(Long id) {
-
+        compRep.deleteById(id);
     }
 }
