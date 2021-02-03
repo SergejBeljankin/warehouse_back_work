@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "attributes_of_calculation_object")
+@Table(name = "attribute_of_calculation_objects")
 public class AttributeOfCalculationObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
