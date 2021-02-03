@@ -1,4 +1,4 @@
-package com.warehouse_accounting.models.dto;
+package com.warehouse_accounting.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
