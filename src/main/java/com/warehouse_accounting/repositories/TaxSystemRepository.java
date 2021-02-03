@@ -10,9 +10,19 @@ import java.util.List;
 
 public interface TaxSystemRepository extends JpaRepository<TaxSystem, Long> {
 
-    @Query("select new com.warehouse_accounting.models.dto.TaxSystemDto(ts.id, ts.name, ts.sortNumber) from TaxSystem ts")
-    public List<TaxSystemDto> listDto();
+    @Query("SELECT new com.warehouse_accounting.models.dto.TaxSystemDto(" +
+            "ts.id, " +
+            "ts.name, " +
+            "ts.sortNumber" +
+            ") " +
+            "FROM TaxSystem ts")
+    public List<TaxSystemDto> getAll();
 
-    @Query("select new com.warehouse_accounting.models.dto.TaxSystemDto(ts.id, ts.name, ts.sortNumber) from TaxSystem ts where ts.id = :id")
+    @Query("SELECT new com.warehouse_accounting.models.dto.TaxSystemDto(" +
+            "ts.id, " +
+            "ts.name, " +
+            "ts.sortNumber" +
+            ") " +
+            "FROM TaxSystem ts where ts.id = :id")
     public TaxSystemDto getById(@Param("id") Long id);
 }

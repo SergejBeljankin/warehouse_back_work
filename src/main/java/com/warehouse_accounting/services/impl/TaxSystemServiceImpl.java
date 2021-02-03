@@ -6,9 +6,11 @@ import com.warehouse_accounting.repositories.TaxSystemRepository;
 import com.warehouse_accounting.services.interfaces.TaxSystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 @Service
 public class TaxSystemServiceImpl implements TaxSystemService {
 
@@ -17,7 +19,7 @@ public class TaxSystemServiceImpl implements TaxSystemService {
 
     @Override
     public List<TaxSystemDto> getAll() {
-        return taxSystemRepository.listDto();
+        return taxSystemRepository.getAll();
     }
 
     @Override
