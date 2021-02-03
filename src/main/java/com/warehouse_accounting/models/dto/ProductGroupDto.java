@@ -13,5 +13,5 @@ public class ProductGroupDto {
     private Long id;
     private String name;
     private String sortNumber;
-    private String productGroup;
+    private ProductGroupDto productGroup;
 }
