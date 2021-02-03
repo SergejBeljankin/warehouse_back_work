@@ -13,12 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "contractor_groups")
 public class ContractorGroup {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
