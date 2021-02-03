@@ -13,11 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Data
-@Entity
-@Table(name = "attributes_of_calculation_object")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "attributes_of_calculation_object")
 public class AttributeOfCalculationObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +30,5 @@ public class AttributeOfCalculationObject {
     private String sortNumber;
 
     @Column
-    @Builder.Default
     private Boolean isService = false;
 }
