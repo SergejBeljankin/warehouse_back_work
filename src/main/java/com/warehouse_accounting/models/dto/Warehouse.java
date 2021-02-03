@@ -21,23 +21,17 @@ public class Warehouse {
     @Column(name = "names")
     private String name;
 
-    @Column(name = "sortNumbers")
+    @Column(name = "sort_numbers")
     private String sortNumber;
 
     @Column(name = "addresss")
     private String address;
 
-    @Column(name = "commentToAddresss")
+    @Column(name = "comment_to_addresss")
     private String commentToAddress;
 
     @Column(name = "comments")
     private String comment;
 
-    public Warehouse(String name, String sortNumber, String address, String commentToAddress, String comment) {
-        this.name = name;
-        this.sortNumber = sortNumber;
-        this.address = address;
-        this.commentToAddress = commentToAddress;
-        this.comment = comment;
-    }
+
 }
