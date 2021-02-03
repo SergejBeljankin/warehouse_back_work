@@ -7,31 +7,31 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @Builder
 @Data
-@Table(name = "warehouses")
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "warehouses")
 public class Warehouse {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column
     private String name;
 
-    @Column(name = "sort_number")
+    @Column
     private String sortNumber;
 
-    @Column(name = "address")
+    @Column
     private String address;
 
-    @Column(name = "comment_to_address")
+    @Column
     private String commentToAddress;
 
-    @Column(name = "comment")
+    @Column
     private String comment;
-
 
 }
