@@ -18,10 +18,10 @@ public class Warehouse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "names")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "sort_numbers")
+    @Column(name = "sort_number")
     private String sortNumber;
 
     @Column(name = "address")
@@ -30,7 +30,7 @@ public class Warehouse {
     @Column(name = "comment_to_address")
     private String commentToAddress;
 
-    @Column(name = "comments")
+    @Column(name = "comment")
     private String comment;
 
 
