@@ -29,8 +29,6 @@ public class WarehouseServiceImpl implements WarehouseService {
         warehouseRepository.save(convertToModel(warehouseDto));
     }
 
-
-
     @Override
     public void update(WarehouseDto warehouseDto) {
         Optional<Warehouse> updateWarehouse = warehouseRepository.findById(warehouseDto.getId());
