@@ -1,6 +1,5 @@
 package com.warehouse_accounting.models.dto;
 
-import com.warehouse_accounting.models.LegalDetail;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -44,5 +43,5 @@ public class CompanyDto {
 
     private String stamp;
 
-    private LegalDetail legalDetail;
+    private LegalDetailDto legalDetailDto;
 }
