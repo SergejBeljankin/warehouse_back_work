@@ -13,34 +13,34 @@ import java.util.List;
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
-    private final CompanyRepository compRep;
+    private final CompanyRepository compRepository;
 
     public CompanyServiceImpl(CompanyRepository compRep) {
-        this.compRep = compRep;
+        this.compRepository = compRep;
     }
 
     @Override
     public List<CompanyDto> getAll() {
-        return compRep.getAll();
+        return compRepository.getAll();
     }
 
     @Override
     public CompanyDto getById(Long id) {
-        return compRep.getById(id);
+        return compRepository.getById(id);
     }
 
     @Override
     public void create(CompanyDto dto) {
-        compRep.save(ConverterDto.convertToModel(dto));
+        compRepository.save(ConverterDto.convertToModel(dto));
     }
 
     @Override
     public void update(CompanyDto dto) {
-        compRep.save(ConverterDto.convertToModel(dto));
+        compRepository.save(ConverterDto.convertToModel(dto));
     }
 
     @Override
     public void deleteById(Long id) {
-        compRep.deleteById(id);
+        compRepository.deleteById(id);
     }
 }
