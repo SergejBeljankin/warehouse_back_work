@@ -13,5 +13,5 @@ public interface WarehouseService {
 
     void deleteById(Long id);
 
-    List<WarehouseDto> findAll();
+    List<WarehouseDto> getAll();
 }
