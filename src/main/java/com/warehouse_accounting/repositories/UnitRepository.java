@@ -21,12 +21,13 @@ public interface UnitRepository extends JpaRepository<Unit, Long> {
             "FROM Unit u")
     List<UnitDto> getAll();
 
+
     @Query("SELECT NEW com.warehouse_accounting.models.dto.UnitDto(" +
             "u.id," +
             "u.shortName," +
             "u.fullName," +
             "u.sortNumber)" +
-            "FROM Unit u where u.id = :id")
+            "FROM Unit u WHERE u.id = :id")
     UnitDto getById(@Param("id") Long id);
 
 
@@ -37,7 +38,6 @@ public interface UnitRepository extends JpaRepository<Unit, Long> {
             ":#{#unitDto.sortNumber})"
             ,nativeQuery = true)
     void create(@Param("unitDto") UnitDto unitDto);
-
 
 
     @Modifying(clearAutomatically = true)
