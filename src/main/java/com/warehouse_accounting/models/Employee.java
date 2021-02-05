@@ -59,20 +59,14 @@ public class Employee {
     private String password;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
     private Department department;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "position_id")
     private Position position;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "employees_roles",
-            joinColumns = @JoinColumn(name = "employee_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "image_id")
     private Image image;
 }
