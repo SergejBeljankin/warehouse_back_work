@@ -1,15 +1,22 @@
 package com.warehouse_accounting.util;
 
+<<<<<<< HEAD
 import com.warehouse_accounting.models.Company;
 import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.TypeOfContractor;
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
+=======
+import com.warehouse_accounting.models.Role;
+import com.warehouse_accounting.models.dto.RoleDto;
+
+>>>>>>> origin/dev
 
 public class ConverterDto {
 
     private ConverterDto() {
+<<<<<<< HEAD
 
     }
 
@@ -104,6 +111,23 @@ public class ConverterDto {
                 .id(typeOfContractorDto.getId())
                 .name(typeOfContractorDto.getName())
                 .sortNumber(typeOfContractorDto.getSortNumber())
+=======
+    }
+
+    public static RoleDto convertToDto(Role role) {
+        return RoleDto.builder()
+                .id(role.getId())
+                .name(role.getName())
+                .sortNumber(role.getSortNumber())
+                .build();
+    }
+
+    public static Role convertToModel(RoleDto roleDto) {
+        return Role.builder()
+                .id(roleDto.getId())
+                .name(roleDto.getName())
+                .sortNumber(roleDto.getSortNumber())
+>>>>>>> origin/dev
                 .build();
     }
 }
