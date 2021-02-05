@@ -7,35 +7,36 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
-@Builder
 @Data
-@Table(name = "bank_accounts")
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "bank_accounts")
 public class BankAccount {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "rcbic")
+    @Column
     private String rcbic;
 
-    @Column(name = "bank")
+    @Column
     private String bank;
 
-    @Column(name = "address")
+    @Column
     private String address;
 
-    @Column(name = "correspondent_account")
+    @Column
     private String correspondentAccount;
 
-    @Column(name = "account")
+    @Column
     private String account;
 
-    @Column(name = "main_account")
+    @Column
     private Boolean mainAccount;
 
-    @Column(name = "sort_number")
+    @Column
     private String sortNumber;
 }
