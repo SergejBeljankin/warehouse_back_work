@@ -12,15 +12,19 @@ import java.util.List;
 @Repository
 public interface RoleRepository extends
         JpaRepository<Role, Long> {
-    String ROLE_DTO_CONSTRUCTOR = "com.warehouse_accounting.models.dto.RoleDto(" +
+    @Query("SELECT new com.warehouse_accounting.models.dto.RoleDto(" +
             "r.id," +
             "r.name," +
-            "r.sortNumber)";
-
-    @Query("SELECT NEW " + ROLE_DTO_CONSTRUCTOR + "FROM Role r")
+            "r.sortNumber"+
+            ")"+
+            "FROM Role r")
     List<RoleDto> getAll();
 
-    @Query("SELECT NEW " + ROLE_DTO_CONSTRUCTOR + "FROM Role r WHERE r.id=:id")
+    @Query("SELECT new com.warehouse_accounting.models.dto.RoleDto(" +
+            "r.id," +
+            "r.name," +
+            "r.sortNumber"+
+            ")"+
+            "FROM Role r WHERE r.id=:id")
     RoleDto getById(@Param("id") Long id);
-
 }
