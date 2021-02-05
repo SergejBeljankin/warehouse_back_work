@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 @Transactional
 public class WarehouseServiceImpl implements WarehouseService {
-    private WarehouseRepository warehouseRepository;
+    private final WarehouseRepository warehouseRepository;
 
     public WarehouseServiceImpl(WarehouseRepository warehouseRepository) {
         this.warehouseRepository = warehouseRepository;
