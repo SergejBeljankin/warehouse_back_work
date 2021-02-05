@@ -20,13 +20,29 @@ public class LegalDetailServiceImpl implements LegalDetailService {
     }
 
     @Override
-    public List<LegalDetailDto> getAll() {
-        return legalDetailRepository.getAll();
+    public List<LegalDetailDto> getAll()
+    {
+        List<LegalDetailDto> legalDetailDtos = legalDetailRepository.getAll();
+        for (LegalDetailDto legalDetailDto: legalDetailDtos) {
+            legalDetailDto.setTypeOfContractorDto(
+                    ConverterDto.convertToDto(
+                            legalDetailRepository.getTypeOfContractorById(legalDetailDto.getId())
+                    )
+            );
+        }
+        return legalDetailDtos;
     }
 
     @Override
     public LegalDetailDto getById(Long id) {
-        return legalDetailRepository.getById(id);
+        LegalDetailDto legalDetailDto = legalDetailRepository.getById(id);
+        legalDetailDto.setTypeOfContractorDto(
+                ConverterDto.convertToDto(
+                        legalDetailRepository.getTypeOfContractorById(legalDetailDto.getId())
+                )
+        );
+
+        return legalDetailDto
     }
 
     @Override
