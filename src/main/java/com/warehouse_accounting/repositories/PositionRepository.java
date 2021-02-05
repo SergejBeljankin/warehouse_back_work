@@ -12,9 +12,20 @@ import java.util.List;
 @Repository
 public interface PositionRepository extends JpaRepository<Position, Long> {
 
-    @Query("SELECT NEW com.warehouse_accounting.models.dto.PositionDto(p.id, p.name, p.sortNumber) FROM Position p")
+    @Query("SELECT " +
+            "NEW com.warehouse_accounting.models.dto.PositionDto(" +
+            "p.id, " +
+            "p.name, " +
+            "p.sortNumber) " +
+            "FROM Position p")
     List<PositionDto> getAll();
 
-    @Query("SELECT NEW com.warehouse_accounting.models.dto.PositionDto(p.id, p.name, p.sortNumber) FROM Position p WHERE p.id=:id")
+    @Query("SELECT " +
+            "NEW com.warehouse_accounting.models.dto.PositionDto(" +
+            "p.id, " +
+            "p.name, " +
+            "p.sortNumber) " +
+            "FROM Position p " +
+            "WHERE p.id=:id")
     PositionDto getById(@Param("id") Long id);
 }

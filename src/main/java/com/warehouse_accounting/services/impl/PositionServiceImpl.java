@@ -5,10 +5,12 @@ import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.repositories.PositionRepository;
 import com.warehouse_accounting.services.interfaces.PositionService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class PositionServiceImpl implements PositionService {
 
     private final PositionRepository positionRepository;
@@ -52,7 +54,7 @@ public class PositionServiceImpl implements PositionService {
     }
 
     //TODO перенести в класс конвертера, когда появится
-    public static PositionDto convertToDto (Position position) {
+    public static PositionDto convertToDto(Position position) {
         return PositionDto.builder()
                 .id(position.getId())
                 .name(position.getName())
