@@ -4,9 +4,9 @@ import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.dto.RoleDto;
 
 
-public class RoleConverterDto {
+public class ConverterDto {
 
-    private RoleConverterDto() {
+    private ConverterDto() {
     }
 
     public static RoleDto convertToDto(Role role) {
