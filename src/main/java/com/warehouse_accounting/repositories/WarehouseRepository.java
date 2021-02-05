@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
@@ -15,6 +14,7 @@ public interface WarehouseRepository extends JpaRepository<Warehouse, Long> {
     @Query("SELECT new com.warehouse_accounting.models.dto.WarehouseDto(" +
             " w.id" +
             ",w.name" +
+            ",w.sortNumber" +
             ",w.address" +
             ",w.commentToAddress" +
             ",w.comment)" +
@@ -24,10 +24,11 @@ public interface WarehouseRepository extends JpaRepository<Warehouse, Long> {
     @Query("SELECT new com.warehouse_accounting.models.dto.WarehouseDto(" +
             " w.id" +
             ",w.name" +
+            ",w.sortNumber" +
             ",w.address" +
             ",w.commentToAddress" +
             ",w.comment)" +
             "FROM Warehouse w " +
             "WHERE w.id = :id")
     WarehouseDto getById(@Param("id") Long id);
-}
+ }
