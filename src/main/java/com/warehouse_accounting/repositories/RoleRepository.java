@@ -15,7 +15,7 @@ public interface RoleRepository extends
     String ROLE_DTO_CONSTRUCTOR = "com.warehouse_accounting.models.dto.RoleDto(" +
             "r.id," +
             "r.name," +
-            "r.sortNumber,";
+            "r.sortNumber)";
 
     @Query("SELECT NEW " + ROLE_DTO_CONSTRUCTOR + "FROM Role r")
     List<RoleDto> getAll();
