@@ -9,8 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional
+
 @Service
+@Transactional
 public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyRepository compRepository;
