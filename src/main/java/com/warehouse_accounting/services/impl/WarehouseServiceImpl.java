@@ -4,6 +4,7 @@ import com.warehouse_accounting.models.Warehouse;
 import com.warehouse_accounting.models.dto.WarehouseDto;
 import com.warehouse_accounting.repositories.WarehouseRepository;
 import com.warehouse_accounting.services.interfaces.WarehouseService;
+import com.warehouse_accounting.util.ConverterDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,13 +27,13 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public void create(WarehouseDto warehouseDto) {
-        warehouseRepository.save(convertToModel(warehouseDto));
+        warehouseRepository.save(ConverterDto.convertToModel(warehouseDto));
     }
 
     @Override
     public void update(WarehouseDto warehouseDto) {
         Optional<Warehouse> updateWarehouse = warehouseRepository.findById(warehouseDto.getId());
-        if (updateWarehouse.isPresent()){
+        if (updateWarehouse.isPresent()) {
             Warehouse warehouse = updateWarehouse.get();
             warehouse.setName(warehouseDto.getName());
             warehouse.setSortNumber(warehouseDto.getSortNumber());
@@ -53,14 +54,5 @@ public class WarehouseServiceImpl implements WarehouseService {
         return warehouseRepository.getAll();
     }
 
-    public static Warehouse convertToModel(WarehouseDto warehouseDto) {
-        return Warehouse.builder()
-                .id(warehouseDto.getId())
-                .name(warehouseDto.getName())
-                .sortNumber(warehouseDto.getSortNumber())
-                .address(warehouseDto.getAddress())
-                .commentToAddress(warehouseDto.getCommentToAddress())
-                .comment(warehouseDto.getComment())
-                .build();
-    }
+
 }
