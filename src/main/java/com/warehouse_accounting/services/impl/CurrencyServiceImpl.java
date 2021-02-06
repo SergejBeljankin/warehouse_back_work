@@ -1,9 +1,9 @@
 package com.warehouse_accounting.services.impl;
 
-import com.warehouse_accounting.models.Currency;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.repositories.CurrencyRepository;
 import com.warehouse_accounting.services.interfaces.CurrencyService;
+import com.warehouse_accounting.services.util.ConverterDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,12 +31,13 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     @Override
     public void create(CurrencyDto dto) {
-        currencyRepository.save(convertToModel(dto));
+
+        currencyRepository.save(ConverterDto.convertToModel(dto));
     }
 
     @Override
     public void update(CurrencyDto dto) {
-        currencyRepository.save(convertToModel(dto));
+        currencyRepository.save(ConverterDto.convertToModel(dto));
     }
 
     @Override
@@ -44,27 +45,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         currencyRepository.deleteById(id);
     }
 
-    private Currency convertToModel(CurrencyDto currencyDto) {
-        return Currency.builder()
-                .id(currencyDto.getId())
-                .fullName(currencyDto.getFullName())
-                .shortName(currencyDto.getShortName())
-                .sortNumber(currencyDto.getSortNumber())
-                .digitalCode(currencyDto.getDigitalCode())
-                .letterCode(currencyDto.getLetterCode())
-                .build();
-    }
 
-    private CurrencyDto convertToDto(Currency currency) {
-        return CurrencyDto.builder()
-                .id(currency.getId())
-                .fullName(currency.getFullName())
-                .shortName(currency.getShortName())
-                .sortNumber(currency.getSortNumber())
-                .digitalCode(currency.getDigitalCode())
-                .letterCode(currency.getLetterCode())
-                .build();
-    }
 
 
 }
