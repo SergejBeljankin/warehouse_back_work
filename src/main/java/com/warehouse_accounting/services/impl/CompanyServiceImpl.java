@@ -21,12 +21,18 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public List<CompanyDto> getAll() {
-        return compRepository.getAll();
+        List<CompanyDto> companyDtos = compRepository.getAll();
+        for(CompanyDto companyDto: companyDtos) {
+            companyDto.setLegalDetailDto(ConverterDto.convertToDto(compRepository.getByCompanyId(companyDto.getId())));
+        }
+        return companyDtos;
     }
 
     @Override
     public CompanyDto getById(Long id) {
-        return compRepository.getById(id);
+        CompanyDto companyDto = compRepository.getById(id);
+        companyDto.setLegalDetailDto(ConverterDto.convertToDto(compRepository.getByCompanyId(companyDto.getId())));
+        return companyDto;
     }
 
     @Override
