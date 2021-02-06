@@ -1,9 +1,9 @@
 package com.warehouse_accounting.services.impl;
 
-import com.warehouse_accounting.models.ContractorGroup;
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.repositories.ContractorGroupRepository;
 import com.warehouse_accounting.services.interfaces.ContractorGroupService;
+import com.warehouse_accounting.services.util.ConverterDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,12 +31,12 @@ public class ContractorGroupServiceImpl implements ContractorGroupService {
 
     @Override
     public void create(ContractorGroupDto contractorGroupDto) {
-        contractorGroupRepository.save(convertToModel(contractorGroupDto));
+        contractorGroupRepository.save(ConverterDto.convertToModel(contractorGroupDto));
     }
 
     @Override
     public void update(ContractorGroupDto contractorGroupDto) {
-        contractorGroupRepository.save(convertToModel(contractorGroupDto));
+        contractorGroupRepository.save(ConverterDto.convertToModel(contractorGroupDto));
     }
 
     @Override
@@ -44,20 +44,5 @@ public class ContractorGroupServiceImpl implements ContractorGroupService {
         contractorGroupRepository.deleteById(id);
     }
 
-    private ContractorGroup convertToModel(ContractorGroupDto contractorGroupDto) {
-        return ContractorGroup.builder()
-                .id(contractorGroupDto.getId())
-                .name(contractorGroupDto.getName())
-                .sortNumber(contractorGroupDto.getSortNumber())
-                .build();
-    }
-
-    private ContractorGroupDto convertToDto(ContractorGroup contractorGroup) {
-        return ContractorGroupDto.builder()
-                .id(contractorGroup.getId())
-                .name(contractorGroup.getName())
-                .sortNumber(contractorGroup.getSortNumber())
-                .build();
-    }
 
 }
