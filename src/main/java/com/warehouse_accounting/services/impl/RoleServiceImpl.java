@@ -3,7 +3,7 @@ package com.warehouse_accounting.services.impl;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.repositories.RoleRepository;
 import com.warehouse_accounting.services.interfaces.RoleService;
-import com.warehouse_accounting.util.ConverterDto;
+import com.warehouse_accounting.util.RoleConverterDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,12 +31,12 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void create(RoleDto dto) {
-        roleRepository.save(ConverterDto.convertToModel(dto));
+        roleRepository.save(RoleConverterDto.convertToModel(dto));
     }
 
     @Override
     public void update(RoleDto dto) {
-        roleRepository.save(ConverterDto.convertToModel(dto));
+        roleRepository.save(RoleConverterDto.convertToModel(dto));
     }
 
     @Override
