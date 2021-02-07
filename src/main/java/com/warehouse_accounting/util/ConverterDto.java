@@ -1,6 +1,7 @@
 package com.warehouse_accounting.util;
 
 import com.warehouse_accounting.models.Department;
+import com.warehouse_accounting.models.DepartmentDto;
 import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.dto.RoleDto;
 
