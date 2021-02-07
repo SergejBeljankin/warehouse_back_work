@@ -37,15 +37,15 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
             "FROM Contract u WHERE c.id = :id")
     ContractDto getById(@Param("id") Long id);
 
-    @Query("SELECT c.company FROM Contract c WHERE c.id = :id")
+    @Query("SELECT c.company FROM Contract c JOIN FETCH c.company WHERE c.id = :id")
     Company getCompanyById(@Param("id") Long id);
 
-    @Query("SELECT c.bankAccount FROM Contract c WHERE c.id = :id")
+    @Query("SELECT c.bankAccount FROM Contract c JOIN FETCH c.bankAccount WHERE c.id = :id")
     BankAccount getBankAccountById(@Param("id") Long id);
 
-    @Query("SELECT c.contractor FROM Contract c WHERE c.id = :id")
+    @Query("SELECT c.contractor FROM Contract c JOIN FETCH c.contractor WHERE c.id = :id")
     Contractor getContractorById(@Param("id") Long id);
 
-    @Query("SELECT c.legalDetail FROM Contract c WHERE c.id = :id")
+    @Query("SELECT c.legalDetail FROM Contract c JOIN FETCH c.legalDetail WHERE c.id = :id")
     LegalDetail getLegalDetailById(@Param("id") Long id);
 }
