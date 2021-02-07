@@ -27,6 +27,6 @@ public interface AttributeOfCalculationObjectRepository extends JpaRepository <A
             "r.sortNumber," +
             "r.isService) " +
             "FROM AttributeOfCalculationObject r WHERE r.id = :id")
-    AttributeOfCalculationObjectDto getById(@PathVariable("id") Long id);
+    AttributeOfCalculationObjectDto getById(@Param("id") Long id);
 
 }
