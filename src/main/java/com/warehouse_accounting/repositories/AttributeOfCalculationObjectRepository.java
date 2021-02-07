@@ -1,5 +1,6 @@
 package com.warehouse_accounting.repositories;
 
+import com.warehouse_accounting.models.AttributeOfCalculationObject;
 import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @Repository
-public interface AttributeOfCalculationObjectRepository extends JpaRepository <AttributeOfCalculationObjectRepository, Long> {
+public interface AttributeOfCalculationObjectRepository extends JpaRepository <AttributeOfCalculationObject, Long> {
 
     @Query("SELECT new com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto(" +
             "r.id," +

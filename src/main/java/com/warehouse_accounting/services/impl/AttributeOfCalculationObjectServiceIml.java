@@ -31,15 +31,13 @@ public class AttributeOfCalculationObjectServiceIml implements AttributeOfCalcul
     }
 
     @Override
-    public void create(AttributeOfCalculationObjectDto attributeOfCalculationObjectDto) {
-        repository.save(ConverterDto.convertToModel(attributeOfCalculationObjectDto));
-
+    public void create(AttributeOfCalculationObjectDto dto) {
+        repository.save(ConverterDto.convertToModel(dto));
     }
 
     @Override
-    public void update(AttributeOfCalculationObjectDto attributeOfCalculationObjectDto) {
-        repository.saveAndFlush(ConverterDto.convertToModel(attributeOfCalculationObjectDto));
-
+    public void update(AttributeOfCalculationObjectDto dto) {
+        repository.saveAndFlush(ConverterDto.convertToModel(dto));
     }
 
     @Override
