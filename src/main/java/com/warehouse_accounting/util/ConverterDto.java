@@ -46,7 +46,6 @@ public class ConverterDto {
                 .build();
     }
 
-
     public static Role convertToModel(RoleDto roleDto) {
         return Role.builder()
                 .id(roleDto.getId())
