@@ -43,12 +43,12 @@ public class CompanyDto {
 
     private String stamp;
 
-    private LegalDetailDto legalDetailDto;
+    private LegalDetailDto legalDetailDto = new LegalDetailDto();
 
     public CompanyDto(Long id, String name, String inn, String sortNumber, String phone, String fax, String email,
                       Boolean payerVat, String address, String commentToAddress, String leader,
                       String leaderManagerPosition, String leaderSignature, String chiefAccountant,
-                      String chiefAccountantSignature, String stamp) {
+                      String chiefAccountantSignature, String stamp, Long legalDetailId) {
         this.id = id;
         this.name = name;
         this.inn = inn;
@@ -65,5 +65,6 @@ public class CompanyDto {
         this.chiefAccountant = chiefAccountant;
         this.chiefAccountantSignature = chiefAccountantSignature;
         this.stamp = stamp;
+        this.legalDetailDto.setId(legalDetailId);
     }
 }

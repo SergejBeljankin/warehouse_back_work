@@ -29,7 +29,8 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
             "c.leaderSignature," +
             "c.chiefAccountant," +
             "c.chiefAccountantSignature," +
-            "c.stamp" +
+            "c.stamp," +
+            "c.legalDetail.id" +
             ")" +
             " FROM Company c")
     List<CompanyDto> getAll();
@@ -50,7 +51,8 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
             "c.leaderSignature," +
             "c.chiefAccountant," +
             "c.chiefAccountantSignature," +
-            "c.stamp" +
+            "c.stamp," +
+            "c.legalDetail.id" +
             ")" +
             " FROM Company c WHERE c.id=:id")
     CompanyDto getById(@Param("id") Long id);

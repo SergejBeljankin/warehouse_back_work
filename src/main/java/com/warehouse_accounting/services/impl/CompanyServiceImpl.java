@@ -29,7 +29,8 @@ public class CompanyServiceImpl implements CompanyService {
         for (CompanyDto companyDto : companyDtos) {
             companyDto.setLegalDetailDto(
                     legalDetailRepository.getById(
-                            companyRepository.getLegalDetailsId(companyDto.getId()))
+                            companyDto.getLegalDetailDto().getId()
+                    )
             );
         }
         return companyDtos;
@@ -40,7 +41,8 @@ public class CompanyServiceImpl implements CompanyService {
         CompanyDto companyDto = companyRepository.getById(id);
         companyDto.setLegalDetailDto(
                 legalDetailRepository.getById(
-                        companyRepository.getLegalDetailsId(companyDto.getId()))
+                        companyDto.getLegalDetailDto().getId()
+                )
         );
         return companyDto;
     }
