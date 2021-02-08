@@ -1,7 +1,9 @@
 package com.warehouse_accounting.util;
 
 
+import com.warehouse_accounting.models.ContractorGroup;
 import com.warehouse_accounting.models.Currency;
+import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.BankAccount;
 import com.warehouse_accounting.models.Role;
@@ -136,6 +138,22 @@ public class ConverterDto {
                 .id(taxSystem.getId())
                 .name(taxSystem.getName())
                 .sortNumber(taxSystem.getSortNumber())
+                .build();
+    }
+
+    public static ContractorGroup convertToModel(ContractorGroupDto contractorGroupDto) {
+        return ContractorGroup.builder()
+                .id(contractorGroupDto.getId())
+                .name(contractorGroupDto.getName())
+                .sortNumber(contractorGroupDto.getSortNumber())
+                .build();
+    }
+
+    public static ContractorGroupDto convertToDto(ContractorGroup contractorGroup) {
+        return ContractorGroupDto.builder()
+                .id(contractorGroup.getId())
+                .name(contractorGroup.getName())
+                .sortNumber(contractorGroup.getSortNumber())
                 .build();
     }
 
