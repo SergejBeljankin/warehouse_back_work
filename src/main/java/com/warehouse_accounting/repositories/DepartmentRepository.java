@@ -1,6 +1,7 @@
 package com.warehouse_accounting.repositories;
 
 import com.warehouse_accounting.models.Department;
+import com.warehouse_accounting.models.dto.DepartmentDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

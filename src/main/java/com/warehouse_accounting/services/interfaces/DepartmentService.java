@@ -1,5 +1,7 @@
 package com.warehouse_accounting.services.interfaces;
 
+import com.warehouse_accounting.models.dto.DepartmentDto;
+
 import java.util.List;
 
 public interface DepartmentService {

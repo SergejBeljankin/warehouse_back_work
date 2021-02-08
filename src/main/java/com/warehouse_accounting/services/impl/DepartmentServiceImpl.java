@@ -5,6 +5,8 @@ import com.warehouse_accounting.repositories.DepartmentRepository;
 import com.warehouse_accounting.services.interfaces.DepartmentService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.warehouse_accounting.models.dto.DepartmentDto;
+
 
 import java.util.List;
 
