@@ -185,4 +185,5 @@ public class ConverterDto {
                 .stamp(company.getStamp())
                 .build();
     }
+
 }
