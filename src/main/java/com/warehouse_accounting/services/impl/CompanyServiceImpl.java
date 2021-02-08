@@ -14,40 +14,40 @@ import java.util.List;
 @Transactional
 public class CompanyServiceImpl implements CompanyService {
 
-    private final CompanyRepository compRepository;
+    private final CompanyRepository companyRepository;
 
-    public CompanyServiceImpl(CompanyRepository compRep) {
-        this.compRepository = compRep;
+    public CompanyServiceImpl(CompanyRepository companyRepository) {
+        this.companyRepository = companyRepository;
     }
 
     @Override
     public List<CompanyDto> getAll() {
-        List<CompanyDto> companyDtos = compRepository.getAll();
+        List<CompanyDto> companyDtos = companyRepository.getAll();
         for(CompanyDto companyDto: companyDtos) {
-            companyDto.setLegalDetailDto(ConverterDto.convertToDto(compRepository.getByCompanyId(companyDto.getId())));
+            companyDto.setLegalDetailDto(ConverterDto.convertToDto(companyRepository.getByCompanyId(companyDto.getId())));
         }
         return companyDtos;
     }
 
     @Override
     public CompanyDto getById(Long id) {
-        CompanyDto companyDto = compRepository.getById(id);
-        companyDto.setLegalDetailDto(ConverterDto.convertToDto(compRepository.getByCompanyId(companyDto.getId())));
+        CompanyDto companyDto = companyRepository.getById(id);
+        companyDto.setLegalDetailDto(ConverterDto.convertToDto(companyRepository.getByCompanyId(companyDto.getId())));
         return companyDto;
     }
 
     @Override
     public void create(CompanyDto dto) {
-        compRepository.save(ConverterDto.convertToModel(dto));
+        companyRepository.save(ConverterDto.convertToModel(dto));
     }
 
     @Override
     public void update(CompanyDto dto) {
-        compRepository.save(ConverterDto.convertToModel(dto));
+        companyRepository.save(ConverterDto.convertToModel(dto));
     }
 
     @Override
     public void deleteById(Long id) {
-        compRepository.deleteById(id);
+        companyRepository.deleteById(id);
     }
 }
