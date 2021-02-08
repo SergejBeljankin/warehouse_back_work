@@ -2,6 +2,8 @@ package com.warehouse_accounting.util;
 
 
 import com.warehouse_accounting.models.Currency;
+import com.warehouse_accounting.models.LegalDetail;
+import com.warehouse_accounting.models.TypeOfContractor;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.BankAccount;
 import com.warehouse_accounting.models.Role;
@@ -9,8 +11,10 @@ import com.warehouse_accounting.models.TaxSystem;
 import com.warehouse_accounting.models.Unit;
 import com.warehouse_accounting.models.Warehouse;
 import com.warehouse_accounting.models.dto.BankAccountDto;
+import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
+import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.models.dto.WarehouseDto;
 
@@ -136,6 +140,56 @@ public class ConverterDto {
                 .id(taxSystem.getId())
                 .name(taxSystem.getName())
                 .sortNumber(taxSystem.getSortNumber())
+                .build();
+    }
+
+    public static TypeOfContractorDto convertToDto(TypeOfContractor typeOfContractor) {
+        return TypeOfContractorDto.builder()
+                .id(typeOfContractor.getId())
+                .name(typeOfContractor.getName())
+                .sortNumber(typeOfContractor.getSortNumber())
+                .build();
+    }
+
+    public static TypeOfContractor convertToModel(TypeOfContractorDto typeOfContractorDto) {
+        return TypeOfContractor.builder()
+                .id(typeOfContractorDto.getId())
+                .name(typeOfContractorDto.getName())
+                .sortNumber(typeOfContractorDto.getSortNumber())
+                .build();
+    }
+
+    public static LegalDetailDto convertToDto(LegalDetail legalDetail) {
+        return LegalDetailDto.builder()
+                .id(legalDetail.getId())
+                .lastName(legalDetail.getLastName())
+                .firstName(legalDetail.getFirstName())
+                .middleName(legalDetail.getMiddleName())
+                .address(legalDetail.getAddress())
+                .commentToAddress(legalDetail.getCommentToAddress())
+                .inn(legalDetail.getInn())
+                .okpo(legalDetail.getOkpo())
+                .ogrnip(legalDetail.getOgrnip())
+                .numberOfTheCertificate(legalDetail.getNumberOfTheCertificate())
+                .dateOfTheCertificate(legalDetail.getDateOfTheCertificate())
+                .typeOfContractorDto(convertToDto(legalDetail.getTypeOfContractor()))
+                .build();
+    }
+
+    public static LegalDetail convertToModel(LegalDetailDto legalDetailDto) {
+        return LegalDetail.builder()
+                .id(legalDetailDto.getId())
+                .lastName(legalDetailDto.getLastName())
+                .firstName(legalDetailDto.getFirstName())
+                .middleName(legalDetailDto.getMiddleName())
+                .address(legalDetailDto.getAddress())
+                .commentToAddress(legalDetailDto.getCommentToAddress())
+                .inn(legalDetailDto.getInn())
+                .okpo(legalDetailDto.getOkpo())
+                .ogrnip(legalDetailDto.getOgrnip())
+                .numberOfTheCertificate(legalDetailDto.getNumberOfTheCertificate())
+                .dateOfTheCertificate(legalDetailDto.getDateOfTheCertificate())
+                .typeOfContractor(convertToModel(legalDetailDto.getTypeOfContractorDto()))
                 .build();
     }
 
