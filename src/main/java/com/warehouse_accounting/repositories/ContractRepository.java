@@ -1,9 +1,6 @@
 package com.warehouse_accounting.repositories;
 
-import com.warehouse_accounting.models.BankAccount;
-import com.warehouse_accounting.models.Company;
 import com.warehouse_accounting.models.Contract;
-import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.dto.ContractDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,8 +19,12 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
             "c.amount," +
             "c.archive," +
             "c.comment," +
+            "c.company.id," +
+            "c.bankAccount.id," +
+            "c.contractor.id," +
+            "c.legalDetail.id" +
             ")" +
-            "FROM Contract u")
+            "FROM Contract c")
     List<ContractDto> getAll();
 
     @Query("SELECT NEW com.warehouse_accounting.models.dto.ContractDto(" +
@@ -33,19 +34,11 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
             "c.amount," +
             "c.archive," +
             "c.comment," +
+            "c.company.id," +
+            "c.bankAccount.id," +
+            "c.contractor.id," +
+            "c.legalDetail.id" +
             ")" +
-            "FROM Contract u WHERE c.id = :id")
+            "FROM Contract c WHERE c.id = :id")
     ContractDto getById(@Param("id") Long id);
-
-    @Query("SELECT c.company FROM Contract c JOIN FETCH c.company WHERE c.id = :id")
-    Company getCompanyById(@Param("id") Long id);
-
-    @Query("SELECT c.bankAccount FROM Contract c JOIN FETCH c.bankAccount WHERE c.id = :id")
-    BankAccount getBankAccountById(@Param("id") Long id);
-
-    @Query("SELECT c.contractor FROM Contract c JOIN FETCH c.contractor WHERE c.id = :id")
-    Contractor getContractorById(@Param("id") Long id);
-
-    @Query("SELECT c.legalDetail FROM Contract c JOIN FETCH c.legalDetail WHERE c.id = :id")
-    LegalDetail getLegalDetailById(@Param("id") Long id);
 }

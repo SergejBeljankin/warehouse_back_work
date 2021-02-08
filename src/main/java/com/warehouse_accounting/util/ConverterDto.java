@@ -1,7 +1,9 @@
 package com.warehouse_accounting.util;
 
 
+import com.warehouse_accounting.models.Contract;
 import com.warehouse_accounting.models.Currency;
+import com.warehouse_accounting.models.dto.ContractDto;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.BankAccount;
 import com.warehouse_accounting.models.Role;
