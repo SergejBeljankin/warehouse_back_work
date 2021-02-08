@@ -4,15 +4,18 @@ package com.warehouse_accounting.util;
 import com.warehouse_accounting.models.Currency;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.BankAccount;
+import com.warehouse_accounting.models.Company;
 import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.TaxSystem;
 import com.warehouse_accounting.models.Unit;
 import com.warehouse_accounting.models.Warehouse;
 import com.warehouse_accounting.models.dto.BankAccountDto;
+import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
 import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.models.dto.WarehouseDto;
+
 
 public class ConverterDto {
 
@@ -136,6 +139,50 @@ public class ConverterDto {
                 .id(taxSystem.getId())
                 .name(taxSystem.getName())
                 .sortNumber(taxSystem.getSortNumber())
+                .build();
+    }
+
+    public static Company convertToModel(CompanyDto dto) {
+        return Company.builder()
+                .address(dto.getAddress())
+                .chiefAccountant(dto.getChiefAccountant())
+                .chiefAccountantSignature(dto.getChiefAccountantSignature())
+                .commentToAddress(dto.getCommentToAddress())
+                .email(dto.getEmail())
+                .fax(dto.getFax())
+                .id(dto.getId())
+                .inn(dto.getInn())
+                .leader(dto.getLeader())
+                .leaderManagerPosition(dto.getLeaderManagerPosition())
+                .leaderSignature(dto.getLeaderSignature())
+                .legalDetail(convertToModel(dto.getLegalDetailDto()))
+                .name(dto.getName())
+                .payerVat(dto.getPayerVat())
+                .phone(dto.getPhone())
+                .sortNumber(dto.getSortNumber())
+                .stamp(dto.getStamp())
+                .build();
+    }
+
+    public static CompanyDto convertToDto(Company company) {
+        return CompanyDto.builder()
+                .address(company.getAddress())
+                .chiefAccountant(company.getChiefAccountant())
+                .chiefAccountantSignature(company.getChiefAccountantSignature())
+                .commentToAddress(company.getCommentToAddress())
+                .email(company.getEmail())
+                .fax(company.getFax())
+                .id(company.getId())
+                .inn(company.getInn())
+                .leader(company.getLeader())
+                .leaderManagerPosition(company.getLeaderManagerPosition())
+                .leaderSignature(company.getLeaderSignature())
+                .legalDetailDto(convertToDto(company.getLegalDetail()))
+                .name(company.getName())
+                .payerVat(company.getPayerVat())
+                .phone(company.getPhone())
+                .sortNumber(company.getSortNumber())
+                .stamp(company.getStamp())
                 .build();
     }
 
