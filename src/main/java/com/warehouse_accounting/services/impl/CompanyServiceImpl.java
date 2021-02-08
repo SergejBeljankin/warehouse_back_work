@@ -2,6 +2,7 @@ package com.warehouse_accounting.services.impl;
 
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.repositories.CompanyRepository;
+import com.warehouse_accounting.repositories.LegalDetailRepository;
 import com.warehouse_accounting.services.interfaces.CompanyService;
 import com.warehouse_accounting.util.ConverterDto;
 import org.springframework.stereotype.Service;
@@ -15,16 +16,21 @@ import java.util.List;
 public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyRepository companyRepository;
+    private final LegalDetailRepository legalDetailRepository;
 
-    public CompanyServiceImpl(CompanyRepository companyRepository) {
+    public CompanyServiceImpl(CompanyRepository companyRepository, LegalDetailRepository legalDetailRepository) {
         this.companyRepository = companyRepository;
+        this.legalDetailRepository = legalDetailRepository;
     }
 
     @Override
     public List<CompanyDto> getAll() {
         List<CompanyDto> companyDtos = companyRepository.getAll();
-        for(CompanyDto companyDto: companyDtos) {
-            companyDto.setLegalDetailDto(ConverterDto.convertToDto(companyRepository.getByCompanyId(companyDto.getId())));
+        for (CompanyDto companyDto : companyDtos) {
+            companyDto.setLegalDetailDto(
+                    legalDetailRepository.getById(
+                            companyRepository.getLegalDetailsId(companyDto.getId()))
+            );
         }
         return companyDtos;
     }
@@ -32,7 +38,10 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public CompanyDto getById(Long id) {
         CompanyDto companyDto = companyRepository.getById(id);
-        companyDto.setLegalDetailDto(ConverterDto.convertToDto(companyRepository.getByCompanyId(companyDto.getId())));
+        companyDto.setLegalDetailDto(
+                legalDetailRepository.getById(
+                        companyRepository.getLegalDetailsId(companyDto.getId()))
+        );
         return companyDto;
     }
 

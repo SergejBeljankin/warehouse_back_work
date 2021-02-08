@@ -55,9 +55,7 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
             " FROM Company c WHERE c.id=:id")
     CompanyDto getById(@Param("id") Long id);
 
-    //Т.к. legalDetail не хранит в себе id Company, нужно брать отсюда legalDetail или его id чтобы потом запрашивать
-    // его через LegalDetailRepository. Чтобы не делать несколько запросов беру тут сразу legalDetail.
-    @Query("SELECT c.legalDetail FROM Company c WHERE c.id = :id")
-    LegalDetail getByCompanyId(@Param("id") Long id);
+    @Query("SELECT c.legalDetail.id FROM Company c WHERE c.id = :id")
+    Long getLegalDetailsId(@Param("id") Long id);
 
 }
