@@ -1,4 +1,4 @@
-package com.warehouse_accounting.repository;
+package com.warehouse_accounting.repositories;
 
 import com.warehouse_accounting.models.TypeOfContractor;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
