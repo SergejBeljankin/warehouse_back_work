@@ -2,12 +2,13 @@ package com.warehouse_accounting.util;
 
 import com.warehouse_accounting.models.Company;
 import com.warehouse_accounting.models.LegalDetail;
+import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.TypeOfContractor;
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
-import com.warehouse_accounting.models.dto.TypeOfContractorDto;
-import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.dto.RoleDto;
+import com.warehouse_accounting.models.dto.TypeOfContractorDto;
+
 
 public class ConverterDto {
 
@@ -123,4 +124,5 @@ public class ConverterDto {
                 .sortNumber(roleDto.getSortNumber())
                 .build();
     }
+
 }
