@@ -79,7 +79,7 @@ public class RoleController {
                 @ApiResponse(code = 404, message = "RoleDto not exist"),
                 @ApiResponse(code = 500, message = "Internal server error")}
         )
-        public ResponseEntity<?> updateWarehouse(
+        public ResponseEntity<?> updateRole(
                 @ApiParam(name = "RoleDto", value = "Wait json object RoleDto to update")
                 @RequestBody RoleDto roleDto) {
             roleService.update(roleDto);
