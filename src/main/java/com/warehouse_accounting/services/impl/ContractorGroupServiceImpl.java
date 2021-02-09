@@ -3,7 +3,7 @@ package com.warehouse_accounting.services.impl;
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.repositories.ContractorGroupRepository;
 import com.warehouse_accounting.services.interfaces.ContractorGroupService;
-import com.warehouse_accounting.services.util.ConverterDto;
+import com.warehouse_accounting.util.ConverterDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

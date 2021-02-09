@@ -1,6 +1,8 @@
 package com.warehouse_accounting.util;
 
-
+import com.warehouse_accounting.models.ContractorGroup;
+import com.warehouse_accounting.models.Currency;
+import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.models.AttributeOfCalculationObject;
 import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
 import com.warehouse_accounting.models.Department;
@@ -34,7 +36,8 @@ public class ConverterDto {
 
     private ConverterDto() {
     }
-       public static Currency convertToModel(CurrencyDto currencyDto) {
+
+    public static Currency convertToModel(CurrencyDto currencyDto) {
         return Currency.builder()
                 .id(currencyDto.getId())
                 .fullName(currencyDto.getFullName())
@@ -55,7 +58,6 @@ public class ConverterDto {
                 .letterCode(currency.getLetterCode())
                 .build();
     }
-
 
     public static Role convertToModel(RoleDto roleDto) {
         return Role.builder()
@@ -230,6 +232,22 @@ public class ConverterDto {
                 .phone(company.getPhone())
                 .sortNumber(company.getSortNumber())
                 .stamp(company.getStamp())
+                .build();
+    }
+
+    public static ContractorGroup convertToModel(ContractorGroupDto contractorGroupDto) {
+        return ContractorGroup.builder()
+                .id(contractorGroupDto.getId())
+                .name(contractorGroupDto.getName())
+                .sortNumber(contractorGroupDto.getSortNumber())
+                .build();
+    }
+
+    public static ContractorGroupDto convertToDto(ContractorGroup contractorGroup) {
+        return ContractorGroupDto.builder()
+                .id(contractorGroup.getId())
+                .name(contractorGroup.getName())
+                .sortNumber(contractorGroup.getSortNumber())
                 .build();
     }
 
