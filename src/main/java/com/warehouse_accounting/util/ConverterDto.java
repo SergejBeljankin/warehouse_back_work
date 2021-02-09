@@ -8,6 +8,7 @@ import com.warehouse_accounting.models.Image;
 import com.warehouse_accounting.models.dto.DepartmentDto;
 import com.warehouse_accounting.models.Contract;
 import com.warehouse_accounting.models.Currency;
+import com.warehouse_accounting.models.Position;
 import com.warehouse_accounting.models.dto.ContractDto;
 import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.TypeOfContractor;
@@ -21,6 +22,7 @@ import com.warehouse_accounting.models.Unit;
 import com.warehouse_accounting.models.Warehouse;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
+import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
@@ -228,6 +230,22 @@ public class ConverterDto {
                 .phone(company.getPhone())
                 .sortNumber(company.getSortNumber())
                 .stamp(company.getStamp())
+                .build();
+    }
+
+    public static Position convertToModel(PositionDto positionDto) {
+        return Position.builder()
+                .id(positionDto.getId())
+                .name(positionDto.getName())
+                .sortNumber(positionDto.getSortNumber())
+                .build();
+    }
+
+    public static PositionDto convertToDto(Position position) {
+        return PositionDto.builder()
+                .id(position.getId())
+                .name(position.getName())
+                .sortNumber(position.getSortNumber())
                 .build();
     }
 
