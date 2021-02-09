@@ -1,5 +1,8 @@
 package com.warehouse_accounting.util;
 
+
+import com.warehouse_accounting.models.AttributeOfCalculationObject;
+import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
 import com.warehouse_accounting.models.Department;
 import com.warehouse_accounting.models.Image;
 import com.warehouse_accounting.models.dto.DepartmentDto;
@@ -55,6 +58,24 @@ public class ConverterDto {
                 .id(roleDto.getId())
                 .name(roleDto.getName())
                 .sortNumber(roleDto.getSortNumber())
+                .build();
+    }
+
+    public static AttributeOfCalculationObjectDto convertToDto (AttributeOfCalculationObject model) {
+        return AttributeOfCalculationObjectDto.builder()
+                .id(model.getId())
+                .name(model.getName())
+                .sortNumber(model.getSortNumber())
+                .isService(model.getIsService())
+                .build();
+    }
+
+    public static AttributeOfCalculationObject convertToModel (AttributeOfCalculationObjectDto dto) {
+        return AttributeOfCalculationObject.builder()
+                .id(dto.getId())
+                .name(dto.getName())
+                .sortNumber(dto.getSortNumber())
+                .isService(dto.getIsService())
                 .build();
     }
 
