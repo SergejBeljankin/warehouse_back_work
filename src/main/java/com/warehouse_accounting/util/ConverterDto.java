@@ -1,8 +1,8 @@
 package com.warehouse_accounting.util;
 
 import com.warehouse_accounting.models.Department;
+import com.warehouse_accounting.models.Image;
 import com.warehouse_accounting.models.dto.DepartmentDto;
-
 import com.warehouse_accounting.models.Currency;
 import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.TypeOfContractor;
@@ -10,6 +10,7 @@ import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.BankAccount;
 import com.warehouse_accounting.models.Company;
 import com.warehouse_accounting.models.Role;
+import com.warehouse_accounting.models.dto.ImageDto;
 import com.warehouse_accounting.models.TaxSystem;
 import com.warehouse_accounting.models.Unit;
 import com.warehouse_accounting.models.Warehouse;
@@ -22,13 +23,11 @@ import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.models.dto.WarehouseDto;
 
-
 public class ConverterDto {
 
     private ConverterDto() {
     }
-
-    public static Currency convertToModel(CurrencyDto currencyDto) {
+       public static Currency convertToModel(CurrencyDto currencyDto) {
         return Currency.builder()
                 .id(currencyDto.getId())
                 .fullName(currencyDto.getFullName())
@@ -59,14 +58,15 @@ public class ConverterDto {
                 .build();
     }
 
-    public static Department convertToModel (DepartmentDto departmentDto){
+    public static Department convertToModel(DepartmentDto departmentDto) {
         return Department.builder()
                 .id(departmentDto.getId())
                 .name(departmentDto.getName())
                 .sortNumber(departmentDto.getSortNumber())
                 .build();
     }
-    public static DepartmentDto convertToDto(Department department){
+
+    public static DepartmentDto convertToDto(Department department) {
         return DepartmentDto.builder()
                 .id(department.getId())
                 .name(department.getName())
@@ -155,6 +155,7 @@ public class ConverterDto {
                 .sortNumber(taxSystemDto.getSortNumber())
                 .build();
     }
+
     public static TaxSystemDto convertToDto(TaxSystem taxSystem) {
         return TaxSystemDto.builder()
                 .id(taxSystem.getId())
@@ -257,4 +258,20 @@ public class ConverterDto {
                 .build();
     }
 
+
+    public static Image convertToModel(ImageDto imageDto) {
+        return Image.builder()
+                .id(imageDto.getId())
+                .imageUrl(imageDto.getImageUrl())
+                .sortNumber(imageDto.getSortNumber())
+                .build();
+    }
+
+    public static ImageDto convertToDto(Image image) {
+        return ImageDto.builder()
+                .id(image.getId())
+                .imageUrl(image.getImageUrl())
+                .sortNumber(image.getSortNumber())
+                .build();
+    }
 }
