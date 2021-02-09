@@ -32,7 +32,7 @@ public class RoleController {
 
 
 
-        @GetMapping(value = "/role", produces = MediaType.APPLICATION_JSON_VALUE)
+        @GetMapping(value = "/role")
         @ApiOperation(value = "Return all RoleDto", notes = "Return List<RoleDto>", response = RoleDto.class)
         @ApiResponses(value = {
                 @ApiResponse(code = 200, message = "Successful", response = RoleDto.class),
