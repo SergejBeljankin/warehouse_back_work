@@ -1,27 +1,35 @@
 package com.warehouse_accounting.util;
 
-import com.warehouse_accounting.models.Department;
-import com.warehouse_accounting.models.dto.DepartmentDto;
-
-import com.warehouse_accounting.models.Currency;
-import com.warehouse_accounting.models.LegalDetail;
-import com.warehouse_accounting.models.TypeOfContractor;
-import com.warehouse_accounting.models.dto.CurrencyDto;
+import com.warehouse_accounting.models.AttributeOfCalculationObject;
 import com.warehouse_accounting.models.BankAccount;
 import com.warehouse_accounting.models.Company;
+import com.warehouse_accounting.models.Contract;
+import com.warehouse_accounting.models.ContractorGroup;
+import com.warehouse_accounting.models.Currency;
+import com.warehouse_accounting.models.Department;
+import com.warehouse_accounting.models.Image;
+import com.warehouse_accounting.models.LegalDetail;
+import com.warehouse_accounting.models.Position;
 import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.TaxSystem;
+import com.warehouse_accounting.models.TypeOfContractor;
 import com.warehouse_accounting.models.Unit;
 import com.warehouse_accounting.models.Warehouse;
+import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
+import com.warehouse_accounting.models.dto.ContractDto;
+import com.warehouse_accounting.models.dto.ContractorGroupDto;
+import com.warehouse_accounting.models.dto.CurrencyDto;
+import com.warehouse_accounting.models.dto.DepartmentDto;
+import com.warehouse_accounting.models.dto.ImageDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
+import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.models.dto.WarehouseDto;
-
 
 public class ConverterDto {
 
@@ -50,7 +58,6 @@ public class ConverterDto {
                 .build();
     }
 
-
     public static Role convertToModel(RoleDto roleDto) {
         return Role.builder()
                 .id(roleDto.getId())
@@ -59,14 +66,33 @@ public class ConverterDto {
                 .build();
     }
 
-    public static Department convertToModel (DepartmentDto departmentDto){
+    public static AttributeOfCalculationObjectDto convertToDto (AttributeOfCalculationObject model) {
+        return AttributeOfCalculationObjectDto.builder()
+                .id(model.getId())
+                .name(model.getName())
+                .sortNumber(model.getSortNumber())
+                .isService(model.getIsService())
+                .build();
+    }
+
+    public static AttributeOfCalculationObject convertToModel (AttributeOfCalculationObjectDto dto) {
+        return AttributeOfCalculationObject.builder()
+                .id(dto.getId())
+                .name(dto.getName())
+                .sortNumber(dto.getSortNumber())
+                .isService(dto.getIsService())
+                .build();
+    }
+
+    public static Department convertToModel(DepartmentDto departmentDto) {
         return Department.builder()
                 .id(departmentDto.getId())
                 .name(departmentDto.getName())
                 .sortNumber(departmentDto.getSortNumber())
                 .build();
     }
-    public static DepartmentDto convertToDto(Department department){
+
+    public static DepartmentDto convertToDto(Department department) {
         return DepartmentDto.builder()
                 .id(department.getId())
                 .name(department.getName())
@@ -155,6 +181,7 @@ public class ConverterDto {
                 .sortNumber(taxSystemDto.getSortNumber())
                 .build();
     }
+
     public static TaxSystemDto convertToDto(TaxSystem taxSystem) {
         return TaxSystemDto.builder()
                 .id(taxSystem.getId())
@@ -204,6 +231,38 @@ public class ConverterDto {
                 .phone(company.getPhone())
                 .sortNumber(company.getSortNumber())
                 .stamp(company.getStamp())
+                .build();
+    }
+
+    public static ContractorGroup convertToModel(ContractorGroupDto contractorGroupDto) {
+        return ContractorGroup.builder()
+                .id(contractorGroupDto.getId())
+                .name(contractorGroupDto.getName())
+                .sortNumber(contractorGroupDto.getSortNumber())
+                .build();
+    }
+
+    public static ContractorGroupDto convertToDto(ContractorGroup contractorGroup) {
+        return ContractorGroupDto.builder()
+                .id(contractorGroup.getId())
+                .name(contractorGroup.getName())
+                .sortNumber(contractorGroup.getSortNumber())
+                .build();
+    }
+
+    public static Position convertToModel(PositionDto positionDto) {
+        return Position.builder()
+                .id(positionDto.getId())
+                .name(positionDto.getName())
+                .sortNumber(positionDto.getSortNumber())
+                .build();
+    }
+
+    public static PositionDto convertToDto(Position position) {
+        return PositionDto.builder()
+                .id(position.getId())
+                .name(position.getName())
+                .sortNumber(position.getSortNumber())
                 .build();
     }
 
@@ -257,4 +316,49 @@ public class ConverterDto {
                 .build();
     }
 
+    public static ContractDto convertToDto(Contract contract) {
+        return ContractDto.builder()
+                .id(contract.getId())
+                .number(contract.getNumber())
+                .contractDate(contract.getContractDate())
+                .companyDto(convertToDto(contract.getCompany()))
+                .bankAccountDto(convertToDto(contract.getBankAccount()))
+                .contractorDto(convertToDto(contract.getContractor()))
+                .amount(contract.getAmount())
+                .archive(contract.getArchive())
+                .comment(contract.getComment())
+                .legalDetailDto(convertToDto(contract.getLegalDetail()))
+                .build();
+    }
+
+    public static Contract convertToModel(ContractDto contractDto) {
+        return Contract.builder()
+                .id(contractDto.getId())
+                .number(contractDto.getNumber())
+                .contractDate(contractDto.getContractDate())
+                .company(convertToModel(contractDto.getCompanyDto()))
+                .bankAccount(convertToModel(contractDto.getBankAccountDto()))
+                .contractor(convertToModel(contractDto.getContractorDto()))
+                .amount(contractDto.getAmount())
+                .archive(contractDto.getArchive())
+                .comment(contractDto.getComment())
+                .legalDetail(convertToModel(contractDto.getLegalDetailDto()))
+                .build();
+    }
+
+    public static Image convertToModel(ImageDto imageDto) {
+        return Image.builder()
+                .id(imageDto.getId())
+                .imageUrl(imageDto.getImageUrl())
+                .sortNumber(imageDto.getSortNumber())
+                .build();
+    }
+
+    public static ImageDto convertToDto(Image image) {
+        return ImageDto.builder()
+                .id(image.getId())
+                .imageUrl(image.getImageUrl())
+                .sortNumber(image.getSortNumber())
+                .build();
+    }
 }
