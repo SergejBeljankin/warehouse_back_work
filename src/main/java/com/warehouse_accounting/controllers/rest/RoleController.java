@@ -44,7 +44,7 @@ public class RoleController {
         }
 
         @GetMapping(value = "/role/{id}")
-        @ApiOperation(value = "Return one WarehouseDto by id", notes = "Return WarehouseDto", response = RoleDto.class)
+        @ApiOperation(value = "Return one RoleDto by id", notes = "Return RoleDto", response = RoleDto.class)
         @ApiResponses(value = {
                 @ApiResponse(code = 200, message = "Successful", response = RoleDto.class),
                 @ApiResponse(code = 404, message = "RoleDto not exist"),
@@ -65,7 +65,7 @@ public class RoleController {
                 @ApiResponse(code = 500, message = "Internal server error")}
         )
         public ResponseEntity<?> createRole(
-                @ApiParam(name = "RoleDto", value = "Wait json object WarehouseDto to create")
+                @ApiParam(name = "RoleDto", value = "Wait json object RoleDto to create")
                 @RequestBody RoleDto roleDto) {
             roleService.create(roleDto);
             return ResponseEntity.ok(roleDto);
