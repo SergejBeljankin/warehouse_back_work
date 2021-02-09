@@ -10,7 +10,6 @@ public class ConverterDto {
 
     private ConverterDto() {
     }
-
     public static Image convertToModel (ImageDto imageDto){
         return Image.builder()
                 .id(imageDto.getId())
@@ -41,7 +40,4 @@ public class ConverterDto {
                 .sortNumber(roleDto.getSortNumber())
                 .build();
     }
-
-
-
 }
