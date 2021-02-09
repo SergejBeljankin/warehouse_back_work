@@ -6,7 +6,9 @@ import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
 import com.warehouse_accounting.models.Department;
 import com.warehouse_accounting.models.Image;
 import com.warehouse_accounting.models.dto.DepartmentDto;
+import com.warehouse_accounting.models.Contract;
 import com.warehouse_accounting.models.Currency;
+import com.warehouse_accounting.models.dto.ContractDto;
 import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.TypeOfContractor;
 import com.warehouse_accounting.models.dto.CurrencyDto;
@@ -279,6 +281,35 @@ public class ConverterDto {
                 .build();
     }
 
+    public static ContractDto convertToDto(Contract contract) {
+        return ContractDto.builder()
+                .id(contract.getId())
+                .number(contract.getNumber())
+                .contractDate(contract.getContractDate())
+                .companyDto(convertToDto(contract.getCompany()))
+                .bankAccountDto(convertToDto(contract.getBankAccount()))
+                .contractorDto(convertToDto(contract.getContractor()))
+                .amount(contract.getAmount())
+                .archive(contract.getArchive())
+                .comment(contract.getComment())
+                .legalDetailDto(convertToDto(contract.getLegalDetail()))
+                .build();
+    }
+
+    public static Contract convertToModel(ContractDto contractDto) {
+        return Contract.builder()
+                .id(contractDto.getId())
+                .number(contractDto.getNumber())
+                .contractDate(contractDto.getContractDate())
+                .company(convertToModel(contractDto.getCompanyDto()))
+                .bankAccount(convertToModel(contractDto.getBankAccountDto()))
+                .contractor(convertToModel(contractDto.getContractorDto()))
+                .amount(contractDto.getAmount())
+                .archive(contractDto.getArchive())
+                .comment(contractDto.getComment())
+                .legalDetail(convertToModel(contractDto.getLegalDetailDto()))
+                .build();
+    }
 
     public static Image convertToModel(ImageDto imageDto) {
         return Image.builder()
