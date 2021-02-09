@@ -10,12 +10,12 @@ import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.BankAccount;
 import com.warehouse_accounting.models.Company;
 import com.warehouse_accounting.models.Role;
+import com.warehouse_accounting.models.dto.ImageDto;
 import com.warehouse_accounting.models.TaxSystem;
 import com.warehouse_accounting.models.Unit;
 import com.warehouse_accounting.models.Warehouse;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
-import com.warehouse_accounting.models.dto.ImageDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
@@ -27,8 +27,7 @@ public class ConverterDto {
 
     private ConverterDto() {
     }
-
-    public static Currency convertToModel(CurrencyDto currencyDto) {
+       public static Currency convertToModel(CurrencyDto currencyDto) {
         return Currency.builder()
                 .id(currencyDto.getId())
                 .fullName(currencyDto.getFullName())
