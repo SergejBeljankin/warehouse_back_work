@@ -1,9 +1,9 @@
 package com.warehouse_accounting.services.impl;
 
-import com.warehouse_accounting.models.TaxSystem;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
 import com.warehouse_accounting.repositories.TaxSystemRepository;
 import com.warehouse_accounting.services.interfaces.TaxSystemService;
+import com.warehouse_accounting.util.ConverterDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,23 +31,12 @@ public class TaxSystemServiceImpl implements TaxSystemService {
 
     @Override
     public void create(TaxSystemDto taxSystemDto) {
-        taxSystemRepository.save(
-                TaxSystem.builder()
-                        .name(taxSystemDto.getName())
-                        .sortNumber(taxSystemDto.getSortNumber())
-                        .build()
-        );
+        taxSystemRepository.save(ConverterDto.convertToModel(taxSystemDto));
     }
 
     @Override
     public void update(TaxSystemDto taxSystemDto) {
-        taxSystemRepository.save(
-                TaxSystem.builder()
-                        .id(taxSystemDto.getId())
-                        .name(taxSystemDto.getName())
-                        .sortNumber(taxSystemDto.getSortNumber())
-                        .build()
-        );
+        taxSystemRepository.save(ConverterDto.convertToModel(taxSystemDto));
     }
 
     @Override
