@@ -1,8 +1,8 @@
-package com.warehouse_accounting.services.interfaces.impl;
+package com.warehouse_accounting.services.impl;
 
 import com.warehouse_accounting.models.TypeOfContractor;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
-import com.warehouse_accounting.repository.TypeOfContractorRepository;
+import com.warehouse_accounting.repositories.TypeOfContractorRepository;
 import com.warehouse_accounting.services.interfaces.TypeOfContractorService;
 
 import java.util.List;
