@@ -1,30 +1,40 @@
 package com.warehouse_accounting.util;
 
 
+import com.warehouse_accounting.models.AttributeOfCalculationObject;
+import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
+import com.warehouse_accounting.models.Department;
+import com.warehouse_accounting.models.Image;
+import com.warehouse_accounting.models.dto.DepartmentDto;
+import com.warehouse_accounting.models.Contract;
 import com.warehouse_accounting.models.Currency;
 import com.warehouse_accounting.models.Position;
+import com.warehouse_accounting.models.dto.ContractDto;
+import com.warehouse_accounting.models.LegalDetail;
+import com.warehouse_accounting.models.TypeOfContractor;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.BankAccount;
 import com.warehouse_accounting.models.Company;
 import com.warehouse_accounting.models.Role;
+import com.warehouse_accounting.models.dto.ImageDto;
 import com.warehouse_accounting.models.TaxSystem;
 import com.warehouse_accounting.models.Unit;
 import com.warehouse_accounting.models.Warehouse;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.PositionDto;
+import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
+import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.models.dto.WarehouseDto;
-
 
 public class ConverterDto {
 
     private ConverterDto() {
     }
-
-    public static Currency convertToModel(CurrencyDto currencyDto) {
+       public static Currency convertToModel(CurrencyDto currencyDto) {
         return Currency.builder()
                 .id(currencyDto.getId())
                 .fullName(currencyDto.getFullName())
@@ -52,6 +62,40 @@ public class ConverterDto {
                 .id(roleDto.getId())
                 .name(roleDto.getName())
                 .sortNumber(roleDto.getSortNumber())
+                .build();
+    }
+
+    public static AttributeOfCalculationObjectDto convertToDto (AttributeOfCalculationObject model) {
+        return AttributeOfCalculationObjectDto.builder()
+                .id(model.getId())
+                .name(model.getName())
+                .sortNumber(model.getSortNumber())
+                .isService(model.getIsService())
+                .build();
+    }
+
+    public static AttributeOfCalculationObject convertToModel (AttributeOfCalculationObjectDto dto) {
+        return AttributeOfCalculationObject.builder()
+                .id(dto.getId())
+                .name(dto.getName())
+                .sortNumber(dto.getSortNumber())
+                .isService(dto.getIsService())
+                .build();
+    }
+
+    public static Department convertToModel(DepartmentDto departmentDto) {
+        return Department.builder()
+                .id(departmentDto.getId())
+                .name(departmentDto.getName())
+                .sortNumber(departmentDto.getSortNumber())
+                .build();
+    }
+
+    public static DepartmentDto convertToDto(Department department) {
+        return DepartmentDto.builder()
+                .id(department.getId())
+                .name(department.getName())
+                .sortNumber(department.getSortNumber())
                 .build();
     }
 
@@ -136,6 +180,7 @@ public class ConverterDto {
                 .sortNumber(taxSystemDto.getSortNumber())
                 .build();
     }
+
     public static TaxSystemDto convertToDto(TaxSystem taxSystem) {
         return TaxSystemDto.builder()
                 .id(taxSystem.getId())
@@ -204,4 +249,99 @@ public class ConverterDto {
                 .build();
     }
 
+    public static TypeOfContractorDto convertToDto(TypeOfContractor typeOfContractor) {
+        return TypeOfContractorDto.builder()
+                .id(typeOfContractor.getId())
+                .name(typeOfContractor.getName())
+                .sortNumber(typeOfContractor.getSortNumber())
+                .build();
+    }
+
+    public static TypeOfContractor convertToModel(TypeOfContractorDto typeOfContractorDto) {
+        return TypeOfContractor.builder()
+                .id(typeOfContractorDto.getId())
+                .name(typeOfContractorDto.getName())
+                .sortNumber(typeOfContractorDto.getSortNumber())
+                .build();
+    }
+
+    public static LegalDetailDto convertToDto(LegalDetail legalDetail) {
+        return LegalDetailDto.builder()
+                .id(legalDetail.getId())
+                .lastName(legalDetail.getLastName())
+                .firstName(legalDetail.getFirstName())
+                .middleName(legalDetail.getMiddleName())
+                .address(legalDetail.getAddress())
+                .commentToAddress(legalDetail.getCommentToAddress())
+                .inn(legalDetail.getInn())
+                .okpo(legalDetail.getOkpo())
+                .ogrnip(legalDetail.getOgrnip())
+                .numberOfTheCertificate(legalDetail.getNumberOfTheCertificate())
+                .dateOfTheCertificate(legalDetail.getDateOfTheCertificate())
+                .typeOfContractorDto(convertToDto(legalDetail.getTypeOfContractor()))
+                .build();
+    }
+
+    public static LegalDetail convertToModel(LegalDetailDto legalDetailDto) {
+        return LegalDetail.builder()
+                .id(legalDetailDto.getId())
+                .lastName(legalDetailDto.getLastName())
+                .firstName(legalDetailDto.getFirstName())
+                .middleName(legalDetailDto.getMiddleName())
+                .address(legalDetailDto.getAddress())
+                .commentToAddress(legalDetailDto.getCommentToAddress())
+                .inn(legalDetailDto.getInn())
+                .okpo(legalDetailDto.getOkpo())
+                .ogrnip(legalDetailDto.getOgrnip())
+                .numberOfTheCertificate(legalDetailDto.getNumberOfTheCertificate())
+                .dateOfTheCertificate(legalDetailDto.getDateOfTheCertificate())
+                .typeOfContractor(convertToModel(legalDetailDto.getTypeOfContractorDto()))
+                .build();
+    }
+
+    public static ContractDto convertToDto(Contract contract) {
+        return ContractDto.builder()
+                .id(contract.getId())
+                .number(contract.getNumber())
+                .contractDate(contract.getContractDate())
+                .companyDto(convertToDto(contract.getCompany()))
+                .bankAccountDto(convertToDto(contract.getBankAccount()))
+                .contractorDto(convertToDto(contract.getContractor()))
+                .amount(contract.getAmount())
+                .archive(contract.getArchive())
+                .comment(contract.getComment())
+                .legalDetailDto(convertToDto(contract.getLegalDetail()))
+                .build();
+    }
+
+    public static Contract convertToModel(ContractDto contractDto) {
+        return Contract.builder()
+                .id(contractDto.getId())
+                .number(contractDto.getNumber())
+                .contractDate(contractDto.getContractDate())
+                .company(convertToModel(contractDto.getCompanyDto()))
+                .bankAccount(convertToModel(contractDto.getBankAccountDto()))
+                .contractor(convertToModel(contractDto.getContractorDto()))
+                .amount(contractDto.getAmount())
+                .archive(contractDto.getArchive())
+                .comment(contractDto.getComment())
+                .legalDetail(convertToModel(contractDto.getLegalDetailDto()))
+                .build();
+    }
+
+    public static Image convertToModel(ImageDto imageDto) {
+        return Image.builder()
+                .id(imageDto.getId())
+                .imageUrl(imageDto.getImageUrl())
+                .sortNumber(imageDto.getSortNumber())
+                .build();
+    }
+
+    public static ImageDto convertToDto(Image image) {
+        return ImageDto.builder()
+                .id(image.getId())
+                .imageUrl(image.getImageUrl())
+                .sortNumber(image.getSortNumber())
+                .build();
+    }
 }

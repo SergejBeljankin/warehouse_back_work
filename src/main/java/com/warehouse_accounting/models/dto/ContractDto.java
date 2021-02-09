@@ -20,11 +20,11 @@ public class ContractDto {
 
     private LocalDate contractDate;
 
-    private CompanyDto companyDto;
+    private CompanyDto companyDto = new CompanyDto();
 
-    private BankAccountDto bankAccountDto;
+    private BankAccountDto bankAccountDto = new BankAccountDto();
 
-    private ContractorDto contractorDto;
+    private ContractorDto contractorDto = new ContractorDto();
 
     private BigDecimal amount = BigDecimal.valueOf(0);
 
@@ -32,5 +32,29 @@ public class ContractDto {
 
     private String comment;
 
-    private LegalDetailDto legalDetailDto;
+    private LegalDetailDto legalDetailDto = new LegalDetailDto();
+
+    public ContractDto(
+            Long id,
+            String number,
+            LocalDate contractDate,
+            BigDecimal amount,
+            Boolean archive,
+            String comment,
+            Long companyDtoId,
+            Long bankAccountDtoId,
+            Long contractorDtoId,
+            Long legalDetailDtoId
+            ) {
+        this.id = id;
+        this.number = number;
+        this.contractDate = contractDate;
+        this.amount = amount;
+        this.archive = archive;
+        this.comment = comment;
+        this.companyDto.setId(companyDtoId);
+        this.bankAccountDto.setId(bankAccountDtoId);
+        this.contractorDto.setId(contractorDtoId);
+        this.legalDetailDto.setId(legalDetailDtoId);
+    }
 }
