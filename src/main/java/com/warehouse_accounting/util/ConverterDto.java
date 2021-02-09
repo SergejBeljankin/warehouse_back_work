@@ -1,5 +1,6 @@
 package com.warehouse_accounting.util;
 
+<<<<<<< HEAD
 
 import com.warehouse_accounting.models.AttributeOfCalculationObject;
 import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
@@ -9,6 +10,10 @@ import com.warehouse_accounting.models.Currency;
 import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.TypeOfContractor;
 import com.warehouse_accounting.models.dto.CurrencyDto;
+=======
+import com.warehouse_accounting.models.AttributeOfCalculationObject;
+import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
+>>>>>>> 93edac8479ad743bc491879c5da25284b115d8eb
 import com.warehouse_accounting.models.BankAccount;
 import com.warehouse_accounting.models.Company;
 import com.warehouse_accounting.models.Role;
@@ -16,8 +21,11 @@ import com.warehouse_accounting.models.TaxSystem;
 import com.warehouse_accounting.models.Unit;
 import com.warehouse_accounting.models.Warehouse;
 import com.warehouse_accounting.models.dto.BankAccountDto;
+<<<<<<< HEAD
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
+=======
+>>>>>>> 93edac8479ad743bc491879c5da25284b115d8eb
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
