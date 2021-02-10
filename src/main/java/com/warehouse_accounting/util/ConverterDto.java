@@ -14,6 +14,7 @@ import com.warehouse_accounting.models.ProductGroup;
 import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.TaxSystem;
 import com.warehouse_accounting.models.TypeOfContractor;
+import com.warehouse_accounting.models.TypeOfPrice;
 import com.warehouse_accounting.models.Unit;
 import com.warehouse_accounting.models.Warehouse;
 import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
@@ -30,6 +31,7 @@ import com.warehouse_accounting.models.dto.ProductGroupDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
+import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.models.dto.WarehouseDto;
 
@@ -377,6 +379,22 @@ public class ConverterDto {
                 .id(productGroupDto.getId())
                 .name(productGroupDto.getName())
                 .sortNumber(productGroupDto.getSortNumber())
+                .build();
+    }
+
+    public static TypeOfPriceDto convertToDto(TypeOfPrice typeOfPrice) {
+        return  TypeOfPriceDto.builder()
+                .id(typeOfPrice.getId())
+                .name(typeOfPrice.getName())
+                .sortNumber(typeOfPrice.getSortNumber())
+                .build();
+    }
+
+    public  static TypeOfPrice convertToModel(TypeOfPriceDto typeOfPriceDto) {
+        return TypeOfPrice.builder()
+                .id(typeOfPriceDto.getId())
+                .name(typeOfPriceDto.getName())
+                .sortNumber(typeOfPriceDto.getSortNumber())
                 .build();
     }
 }

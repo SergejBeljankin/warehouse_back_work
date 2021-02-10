@@ -2,6 +2,7 @@ package com.warehouse_accounting.services.impl;
 
 import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.repositories.LegalDetailRepository;
+import com.warehouse_accounting.repositories.TypeOfContractorRepository;
 import com.warehouse_accounting.services.interfaces.LegalDetailService;
 import com.warehouse_accounting.util.ConverterDto;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,11 @@ import java.util.List;
 public class LegalDetailServiceImpl implements LegalDetailService {
 
     private final LegalDetailRepository legalDetailRepository;
+    private final TypeOfContractorRepository typeOfContractorRepository;
 
-    public LegalDetailServiceImpl(LegalDetailRepository legalDetailRepository) {
+    public LegalDetailServiceImpl(LegalDetailRepository legalDetailRepository, TypeOfContractorRepository typeOfContractorRepository) {
         this.legalDetailRepository = legalDetailRepository;
+        this.typeOfContractorRepository = typeOfContractorRepository;
     }
 
     @Override
@@ -24,11 +27,7 @@ public class LegalDetailServiceImpl implements LegalDetailService {
     {
         List<LegalDetailDto> legalDetailDtos = legalDetailRepository.getAll();
         for (LegalDetailDto legalDetailDto: legalDetailDtos) {
-            legalDetailDto.setTypeOfContractorDto(
-                    ConverterDto.convertToDto(
-                            legalDetailRepository.getTypeOfContractorById(legalDetailDto.getId())
-                    )
-            );
+            legalDetailDto.setTypeOfContractorDto(typeOfContractorRepository.getById(legalDetailDto.getTypeOfContractorDto().getId()));
         }
         return legalDetailDtos;
     }
@@ -36,13 +35,8 @@ public class LegalDetailServiceImpl implements LegalDetailService {
     @Override
     public LegalDetailDto getById(Long id) {
         LegalDetailDto legalDetailDto = legalDetailRepository.getById(id);
-        legalDetailDto.setTypeOfContractorDto(
-                ConverterDto.convertToDto(
-                        legalDetailRepository.getTypeOfContractorById(legalDetailDto.getId())
-                )
-        );
-
-        return legalDetailDto
+        legalDetailDto.setTypeOfContractorDto(typeOfContractorRepository.getById(legalDetailDto.getTypeOfContractorDto().getId()));
+        return legalDetailDto;
     }
 
     @Override
