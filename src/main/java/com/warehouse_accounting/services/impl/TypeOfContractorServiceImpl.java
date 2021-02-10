@@ -4,9 +4,12 @@ import com.warehouse_accounting.models.TypeOfContractor;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.repositories.TypeOfContractorRepository;
 import com.warehouse_accounting.services.interfaces.TypeOfContractorService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Transactional
+@Service
 public class TypeOfContractorServiceImpl implements TypeOfContractorService {
     private TypeOfContractorRepository tcRep;
 
