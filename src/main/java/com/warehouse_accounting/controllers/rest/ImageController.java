@@ -30,7 +30,7 @@ public class ImageController {
 
     @GetMapping("/")
     @ApiOperation(value = "Возвращает все изображения", notes = "Возвращает список ImageDto",
-            response = ImageDto.class)
+            response = ImageDto.class, responseContainer = "List")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное получение листа изображений"),
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
