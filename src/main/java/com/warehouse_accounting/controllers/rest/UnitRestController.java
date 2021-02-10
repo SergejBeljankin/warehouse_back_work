@@ -69,7 +69,7 @@ public class UnitRestController {
             httpMethod = "POST"
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Успешное создание подразделения", response = UnitDto.class),
+            @ApiResponse(code = 200, message = "Успешное создание подразделения", response = UnitDto.class),
             @ApiResponse(code = 404, message = "Не удалось создать подразделение"),
             @ApiResponse(code = 500, message = "Веутренняя ошибка сервера")}
     )
@@ -102,7 +102,7 @@ public class UnitRestController {
             httpMethod = "DELETE"
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное удаление подразделения", response = UnitDto.class),
+            @ApiResponse(code = 200, message = "Успешное удаление подразделения"),
             @ApiResponse(code = 404, message = "Подразделения не существует"),
             @ApiResponse(code = 500, message = "Веутренняя ошибка сервера")}
     )
