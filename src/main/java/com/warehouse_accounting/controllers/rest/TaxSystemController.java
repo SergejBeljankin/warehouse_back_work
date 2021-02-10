@@ -30,7 +30,7 @@ public class TaxSystemController {
 
     @GetMapping
     @ApiOperation(value = "Возвращает все системы налогообложения", notes = "Возвращает список TaxSystemDto",
-            response = TaxSystemDto.class)
+            response = TaxSystemDto.class, responseContainer = "List")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное получение листа систем налогообложения",
                     response = TaxSystemDto.class),
