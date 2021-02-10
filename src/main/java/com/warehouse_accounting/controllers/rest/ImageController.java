@@ -19,7 +19,7 @@ import com.warehouse_accounting.services.interfaces.ImageService;
 import java.util.List;
 
 @RestController
-@Api(value = "ImageAPI")
+@Api(tags = {"Image"})
 @RequestMapping("/api/images")
 public class ImageController {
     private final ImageService imageService;
@@ -28,7 +28,7 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     @ApiOperation(value = "Возвращает все изображения", notes = "Возвращает список ImageDto",
             response = ImageDto.class)
     @ApiResponses(value = {
@@ -53,7 +53,7 @@ public class ImageController {
         return imageService.getById(id);
     }
 
-    @PutMapping("/")
+    @PutMapping
     @ApiOperation(value = "Обновляет переданное изображение")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное обновление изображения"),
@@ -65,7 +65,7 @@ public class ImageController {
         imageService.update(imageDto);
     }
 
-    @PostMapping("/")
+    @PostMapping
     @ApiOperation(value = "Создает переданное изображение")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное создание изображения",
