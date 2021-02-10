@@ -7,8 +7,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.SwaggerDefinition;
-import io.swagger.annotations.Tag;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,14 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
-/*
-GET api/image - получить список всех складов
-GET api/image/3 - получить склад номер 3
-PUT api/image - изменить склад
-POST api/image - добавить склад
-DELETE api/image/3 - удалить склад номер 3
- */
 
 @Api(value = "TaxSystemApi")
 @RestController
