@@ -21,7 +21,6 @@ import java.util.List;
 @RestController
 @Api( tags = {"TaxSystem"})
 @RequestMapping("/api/tax_systems")
-
 public class TaxSystemController {
     private final TaxSystemService taxSystemService;
 
