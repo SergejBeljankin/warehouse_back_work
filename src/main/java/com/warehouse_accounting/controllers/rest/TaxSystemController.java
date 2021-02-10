@@ -2,11 +2,11 @@ package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.TaxSystemDto;
 import com.warehouse_accounting.services.interfaces.TaxSystemService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Tag(name = "TaxSystem Rest Controller", description = "CRUD операции с объектами")
 @RestController
-@Api( tags = {"TaxSystem"})
 @RequestMapping("/api/tax_systems")
 public class TaxSystemController {
     private final TaxSystemService taxSystemService;
