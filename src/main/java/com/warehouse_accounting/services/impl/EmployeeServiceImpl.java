@@ -1,8 +1,5 @@
 package com.warehouse_accounting.services.impl;
 
-import com.warehouse_accounting.models.Department;
-import com.warehouse_accounting.models.Employee;
-import com.warehouse_accounting.models.dto.DepartmentDto;
 import com.warehouse_accounting.models.dto.EmployeeDto;
 import com.warehouse_accounting.repositories.DepartmentRepository;
 import com.warehouse_accounting.repositories.EmployeeRepository;

@@ -40,7 +40,9 @@ public class EmployeeDto {
 
     private ImageDto image;
 
-    public EmployeeDto(Long id, String lastName, String firstName, String middleName, String sortNumber, String phone, String inn, String description, String email, String password, DepartmentDto department, PositionDto position, ImageDto image) {
+    public EmployeeDto(Long id, String lastName, String firstName, String middleName, String sortNumber, String phone,
+                       String inn, String description, String email, String password,
+                       Long departmentId, Long positionId, Long imageId) {
         this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -51,8 +53,8 @@ public class EmployeeDto {
         this.description = description;
         this.email = email;
         this.password = password;
-        this.department = department;
-        this.position = position;
-        this.image = image;
+        this.department.setId(departmentId);
+        this.position.setId(positionId);
+        this.image.setId(imageId);
     }
 }
