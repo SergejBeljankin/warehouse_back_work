@@ -36,7 +36,7 @@ public class WarehouseController {
     @Tag(name = "WarehouseDto Rest Controller")
     @ApiOperation(value = "Возвращает список объектов WarehouseDto", notes = "Возвращает List WarehouseDto", response = WarehouseDto.class)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Запрос выполнен"),
+            @ApiResponse(responseCode = "200", description = "Запрос успешно выполнен"),
             @ApiResponse(responseCode = "404", description = "Данный контролер не найден"),
             @ApiResponse(responseCode = "403", description = "Операция запрещена"),
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
@@ -51,7 +51,7 @@ public class WarehouseController {
     @Tag(name = "WarehouseDto Rest Controller")
     @ApiOperation(value = "Возвращает объект WarehouseDto", notes = "Возвращает объект WarehouseDto по его ID", response = WarehouseDto.class)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Запрос выполнен"),
+            @ApiResponse(responseCode = "200", description = "Запрос успешно выполнен"),
             @ApiResponse(responseCode = "404", description = "Данный контролер не найден"),
             @ApiResponse(responseCode = "403", description = "Операция запрещена"),
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
@@ -68,7 +68,7 @@ public class WarehouseController {
     @Tag(name = "WarehouseDto Rest Controller")
     @ApiOperation(value = "Создает объект WarehouseDto", notes = "Создает объект WarehouseDto в программе", response = WarehouseDto.class)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Запрос выполнен"),
+            @ApiResponse(responseCode = "200", description = "Запрос успешно выполнен"),
             @ApiResponse(responseCode = "404", description = "Данный контролер не найден"),
             @ApiResponse(responseCode = "403", description = "Операция запрещена"),
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
@@ -85,7 +85,7 @@ public class WarehouseController {
     @Tag(name = "WarehouseDto Rest Controller")
     @ApiOperation(value = "Обновляет объект WarehouseDto", notes = "Обновляем объект WarehouseDto в программе", response = WarehouseDto.class)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Запрос выполнен"),
+            @ApiResponse(responseCode = "200", description = "Запрос успешно выполнен"),
             @ApiResponse(responseCode = "404", description = "Данный контролер не найден"),
             @ApiResponse(responseCode = "403", description = "Операция запрещена"),
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
@@ -102,7 +102,7 @@ public class WarehouseController {
     @Tag(name = "WarehouseDto Rest Controller")
     @ApiOperation(value = "Удаляет объект WarehouseDto", notes = "Удаляет объект WarehouseDto по его ID", response = WarehouseDto.class)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Запрос выполнен"),
+            @ApiResponse(responseCode = "200", description = "Запрос успешно выполнен"),
             @ApiResponse(responseCode = "404", description = "Данный контролер не найден"),
             @ApiResponse(responseCode = "403", description = "Операция запрещена"),
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
