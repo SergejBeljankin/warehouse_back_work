@@ -1,7 +1,6 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.ImageDto;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -20,7 +19,6 @@ import com.warehouse_accounting.services.interfaces.ImageService;
 import java.util.List;
 
 @RestController
-@Api(tags = {"Image"})
 @Tag(name = "Image Rest Controller", description = "CRUD операции с объектами")
 @RequestMapping("/api/images")
 public class ImageController {
