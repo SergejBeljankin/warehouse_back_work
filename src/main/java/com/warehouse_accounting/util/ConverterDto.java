@@ -7,6 +7,7 @@ import com.warehouse_accounting.models.Contract;
 import com.warehouse_accounting.models.ContractorGroup;
 import com.warehouse_accounting.models.Currency;
 import com.warehouse_accounting.models.Department;
+import com.warehouse_accounting.models.Employee;
 import com.warehouse_accounting.models.Image;
 import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.Position;
@@ -22,6 +23,7 @@ import com.warehouse_accounting.models.dto.ContractDto;
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
+import com.warehouse_accounting.models.dto.EmployeeDto;
 import com.warehouse_accounting.models.dto.ImageDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.PositionDto;
@@ -30,6 +32,10 @@ import com.warehouse_accounting.models.dto.TaxSystemDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.models.dto.WarehouseDto;
+
+import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class ConverterDto {
 
@@ -361,4 +367,39 @@ public class ConverterDto {
                 .sortNumber(image.getSortNumber())
                 .build();
     }
+
+    public static Employee convertToModel(EmployeeDto employeeDto) {
+        return Employee.builder()
+                .id(employeeDto.getId())
+                .lastName(employeeDto.getLastName())
+                .firstName(employeeDto.getFirstName())
+                .middleName(employeeDto.getMiddleName())
+                .sortNumber(employeeDto.getSortNumber())
+                .phone(employeeDto.getPhone())
+                .inn(employeeDto.getInn())
+                .description(employeeDto.getDescription())
+                .email(employeeDto.getEmail())
+                .password(employeeDto.getPassword())
+                .department(convertToModel(employeeDto.getDepartment()))
+                .position(convertToModel(employeeDto.getPosition()))
+                .roles(from(employeeDto.getRoles()))
+                .image(convertToModel(employeeDto.getImage())).build();
+    }
+
+    public static Set<Role> from(Set<RoleDto> model){
+        return model.stream().map(e-> Role.builder()
+                .id(e.getId())
+                .name(e.getName())
+                .sortNumber(e.getSortNumber()).build()).collect(Collectors.toSet());
+    }
+
+//    public static Set<Role> from(Set<RoleDto> model){
+//        return model.stream().map(e->{
+//            return Role.builder()
+//                    .id(e.getId())
+//                    .name(e.getName())
+//                    .sortNumber(e.getSortNumber()).build();
+//        }).collect(Collectors.toSet());
+//    }
+
 }
