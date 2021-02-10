@@ -10,6 +10,7 @@ import com.warehouse_accounting.models.Department;
 import com.warehouse_accounting.models.Image;
 import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.Position;
+import com.warehouse_accounting.models.ProductGroup;
 import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.TaxSystem;
 import com.warehouse_accounting.models.TypeOfContractor;
@@ -25,6 +26,7 @@ import com.warehouse_accounting.models.dto.DepartmentDto;
 import com.warehouse_accounting.models.dto.ImageDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.PositionDto;
+import com.warehouse_accounting.models.dto.ProductGroupDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
@@ -359,6 +361,22 @@ public class ConverterDto {
                 .id(image.getId())
                 .imageUrl(image.getImageUrl())
                 .sortNumber(image.getSortNumber())
+                .build();
+    }
+
+    public static ProductGroupDto convertToDto(ProductGroup productGroup) {
+        return ProductGroupDto.builder()
+                .id(productGroup.getId())
+                .name(productGroup.getName())
+                .sortNumber(productGroup.getSortNumber())
+                .build();
+    }
+
+    public static ProductGroup convertToModel(ProductGroupDto productGroupDto) {
+        return ProductGroup.builder()
+                .id(productGroupDto.getId())
+                .name(productGroupDto.getName())
+                .sortNumber(productGroupDto.getSortNumber())
                 .build();
     }
 }
