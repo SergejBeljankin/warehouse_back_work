@@ -18,9 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Api(value = "TaxSystemApi")
 @RestController
+@Api( tags = {"TaxSystem"})
 @RequestMapping("/api/tax_systems")
+
 public class TaxSystemController {
     private final TaxSystemService taxSystemService;
 
@@ -28,7 +29,7 @@ public class TaxSystemController {
         this.taxSystemService = taxSystemService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     @ApiOperation(value = "Возвращает все системы налогообложения", notes = "Возвращает список TaxSystemDto",
             response = TaxSystemDto.class)
     @ApiResponses(value = {
@@ -55,7 +56,7 @@ public class TaxSystemController {
         return taxSystemService.getById(id);
     }
 
-    @PutMapping("/")
+    @PutMapping
     @ApiOperation(value = "Обновляет переданную систему налогообложения", notes = "Ничего не возвращает",
             response = TaxSystemDto.class)
     @ApiResponses(value = {
@@ -69,7 +70,7 @@ public class TaxSystemController {
         taxSystemService.update(taxSystemDto);
     }
 
-    @PostMapping("/")
+    @PostMapping
     @ApiOperation(value = "Создает переданную систему налогообложения", notes = "Ничего не возвращает",
             response = TaxSystemDto.class)
     @ApiResponses(value = {
