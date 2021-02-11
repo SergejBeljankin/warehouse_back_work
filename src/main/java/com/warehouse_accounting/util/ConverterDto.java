@@ -371,6 +371,7 @@ public class ConverterDto {
                 .id(productGroup.getId())
                 .name(productGroup.getName())
                 .sortNumber(productGroup.getSortNumber())
+                .productGroupDto(convertToDto(productGroup.getProductGroup()))
                 .build();
     }
 
@@ -379,6 +380,7 @@ public class ConverterDto {
                 .id(productGroupDto.getId())
                 .name(productGroupDto.getName())
                 .sortNumber(productGroupDto.getSortNumber())
+                .productGroup(convertToModel(productGroupDto.getProductGroupDto()))
                 .build();
     }
 
