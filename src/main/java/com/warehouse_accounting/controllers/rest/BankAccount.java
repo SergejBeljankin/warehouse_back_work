@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/bank_account")
 @Tag(name = "BankAccountDto Rest Controller", description = "CRUD операции с объектами BankAccountDto")
-public class BankAccount {
+public class BankAccountController {
 
     private final BankAccountService bankAccountService;
 
