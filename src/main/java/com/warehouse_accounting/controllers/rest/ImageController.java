@@ -33,7 +33,7 @@ public class ImageController {
     @ApiOperation(value = "Возвращает все изображения", notes = "Возвращает список ImageDto",
             response = ImageDto.class, responseContainer = "List")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное получение листа изображений"),
+            @ApiResponse(code = 200, message = "Успешное получение листа ImageDto"),
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
@@ -46,7 +46,7 @@ public class ImageController {
     @ApiOperation(value = "Возвращает изображение с выбранным id", notes = "Возвращает ImageDto",
             response = ImageDto.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное получение изображения"),
+            @ApiResponse(code = 200, message = "Успешное получение ImageDto"),
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
@@ -59,7 +59,7 @@ public class ImageController {
     @Tag(name = "Image Rest Controller")
     @ApiOperation(value = "Обновляет переданное изображение")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное обновление изображения"),
+            @ApiResponse(code = 200, message = "Успешное обновление ImageDto"),
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
@@ -72,7 +72,7 @@ public class ImageController {
     @Tag(name = "Image Rest Controller")
     @ApiOperation(value = "Создает переданное изображение")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное создание изображения",
+            @ApiResponse(code = 200, message = "Успешное создание ImageDto",
                     response = ImageDto.class),
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
@@ -86,7 +86,7 @@ public class ImageController {
     @Tag(name = "Image Rest Controller")
     @ApiOperation(value = "Удаляет изображение с выбранным id")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное удаление изображения"),
+            @ApiResponse(code = 200, message = "Успешное удаление ImageDto"),
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
