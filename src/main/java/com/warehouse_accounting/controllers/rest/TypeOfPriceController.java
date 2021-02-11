@@ -27,7 +27,7 @@ public class TypeOfPriceController {
         this.service = service;
     }
 
-    @GetMapping()
+    @GetMapping
     @Tag(name = "TypeOfPrice Rest Controller")
     @ApiOperation(value = "getAll", notes = "Получение списка всех TypeOfPrice")
     @ApiResponses(value = {
@@ -51,7 +51,7 @@ public class TypeOfPriceController {
         return service.getById(id);
     }
 
-    @PostMapping()
+    @PostMapping
     @Tag(name = "TypeOfPrice Rest Controller")
     @ApiOperation(value = "create", notes = "Создание TypeOfPrice")
     @ApiResponses(value = {
@@ -63,7 +63,7 @@ public class TypeOfPriceController {
         service.create(typeOfPriceDto);
     }
 
-    @PutMapping()
+    @PutMapping
     @Tag(name = "TypeOfPrice Rest Controller")
     @ApiOperation(value = "update", notes = "Изменение TypeOfPrice")
     @ApiResponses(value = {
