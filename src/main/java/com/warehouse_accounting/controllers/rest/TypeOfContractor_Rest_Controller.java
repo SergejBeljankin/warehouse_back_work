@@ -6,11 +6,11 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Api
-@RequestMapping("/api/type_of_contractor")
+@RequestMapping("/api")
+@RestController
 public class TypeOfContractor_Rest_Controller {
 
     private final TypeOfContractorService typeOfContractorService;

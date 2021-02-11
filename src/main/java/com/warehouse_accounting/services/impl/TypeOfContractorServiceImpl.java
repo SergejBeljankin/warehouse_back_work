@@ -14,6 +14,10 @@ import java.util.List;
 public class TypeOfContractorServiceImpl implements TypeOfContractorService {
     private TypeOfContractorRepository tcRep;
 
+    public TypeOfContractorServiceImpl(TypeOfContractorRepository tcRep) {
+        this.tcRep = tcRep;
+    }
+
     @Override
     public List<TypeOfContractorDto> getAll() {
         return tcRep.getAll();
