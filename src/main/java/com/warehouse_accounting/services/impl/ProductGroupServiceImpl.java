@@ -43,7 +43,7 @@ public class ProductGroupServiceImpl implements ProductGroupService {
 
     @Override
     public void update(ProductGroupDto productGroupDto) {
-        repository.saveAndFlush(ConverterDto.convertToModel(productGroupDto));
+        repository.save(ConverterDto.convertToModel(productGroupDto));
     }
 
     @Override
