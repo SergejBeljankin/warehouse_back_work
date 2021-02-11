@@ -22,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/warehouse")
-@Tag(name = "WarehouseDto Rest Controller", description = "CRUD операции с объектами")
+@Tag(name = "WarehouseDto Rest Controller", description = "CRUD операции с объектами WarehouseDto")
 public class WarehouseController {
 
     private final WarehouseService warehouseService;
@@ -69,6 +69,7 @@ public class WarehouseController {
     @ApiOperation(value = "Создает объект WarehouseDto", notes = "Создает объект WarehouseDto в программе", response = WarehouseDto.class)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Запрос успешно выполнен"),
+            @ApiResponse(responseCode = "201", description = "Объект успешно создался"),
             @ApiResponse(responseCode = "404", description = "Данный контролер не найден"),
             @ApiResponse(responseCode = "403", description = "Операция запрещена"),
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
@@ -86,6 +87,7 @@ public class WarehouseController {
     @ApiOperation(value = "Обновляет объект WarehouseDto", notes = "Обновляем объект WarehouseDto в программе", response = WarehouseDto.class)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Запрос успешно выполнен"),
+            @ApiResponse(responseCode = "201", description = "Объект успешно обновился"),
             @ApiResponse(responseCode = "404", description = "Данный контролер не найден"),
             @ApiResponse(responseCode = "403", description = "Операция запрещена"),
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
@@ -103,6 +105,7 @@ public class WarehouseController {
     @ApiOperation(value = "Удаляет объект WarehouseDto", notes = "Удаляет объект WarehouseDto по его ID", response = WarehouseDto.class)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Запрос успешно выполнен"),
+            @ApiResponse(responseCode = "204", description = "Cервер успешно обработал запрос, но в ответе были переданы только заголовки без тела сообщения"),
             @ApiResponse(responseCode = "404", description = "Данный контролер не найден"),
             @ApiResponse(responseCode = "403", description = "Операция запрещена"),
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
