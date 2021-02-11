@@ -26,7 +26,7 @@ public class BankAccountController {
 
     private final BankAccountService bankAccountService;
 
-    public BankAccount(BankAccountService bankAccountService) {
+    public BankAccountController(BankAccountService bankAccountService) {
         this.bankAccountService = bankAccountService;
     }
 
