@@ -33,6 +33,7 @@ public class CompanyController {
     }
 
     @GetMapping
+    @Tag(name = "Company RESTController")
     @ApiOperation(value = "getAll", notes = "Получение списка всех Company")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Успешное получение списка Company"),
@@ -45,6 +46,7 @@ public class CompanyController {
     }
 
     @GetMapping("/{id}")
+    @Tag(name = "Company RESTController")
     @ApiOperation(value = "getById", notes = "Получение Company по ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Успешное получение Company"),
@@ -57,6 +59,7 @@ public class CompanyController {
     }
 
     @PostMapping
+    @Tag(name = "Company RESTController")
     @ApiOperation(value = "create", notes = "Сохранение Company")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Успешное сохранение Company"),
@@ -69,6 +72,7 @@ public class CompanyController {
     }
 
     @PutMapping
+    @Tag(name = "Company RESTController")
     @ApiOperation(value = "update", notes = "Изменение Company")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Успешное изменение Company"),
@@ -81,6 +85,7 @@ public class CompanyController {
     }
 
     @DeleteMapping("/{id}")
+    @Tag(name = "Company RESTController")
     @ApiOperation(value = "deleteById", notes = "Удаление Company")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Успешное удаление Company"),
