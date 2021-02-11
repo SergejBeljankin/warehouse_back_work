@@ -269,18 +269,42 @@ public class ConverterDto {
     }
 
     public static TypeOfContractorDto convertToDto(TypeOfContractor typeOfContractor) {
-        return TypeOfContractorDto.builder()
-                .id(typeOfContractor.getId())
-                .name(typeOfContractor.getName())
-                .sortNumber(typeOfContractor.getSortNumber())
-                .build();
+        return typeOfContractor != null ?
+                TypeOfContractorDto.builder()
+                        .id(typeOfContractor.getId())
+                        .name(typeOfContractor.getName())
+                        .sortNumber(typeOfContractor.getSortNumber())
+                        .build()
+                : null;
     }
 
-    public static TypeOfContractor convertToModel(TypeOfContractorDto typeOfContractorDto) {
-        return TypeOfContractor.builder()
-                .id(typeOfContractorDto.getId())
-                .name(typeOfContractorDto.getName())
-                .sortNumber(typeOfContractorDto.getSortNumber())
+    public static TypeOfContractor convertToDto(TypeOfContractorDto typeOfContractorDto) {
+        return typeOfContractorDto != null ?
+                TypeOfContractor.builder()
+                        .id(typeOfContractorDto.getId())
+                        .name(typeOfContractorDto.getName())
+                        .sortNumber(typeOfContractorDto.getSortNumber())
+                        .build()
+                : null;
+    }
+
+    public static LegalDetail convertToModel(LegalDetailDto legalDetailDto) {
+        return LegalDetail.builder()
+                .id(legalDetailDto.getId())
+                .lastName(legalDetailDto.getLastName())
+                .firstName(legalDetailDto.getFirstName())
+                .middleName(legalDetailDto.getMiddleName())
+                .address(legalDetailDto.getAddress())
+                .commentToAddress(legalDetailDto.getCommentToAddress())
+                .inn(legalDetailDto.getInn())
+                .okpo(legalDetailDto.getOkpo())
+                .ogrnip(legalDetailDto.getOgrnip())
+                .numberOfTheCertificate(legalDetailDto.getNumberOfTheCertificate())
+                .dateOfTheCertificate(legalDetailDto.getDateOfTheCertificate())
+                .typeOfContractor(
+                        legalDetailDto.getTypeOfContractorDto() != null
+                                ? convertToDto(legalDetailDto.getTypeOfContractorDto())
+                                : null)
                 .build();
     }
 
@@ -297,24 +321,10 @@ public class ConverterDto {
                 .ogrnip(legalDetail.getOgrnip())
                 .numberOfTheCertificate(legalDetail.getNumberOfTheCertificate())
                 .dateOfTheCertificate(legalDetail.getDateOfTheCertificate())
-                .typeOfContractorDto(convertToDto(legalDetail.getTypeOfContractor()))
-                .build();
-    }
-
-    public static LegalDetail convertToModel(LegalDetailDto legalDetailDto) {
-        return LegalDetail.builder()
-                .id(legalDetailDto.getId())
-                .lastName(legalDetailDto.getLastName())
-                .firstName(legalDetailDto.getFirstName())
-                .middleName(legalDetailDto.getMiddleName())
-                .address(legalDetailDto.getAddress())
-                .commentToAddress(legalDetailDto.getCommentToAddress())
-                .inn(legalDetailDto.getInn())
-                .okpo(legalDetailDto.getOkpo())
-                .ogrnip(legalDetailDto.getOgrnip())
-                .numberOfTheCertificate(legalDetailDto.getNumberOfTheCertificate())
-                .dateOfTheCertificate(legalDetailDto.getDateOfTheCertificate())
-                .typeOfContractor(convertToModel(legalDetailDto.getTypeOfContractorDto()))
+                .typeOfContractorDto(
+                        legalDetail.getTypeOfContractor() != null
+                                ? convertToDto(legalDetail.getTypeOfContractor())
+                                : null)
                 .build();
     }
 
