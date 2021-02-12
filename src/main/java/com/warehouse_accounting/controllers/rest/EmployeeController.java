@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/employees")
-@Api(value = "Employee")
+@Api(value = "Employee Rest Controlle")
 @Tag(name = "Employee Rest Controller", description = "CRUD операции с Employee")
 public class EmployeeController {
 
