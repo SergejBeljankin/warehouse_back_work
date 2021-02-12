@@ -52,7 +52,7 @@ public class ImageController {
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<ImageDto> getById(@ApiParam(name = "id", value = "Id нужного ImageDto", required = true)
-                            @PathVariable("id") Long id) {
+                                            @PathVariable("id") Long id) {
         return ResponseEntity.ok(imageService.getById(id));
     }
 
@@ -64,7 +64,7 @@ public class ImageController {
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "ImageDto", value = "Объект ImageDto для обновления", required = true)
-                       @RequestBody ImageDto imageDto) {
+                                    @RequestBody ImageDto imageDto) {
         imageService.update(imageDto);
         return ResponseEntity.ok().build();
     }
@@ -78,7 +78,7 @@ public class ImageController {
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> create(@ApiParam(name = "ImageDto", value = "Объект ImageDto для создания", required = true)
-                       @RequestBody ImageDto imageDto) {
+                                    @RequestBody ImageDto imageDto) {
         imageService.create(imageDto);
         return ResponseEntity.ok().build();
     }
@@ -91,7 +91,7 @@ public class ImageController {
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "Id ImageDto для удаления", required = true)
-                           @PathVariable("id") Long id) {
+                                        @PathVariable("id") Long id) {
         imageService.deleteById(id);
         return ResponseEntity.ok().build();
     }
