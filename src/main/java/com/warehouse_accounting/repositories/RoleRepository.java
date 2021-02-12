@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
@@ -26,4 +27,8 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
             ")"+
             "FROM Role r WHERE r.id=:id")
     RoleDto getById(@Param("id") Long id);
+
+
+    @Query("select em.roles from Employee em where em.id = :id")
+    Set<Role> getRolesByEmployeeId(@Param("id") Long id);
 }

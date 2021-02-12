@@ -15,12 +15,15 @@ import com.warehouse_accounting.repositories.TaxSystemRepository;
 import com.warehouse_accounting.repositories.TypeOfContractorRepository;
 import com.warehouse_accounting.repositories.TypeOfPriceRepository;
 import com.warehouse_accounting.repositories.UnitRepository;
+import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.repositories.WarehouseRepository;
 import com.warehouse_accounting.util.exception.NotFoundEntityException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class CheckEntityService {
+@Transactional
+public class CheckEntityServiceImpl implements CheckEntityService {
 
     private final UnitRepository unitRepository;
     private final AttributeOfCalculationObjectRepository attributeOfCalculationObjectRepository;

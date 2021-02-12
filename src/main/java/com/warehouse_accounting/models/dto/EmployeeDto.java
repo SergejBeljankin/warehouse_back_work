@@ -32,11 +32,29 @@ public class EmployeeDto {
 
     private String password;
 
-    private DepartmentDto department;
+    private DepartmentDto department = new DepartmentDto();
 
-    private PositionDto position;
+    private PositionDto position = new PositionDto();
 
     private Set<RoleDto> roles;
 
-    private ImageDto image;
+    private ImageDto image = new ImageDto();
+
+    public EmployeeDto(Long id, String lastName, String firstName, String middleName, String sortNumber, String phone,
+                       String inn, String description, String email, String password,
+                       Long departmentId, Long positionId, Long imageId) {
+        this.id = id;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.sortNumber = sortNumber;
+        this.phone = phone;
+        this.inn = inn;
+        this.description = description;
+        this.email = email;
+        this.password = password;
+        this.department.setId(departmentId);
+        this.position.setId(positionId);
+        this.image.setId(imageId);
+    }
 }
