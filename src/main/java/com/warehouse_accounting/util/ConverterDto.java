@@ -4,6 +4,7 @@ import com.warehouse_accounting.models.AttributeOfCalculationObject;
 import com.warehouse_accounting.models.BankAccount;
 import com.warehouse_accounting.models.Company;
 import com.warehouse_accounting.models.Contract;
+import com.warehouse_accounting.models.Contractor;
 import com.warehouse_accounting.models.ContractorGroup;
 import com.warehouse_accounting.models.Currency;
 import com.warehouse_accounting.models.Department;
@@ -11,6 +12,7 @@ import com.warehouse_accounting.models.Employee;
 import com.warehouse_accounting.models.Image;
 import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.Position;
+import com.warehouse_accounting.models.ProductGroup;
 import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.TaxSystem;
 import com.warehouse_accounting.models.TypeOfContractor;
@@ -21,6 +23,7 @@ import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.ContractDto;
+import com.warehouse_accounting.models.dto.ContractorDto;
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
@@ -28,6 +31,7 @@ import com.warehouse_accounting.models.dto.EmployeeDto;
 import com.warehouse_accounting.models.dto.ImageDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.PositionDto;
+import com.warehouse_accounting.models.dto.ProductGroupDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
@@ -36,6 +40,8 @@ import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.models.dto.WarehouseDto;
 
 import java.util.Set;
+import java.util.stream.Collectors;
+
 import java.util.stream.Collectors;
 
 public class ConverterDto {
@@ -369,6 +375,24 @@ public class ConverterDto {
                 .build();
     }
 
+    public static ProductGroupDto convertToDto(ProductGroup productGroup) {
+        return ProductGroupDto.builder()
+                .id(productGroup.getId())
+                .name(productGroup.getName())
+                .sortNumber(productGroup.getSortNumber())
+                .productGroupDto(convertToDto(productGroup.getProductGroup()))
+                .build();
+    }
+
+    public static ProductGroup convertToModel(ProductGroupDto productGroupDto) {
+        return ProductGroup.builder()
+                .id(productGroupDto.getId())
+                .name(productGroupDto.getName())
+                .sortNumber(productGroupDto.getSortNumber())
+                .productGroup(convertToModel(productGroupDto.getProductGroupDto()))
+                .build();
+    }
+
     public static TypeOfPriceDto convertToDto(TypeOfPrice typeOfPrice) {
         return  TypeOfPriceDto.builder()
                 .id(typeOfPrice.getId())
@@ -382,6 +406,46 @@ public class ConverterDto {
                 .id(typeOfPriceDto.getId())
                 .name(typeOfPriceDto.getName())
                 .sortNumber(typeOfPriceDto.getSortNumber())
+                .build();
+    }
+
+    public static ContractorDto convertToDto(Contractor contractor) {
+        return  ContractorDto.builder()
+                .id(contractor.getId())
+                .name(contractor.getName())
+                .inn(contractor.getInn())
+                .sortNumber(contractor.getSortNumber())
+                .phone(contractor.getPhone())
+                .fax(contractor.getFax())
+                .email(contractor.getEmail())
+                .address(contractor.getAddress())
+                .commentToAddress(contractor.getCommentToAddress())
+                .comment(contractor.getComment())
+                .contractorGroupDto(convertToDto(contractor.getContractorGroup()))
+                .typeOfContractorDto(convertToDto(contractor.getTypeOfContractor()))
+                .typeOfPriceDto(convertToDto(contractor.getTypeOfPrice()))
+                .bankAccountDtos(contractor.getBankAccounts().stream().map(bankAccount -> convertToDto(bankAccount)).collect(Collectors.toList()))
+                .legalDetailDto(convertToDto(contractor.getLegalDetail()))
+                .build();
+    }
+
+    public  static Contractor convertToModel(ContractorDto contractorDto) {
+        return Contractor.builder()
+                .id(contractorDto.getId())
+                .name(contractorDto.getName())
+                .inn(contractorDto.getInn())
+                .sortNumber(contractorDto.getSortNumber())
+                .phone(contractorDto.getPhone())
+                .fax(contractorDto.getFax())
+                .email(contractorDto.getEmail())
+                .address(contractorDto.getAddress())
+                .commentToAddress(contractorDto.getCommentToAddress())
+                .comment(contractorDto.getComment())
+                .contractorGroup(convertToModel(contractorDto.getContractorGroupDto()))
+                .typeOfContractor(convertToModel(contractorDto.getTypeOfContractorDto()))
+                .typeOfPrice(convertToModel(contractorDto.getTypeOfPriceDto()))
+                .bankAccounts(contractorDto.getBankAccountDtos().stream().map(bankAccountDto -> convertToModel(bankAccountDto)).collect(Collectors.toList()))
+                .legalDetail(convertToModel(contractorDto.getLegalDetailDto()))
                 .build();
     }
 

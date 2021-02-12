@@ -37,4 +37,7 @@ public interface BankAccountRepository extends JpaRepository<BankAccount, Long> 
             ") " +
             "FROM BankAccount ba where ba.id = :id")
     BankAccountDto getById(@Param("id") Long id);
+
+    @Query("SELECT c.bankAccounts FROM Contractor c WHERE c.id = :id")
+    List<BankAccount> getListById(@Param("id") Long id);
 }
