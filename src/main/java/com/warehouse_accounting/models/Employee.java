@@ -69,4 +69,5 @@ public class Employee {
 
     @OneToOne(fetch = FetchType.LAZY)
     private Image image;
+
 }
