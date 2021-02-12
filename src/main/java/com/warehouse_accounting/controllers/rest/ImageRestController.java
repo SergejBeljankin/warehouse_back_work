@@ -63,8 +63,8 @@ public class ImageRestController {
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public ResponseEntity<?> update(@ApiParam(name = "ImageDto", value = "Объект ImageDto для обновления", required = true)
-                                    @RequestBody ImageDto imageDto) {
+    public ResponseEntity<?> update(@ApiParam(name = "ImageDto", value = "Объект ImageDto для обновления",
+            required = true) @RequestBody ImageDto imageDto) {
         imageService.update(imageDto);
         return ResponseEntity.ok().build();
     }
@@ -77,8 +77,8 @@ public class ImageRestController {
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public ResponseEntity<?> create(@ApiParam(name = "ImageDto", value = "Объект ImageDto для создания", required = true)
-                                    @RequestBody ImageDto imageDto) {
+    public ResponseEntity<?> create(@ApiParam(name = "ImageDto", value = "Объект ImageDto для создания",
+            required = true) @RequestBody ImageDto imageDto) {
         imageService.create(imageDto);
         return ResponseEntity.ok().build();
     }
