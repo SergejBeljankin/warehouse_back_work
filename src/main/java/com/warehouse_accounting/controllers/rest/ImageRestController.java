@@ -24,10 +24,10 @@ import java.util.List;
 @Api(tags = "Image Rest Controller")
 @Tag(name = "Image Rest Controller", description = "CRUD операции с объектами")
 @RequestMapping("/api/images")
-public class ImageController {
+public class ImageRestController {
     private final ImageService imageService;
 
-    public ImageController(ImageService imageService) {
+    public ImageRestController(ImageService imageService) {
         this.imageService = imageService;
     }
 
