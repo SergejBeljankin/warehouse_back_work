@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,8 +41,8 @@ public class TaxSystemController {
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public List<TaxSystemDto> getAll() {
-        return taxSystemService.getAll();
+    public ResponseEntity<List<TaxSystemDto>> getAll() {
+        return ResponseEntity.ok(taxSystemService.getAll());
     }
 
     @GetMapping("/{id}")
@@ -53,9 +54,9 @@ public class TaxSystemController {
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public TaxSystemDto getById(@ApiParam(name = "id", value = "Id нужного TaxSystemDto", required = true)
+    public ResponseEntity<TaxSystemDto> getById(@ApiParam(name = "id", value = "Id нужного TaxSystemDto", required = true)
                                 @PathVariable("id") Long id) {
-        return taxSystemService.getById(id);
+        return ResponseEntity.ok(taxSystemService.getById(id));
     }
 
     @PutMapping
@@ -66,9 +67,10 @@ public class TaxSystemController {
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public void update(@ApiParam(name = "TaxSystemDto", value = "объект TaxSystemDto для обновления", required = true)
+    public ResponseEntity<TaxSystemDto> update(@ApiParam(name = "TaxSystemDto", value = "объект TaxSystemDto для обновления", required = true)
                        @RequestBody TaxSystemDto taxSystemDto) {
         taxSystemService.update(taxSystemDto);
+        return ResponseEntity.ok(taxSystemDto);
     }
 
     @PostMapping
@@ -79,9 +81,10 @@ public class TaxSystemController {
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public void create(@ApiParam(name = "TaxSystemDto", value = "объект TaxSystemDto для создания", required = true)
+    public ResponseEntity<TaxSystemDto> create(@ApiParam(name = "TaxSystemDto", value = "объект TaxSystemDto для создания", required = true)
                        @RequestBody TaxSystemDto taxSystemDto) {
         taxSystemService.create(taxSystemDto);
+        return ResponseEntity.ok(taxSystemDto);
     }
 
     @DeleteMapping("/{id}")
@@ -92,8 +95,9 @@ public class TaxSystemController {
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public void deleteById(@ApiParam(name = "id", value = "Id TaxSystemDto для удаления", required = true)
+    public ResponseEntity<String> deleteById(@ApiParam(name = "id", value = "Id TaxSystemDto для удаления", required = true)
                            @PathVariable("id") Long id) {
         taxSystemService.deleteById(id);
+        return ResponseEntity.ok("TaxSystem c id: " + id + " удален");
     }
 }
