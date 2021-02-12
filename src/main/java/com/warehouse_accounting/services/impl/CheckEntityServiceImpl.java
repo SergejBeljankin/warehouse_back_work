@@ -1,4 +1,4 @@
-package com.warehouse_accounting.services;
+package com.warehouse_accounting.services.impl;
 
 import com.warehouse_accounting.repositories.AttributeOfCalculationObjectRepository;
 import com.warehouse_accounting.repositories.BankAccountRepository;
@@ -7,9 +7,11 @@ import com.warehouse_accounting.repositories.ContractRepository;
 import com.warehouse_accounting.repositories.ContractorGroupRepository;
 import com.warehouse_accounting.repositories.CurrencyRepository;
 import com.warehouse_accounting.repositories.DepartmentRepository;
+import com.warehouse_accounting.repositories.EmployeeRepository;
 import com.warehouse_accounting.repositories.ImageRepository;
 import com.warehouse_accounting.repositories.LegalDetailRepository;
 import com.warehouse_accounting.repositories.PositionRepository;
+import com.warehouse_accounting.repositories.ProductGroupRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
 import com.warehouse_accounting.repositories.TaxSystemRepository;
 import com.warehouse_accounting.repositories.TypeOfContractorRepository;
@@ -25,7 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CheckEntityServiceImpl implements CheckEntityService {
 
-    private final UnitRepository unitRepository;
     private final AttributeOfCalculationObjectRepository attributeOfCalculationObjectRepository;
     private final BankAccountRepository bankAccountRepository;
     private final CompanyRepository companyRepository;
@@ -33,31 +34,39 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final ContractRepository contractRepository;
     private final CurrencyRepository currencyRepository;
     private final DepartmentRepository departmentRepository;
+    private final EmployeeRepository employeeRepository;
     private final ImageRepository imageRepository;
     private final LegalDetailRepository legalDetailRepository;
     private final PositionRepository positionRepository;
+    private final ProductGroupRepository productGroupRepository;
     private final RoleRepository roleRepository;
     private final TaxSystemRepository taxSystemRepository;
     private final TypeOfContractorRepository typeOfContractorRepository;
     private final TypeOfPriceRepository typeOfPriceRepository;
+    private final UnitRepository unitRepository;
     private final WarehouseRepository warehouseRepository;
+    //private final TypeOfInvoiceRepository typeOfInvoiceRepository;
 
-    public CheckEntityService(UnitRepository unitRepository,
-                              AttributeOfCalculationObjectRepository attributeOfCalculationObjectRepository,
-                              BankAccountRepository bankAccountRepository,
-                              CompanyRepository companyRepository,
-                              ContractorGroupRepository contractorGroupRepository,
-                              ContractRepository contractRepository,
-                              CurrencyRepository currencyRepository,
-                              DepartmentRepository departmentRepository,
-                              ImageRepository imageRepository,
-                              LegalDetailRepository legalDetailRepository,
-                              PositionRepository positionRepository,
-                              RoleRepository roleRepository,
-                              TaxSystemRepository taxSystemRepository,
-                              TypeOfContractorRepository typeOfContractorRepository,
-                              TypeOfPriceRepository typeOfPriceRepository,
-                              WarehouseRepository warehouseRepository) {
+    public CheckEntityServiceImpl(UnitRepository unitRepository,
+                                  AttributeOfCalculationObjectRepository attributeOfCalculationObjectRepository,
+                                  BankAccountRepository bankAccountRepository,
+                                  CompanyRepository companyRepository,
+                                  ContractorGroupRepository contractorGroupRepository,
+                                  ContractRepository contractRepository,
+                                  CurrencyRepository currencyRepository,
+                                  DepartmentRepository departmentRepository,
+                                  ImageRepository imageRepository,
+                                  LegalDetailRepository legalDetailRepository,
+                                  PositionRepository positionRepository,
+                                  RoleRepository roleRepository,
+                                  TaxSystemRepository taxSystemRepository,
+                                  TypeOfContractorRepository typeOfContractorRepository,
+                                  TypeOfPriceRepository typeOfPriceRepository,
+                                  WarehouseRepository warehouseRepository,
+                                  ProductGroupRepository productGroupRepository,
+                                  EmployeeRepository employeeRepository
+//                                 ,TypeOfInvoiceRepository typeOfInvoiceRepository
+                                 ) {
         this.unitRepository = unitRepository;
         this.attributeOfCalculationObjectRepository = attributeOfCalculationObjectRepository;
         this.bankAccountRepository = bankAccountRepository;
@@ -74,6 +83,9 @@ public class CheckEntityServiceImpl implements CheckEntityService {
         this.typeOfContractorRepository = typeOfContractorRepository;
         this.typeOfPriceRepository = typeOfPriceRepository;
         this.warehouseRepository = warehouseRepository;
+        this.productGroupRepository = productGroupRepository;
+        this.employeeRepository = employeeRepository;
+//        this.typeOfInvoiceRepository = typeOfInvoiceRepository;
     }
 
     public void checkExistUnitById(Long unitId) {
@@ -84,7 +96,8 @@ public class CheckEntityServiceImpl implements CheckEntityService {
 
     public void checkExistAttributeOfCalculationObjectById(Long attributeOfCalculationObjectId) {
         if (!attributeOfCalculationObjectRepository.existsById(attributeOfCalculationObjectId)) {
-            throw new NotFoundEntityException("AttributeOfCalculationObject с id=" + attributeOfCalculationObjectId + ", не найден");
+            throw new NotFoundEntityException("AttributeOfCalculationObject с id=" + attributeOfCalculationObjectId +
+                    ", не найден");
         }
     }
 
@@ -171,4 +184,22 @@ public class CheckEntityServiceImpl implements CheckEntityService {
             throw new NotFoundEntityException("Warehouse с id=" + warehouseId + ", не найден");
         }
     }
+
+    public void checkExistEmployeeById(Long employeeId) {
+        if (!employeeRepository.existsById(employeeId)) {
+            throw new NotFoundEntityException("Employee с id=" + employeeId + ", не найден");
+        }
+    }
+
+    public void checkExistProductGroupById(Long productGroupID) {
+        if (!productGroupRepository.existsById(productGroupID)) {
+            throw new NotFoundEntityException("ProductGroup с id=" + productGroupID + ", не найден");
+        }
+    }
+//
+//    public void checkExistTypeOfInvoiceById(Long typeOfInvoiceID) {
+//        if (!typeOfInvoiceRepository.existsById(typeOfInvoiceID)) {
+//            throw new NotFoundEntityException("TypeOfInvoiceID с id=" + typeOfInvoiceID + ", не найден");
+//        }
+//    }
 }
