@@ -54,8 +54,8 @@ public class TaxSystemRestController {
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public ResponseEntity<TaxSystemDto> getById(@ApiParam(name = "id", value = "Id нужного TaxSystemDto", required = true)
-                                                    @PathVariable("id") Long id) {
+    public ResponseEntity<TaxSystemDto> getById(@ApiParam(name = "id", value = "Id нужного TaxSystemDto",
+            required = true) @PathVariable("id") Long id) {
         return ResponseEntity.ok(taxSystemService.getById(id));
     }
 
@@ -67,8 +67,8 @@ public class TaxSystemRestController {
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public ResponseEntity<?> update(@ApiParam(name = "TaxSystemDto", value = "объект TaxSystemDto для обновления", required = true)
-                                        @RequestBody TaxSystemDto taxSystemDto) {
+    public ResponseEntity<?> update(@ApiParam(name = "TaxSystemDto", value = "объект TaxSystemDto для обновления",
+            required = true) @RequestBody TaxSystemDto taxSystemDto) {
         taxSystemService.update(taxSystemDto);
         return ResponseEntity.ok().build();
     }
@@ -81,8 +81,8 @@ public class TaxSystemRestController {
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public ResponseEntity<?> create(@ApiParam(name = "TaxSystemDto", value = "объект TaxSystemDto для создания", required = true)
-                                        @RequestBody TaxSystemDto taxSystemDto) {
+    public ResponseEntity<?> create(@ApiParam(name = "TaxSystemDto", value = "объект TaxSystemDto для создания",
+            required = true) @RequestBody TaxSystemDto taxSystemDto) {
         taxSystemService.create(taxSystemDto);
         return ResponseEntity.ok().build();
     }
@@ -96,7 +96,7 @@ public class TaxSystemRestController {
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "Id TaxSystemDto для удаления", required = true)
-                                            @PathVariable("id") Long id) {
+                                        @PathVariable("id") Long id) {
         taxSystemService.deleteById(id);
         return ResponseEntity.ok().build();
     }
