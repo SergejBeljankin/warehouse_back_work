@@ -34,7 +34,6 @@ import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.models.dto.WarehouseDto;
 
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class ConverterDto {
@@ -382,24 +381,21 @@ public class ConverterDto {
                 .password(employeeDto.getPassword())
                 .department(convertToModel(employeeDto.getDepartment()))
                 .position(convertToModel(employeeDto.getPosition()))
-                .roles(from(employeeDto.getRoles()))
+                .roles(fromRoleDto(employeeDto.getRoles()))
                 .image(convertToModel(employeeDto.getImage())).build();
     }
 
-    public static Set<Role> from(Set<RoleDto> model){
+    public static Set<Role> fromRoleDto(Set<RoleDto> model){
         return model.stream().map(e-> Role.builder()
                 .id(e.getId())
                 .name(e.getName())
                 .sortNumber(e.getSortNumber()).build()).collect(Collectors.toSet());
     }
 
-//    public static Set<Role> from(Set<RoleDto> model){
-//        return model.stream().map(e->{
-//            return Role.builder()
-//                    .id(e.getId())
-//                    .name(e.getName())
-//                    .sortNumber(e.getSortNumber()).build();
-//        }).collect(Collectors.toSet());
-//    }
-
+    public static Set<RoleDto> fromRole(Set<Role> model) {
+        return model.stream().map(e -> RoleDto.builder()
+                .id(e.getId())
+                .name(e.getName())
+                .sortNumber(e.getSortNumber()).build()).collect(Collectors.toSet());
+    }
 }
