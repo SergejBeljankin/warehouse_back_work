@@ -46,6 +46,4 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
             "e.image.id) FROM Employee e where e.id=:id")
     EmployeeDto getById(@Param("id") Long id);
 
-    @Query("select em.roles from Employee em where em.id = :id")
-    Set<Role> getRolesByEmployeeId(@Param("id") Long id);
 }

@@ -8,11 +8,13 @@ import com.warehouse_accounting.repositories.PositionRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
 import com.warehouse_accounting.services.interfaces.EmployeeService;
 import com.warehouse_accounting.util.ConverterDto;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 import static com.warehouse_accounting.util.ConverterDto.fromRole;
 
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
@@ -33,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDto getById(Long id) {
         EmployeeDto employeeDto =  employeeRepository.getById(id);
         employeeDto.setDepartment(departmentRepository.getById(employeeDto.getDepartment().getId()));
-        employeeDto.setRoles(fromRole(employeeRepository.getRolesByEmployeeId(employeeDto.getId())));
+        employeeDto.setRoles(fromRole(roleRepository.getRolesByEmployeeId(employeeDto.getId())));
         employeeDto.setImage(imageRepository.getById(employeeDto.getImage().getId()));
         return employeeDto;
     }
@@ -59,7 +61,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeDtos.forEach(employeeDto -> {
             employeeDto.setDepartment(departmentRepository.getById(employeeDto.getDepartment().getId()));
             employeeDto.setPosition((positionRepository.getById(employeeDto.getPosition().getId())));
-            employeeDto.setRoles(fromRole(employeeRepository.getRolesByEmployeeId(employeeDto.getId())));
+            employeeDto.setRoles(fromRole(roleRepository.getRolesByEmployeeId(employeeDto.getId())));
             employeeDto.setImage(imageRepository.getById(employeeDto.getImage().getId()));
         });
         return employeeDtos;
