@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.warehouse_accounting.util.ConverterDto.fromRole;
+import static com.warehouse_accounting.util.ConverterDto.convertToDto;
 
 @Service
 @Transactional
@@ -37,7 +37,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDto getById(Long id) {
         EmployeeDto employeeDto =  employeeRepository.getById(id);
         employeeDto.setDepartment(departmentRepository.getById(employeeDto.getDepartment().getId()));
-        employeeDto.setRoles(fromRole(roleRepository.getRolesByEmployeeId(employeeDto.getId())));
+        employeeDto.setRoles(convertToDto(roleRepository.getRolesByEmployeeId(employeeDto.getId())));
         employeeDto.setImage(imageRepository.getById(employeeDto.getImage().getId()));
         return employeeDto;
     }
@@ -63,7 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeDtos.forEach(employeeDto -> {
             employeeDto.setDepartment(departmentRepository.getById(employeeDto.getDepartment().getId()));
             employeeDto.setPosition((positionRepository.getById(employeeDto.getPosition().getId())));
-            employeeDto.setRoles(fromRole(roleRepository.getRolesByEmployeeId(employeeDto.getId())));
+            employeeDto.setRoles(convertToDto(roleRepository.getRolesByEmployeeId(employeeDto.getId())));
             employeeDto.setImage(imageRepository.getById(employeeDto.getImage().getId()));
         });
         return employeeDtos;
