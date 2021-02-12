@@ -6,7 +6,9 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -14,7 +16,8 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/type_of_contractor")
+@Api(value = "TypeOfContractor Rest")
 @Tag(name = "TypeOfContractor Rest", description = "controller for doing some CRUD with Type Of Contractor")
 public class TypeOfContractor_Rest_Controller {
 
@@ -27,7 +30,6 @@ public class TypeOfContractor_Rest_Controller {
 
     //GET ALL CONTRACTORS
     @GetMapping(value = "/tocs")
-    @Tag(name = "TypeOfContractor Rest")
     @ApiOperation(value = "Все типы контрагентов", notes = "return List<TypeOfContractorDTO>", response = TypeOfContractorDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное получение листа типов контрагентов", response = TypeOfContractorDto.class),
@@ -35,7 +37,7 @@ public class TypeOfContractor_Rest_Controller {
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции"),
             @ApiResponse(code = 500, message = "Ошибка сервера")})
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<List<TypeOfContractorDto>> getAll() {
         List<TypeOfContractorDto> all_TOC = typeOfContractorService.getAll();
         return ResponseEntity.ok(all_TOC);
     }
@@ -55,13 +57,12 @@ public class TypeOfContractor_Rest_Controller {
             @PathVariable("id") long id
     ) {
         typeOfContractorService.deleteByID(id);
-        return ResponseEntity.ok().body("Котрагент ликвидрован");
+        return ResponseEntity.ok().build();
 
     }
 
     //GET BY ID
     @GetMapping(value = "/tocs/{id}")
-    @Tag(name = "TypeOfContractor Rest")
     @ApiOperation(value = "получить тип контрагента по ID", response = TypeOfContractorDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Тип контагента найден", response = TypeOfContractorDto.class),
@@ -69,7 +70,7 @@ public class TypeOfContractor_Rest_Controller {
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции"),
             @ApiResponse(code = 500, message = "Ошибка сервера")})
-    public ResponseEntity<?> getById(
+    public ResponseEntity<TypeOfContractorDto> getById(
             @ApiParam(name = "id", required = true)
             @PathVariable("id") long id) {
         TypeOfContractorDto typeOfContractorDto = typeOfContractorService.getById(id);
@@ -78,7 +79,6 @@ public class TypeOfContractor_Rest_Controller {
 
     //UPDATE
     @PutMapping(value = "/tocs/update")
-    @Tag(name = "TypeOfContractor Rest")
     @ApiOperation(value = "Редактировать данные типа контрагента", response = TypeOfContractorDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Тип контагента найден", response = TypeOfContractorDto.class),
@@ -86,11 +86,11 @@ public class TypeOfContractor_Rest_Controller {
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции"),
             @ApiResponse(code = 500, message = "Ошибка сервера")})
-    public ResponseEntity<?> update(
+    public ResponseEntity<TypeOfContractorDto> update(
             @ApiParam(name = "update typeofContractor")
             @RequestBody TypeOfContractorDto typeOfContractorDto) {
         typeOfContractorService.update(typeOfContractorDto);
-        return ResponseEntity.ok().body("Данные типа котрагента обновлены");
+        return ResponseEntity.ok().build();
     }
 
     //CREATE
@@ -103,10 +103,10 @@ public class TypeOfContractor_Rest_Controller {
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции"),
             @ApiResponse(code = 500, message = "Ошибка сервера")})
-    public ResponseEntity<?> create(
+    public ResponseEntity<TypeOfContractorDto> create(
             @ApiParam(name = "create type of Contractor")
             @RequestBody TypeOfContractorDto typeOfContractorDto) {
         typeOfContractorService.create(typeOfContractorDto);
-        return ResponseEntity.ok().body(" новый тип контрактора создан");
+        return ResponseEntity.ok().build();
     }
 }
