@@ -67,10 +67,10 @@ public class TaxSystemRestController {
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public ResponseEntity<TaxSystemDto> update(@ApiParam(name = "TaxSystemDto", value = "объект TaxSystemDto для обновления", required = true)
+    public ResponseEntity<?> update(@ApiParam(name = "TaxSystemDto", value = "объект TaxSystemDto для обновления", required = true)
                        @RequestBody TaxSystemDto taxSystemDto) {
         taxSystemService.update(taxSystemDto);
-        return ResponseEntity.ok(taxSystemDto);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping
@@ -81,10 +81,10 @@ public class TaxSystemRestController {
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public ResponseEntity<TaxSystemDto> create(@ApiParam(name = "TaxSystemDto", value = "объект TaxSystemDto для создания", required = true)
+    public ResponseEntity<?> create(@ApiParam(name = "TaxSystemDto", value = "объект TaxSystemDto для создания", required = true)
                        @RequestBody TaxSystemDto taxSystemDto) {
         taxSystemService.create(taxSystemDto);
-        return ResponseEntity.ok(taxSystemDto);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
@@ -95,9 +95,9 @@ public class TaxSystemRestController {
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public ResponseEntity<String> deleteById(@ApiParam(name = "id", value = "Id TaxSystemDto для удаления", required = true)
+    public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "Id TaxSystemDto для удаления", required = true)
                            @PathVariable("id") Long id) {
         taxSystemService.deleteById(id);
-        return ResponseEntity.ok("TaxSystem c id: " + id + " удален");
+        return ResponseEntity.ok().build();
     }
 }
