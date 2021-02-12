@@ -25,10 +25,10 @@ import java.util.List;
 @RequestMapping("/api/tax_systems")
 @Api(tags = "TaxSystem Rest Controller")
 @Tag(name = "TaxSystem Rest Controller", description = "CRUD операции с объектами")
-public class TaxSystemController {
+public class TaxSystemRestController {
     private final TaxSystemService taxSystemService;
 
-    public TaxSystemController(TaxSystemService taxSystemService) {
+    public TaxSystemRestController(TaxSystemService taxSystemService) {
         this.taxSystemService = taxSystemService;
     }
 
