@@ -9,12 +9,14 @@ import com.warehouse_accounting.repositories.RoleRepository;
 import com.warehouse_accounting.services.interfaces.EmployeeService;
 import com.warehouse_accounting.util.ConverterDto;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static com.warehouse_accounting.util.ConverterDto.fromRole;
 
 @Service
+@Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
