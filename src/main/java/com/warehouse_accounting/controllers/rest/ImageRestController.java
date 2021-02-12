@@ -21,9 +21,9 @@ import com.warehouse_accounting.services.interfaces.ImageService;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/images")
 @Api(tags = "Image Rest Controller")
 @Tag(name = "Image Rest Controller", description = "CRUD операции с объектами")
-@RequestMapping("/api/images")
 public class ImageRestController {
     private final ImageService imageService;
 
