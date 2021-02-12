@@ -2,6 +2,7 @@ package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.TaxSystemDto;
 import com.warehouse_accounting.services.interfaces.TaxSystemService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tax_systems")
+@Api(tags = "TaxSystem Rest Controller")
 @Tag(name = "TaxSystem Rest Controller", description = "CRUD операции с объектами")
 public class TaxSystemController {
     private final TaxSystemService taxSystemService;
@@ -30,7 +32,6 @@ public class TaxSystemController {
     }
 
     @GetMapping
-    @Tag(name = "TaxSystem Rest Controller")
     @ApiOperation(value = "Возвращает все системы налогообложения", notes = "Возвращает список TaxSystemDto",
             response = TaxSystemDto.class, responseContainer = "List")
     @ApiResponses(value = {
@@ -44,7 +45,6 @@ public class TaxSystemController {
     }
 
     @GetMapping("/{id}")
-    @Tag(name = "TaxSystem Rest Controller")
     @ApiOperation(value = "Возвращает систему налогообложения с выбранным id", notes = "Возвращает TaxSystemDto",
             response = TaxSystemDto.class)
     @ApiResponses(value = {
@@ -59,7 +59,6 @@ public class TaxSystemController {
     }
 
     @PutMapping
-    @Tag(name = "TaxSystem Rest Controller")
     @ApiOperation(value = "Обновляет переданную систему налогообложения")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное обновление системы налогообложения",
@@ -73,7 +72,6 @@ public class TaxSystemController {
     }
 
     @PostMapping
-    @Tag(name = "TaxSystem Rest Controller")
     @ApiOperation(value = "Создает переданную систему налогообложения")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное создание системы налогообложения",
@@ -87,7 +85,6 @@ public class TaxSystemController {
     }
 
     @DeleteMapping("/{id}")
-    @Tag(name = "TaxSystem Rest Controller")
     @ApiOperation(value = "Удаляет систему налогообложения с выбранным id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное удаление системы налогообложения",
