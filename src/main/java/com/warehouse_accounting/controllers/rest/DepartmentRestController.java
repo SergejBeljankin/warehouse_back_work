@@ -35,7 +35,7 @@ public class DepartmentRestController {
     }
 
     @GetMapping
-    @ApiOperation(value = "Возвращает все отделы", notes = "Возвращает список DepartmentDto",
+    @ApiOperation(value = "Возвращает все департаменты", notes = "Возвращает список DepartmentDto",
             response = DepartmentDto.class, responseContainer = "List")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное получение листа DepartmentDto"),
@@ -47,7 +47,7 @@ public class DepartmentRestController {
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Возвращает отдел с выбранным id", notes = "DepartmentDto",
+    @ApiOperation(value = "Возвращает департамент с выбранным id", notes = "DepartmentDto",
             response = DepartmentDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное получение DepartmentDto"),
@@ -60,7 +60,7 @@ public class DepartmentRestController {
     }
 
     @PutMapping
-    @ApiOperation(value = "Обновляет выбранный отдел")
+    @ApiOperation(value = "Обновляет выбранный департамент")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное обновление DepartmentDto"),
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
@@ -73,7 +73,7 @@ public class DepartmentRestController {
     }
 
     @PostMapping
-    @ApiOperation(value = "Создает новый отдел")
+    @ApiOperation(value = "Создает новый департамент")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное создание DepartmentDto",
                     response = DepartmentDto.class),
@@ -87,7 +87,7 @@ public class DepartmentRestController {
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "Удаляет отдел с выбранным id")
+    @ApiOperation(value = "Удаляет департамент с выбранным id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное удаление DepartmentDto"),
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
