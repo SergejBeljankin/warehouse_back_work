@@ -5,8 +5,8 @@ import com.warehouse_accounting.services.interfaces.LegalDetailService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,10 +34,10 @@ public class LegalDetailRestController {
     @GetMapping
     @ApiOperation(value = "Возвращает список по юрдической информации", notes = "Возвращает список LegalDetailDto", response = LegalDetailDto.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное получение листа юрдической информациии"),
-            @ApiResponse(code = 404, message = "Данный контролер не найден"),
-            @ApiResponse(code = 403, message = "Операция запрещена"),
-            @ApiResponse(code = 401, message = "Нет доступа к данной операции")}
+            @ApiResponse(responseCode = "200", description  = "Успешное получение листа юрдической информациии"),
+            @ApiResponse(responseCode = "404", description  = "Данный контролер не найден"),
+            @ApiResponse(responseCode = "403", description  = "Операция запрещена"),
+            @ApiResponse(responseCode = "401", description  = "Нет доступа к данной операции")}
     )
     public ResponseEntity<List<LegalDetailDto>> getAll() {
         return ResponseEntity.ok(legalDetailService.getAll());
@@ -46,10 +46,10 @@ public class LegalDetailRestController {
     @GetMapping("/{id}")
     @ApiOperation(value = "Возвращает юрдическую информацию по id", notes = "Возвращает LegalDetailDto", response = LegalDetailDto.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное получение юридической информации"),
-            @ApiResponse(code = 404, message = "Данный контролер не найден"),
-            @ApiResponse(code = 403, message = "Операция запрещена"),
-            @ApiResponse(code = 401, message = "Нет доступа к данной операции")}
+            @ApiResponse(responseCode = "200", description  = "Успешное получение юридической информации"),
+            @ApiResponse(responseCode = "404", description  = "Данный контролер не найден"),
+            @ApiResponse(responseCode = "403", description  = "Операция запрещена"),
+            @ApiResponse(responseCode = "401", description  = "Нет доступа к данной операции")}
     )
     public ResponseEntity<LegalDetailDto> getById(
             @ApiParam(name = "id", value = "Значение поля Id объекта которого хотим получить", example = "1", required = true)
@@ -60,10 +60,10 @@ public class LegalDetailRestController {
     @PutMapping
     @ApiOperation(value = "Создает юрдическую информацию")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное создание юридической информации"),
-            @ApiResponse(code = 404, message = "Данный контролер не найден"),
-            @ApiResponse(code = 403, message = "Операция запрещена"),
-            @ApiResponse(code = 401, message = "Нет доступа к данной операции")}
+            @ApiResponse(responseCode = "200", description  = "Успешное создание юридической информации"),
+            @ApiResponse(responseCode = "404", description  = "Данный контролер не найден"),
+            @ApiResponse(responseCode = "403", description  = "Операция запрещена"),
+            @ApiResponse(responseCode = "401", description  = "Нет доступа к данной операции")}
     )
     public ResponseEntity<?> create(
             @ApiParam(name = "LegalDetailDto", value = "Объект LegalDetailDto который нужно обновить в программе")
@@ -76,10 +76,10 @@ public class LegalDetailRestController {
     @PostMapping
     @ApiOperation(value = "Изменяет юрдическую информацию")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное изменение юридической информации"),
-            @ApiResponse(code = 404, message = "Данный контролер не найден"),
-            @ApiResponse(code = 403, message = "Операция запрещена"),
-            @ApiResponse(code = 401, message = "Нет доступа к данной операции")}
+            @ApiResponse(responseCode = "200", description  = "Успешное изменение юридической информации"),
+            @ApiResponse(responseCode = "404", description  = "Данный контролер не найден"),
+            @ApiResponse(responseCode = "403", description  = "Операция запрещена"),
+            @ApiResponse(responseCode = "401", description  = "Нет доступа к данной операции")}
     )
     public ResponseEntity<?> update(
             @ApiParam(name = "LegalDetailDto", value = "Объект LegalDetailDto который нужно сохранить в программе")
@@ -91,10 +91,10 @@ public class LegalDetailRestController {
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Удаляет юрдическую информацию по id")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное удаление юридической информации"),
-            @ApiResponse(code = 404, message = "Данный контролер не найден"),
-            @ApiResponse(code = 403, message = "Операция запрещена"),
-            @ApiResponse(code = 401, message = "Нет доступа к данной операции")}
+            @ApiResponse(responseCode = "200", description  = "Успешное удаление юридической информации"),
+            @ApiResponse(responseCode = "404", description  = "Данный контролер не найден"),
+            @ApiResponse(responseCode = "403", description  = "Операция запрещена"),
+            @ApiResponse(responseCode = "401", description  = "Нет доступа к данной операции")}
     )
     public ResponseEntity<?> deleteById(
             @ApiParam(name = "id", value = "Значение поля Id объекта который хотим удалить", example = "1", required = true)
