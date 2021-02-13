@@ -51,8 +51,8 @@ public class PositionRestController {
             @ApiResponse(code = 404, message = "Данный контроллер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public ResponseEntity<PositionDto> getById(@ApiParam(name = "id", value = "id для получения PositionDto", required = true)
-                                               @PathVariable("id") Long id) {
+    public ResponseEntity<PositionDto> getById(@ApiParam(name = "id", value = "id для получения PositionDto",
+            required = true) @PathVariable("id") Long id) {
         return ResponseEntity.ok(service.getById(id));
     }
 
