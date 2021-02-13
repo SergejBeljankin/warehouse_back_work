@@ -1,4 +1,4 @@
-package com.warehouse_accounting.controllers;
+package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.ContractDto;
 import com.warehouse_accounting.services.interfaces.ContractService;
