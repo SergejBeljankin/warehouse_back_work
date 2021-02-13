@@ -5,8 +5,8 @@ import com.warehouse_accounting.services.interfaces.ContractService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,10 +34,10 @@ public class ContractRestController {
     @GetMapping
     @ApiOperation(value = "Возвращает список договоров", notes = "Возвращает список ContractDto", response = ContractDto.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное получение списка договоров"),
-            @ApiResponse(code = 404, message = "Данный контролер не найден"),
-            @ApiResponse(code = 403, message = "Операция запрещена"),
-            @ApiResponse(code = 401, message = "Нет доступа к данной операции")}
+            @ApiResponse(responseCode = "200", description = "Успешное получение списка договоров"),
+            @ApiResponse(responseCode = "404", description = "Данный контролер не найден"),
+            @ApiResponse(responseCode = "403", description = "Операция запрещена"),
+            @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
     public ResponseEntity<List<ContractDto>> getAll() {
         return ResponseEntity.ok(contractService.getAll());
@@ -46,10 +46,10 @@ public class ContractRestController {
     @GetMapping("/{id}")
     @ApiOperation(value = "Возвращает договор по id", notes = "Возвращает ContractDto", response = ContractDto.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное получение договора"),
-            @ApiResponse(code = 404, message = "Данный контролер не найден"),
-            @ApiResponse(code = 403, message = "Операция запрещена"),
-            @ApiResponse(code = 401, message = "Нет доступа к данной операции")}
+            @ApiResponse(responseCode = "200", description = "Успешное получение договора"),
+            @ApiResponse(responseCode = "404", description = "Данный контролер не найден"),
+            @ApiResponse(responseCode = "403", description = "Операция запрещена"),
+            @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
     public ResponseEntity<ContractDto> getById(
             @ApiParam(name = "id", value = "Значение поля Id объекта которого хотим получить", example = "1", required = true)
@@ -60,10 +60,10 @@ public class ContractRestController {
     @PutMapping
     @ApiOperation(value = "Создает договор")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное создание договора"),
-            @ApiResponse(code = 404, message = "Данный контролер не найден"),
-            @ApiResponse(code = 403, message = "Операция запрещена"),
-            @ApiResponse(code = 401, message = "Нет доступа к данной операции")}
+            @ApiResponse(responseCode = "200", description = "Успешное создание договора"),
+            @ApiResponse(responseCode = "404", description = "Данный контролер не найден"),
+            @ApiResponse(responseCode = "403", description = "Операция запрещена"),
+            @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
     public ResponseEntity<?> create(
             @ApiParam(name = "ContractDto", value = "Объект ContractDto который нужно сохранить в программе")
@@ -75,10 +75,10 @@ public class ContractRestController {
     @PostMapping
     @ApiOperation(value = "Изменяет договор")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное изменение договора"),
-            @ApiResponse(code = 404, message = "Данный контролер не найден"),
-            @ApiResponse(code = 403, message = "Операция запрещена"),
-            @ApiResponse(code = 401, message = "Нет доступа к данной операции")}
+            @ApiResponse(responseCode = "200", description = "Успешное изменение договора"),
+            @ApiResponse(responseCode = "404", description = "Данный контролер не найден"),
+            @ApiResponse(responseCode = "403", description = "Операция запрещена"),
+            @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
     public ResponseEntity<?> update(
             @ApiParam(name = "ContractDto", value = "Объект ContractDto который нужно изменить в программе")
@@ -90,10 +90,10 @@ public class ContractRestController {
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Удаляет договор по id")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное удаление договора"),
-            @ApiResponse(code = 404, message = "Данный контролер не найден"),
-            @ApiResponse(code = 403, message = "Операция запрещена"),
-            @ApiResponse(code = 401, message = "Нет доступа к данной операции")}
+            @ApiResponse(responseCode = "200", description = "Успешное удаление договора"),
+            @ApiResponse(responseCode = "404", description = "Данный контролер не найден"),
+            @ApiResponse(responseCode = "403", description = "Операция запрещена"),
+            @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
     public ResponseEntity<?> deleteById(
             @ApiParam(name = "id", value = "Значение поля Id объекта который хотим удалить", example = "1", required = true)
