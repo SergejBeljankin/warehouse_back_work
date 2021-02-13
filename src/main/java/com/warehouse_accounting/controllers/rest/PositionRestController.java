@@ -1,7 +1,6 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.PositionDto;
-import com.warehouse_accounting.models.dto.TaxSystemDto;
 import com.warehouse_accounting.services.interfaces.PositionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
