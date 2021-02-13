@@ -2,6 +2,7 @@ package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.WarehouseDto;
 import com.warehouse_accounting.services.interfaces.WarehouseService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -22,18 +23,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/warehouse")
-@Tag(name = "WarehouseDto Rest Controller", description = "CRUD операции с объектами WarehouseDto")
-public class WarehouseController {
+@Api(tags = "Warehouse Rest Controller")
+@Tag(name = "Warehouse Rest Controller", description = "CRUD операции с объектами")
+public class WarehouseRestController {
 
     private final WarehouseService warehouseService;
 
-    public WarehouseController(WarehouseService warehouseService) {
+    public WarehouseRestController(WarehouseService warehouseService) {
         this.warehouseService = warehouseService;
     }
 
 
     @GetMapping()
-    @Tag(name = "WarehouseDto Rest Controller")
     @ApiOperation(value = "Возвращает список объектов WarehouseDto", notes = "Возвращает List WarehouseDto", response = WarehouseDto.class)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Запрос успешно выполнен"),
@@ -41,14 +42,12 @@ public class WarehouseController {
             @ApiResponse(responseCode = "403", description = "Операция запрещена"),
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
-    public ResponseEntity<?> getAll() {
-        List<WarehouseDto> all = warehouseService.getAll();
-        return ResponseEntity.ok(all);
+    public ResponseEntity<List<WarehouseDto>> getAll() {
+        return ResponseEntity.ok(warehouseService.getAll());
     }
 
 
-    @GetMapping(value = "/{id}")
-    @Tag(name = "WarehouseDto Rest Controller")
+    @GetMapping("/{id}")
     @ApiOperation(value = "Возвращает объект WarehouseDto", notes = "Возвращает объект WarehouseDto по его ID", response = WarehouseDto.class)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Запрос успешно выполнен"),
@@ -56,17 +55,15 @@ public class WarehouseController {
             @ApiResponse(responseCode = "403", description = "Операция запрещена"),
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
-    public ResponseEntity<?> getById(
+    public ResponseEntity<WarehouseDto> getById(
             @ApiParam(name = "id", value = "Значение поля Id объекта которого хотим получить", example = "1", required = true)
             @PathVariable("id") long id) {
-        WarehouseDto warehouseDto = warehouseService.getById(id);
-        return ResponseEntity.ok(warehouseDto);
+        return ResponseEntity.ok(warehouseService.getById(id));
     }
 
 
     @PostMapping()
-    @Tag(name = "WarehouseDto Rest Controller")
-    @ApiOperation(value = "Создает объект WarehouseDto", notes = "Создает объект WarehouseDto в программе", response = WarehouseDto.class)
+    @ApiOperation(value = "Создает объект WarehouseDto", notes = "Создает объект WarehouseDto в программе")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Запрос успешно выполнен"),
             @ApiResponse(responseCode = "201", description = "Объект успешно создался"),
@@ -78,13 +75,12 @@ public class WarehouseController {
             @ApiParam(name = "WarehouseDto", value = "Объект WarehouseDto который нужно сохранить в программе")
             @RequestBody WarehouseDto warehouseDto) {
         warehouseService.create(warehouseDto);
-        return ResponseEntity.ok(warehouseDto);
+        return ResponseEntity.ok().build();
     }
 
 
     @PutMapping()
-    @Tag(name = "WarehouseDto Rest Controller")
-    @ApiOperation(value = "Обновляет объект WarehouseDto", notes = "Обновляем объект WarehouseDto в программе", response = WarehouseDto.class)
+    @ApiOperation(value = "Обновляет объект WarehouseDto", notes = "Обновляет объект WarehouseDto в программе")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Запрос успешно выполнен"),
             @ApiResponse(responseCode = "201", description = "Объект успешно обновился"),
@@ -96,13 +92,12 @@ public class WarehouseController {
             @ApiParam(name = "WarehouseDto", value = "Объект WarehouseDto который нужно обновить в программе")
             @RequestBody WarehouseDto warehouseDto) {
         warehouseService.update(warehouseDto);
-        return ResponseEntity.ok(warehouseDto);
+        return ResponseEntity.ok().build();
     }
 
 
-    @DeleteMapping(value = "/{id}")
-    @Tag(name = "WarehouseDto Rest Controller")
-    @ApiOperation(value = "Удаляет объект WarehouseDto", notes = "Удаляет объект WarehouseDto по его ID", response = WarehouseDto.class)
+    @DeleteMapping("/{id}")
+    @ApiOperation(value = "Удаляет объект WarehouseDto", notes = "Удаляет объект WarehouseDto по его ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Запрос успешно выполнен"),
             @ApiResponse(responseCode = "204", description = "Cервер успешно обработал запрос, но в ответе были переданы только заголовки без тела сообщения"),
@@ -114,7 +109,7 @@ public class WarehouseController {
             @ApiParam(name = "id", value = "Значение поля Id объекта которого хотим удалить", example = "1", required = true)
             @PathVariable("id") long id) {
         warehouseService.deleteById(id);
-        return ResponseEntity.ok().body("User deleted successfully");
+        return ResponseEntity.ok().build();
     }
 }
 
