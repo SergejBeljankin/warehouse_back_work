@@ -11,34 +11,29 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "employees")
-public class Employee {
+@Table(name = "contractors")
+public class Contractor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    private String lastName;
+    private String name;
 
-    @Column
-    private String firstName;
-
-    @Column
-    private String middleName;
+    @Column(unique = true)
+    private String inn;
 
     @Column
     private String sortNumber;
@@ -47,27 +42,32 @@ public class Employee {
     private String phone;
 
     @Column
-    private String inn;
+    private String fax;
 
     @Column
-    private String description;
-
-    @Column(unique = true, nullable = false)
     private String email;
 
     @Column
-    private String password;
+    private String address;
+
+    @Column
+    private String commentToAddress;
+
+    @Column
+    private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Department department;
+    private ContractorGroup contractorGroup;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Position position;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Role> roles;
+    private TypeOfContractor typeOfContractor;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Image image;
+    private TypeOfPrice typeOfPrice;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<BankAccount> bankAccounts;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private LegalDetail legalDetail;
 }
