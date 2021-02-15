@@ -26,10 +26,10 @@ import java.util.List;
 @Tag(name = "TypeOfPrice Rest Controller", description = "CRUD операции с объектами")
 public class TypeOfPriceRestController {
 
-    private final TypeOfPriceService service;
+    private final TypeOfPriceService typeOfPriceService;
 
     public TypeOfPriceRestController(TypeOfPriceService service) {
-        this.service = service;
+        this.typeOfPriceService = service;
     }
 
     @GetMapping
@@ -40,7 +40,7 @@ public class TypeOfPriceRestController {
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<List<TypeOfPriceDto>> getAll() {
-        return ResponseEntity.ok(service.getAll());
+        return ResponseEntity.ok(typeOfPriceService.getAll());
     }
 
     @GetMapping("/{id}")
@@ -52,7 +52,7 @@ public class TypeOfPriceRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<TypeOfPriceDto> getById(@ApiParam(name = "id", value = "id для получения TypeOfPriceDto", required = true)
                                                   @PathVariable("id") Long id) {
-        return ResponseEntity.ok(service.getById(id));
+        return ResponseEntity.ok(typeOfPriceService.getById(id));
     }
 
     @PostMapping
@@ -64,7 +64,7 @@ public class TypeOfPriceRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> create(@ApiParam(name = "TypeOfPriceDto", value = "объект TypeOfPriceDto для создания",
             required = true) @RequestBody TypeOfPriceDto typeOfPriceDto) {
-        service.create(typeOfPriceDto);
+        typeOfPriceService.create(typeOfPriceDto);
         return ResponseEntity.ok().build();
     }
 
@@ -77,7 +77,7 @@ public class TypeOfPriceRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "TypeOfPriceDto", value = "объект TypeOfPriceDto для обновления",
             required = true) @RequestBody TypeOfPriceDto typeOfPriceDto) {
-        service.update(typeOfPriceDto);
+        typeOfPriceService.update(typeOfPriceDto);
         return ResponseEntity.ok().build();
     }
 
@@ -90,7 +90,7 @@ public class TypeOfPriceRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "id для удаления TypeOfPriceDto",
             required = true) @PathVariable("id") Long id) {
-        service.deleteById(id);
+        typeOfPriceService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 }

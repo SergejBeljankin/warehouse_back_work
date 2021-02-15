@@ -1,7 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.CompanyDto;
-import com.warehouse_accounting.services.impl.CompanyServiceImpl;
+import com.warehouse_accounting.services.interfaces.CompanyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -24,11 +24,11 @@ import java.util.List;
 @RequestMapping("/api/companies")
 @Api(tags = "Company RESTController")
 @Tag(name = "Company RESTController", description = "controller for doing some CRUD-magic with companies")
-public class CompanyController {
+public class CompanyRestController {
 
-    private final CompanyServiceImpl companyService;
+    private final CompanyService companyService;
 
-    public CompanyController(CompanyServiceImpl companyService) {
+    public CompanyRestController(CompanyService companyService) {
         this.companyService = companyService;
     }
 

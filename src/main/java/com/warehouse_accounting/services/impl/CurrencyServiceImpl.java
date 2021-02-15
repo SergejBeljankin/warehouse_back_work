@@ -30,14 +30,14 @@ public class CurrencyServiceImpl implements CurrencyService {
     }
 
     @Override
-    public void create(CurrencyDto dto) {
+    public void create(CurrencyDto currencyDto) {
 
-        currencyRepository.save(ConverterDto.convertToModel(dto));
+        currencyRepository.save(ConverterDto.convertToModel(currencyDto));
     }
 
     @Override
-    public void update(CurrencyDto dto) {
-        currencyRepository.save(ConverterDto.convertToModel(dto));
+    public void update(CurrencyDto currencyDto) {
+        currencyRepository.save(ConverterDto.convertToModel(currencyDto));
     }
 
     @Override

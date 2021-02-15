@@ -31,13 +31,13 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
-    public void create(PositionDto dto) {
-        positionRepository.save(convertToModel(dto));
+    public void create(PositionDto positionDto) {
+        positionRepository.save(convertToModel(positionDto));
     }
 
     @Override
-    public void update(PositionDto dto) {
-        positionRepository.save(convertToModel(dto));
+    public void update(PositionDto positionDto) {
+        positionRepository.save(convertToModel(positionDto));
     }
 
     @Override
