@@ -22,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/employees")
-@Api(value = "Employee Rest Controller")
+@Api(tags = "Employee Rest Controller")
 @Tag(name = "Employee Rest Controller", description = "CRUD операции с Employee")
 public class EmployeeRestController {
 
