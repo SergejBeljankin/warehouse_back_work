@@ -16,7 +16,7 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/api/type_of_contractor")
+@RequestMapping("/api/tocs")
 @Api(value = "TypeOfContractor Rest")
 @Tag(name = "TypeOfContractor Rest", description = "controller for doing some CRUD with Type Of Contractor")
 public class TypeOfContractor_Rest_Controller {
@@ -28,8 +28,8 @@ public class TypeOfContractor_Rest_Controller {
         this.typeOfContractorService = typeOfContractorService;
     }
 
-    //GET ALL CONTRACTORS
-    @GetMapping(value = "/tocs")
+
+    @GetMapping
     @ApiOperation(value = "Все типы контрагентов", notes = "return List<TypeOfContractorDTO>", response = TypeOfContractorDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное получение листа типов контрагентов", response = TypeOfContractorDto.class),
@@ -42,8 +42,8 @@ public class TypeOfContractor_Rest_Controller {
         return ResponseEntity.ok(all_TOC);
     }
 
-    //DELETE
-    @DeleteMapping(value = "/tocs/delete{id}")
+
+    @DeleteMapping(value = "/{id}")
     @Tag(name = "TypeOfContractor Rest")
     @ApiOperation(value = "удалить тип контрагента по ID", notes = "return List<TypeOfContractorDTO>", response = TypeOfContractorDto.class)
     @ApiResponses(value = {
@@ -61,8 +61,8 @@ public class TypeOfContractor_Rest_Controller {
 
     }
 
-    //GET BY ID
-    @GetMapping(value = "/tocs/{id}")
+
+    @GetMapping(value = "/{id}")
     @ApiOperation(value = "получить тип контрагента по ID", response = TypeOfContractorDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Тип контагента найден", response = TypeOfContractorDto.class),
@@ -77,8 +77,8 @@ public class TypeOfContractor_Rest_Controller {
         return ResponseEntity.ok(typeOfContractorDto);
     }
 
-    //UPDATE
-    @PutMapping(value = "/tocs/update")
+
+    @PutMapping
     @ApiOperation(value = "Редактировать данные типа контрагента", response = TypeOfContractorDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Тип контагента найден", response = TypeOfContractorDto.class),
@@ -93,8 +93,8 @@ public class TypeOfContractor_Rest_Controller {
         return ResponseEntity.ok().build();
     }
 
-    //CREATE
-    @PutMapping(value = "/tocs/add")
+
+    @PutMapping
     @Tag(name = "TypeOfContractor Rest")
     @ApiOperation(value = "Создать  тип контрагента", response = TypeOfContractorDto.class)
     @ApiResponses(value = {

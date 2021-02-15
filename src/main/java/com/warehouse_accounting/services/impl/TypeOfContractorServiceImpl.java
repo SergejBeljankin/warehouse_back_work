@@ -12,25 +12,25 @@ import java.util.List;
 @Service
 @Transactional
 public class TypeOfContractorServiceImpl implements TypeOfContractorService {
-    private TypeOfContractorRepository tcRep;
+    private TypeOfContractorRepository typeOfContractorRepository;
 
-    public TypeOfContractorServiceImpl(TypeOfContractorRepository tcRep) {
-        this.tcRep = tcRep;
+    public TypeOfContractorServiceImpl(TypeOfContractorRepository typeOfContractorRepository) {
+        this.typeOfContractorRepository = typeOfContractorRepository;
     }
 
     @Override
     public List<TypeOfContractorDto> getAll() {
-        return tcRep.getAll();
+        return typeOfContractorRepository.getAll();
     }
 
     @Override
     public TypeOfContractorDto getById(Long id) {
-        return tcRep.getById(id);
+        return typeOfContractorRepository.getById(id);
     }
 
     @Override
     public void create(TypeOfContractorDto tcDTO) {
-        tcRep.save(
+        typeOfContractorRepository.save(
                 TypeOfContractor.builder()
                         .name(tcDTO.getName())
                         .sortNumber(tcDTO.getSortNumber())
@@ -41,12 +41,12 @@ public class TypeOfContractorServiceImpl implements TypeOfContractorService {
 
     @Override
     public void deleteByID(Long id){
-        tcRep.deleteById(id);
+        typeOfContractorRepository.deleteById(id);
     }
 
     @Override
     public void update(TypeOfContractorDto tcDTO) {
-        tcRep.save(
+        typeOfContractorRepository.save(
                 TypeOfContractor.builder()
                         .id(tcDTO.getId())
                         .name(tcDTO.getName())
