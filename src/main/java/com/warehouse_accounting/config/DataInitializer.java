@@ -24,12 +24,12 @@ public class DataInitializer {
 
     private void initRoles() {
         roleService.create(RoleDto.builder()
-                .name("Admin")
-                .sortNumber("sortAdmin")
+                .name("admin")
+                .sortNumber("sort_admin")
                 .build());
         roleService.create(RoleDto.builder()
-                .name("User")
-                .sortNumber("sortUser")
+                .name("user")
+                .sortNumber("sort_user")
                 .build());
     }
 }
