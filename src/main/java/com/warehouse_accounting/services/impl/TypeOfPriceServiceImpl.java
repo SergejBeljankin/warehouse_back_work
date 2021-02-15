@@ -37,7 +37,7 @@ public class TypeOfPriceServiceImpl implements TypeOfPriceService {
 
     @Override
     public void update(TypeOfPriceDto typeOfPriceDto) {
-        repository.saveAndFlush(ConverterDto.convertToModel(typeOfPriceDto));
+        repository.save(ConverterDto.convertToModel(typeOfPriceDto));
     }
 
     @Override
