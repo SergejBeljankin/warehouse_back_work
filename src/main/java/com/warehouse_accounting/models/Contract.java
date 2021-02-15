@@ -35,14 +35,12 @@ public class Contract {
     @Column
     private LocalDate contractDate;
 
-    @Column(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Company company;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private BankAccount bankAccount;
 
-    @Column(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Contractor contractor;
 
