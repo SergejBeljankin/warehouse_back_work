@@ -53,8 +53,8 @@ public class TypeOfPriceRestController {
             @ApiResponse(code = 404, message = "Данный контроллер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public ResponseEntity<TypeOfPriceDto> getById(@ApiParam(name = "id", value = "id для получения TypeOfPriceDto", required = true)
-                                                  @PathVariable("id") Long id) {
+    public ResponseEntity<TypeOfPriceDto> getById(@ApiParam(name = "id", value = "id для получения TypeOfPriceDto",
+            required = true) @PathVariable("id") Long id) {
         checkEntityService.checkExistTypeOfPriceById(id);
         return ResponseEntity.ok(typeOfPriceService.getById(id));
     }
