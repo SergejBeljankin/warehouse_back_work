@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.ImageDto;
+import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -26,9 +27,11 @@ import java.util.List;
 @Tag(name = "Image Rest Controller", description = "CRUD операции с объектами")
 public class ImageRestController {
     private final ImageService imageService;
+    private final CheckEntityService checkEntityService;
 
-    public ImageRestController(ImageService imageService) {
+    public ImageRestController(ImageService imageService, CheckEntityService checkEntityService) {
         this.imageService = imageService;
+        this.checkEntityService = checkEntityService;
     }
 
     @GetMapping
@@ -53,6 +56,7 @@ public class ImageRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<ImageDto> getById(@ApiParam(name = "id", value = "Id нужного ImageDto", required = true)
                                             @PathVariable("id") Long id) {
+        checkEntityService.checkExistImageById(id);
         return ResponseEntity.ok(imageService.getById(id));
     }
 
@@ -65,6 +69,7 @@ public class ImageRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "ImageDto", value = "Объект ImageDto для обновления",
             required = true) @RequestBody ImageDto imageDto) {
+        checkEntityService.checkExistImageById(imageDto.getId());
         imageService.update(imageDto);
         return ResponseEntity.ok().build();
     }
@@ -92,6 +97,7 @@ public class ImageRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "Id ImageDto для удаления", required = true)
                                         @PathVariable("id") Long id) {
+        checkEntityService.checkExistImageById(id);
         imageService.deleteById(id);
         return ResponseEntity.ok().build();
     }
