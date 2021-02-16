@@ -26,6 +26,7 @@ public class DataInitializer {
                 .sortNumber("sort_admin")
                 .build()
         );
+        
         roleService.create(RoleDto.builder()
                 .name("user")
                 .sortNumber("sort_user")
