@@ -1,4 +1,4 @@
-package com.warehouse_accounting.util.exception;
+package com.warehouse_accounting.exceptions;
 
 public class NotFoundEntityException extends RuntimeException{
 
