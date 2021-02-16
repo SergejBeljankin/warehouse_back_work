@@ -3,4 +3,40 @@ package com.warehouse_accounting.services.interfaces;
 public interface CheckEntityService {
 
     void checkExistUnitById(Long unitId);
+
+    void checkExistAttributeOfCalculationObjectById(Long attributeOfCalculationObjectId);
+
+    void checkExistCompanyById(Long companyId);
+
+    void checkExistBankAccountById(Long bankAccountId);
+
+    void checkExistContractorGroupById(Long contractorGroupId);
+
+    void checkExistContractById(Long contractId);
+
+    void checkExistCurrencyById(Long currencyId);
+
+    void checkExistDepartmentById(Long departmentId);
+
+    void checkExistImageById(Long imageId);
+
+    void checkExistLegalDetailById(Long legalDetailId);
+
+    void checkExistPositionById(Long positionId);
+
+    void checkExistRoleById(Long roleId);
+
+    void checkExistTaxSystemById(Long taxSystemId);
+
+    void checkExistTypeOfContractorById(Long typeOfContractorId);
+
+    void checkExistTypeOfPriceById(Long typeOfPriceId);
+
+    void checkExistWarehouseById(Long warehouseId);
+
+    void checkExistEmployeeById(Long employeeId);
+
+    void checkExistProductGroupById(Long productGroupID);
+
+//    void checkExistTypeOfInvoiceById(Long typeOfInvoiceID);
 }
