@@ -3,7 +3,6 @@ package com.warehouse_accounting.controllers.rest;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.services.interfaces.TypeOfContractorService;
 import io.swagger.annotations.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,13 +37,12 @@ public class TypeOfContractor_Rest_Controller {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции"),
             @ApiResponse(code = 500, message = "Ошибка сервера")})
     public ResponseEntity<List<TypeOfContractorDto>> getAll() {
-        List<TypeOfContractorDto> all_TOC = typeOfContractorService.getAll();
-        return ResponseEntity.ok(all_TOC);
+        List<TypeOfContractorDto> typeOfCntractorDtos = typeOfContractorService.getAll();
+        return ResponseEntity.ok(typeOfCntractorDtos);
     }
 
 
     @DeleteMapping(value = "/{id}")
-    @Tag(name = "TypeOfContractor Rest")
     @ApiOperation(value = "удалить тип контрагента по ID", notes = "return List<TypeOfContractorDTO>", response = TypeOfContractorDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Тип контрагента удален", response = TypeOfContractorDto.class),
@@ -95,7 +93,6 @@ public class TypeOfContractor_Rest_Controller {
 
 
     @PutMapping
-    @Tag(name = "TypeOfContractor Rest")
     @ApiOperation(value = "Создать  тип контрагента", response = TypeOfContractorDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Тип контагента создан", response = TypeOfContractorDto.class),
