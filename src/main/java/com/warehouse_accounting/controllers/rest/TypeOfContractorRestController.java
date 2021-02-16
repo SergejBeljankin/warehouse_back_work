@@ -18,12 +18,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/api/tocs")
 @Api(value = "TypeOfContractor Rest")
 @Tag(name = "TypeOfContractor Rest", description = "controller for doing some CRUD with Type Of Contractor")
-public class TypeOfContractor_Rest_Controller {
+public class TypeOfContractorRestController {
 
     private final TypeOfContractorService typeOfContractorService;
 
 
-    public TypeOfContractor_Rest_Controller(TypeOfContractorService typeOfContractorService) {
+    public TypeOfContractorRestController(TypeOfContractorService typeOfContractorService) {
         this.typeOfContractorService = typeOfContractorService;
     }
 
