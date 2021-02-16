@@ -15,7 +15,7 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/api/tocs")
+@RequestMapping("/api/tocs/")
 @Api(value = "TypeOfContractor Rest")
 @Tag(name = "TypeOfContractor Rest", description = "controller for doing some CRUD with Type Of Contractor")
 public class TypeOfContractorRestController {
@@ -76,7 +76,7 @@ public class TypeOfContractorRestController {
     }
 
 
-    @PutMapping
+    @PostMapping
     @ApiOperation(value = "Редактировать данные типа контрагента", response = TypeOfContractorDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Тип контагента найден", response = TypeOfContractorDto.class),
