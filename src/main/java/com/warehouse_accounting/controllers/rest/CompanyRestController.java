@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.CompanyDto;
+import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.CompanyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,11 +26,12 @@ import java.util.List;
 @Api(tags = "Company RESTController")
 @Tag(name = "Company RESTController", description = "controller for doing some CRUD-magic with companies")
 public class CompanyRestController {
-
+    private final CheckEntityService checkEntityService;
     private final CompanyService companyService;
 
-    public CompanyRestController(CompanyService companyService) {
+    public CompanyRestController(CompanyService companyService, CheckEntityService checkEntityService) {
         this.companyService = companyService;
+        this.checkEntityService = checkEntityService;
     }
 
     @GetMapping
@@ -53,6 +55,7 @@ public class CompanyRestController {
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
     public ResponseEntity<CompanyDto> getById(@PathVariable("id") long id) {
+        checkEntityService.checkExistCompanyById(id);
         return ResponseEntity.ok(companyService.getById(id));
     }
 
@@ -78,6 +81,7 @@ public class CompanyRestController {
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
     public ResponseEntity<?> update(@RequestBody CompanyDto companyDto) {
+        checkEntityService.checkExistCompanyById(companyDto.getId());
         companyService.update(companyDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -91,6 +95,7 @@ public class CompanyRestController {
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
     public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
+        checkEntityService.checkExistCompanyById(id);
         companyService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
