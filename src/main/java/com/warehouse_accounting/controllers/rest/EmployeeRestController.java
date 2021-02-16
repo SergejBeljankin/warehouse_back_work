@@ -50,7 +50,7 @@ public class EmployeeRestController {
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "getById", notes = "Получение Employee по id", response = EmployeeDto.class,)
+    @ApiOperation(value = "getById", notes = "Получение Employee по id", response = EmployeeDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное получение Employee"),
             @ApiResponse(code = 404, message = "Данный контроллер не найден"),

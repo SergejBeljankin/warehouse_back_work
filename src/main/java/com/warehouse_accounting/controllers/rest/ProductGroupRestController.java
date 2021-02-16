@@ -26,10 +26,10 @@ import java.util.List;
 @Tag(name = "Product Group Rest Controller", description = "CRUD операции с объектами")
 public class ProductGroupRestController {
 
-    private final ProductGroupService service;
+    private final ProductGroupService productGroupService;
 
     public ProductGroupRestController(ProductGroupService service) {
-        this.service = service;
+        this.productGroupService = service;
     }
 
 
@@ -41,7 +41,7 @@ public class ProductGroupRestController {
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<List<ProductGroupDto>> getAll() {
-        return ResponseEntity.ok(service.getAll());
+        return ResponseEntity.ok(productGroupService.getAll());
     }
 
     @GetMapping("/{id}")
@@ -53,7 +53,7 @@ public class ProductGroupRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<ProductGroupDto> getById(@ApiParam(name = "id", value = "id для получения ProductGroupDto",
             required = true) @PathVariable("id") Long id) {
-        return ResponseEntity.ok(service.getById(id));
+        return ResponseEntity.ok(productGroupService.getById(id));
     }
 
     @PostMapping
@@ -65,7 +65,7 @@ public class ProductGroupRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> create(@ApiParam(name = "ProductGroupDto", value = "объект ProductGroupDto для создания",
             required = true) @RequestBody ProductGroupDto productGroupDto) {
-        service.create(productGroupDto);
+        productGroupService.create(productGroupDto);
         return ResponseEntity.ok().build();
     }
 
@@ -78,7 +78,7 @@ public class ProductGroupRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "ProductGroupDto", value = "объект ProductGroupDto для обновления",
             required = true) @RequestBody ProductGroupDto productGroupDto) {
-        service.update(productGroupDto);
+        productGroupService.update(productGroupDto);
         return ResponseEntity.ok().build();
     }
 
@@ -91,7 +91,7 @@ public class ProductGroupRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "id для удаления ProductGroupDto",
             required = true) @PathVariable("id") Long id) {
-        service.deleteById(id);
+        productGroupService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 }

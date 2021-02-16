@@ -2,47 +2,53 @@ package com.warehouse_accounting.services.impl;
 
 import com.warehouse_accounting.models.TypeOfContractor;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
+import com.warehouse_accounting.repositories.TaxSystemRepository;
 import com.warehouse_accounting.repositories.TypeOfContractorRepository;
 import com.warehouse_accounting.services.interfaces.TypeOfContractorService;
 
 import java.util.List;
 
 public class TypeOfContractorServiceImpl implements TypeOfContractorService {
-    private TypeOfContractorRepository tcRep;
+
+    private TypeOfContractorRepository typeOfContractorRepository;
+
+    public TypeOfContractorServiceImpl(TypeOfContractorRepository typeOfContractorRepository) {
+        this.typeOfContractorRepository = typeOfContractorRepository;
+    }
 
     @Override
     public List<TypeOfContractorDto> getAll() {
-        return tcRep.getAll();
+        return typeOfContractorRepository.getAll();
     }
 
     @Override
     public TypeOfContractorDto getById(Long id) {
-        return tcRep.getById(id);
+        return typeOfContractorRepository.getById(id);
     }
 
     @Override
-    public void create(TypeOfContractorDto tcDTO) {
-        tcRep.save(
+    public void create(TypeOfContractorDto typeOfContractorDto) {
+        typeOfContractorRepository.save(
                 TypeOfContractor.builder()
-                        .name(tcDTO.getName())
-                        .sortNumber(tcDTO.getSortNumber())
+                        .name(typeOfContractorDto.getName())
+                        .sortNumber(typeOfContractorDto.getSortNumber())
                         .build()
 
         );
     }
 
     @Override
-    public void deleteByID(Long id){
-        tcRep.deleteById(id);
+    public void deleteById(Long id){
+        typeOfContractorRepository.deleteById(id);
     }
 
     @Override
-    public void update(TypeOfContractorDto tcDTO) {
-        tcRep.save(
+    public void update(TypeOfContractorDto typeOfContractorDto) {
+        typeOfContractorRepository.save(
                 TypeOfContractor.builder()
-                        .id(tcDTO.getId())
-                        .name(tcDTO.getName())
-                        .sortNumber(tcDTO.getSortNumber())
+                        .id(typeOfContractorDto.getId())
+                        .name(typeOfContractorDto.getName())
+                        .sortNumber(typeOfContractorDto.getSortNumber())
                         .build()
         );
     }
