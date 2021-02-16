@@ -24,10 +24,12 @@ public class DataInitializer {
         roleService.create(RoleDto.builder()
                 .name("admin")
                 .sortNumber("sort_admin")
-                .build());
+                .build()
+        );
         roleService.create(RoleDto.builder()
                 .name("user")
                 .sortNumber("sort_user")
-                .build());
+                .build()
+        );
     }
 }
