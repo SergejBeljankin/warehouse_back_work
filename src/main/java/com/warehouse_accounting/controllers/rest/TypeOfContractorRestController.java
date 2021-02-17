@@ -54,7 +54,7 @@ public class TypeOfContractorRestController {
             @ApiParam(name = "id", required = true)
             @PathVariable("id") long id
     ) {
-        typeOfContractorService.deleteByID(id);
+        typeOfContractorService.deleteById(id);
         return ResponseEntity.ok().build();
 
     }
