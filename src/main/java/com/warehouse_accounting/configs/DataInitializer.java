@@ -1,4 +1,4 @@
-package com.warehouse_accounting.config;
+package com.warehouse_accounting.configs;
 
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.services.interfaces.RoleService;
