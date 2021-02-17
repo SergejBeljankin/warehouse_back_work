@@ -32,7 +32,8 @@ public class RoleRestController {
 
     private final CheckEntityService checkEntityService;
 
-    public RoleRestController(RoleService roleService, CheckEntityService checkEntityService) {
+    public RoleRestController(RoleService roleService, 
+                              CheckEntityService checkEntityService) {
         this.roleService = roleService;
         this.checkEntityService = checkEntityService;
     }
