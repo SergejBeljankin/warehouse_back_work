@@ -31,7 +31,8 @@ public class WarehouseRestController {
     private final WarehouseService warehouseService;
     private final CheckEntityService checkEntityService;
 
-    public WarehouseRestController(WarehouseService warehouseService, CheckEntityService checkEntityService) {
+    public WarehouseRestController(WarehouseService warehouseService, 
+                                   CheckEntityService checkEntityService) {
         this.warehouseService = warehouseService;
         this.checkEntityService = checkEntityService;
     }
