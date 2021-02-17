@@ -6,6 +6,7 @@ import com.warehouse_accounting.repositories.CompanyRepository;
 import com.warehouse_accounting.repositories.ContractorRepository;
 import com.warehouse_accounting.repositories.ContractRepository;
 import com.warehouse_accounting.repositories.LegalDetailRepository;
+import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.ContractService;
 import com.warehouse_accounting.util.ConverterDto;
 import org.springframework.stereotype.Service;
@@ -22,19 +23,22 @@ public class ContractServiceImpl implements ContractService {
     private final BankAccountRepository bankAccountRepository;
     private final ContractorRepository contractorRepository;
     private final LegalDetailRepository legalDetailRepository;
+    private final CheckEntityService checkEntityService;
 
     public ContractServiceImpl(
             ContractRepository contractRepository,
             CompanyRepository companyRepository,
             BankAccountRepository bankAccountRepository,
             ContractorRepository contractorRepository,
-            LegalDetailRepository legalDetailRepository
+            LegalDetailRepository legalDetailRepository,
+            CheckEntityService checkEntityService
             ) {
         this.contractRepository = contractRepository;
         this.companyRepository = companyRepository;
         this.bankAccountRepository = bankAccountRepository;
         this.contractorRepository = contractorRepository;
         this.legalDetailRepository = legalDetailRepository;
+        this.checkEntityService = checkEntityService;
     }
 
     @Override
@@ -51,6 +55,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public ContractDto getById(Long id) {
+        checkEntityService.checkExistContractById(id);
         ContractDto contractDto = contractRepository.getById(id);
         contractDto.setCompanyDto(companyRepository.getById(contractDto.getCompanyDto().getId()));
         contractDto.setBankAccountDto(bankAccountRepository.getById(contractDto.getBankAccountDto().getId()));
@@ -67,11 +72,13 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public void update(ContractDto contractDto) {
+        checkEntityService.checkExistContractById(contractDto.getId());
         contractRepository.save(ConverterDto.convertToModel(contractDto));
     }
 
     @Override
     public void deleteById(Long id) {
+        checkEntityService.checkExistContractById(id);
         contractRepository.deleteById(id);
     }
 }
