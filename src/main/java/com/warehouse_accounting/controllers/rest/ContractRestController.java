@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.ContractDto;
+import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.ContractService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,9 +27,11 @@ import java.util.List;
 @Tag(name = "Contract Rest Controller", description = "API для работы с договорами")
 public class ContractRestController {
     private final ContractService contractService;
+    private final CheckEntityService checkEntityService;
 
-    public ContractRestController(ContractService contractService) {
+    public ContractRestController(ContractService contractService, CheckEntityService checkEntityService) {
         this.contractService = contractService;
+        this.checkEntityService = checkEntityService;
     }
 
     @GetMapping
@@ -54,6 +57,7 @@ public class ContractRestController {
     public ResponseEntity<ContractDto> getById(
             @ApiParam(name = "id", value = "Значение поля Id объекта которого хотим получить", example = "1", required = true)
             @PathVariable("id") Long id) {
+        checkEntityService.checkExistContractById(id);
         return ResponseEntity.ok(contractService.getById(id));
     }
 
@@ -83,6 +87,7 @@ public class ContractRestController {
     public ResponseEntity<?> update(
             @ApiParam(name = "ContractDto", value = "Объект ContractDto который нужно изменить в программе")
             @RequestBody ContractDto contractDto) {
+        checkEntityService.checkExistContractById(contractDto.getId());
         contractService.update(contractDto);
         return ResponseEntity.ok().build();
     }
@@ -98,6 +103,7 @@ public class ContractRestController {
     public ResponseEntity<?> deleteById(
             @ApiParam(name = "id", value = "Значение поля Id объекта который хотим удалить", example = "1", required = true)
             @PathVariable("id") long id) {
+        checkEntityService.checkExistContractById(id);
         contractService.deleteById(id);
         return ResponseEntity.ok().build();
     }
