@@ -2,6 +2,7 @@ package com.warehouse_accounting.controllers.rest;
 
 
 import com.warehouse_accounting.models.dto.CurrencyDto;
+import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.CurrencyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,9 +30,11 @@ import java.util.List;
 public class CurrencyRestController {
 
     private final CurrencyService currencyService;
+    private final CheckEntityService checkEntityService;
 
-    public CurrencyRestController(CurrencyService currencyService) {
+    public CurrencyRestController(CurrencyService currencyService, CheckEntityService checkEntityService) {
         this.currencyService = currencyService;
+        this.checkEntityService = checkEntityService;
     }
 
     @GetMapping
@@ -57,6 +60,7 @@ public class CurrencyRestController {
     public ResponseEntity<CurrencyDto> getById(@ApiParam(name =
             "id", value = "Id нужного CurrencyDto", required = true)
                                            @PathVariable("id") Long id) {
+        checkEntityService.checkExistCurrencyById(id);
         return ResponseEntity.ok(currencyService.getById(id));
     }
 
@@ -86,6 +90,7 @@ public class CurrencyRestController {
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "CurrencyDto", value = "Объект CurrencyDto для обновления",
             required = true) @RequestBody CurrencyDto currencyDto) {
+        checkEntityService.checkExistCurrencyById(currencyDto.getId());
         currencyService.update(currencyDto);
         return ResponseEntity.ok().build();
     }
@@ -94,13 +99,14 @@ public class CurrencyRestController {
     @ApiOperation(value = "Удаляет объект CurrencyDto с выбранным id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Запрос успешно выполнен"),
-            @ApiResponse(responseCode = "204", description = "Cервер успешно обработал запрос, но в ответе были переданы только заголовки без тела сообщения"),
+            @ApiResponse(responseCode = "204", description = "Сервер успешно обработал запрос, но в ответе были переданы только заголовки без тела сообщения"),
             @ApiResponse(responseCode = "404", description = "Данный контролер не найден"),
             @ApiResponse(responseCode = "403", description = "Операция запрещена"),
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name =
             "id", value = "Id CurrencyDto для удаления", required = true)
     @PathVariable("id") Long id) {
+        checkEntityService.checkExistCurrencyById(id);
         currencyService.deleteById(id);
         return ResponseEntity.ok().build();
     }
