@@ -29,7 +29,8 @@ public class ContractRestController {
     private final ContractService contractService;
     private final CheckEntityService checkEntityService;
 
-    public ContractRestController(ContractService contractService, CheckEntityService checkEntityService) {
+    public ContractRestController(ContractService contractService,
+                                  CheckEntityService checkEntityService) {
         this.contractService = contractService;
         this.checkEntityService = checkEntityService;
     }
