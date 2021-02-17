@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.RoleDto;
+import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,8 +30,11 @@ public class RoleRestController {
 
     private final RoleService roleService;
 
-    public RoleRestController(RoleService roleService) {
+    private final CheckEntityService checkEntityService;
+
+    public RoleRestController(RoleService roleService, CheckEntityService checkEntityService) {
         this.roleService = roleService;
+        this.checkEntityService = checkEntityService;
     }
 
     @GetMapping
@@ -56,6 +60,7 @@ public class RoleRestController {
     public ResponseEntity<RoleDto> getById(@ApiParam(name =
             "id", value = "Id нужного RoleDto", required = true)
     @PathVariable("id") Long id) {
+        checkEntityService.checkExistRoleById(id);
         return ResponseEntity.ok(roleService.getById(id));
     }
 
@@ -83,6 +88,7 @@ public class RoleRestController {
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "RoleDto", value = "Объект RoleDto для обновления",
             required = true) @RequestBody RoleDto roleDto) {
+        checkEntityService.checkExistRoleById(roleDto.getId());
         roleService.update(roleDto);
         return ResponseEntity.ok().build();
     }
@@ -98,6 +104,7 @@ public class RoleRestController {
     public ResponseEntity<?> deleteById(@ApiParam(name =
             "id", value = "Id RoleDto для удаления", required = true)
                                         @PathVariable("id") Long id) {
+        checkEntityService.checkExistRoleById(id);
         roleService.deleteById(id);
         return ResponseEntity.ok().build();
     }
