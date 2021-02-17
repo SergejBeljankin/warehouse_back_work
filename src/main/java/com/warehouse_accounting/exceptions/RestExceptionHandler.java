@@ -1,4 +1,4 @@
-package com.warehouse_accounting.util.exception;
+package com.warehouse_accounting.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

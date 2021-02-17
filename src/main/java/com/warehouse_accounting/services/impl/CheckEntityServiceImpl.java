@@ -19,7 +19,7 @@ import com.warehouse_accounting.repositories.TypeOfPriceRepository;
 import com.warehouse_accounting.repositories.UnitRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.repositories.WarehouseRepository;
-import com.warehouse_accounting.util.exception.NotFoundEntityException;
+import com.warehouse_accounting.exceptions.NotFoundEntityException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
