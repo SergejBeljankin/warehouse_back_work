@@ -30,13 +30,13 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void create(RoleDto dto) {
-        roleRepository.save(ConverterDto.convertToModel(dto));
+    public void create(RoleDto roleDto) {
+        roleRepository.save(ConverterDto.convertToModel(roleDto));
     }
 
     @Override
-    public void update(RoleDto dto) {
-        roleRepository.save(ConverterDto.convertToModel(dto));
+    public void update(RoleDto roleDto) {
+        roleRepository.save(ConverterDto.convertToModel(roleDto));
     }
 
     @Override

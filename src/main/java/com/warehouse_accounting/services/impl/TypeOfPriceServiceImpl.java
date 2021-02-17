@@ -14,34 +14,34 @@ import java.util.List;
 @Transactional
 public class TypeOfPriceServiceImpl implements TypeOfPriceService {
 
-    private final TypeOfPriceRepository repository;
+    private final TypeOfPriceRepository typeOfPriceRepository;
 
     public TypeOfPriceServiceImpl(TypeOfPriceRepository repository) {
-        this.repository = repository;
+        this.typeOfPriceRepository = repository;
     }
 
     @Override
     public List<TypeOfPriceDto> getAll() {
-        return repository.getAll();
+        return typeOfPriceRepository.getAll();
     }
 
     @Override
     public TypeOfPriceDto getById(Long id) {
-        return repository.getById(id);
+        return typeOfPriceRepository.getById(id);
     }
 
     @Override
     public void create(TypeOfPriceDto typeOfPriceDto) {
-        repository.save(ConverterDto.convertToModel(typeOfPriceDto));
+        typeOfPriceRepository.save(ConverterDto.convertToModel(typeOfPriceDto));
     }
 
     @Override
     public void update(TypeOfPriceDto typeOfPriceDto) {
-        repository.saveAndFlush(ConverterDto.convertToModel(typeOfPriceDto));
+        typeOfPriceRepository.save(ConverterDto.convertToModel(typeOfPriceDto));
     }
 
     @Override
     public void deleteById(Long id) {
-        repository.deleteById(id);
+        typeOfPriceRepository.deleteById(id);
     }
 }

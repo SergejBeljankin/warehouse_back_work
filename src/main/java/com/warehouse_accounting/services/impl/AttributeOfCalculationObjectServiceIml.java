@@ -1,6 +1,5 @@
 package com.warehouse_accounting.services.impl;
 
-import com.warehouse_accounting.models.AttributeOfCalculationObject;
 import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
 import com.warehouse_accounting.repositories.AttributeOfCalculationObjectRepository;
 import com.warehouse_accounting.services.interfaces.AttributeOfCalculationObjectService;
@@ -14,34 +13,34 @@ import java.util.List;
 @Transactional
 public class AttributeOfCalculationObjectServiceIml implements AttributeOfCalculationObjectService {
 
-    private final AttributeOfCalculationObjectRepository repository;
+    private final AttributeOfCalculationObjectRepository attributeOfCalculationObjectRepository;
 
     public AttributeOfCalculationObjectServiceIml(AttributeOfCalculationObjectRepository repository) {
-        this.repository = repository;
+        this.attributeOfCalculationObjectRepository = repository;
     }
 
     @Override
     public List<AttributeOfCalculationObjectDto> getAll() {
-        return repository.getAll();
+        return attributeOfCalculationObjectRepository.getAll();
     }
 
     @Override
     public AttributeOfCalculationObjectDto getById(Long id) {
-        return repository.getById(id);
+        return attributeOfCalculationObjectRepository.getById(id);
     }
 
     @Override
     public void create(AttributeOfCalculationObjectDto dto) {
-        repository.save(ConverterDto.convertToModel(dto));
+        attributeOfCalculationObjectRepository.save(ConverterDto.convertToModel(dto));
     }
 
     @Override
     public void update(AttributeOfCalculationObjectDto dto) {
-        repository.saveAndFlush(ConverterDto.convertToModel(dto));
+        attributeOfCalculationObjectRepository.save(ConverterDto.convertToModel(dto));
     }
 
     @Override
     public void deleteById(Long id) {
-        repository.deleteById(id);
+        attributeOfCalculationObjectRepository.deleteById(id);
     }
 }

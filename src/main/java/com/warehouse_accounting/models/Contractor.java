@@ -12,46 +12,61 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "contracts")
-public class Contract {
+@Table(name = "contractors")
+public class Contractor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    private String number;
+    private String name;
+
+    @Column(unique = true)
+    private String inn;
 
     @Column
-    private LocalDate contractDate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Company company;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private BankAccount bankAccount;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Contractor contractor;
+    private String sortNumber;
 
     @Column
-    private BigDecimal amount = BigDecimal.valueOf(0);
+    private String phone;
 
     @Column
-    private Boolean archive = false;
+    private String fax;
+
+    @Column
+    private String email;
+
+    @Column
+    private String address;
+
+    @Column
+    private String commentToAddress;
 
     @Column
     private String comment;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ContractorGroup contractorGroup;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TypeOfContractor typeOfContractor;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private TypeOfPrice typeOfPrice;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<BankAccount> bankAccounts;
 
     @OneToOne(fetch = FetchType.LAZY)
     private LegalDetail legalDetail;
