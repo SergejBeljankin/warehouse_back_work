@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/role")
+@RequestMapping("/api/roles")
 @Api(tags = "Role Rest Controller")
 @Tag(name = "Role Rest Controller",
         description = "CRUD операции с объектами")
