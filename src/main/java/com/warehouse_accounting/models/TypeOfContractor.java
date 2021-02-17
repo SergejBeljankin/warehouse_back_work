@@ -29,4 +29,5 @@ public class TypeOfContractor {
 
     @Column
     private String sortNumber;
+
 }

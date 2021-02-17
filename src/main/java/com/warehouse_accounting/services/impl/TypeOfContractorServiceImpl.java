@@ -2,15 +2,17 @@ package com.warehouse_accounting.services.impl;
 
 import com.warehouse_accounting.models.TypeOfContractor;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
-import com.warehouse_accounting.repositories.TaxSystemRepository;
 import com.warehouse_accounting.repositories.TypeOfContractorRepository;
 import com.warehouse_accounting.services.interfaces.TypeOfContractorService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
+@Transactional
 public class TypeOfContractorServiceImpl implements TypeOfContractorService {
-
-    private TypeOfContractorRepository typeOfContractorRepository;
+    private final TypeOfContractorRepository typeOfContractorRepository;
 
     public TypeOfContractorServiceImpl(TypeOfContractorRepository typeOfContractorRepository) {
         this.typeOfContractorRepository = typeOfContractorRepository;
