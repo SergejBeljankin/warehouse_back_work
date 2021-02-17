@@ -30,7 +30,8 @@ public class TaxSystemRestController {
     private final TaxSystemService taxSystemService;
     private  final CheckEntityService checkEntityService;
 
-    public TaxSystemRestController(TaxSystemService taxSystemService, CheckEntityService checkEntityService) {
+    public TaxSystemRestController(TaxSystemService taxSystemService, 
+                                   CheckEntityService checkEntityService) {
         this.taxSystemService = taxSystemService;
         this.checkEntityService = checkEntityService;
     }
