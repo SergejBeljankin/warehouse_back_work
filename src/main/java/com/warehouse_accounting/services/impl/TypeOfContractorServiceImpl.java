@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @Transactional
 public class TypeOfContractorServiceImpl implements TypeOfContractorService {
-    private TypeOfContractorRepository typeOfContractorRepository;
+    private final TypeOfContractorRepository typeOfContractorRepository;
 
     public TypeOfContractorServiceImpl(TypeOfContractorRepository typeOfContractorRepository) {
         this.typeOfContractorRepository = typeOfContractorRepository;
@@ -29,28 +29,28 @@ public class TypeOfContractorServiceImpl implements TypeOfContractorService {
     }
 
     @Override
-    public void create(TypeOfContractorDto tcDTO) {
+    public void create(TypeOfContractorDto typeOfContractorDto) {
         typeOfContractorRepository.save(
                 TypeOfContractor.builder()
-                        .name(tcDTO.getName())
-                        .sortNumber(tcDTO.getSortNumber())
+                        .name(typeOfContractorDto.getName())
+                        .sortNumber(typeOfContractorDto.getSortNumber())
                         .build()
 
         );
     }
 
     @Override
-    public void deleteByID(Long id){
+    public void deleteById(Long id){
         typeOfContractorRepository.deleteById(id);
     }
 
     @Override
-    public void update(TypeOfContractorDto tcDTO) {
+    public void update(TypeOfContractorDto typeOfContractorDto) {
         typeOfContractorRepository.save(
                 TypeOfContractor.builder()
-                        .id(tcDTO.getId())
-                        .name(tcDTO.getName())
-                        .sortNumber(tcDTO.getSortNumber())
+                        .id(typeOfContractorDto.getId())
+                        .name(typeOfContractorDto.getName())
+                        .sortNumber(typeOfContractorDto.getSortNumber())
                         .build()
         );
     }

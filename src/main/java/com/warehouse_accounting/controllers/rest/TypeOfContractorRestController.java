@@ -37,8 +37,8 @@ public class TypeOfContractorRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции"),
             @ApiResponse(code = 500, message = "Ошибка сервера")})
     public ResponseEntity<List<TypeOfContractorDto>> getAll() {
-        List<TypeOfContractorDto> typeOfCntractorDtos = typeOfContractorService.getAll();
-        return ResponseEntity.ok(typeOfCntractorDtos);
+        List<TypeOfContractorDto> typeOfContractorDtos = typeOfContractorService.getAll();
+        return ResponseEntity.ok(typeOfContractorDtos);
     }
 
 
