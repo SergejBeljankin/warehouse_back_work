@@ -32,7 +32,8 @@ public class CurrencyRestController {
     private final CurrencyService currencyService;
     private final CheckEntityService checkEntityService;
 
-    public CurrencyRestController(CurrencyService currencyService, CheckEntityService checkEntityService) {
+    public CurrencyRestController(CurrencyService currencyService, 
+                                  CheckEntityService checkEntityService) {
         this.currencyService = currencyService;
         this.checkEntityService = checkEntityService;
     }
