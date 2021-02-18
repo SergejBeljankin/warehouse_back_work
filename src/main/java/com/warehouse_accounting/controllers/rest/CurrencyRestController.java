@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/currencies")
+@RequestMapping("/api/currencies")
 @Api(tags = "Currency Rest Controller")
 @Tag(name = "Currency Rest Controller",
         description = "CRUD операции с объектами")
