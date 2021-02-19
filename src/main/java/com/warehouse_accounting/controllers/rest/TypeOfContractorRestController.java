@@ -24,7 +24,8 @@ public class TypeOfContractorRestController {
     private final TypeOfContractorService typeOfContractorService;
     private final CheckEntityService checkEntityService;
 
-    public TypeOfContractorRestController(TypeOfContractorService typeOfContractorService, CheckEntityService checkEntityService) {
+    public TypeOfContractorRestController(TypeOfContractorService typeOfContractorService,
+                                          CheckEntityService checkEntityService) {
         this.typeOfContractorService = typeOfContractorService;
         this.checkEntityService = checkEntityService;
     }
