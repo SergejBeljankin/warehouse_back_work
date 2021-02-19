@@ -30,7 +30,8 @@ public class ProductGroupRestController {
     private final ProductGroupService productGroupService;
     private final CheckEntityService checkEntityService;
 
-    public ProductGroupRestController(ProductGroupService productGroupService, CheckEntityService checkEntityService) {
+    public ProductGroupRestController(ProductGroupService productGroupService, 
+                                      CheckEntityService checkEntityService) {
         this.productGroupService = productGroupService;
         this.checkEntityService = checkEntityService;
     }
