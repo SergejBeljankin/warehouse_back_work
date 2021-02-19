@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/types_of_price")
+@RequestMapping("/api/type_of_prices")
 @Api(tags = "TypeOfPrice Rest Controller")
 @Tag(name = "TypeOfPrice Rest Controller", description = "CRUD операции с объектами")
 public class TypeOfPriceRestController {

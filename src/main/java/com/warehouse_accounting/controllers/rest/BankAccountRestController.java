@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/bank_account")
+@RequestMapping("/api/bank_accounts")
 @Api(tags = "BankAccount Rest Controller")
 @Tag(name = "BankAccount Rest Controller", description = "CRUD операции с объектами")
 public class BankAccountRestController {
