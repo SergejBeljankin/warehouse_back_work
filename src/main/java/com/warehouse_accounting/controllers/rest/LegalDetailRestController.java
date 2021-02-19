@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.LegalDetailDto;
+import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.LegalDetailService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,14 +22,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/legal_detail")
+@RequestMapping("/api/legal_details")
 @Api(tags = "LegalDetail Rest Controller")
 @Tag(name = "LegalDetail Rest Controller", description = "API для работы с юрдической информацией")
 public class LegalDetailRestController {
     private final LegalDetailService legalDetailService;
+    private final CheckEntityService checkEntityService;
 
-    public LegalDetailRestController(LegalDetailService legalDetailService) {
+    public LegalDetailRestController(LegalDetailService legalDetailService,
+                                     CheckEntityService checkEntityService) {
         this.legalDetailService = legalDetailService;
+        this.checkEntityService = checkEntityService;
     }
 
     @GetMapping
@@ -54,6 +58,7 @@ public class LegalDetailRestController {
     public ResponseEntity<LegalDetailDto> getById(
             @ApiParam(name = "id", value = "Значение поля Id объекта которого хотим получить", example = "1", required = true)
             @PathVariable("id") Long id) {
+        checkEntityService.checkExistLegalDetailById(id);
         return ResponseEntity.ok(legalDetailService.getById(id));
     }
 
@@ -68,7 +73,6 @@ public class LegalDetailRestController {
     public ResponseEntity<?> create(
             @ApiParam(name = "LegalDetailDto", value = "Объект LegalDetailDto который нужно обновить в программе")
             @RequestBody LegalDetailDto legalDetailDto) {
-        legalDetailDto.setTypeOfContractorDto(null);
         legalDetailService.create(legalDetailDto);
         return ResponseEntity.ok().build();
     }
@@ -84,6 +88,7 @@ public class LegalDetailRestController {
     public ResponseEntity<?> update(
             @ApiParam(name = "LegalDetailDto", value = "Объект LegalDetailDto который нужно сохранить в программе")
             @RequestBody LegalDetailDto legalDetailDto) {
+        checkEntityService.checkExistLegalDetailById(legalDetailDto.getId());
         legalDetailService.update(legalDetailDto);
         return ResponseEntity.ok().build();
     }
@@ -99,6 +104,7 @@ public class LegalDetailRestController {
     public ResponseEntity<?> deleteById(
             @ApiParam(name = "id", value = "Значение поля Id объекта который хотим удалить", example = "1", required = true)
             @PathVariable("id") long id) {
+        checkEntityService.checkExistLegalDetailById(id);
         legalDetailService.deleteById(id);
         return ResponseEntity.ok().build();
     }

@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/contractor_group")
+@RequestMapping("/api/contractor_groups")
 @Api(tags = "TaxSystem Rest Controller")
 @Tag(name = "ContractorGroup Rest", description = "controller for doing some CRUD with ContractorGroup")
-public class ContractorGroupRest {
+public class ContractorGroupRestController {
     private final ContractorGroupService contractorGroupService;
 
-    public ContractorGroupRest(ContractorGroupService contractorGroupService){
+    public ContractorGroupRestController(ContractorGroupService contractorGroupService){
         this.contractorGroupService = contractorGroupService;
     }
 
