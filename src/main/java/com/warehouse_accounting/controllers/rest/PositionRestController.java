@@ -30,7 +30,8 @@ public class PositionRestController {
     private final PositionService service;
     private final CheckEntityService checkEntityService;
 
-    public PositionRestController(PositionService service, CheckEntityService checkEntityService) {
+    public PositionRestController(PositionService service,
+                                  CheckEntityService checkEntityService) {
         this.service = service;
         this.checkEntityService = checkEntityService;
     }
