@@ -287,7 +287,7 @@ public class ConverterDto {
                 : null;
     }
 
-    public static TypeOfContractor convertToDto(TypeOfContractorDto typeOfContractorDto) {
+    public static TypeOfContractor convertToModel(TypeOfContractorDto typeOfContractorDto) {
         return typeOfContractorDto != null ?
                 TypeOfContractor.builder()
                         .id(typeOfContractorDto.getId())
@@ -312,7 +312,7 @@ public class ConverterDto {
                 .dateOfTheCertificate(legalDetailDto.getDateOfTheCertificate())
                 .typeOfContractor(
                         legalDetailDto.getTypeOfContractorDto() != null
-                                ? convertToDto(legalDetailDto.getTypeOfContractorDto())
+                                ? convertToModel(legalDetailDto.getTypeOfContractorDto())
                                 : null)
                 .build();
     }
