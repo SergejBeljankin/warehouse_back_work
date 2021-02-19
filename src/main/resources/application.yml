@@ -21,3 +21,6 @@ spring:
         format_sql: false
         jdbc:
           timezone: UTC
+
+data-init:
+  unit-data: src/main/java/com/warehouse_accounting/configs/data_for_initializer/Валюта.xlsx
