@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/legal_detail")
+@RequestMapping("/api/legal_details")
 @Api(tags = "LegalDetail Rest Controller")
 @Tag(name = "LegalDetail Rest Controller", description = "API для работы с юрдической информацией")
 public class LegalDetailRestController {
