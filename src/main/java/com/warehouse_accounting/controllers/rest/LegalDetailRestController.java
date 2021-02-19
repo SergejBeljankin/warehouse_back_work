@@ -29,7 +29,8 @@ public class LegalDetailRestController {
     private final LegalDetailService legalDetailService;
     private final CheckEntityService checkEntityService;
 
-    public LegalDetailRestController(LegalDetailService legalDetailService, CheckEntityService checkEntityService) {
+    public LegalDetailRestController(LegalDetailService legalDetailService,
+                                     CheckEntityService checkEntityService) {
         this.legalDetailService = legalDetailService;
         this.checkEntityService = checkEntityService;
     }
