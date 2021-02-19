@@ -1,4 +1,4 @@
-package com.warehouse_accounting.rest_controllers;
+package com.warehouse_accounting.integration_tests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.warehouse_accounting.controllers.rest.RoleRestController;
@@ -38,14 +38,14 @@ public class RoleRestControllerTest {
 
     @Test
     void testGetAll() throws Exception {
-        mockMvc.perform(get("/api/role"))
+        mockMvc.perform(get("/api/roles"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
 
     @Test
     void testGetById() throws Exception {
-        mockMvc.perform(get("/api/role/5"))
+        mockMvc.perform(get("/api/roles/5"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("5"))
@@ -60,12 +60,12 @@ public class RoleRestControllerTest {
                 .sortNumber("800").build();
         String jsonRole = new ObjectMapper().writeValueAsString(requiredRole);
 
-        mockMvc.perform(post("/api/role")
+        mockMvc.perform(post("/api/roles")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonRole))
                 .andExpect(status().isOk());
 
-        mockMvc.perform(get("/api/role/10"))
+        mockMvc.perform(get("/api/roles/10"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("dummy_user_3"))
@@ -80,12 +80,12 @@ public class RoleRestControllerTest {
                 .sortNumber("900").build();
         String jsonRole = new ObjectMapper().writeValueAsString(requiredRole);
 
-        mockMvc.perform(put("/api/role")
+        mockMvc.perform(put("/api/roles")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonRole))
                 .andExpect(status().isOk());
 
-        mockMvc.perform(get("/api/role/9"))
+        mockMvc.perform(get("/api/roles/9"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("dummy_user_2_new"))
@@ -94,10 +94,10 @@ public class RoleRestControllerTest {
 
     @Test
     void testDelete() throws Exception {
-        mockMvc.perform(delete("/api/role/9"))
+        mockMvc.perform(delete("/api/roles/9"))
                 .andExpect(status().isOk());
 
-        mockMvc.perform(get("/api/role/9"))
+        mockMvc.perform(get("/api/roles/9"))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
