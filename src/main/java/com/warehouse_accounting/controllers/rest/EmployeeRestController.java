@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.EmployeeDto;
+import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.EmployeeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,9 +28,12 @@ import java.util.List;
 public class EmployeeRestController {
 
     private final EmployeeService employeeService;
+    private final CheckEntityService checkEntityService;
 
-    public EmployeeRestController(EmployeeService employeeService) {
+    public EmployeeRestController(EmployeeService employeeService, 
+                                  CheckEntityService checkEntityService) {
         this.employeeService = employeeService;
+        this.checkEntityService = checkEntityService;
     }
 
     @GetMapping
@@ -58,6 +62,7 @@ public class EmployeeRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")}
     )
     public ResponseEntity<EmployeeDto> getById(@ApiParam(name = "id", value = "id для получения Employee", required = true) @PathVariable("id") Long id) {
+        checkEntityService.checkExistEmployeeById(id);
         return ResponseEntity.ok(employeeService.getById(id));
     }
 
@@ -83,6 +88,7 @@ public class EmployeeRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")}
     )
     public ResponseEntity<?> update(@ApiParam(name = "EmployeeDto", value = "EmployeeDto для обновления Employee", required = true) @RequestBody EmployeeDto employeeDto) {
+        checkEntityService.checkExistEmployeeById(employeeDto.getId());
         employeeService.update(employeeDto);
         return ResponseEntity.ok().build();
     }
@@ -96,6 +102,7 @@ public class EmployeeRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")}
     )
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "id удаляемого Employee", required = true) @PathVariable("id") Long id) {
+        checkEntityService.checkExistEmployeeById(id);
         employeeService.deleteById(id);
         return ResponseEntity.ok().build();
     }
