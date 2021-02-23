@@ -23,7 +23,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/contractor")
+@RequestMapping("/api/contractors")
 @Api(tags = "Contractor Rest Controller")
 @Tag(name = "Contractor Rest Controller", description = "CRUD операции с объектами")
 public class ContractorRestController {
