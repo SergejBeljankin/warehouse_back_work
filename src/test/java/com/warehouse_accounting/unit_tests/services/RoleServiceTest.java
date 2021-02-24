@@ -3,14 +3,14 @@ package com.warehouse_accounting.unit_tests.services;
 import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.repositories.RoleRepository;
-import com.warehouse_accounting.services.interfaces.RoleService;
+import com.warehouse_accounting.services.impl.RoleServiceImpl;
 import com.warehouse_accounting.util.ConverterDto;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -19,10 +19,10 @@ import java.util.List;
 @SpringBootTest
 class RoleServiceTest {
 
-    @Autowired
-    private RoleService roleService;
+    @InjectMocks
+    private RoleServiceImpl roleService;
 
-    @MockBean
+    @Mock
     private RoleRepository roleRepository;
 
     @Test
