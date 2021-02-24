@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.ProductGroupDto;
+import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.ProductGroupService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,9 +28,12 @@ import java.util.List;
 public class ProductGroupRestController {
 
     private final ProductGroupService productGroupService;
+    private final CheckEntityService checkEntityService;
 
-    public ProductGroupRestController(ProductGroupService service) {
-        this.productGroupService = service;
+    public ProductGroupRestController(ProductGroupService productGroupService, 
+                                      CheckEntityService checkEntityService) {
+        this.productGroupService = productGroupService;
+        this.checkEntityService = checkEntityService;
     }
 
 
@@ -53,6 +57,7 @@ public class ProductGroupRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<ProductGroupDto> getById(@ApiParam(name = "id", value = "id для получения ProductGroupDto",
             required = true) @PathVariable("id") Long id) {
+        checkEntityService.checkExistProductGroupById(id);
         return ResponseEntity.ok(productGroupService.getById(id));
     }
 
@@ -78,6 +83,7 @@ public class ProductGroupRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "ProductGroupDto", value = "объект ProductGroupDto для обновления",
             required = true) @RequestBody ProductGroupDto productGroupDto) {
+        checkEntityService.checkExistProductGroupById(productGroupDto.getId());
         productGroupService.update(productGroupDto);
         return ResponseEntity.ok().build();
     }
@@ -91,6 +97,7 @@ public class ProductGroupRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "id для удаления ProductGroupDto",
             required = true) @PathVariable("id") Long id) {
+        checkEntityService.checkExistProductGroupById(id);
         productGroupService.deleteById(id);
         return ResponseEntity.ok().build();
     }

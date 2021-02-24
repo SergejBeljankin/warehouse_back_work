@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.DepartmentDto;
+import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.DepartmentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,10 +30,14 @@ import java.util.List;
 public class DepartmentRestController {
 
     private final DepartmentService departmentService;
+    private final CheckEntityService checkEntityService;
 
-    public DepartmentRestController(DepartmentService departmentService) {
+    public DepartmentRestController(DepartmentService departmentService,
+                                    CheckEntityService checkEntityService) {
         this.departmentService = departmentService;
+        this.checkEntityService = checkEntityService;
     }
+
 
     @GetMapping
     @ApiOperation(value = "Возвращает все департаменты", notes = "Возвращает список DepartmentDto",
@@ -56,6 +61,7 @@ public class DepartmentRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<DepartmentDto> getById(@ApiParam(name = "id", value = "Id нужного DepartmentDto", required = true)
                                             @PathVariable("id") Long id) {
+        checkEntityService.checkExistDepartmentById(id);
         return ResponseEntity.ok(departmentService.getById(id));
     }
 
@@ -68,6 +74,7 @@ public class DepartmentRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "DepartmentDto", value = "Объект DepartmentDto для обновления",
             required = true) @RequestBody DepartmentDto departmentDto) {
+        checkEntityService.checkExistDepartmentById(departmentDto.getId());
         departmentService.update(departmentDto);
         return ResponseEntity.ok().build();
     }
@@ -95,6 +102,7 @@ public class DepartmentRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "Id DepartmentDto для удаления", required = true)
                                         @PathVariable("id") Long id) {
+        checkEntityService.checkExistDepartmentById(id);
         departmentService.deleteById(id);
         return ResponseEntity.ok().build();
     }

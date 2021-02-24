@@ -24,7 +24,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.warehouse_accounting.controllers"))
+                .apis(RequestHandlerSelectors.basePackage("com.warehouse_accounting.controllers.rest"))
                 .paths(PathSelectors.regex("/api.*"))
                 .build();
     }
