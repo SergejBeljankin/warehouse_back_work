@@ -8,7 +8,7 @@ spring:
     username: root
     password: root
     initialization-mode: always
-    data: classpath:sql_for_initializer/*.sql
+
 
   jpa:
     open-in-view: false
