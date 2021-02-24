@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/contractor_group")
+@RequestMapping("/api/contractor_groups")
 @Api(tags = "ContractorGroup Rest")
 @Tag(name = "ContractorGroup Rest", description = "controller for doing some CRUD with ContractorGroup")
 public class ContractorGroupRestController {
