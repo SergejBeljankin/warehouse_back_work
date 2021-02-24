@@ -1,10 +1,14 @@
 package com.warehouse_accounting.unit_tests.services;
 
+import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.dto.RoleDto;
+import com.warehouse_accounting.repositories.RoleRepository;
 import com.warehouse_accounting.services.interfaces.RoleService;
+import com.warehouse_accounting.util.ConverterDto;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.util.Assert;
@@ -15,21 +19,24 @@ import java.util.List;
 @SpringBootTest
 class RoleServiceTest {
 
-    @MockBean
+    @Autowired
     private RoleService roleService;
+
+    @MockBean
+    private RoleRepository roleRepository;
 
     @Test
     void getAll() {
         List<RoleDto> roleDtoList = roleService.getAll();
         Assert.notNull(roleDtoList, "а тут вылез null");
-        Mockito.verify(roleService, Mockito.times(1))
+        Mockito.verify(roleRepository, Mockito.times(1))
                 .getAll();
     }
 
     @Test
     void getById() {
         roleService.getById((long) 1);
-        Mockito.verify(roleService, Mockito.times(1))
+        Mockito.verify(roleRepository, Mockito.times(1))
                 .getById(ArgumentMatchers.eq((long) 1));
 
     }
@@ -37,23 +44,25 @@ class RoleServiceTest {
     @Test
     void create() {
         RoleDto roleDto = new RoleDto();
+        Role role = ConverterDto.convertToModel(roleDto);
         roleService.create(roleDto);
-        Mockito.verify(roleService, Mockito.times(1))
-                .create(ArgumentMatchers.eq(roleDto));
+        Mockito.verify(roleRepository, Mockito.times(1))
+                .save(ArgumentMatchers.eq(role));
     }
 
     @Test
     void update() {
         RoleDto roleDto = new RoleDto();
+        Role role = ConverterDto.convertToModel(roleDto);
         roleService.update(roleDto);
-        Mockito.verify(roleService, Mockito.times(1))
-                .update(ArgumentMatchers.eq(roleDto));
+        Mockito.verify(roleRepository, Mockito.times(1))
+                .save(ArgumentMatchers.eq(role));
     }
 
     @Test
     void deleteById() {
         roleService.deleteById((long) 999);
-        Mockito.verify(roleService, Mockito.times(1))
+        Mockito.verify(roleRepository, Mockito.times(1))
                 .deleteById(ArgumentMatchers.eq((long) 999));
     }
 }
