@@ -3,6 +3,7 @@ package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
+import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.ContractorGroupService;
 import io.swagger.annotations.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,15 +13,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/contractor_groups")
-@Api(tags = "TaxSystem Rest Controller")
+@Api(tags = "ContractorGroup Rest")
 @Tag(name = "ContractorGroup Rest", description = "controller for doing some CRUD with ContractorGroup")
 public class ContractorGroupRestController {
+
     private final ContractorGroupService contractorGroupService;
+    private final CheckEntityService checkEntityService;
 
-    public ContractorGroupRestController(ContractorGroupService contractorGroupService){
+    public ContractorGroupRestController(ContractorGroupService contractorGroupService, 
+                                         CheckEntityService checkEntityService) {
         this.contractorGroupService = contractorGroupService;
+        this.checkEntityService = checkEntityService;
     }
-
 
     @GetMapping
     @ApiOperation(value = "Все группы контрагентов", notes = "return List<ContractorGroupDto>", response = TypeOfContractorDto.class)
@@ -30,7 +34,7 @@ public class ContractorGroupRestController {
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции"),
             @ApiResponse(code = 500, message = "Ошибка сервера")})
-    public ResponseEntity<List<ContractorGroupDto>> getAll(){
+    public ResponseEntity<List<ContractorGroupDto>> getAll() {
         List<ContractorGroupDto> contractorGroupDtos = contractorGroupService.getAll();
         return ResponseEntity.ok(contractorGroupDtos);
     }
@@ -46,11 +50,10 @@ public class ContractorGroupRestController {
             @ApiResponse(code = 500, message = "Ошибка сервера")})
     public ResponseEntity<ContractorGroupDto> delete(
             @ApiParam(name = "id", required = true)
-            @PathVariable("id") long id
-    ) {
+            @PathVariable("id") long id) {
+        checkEntityService.checkExistContractorGroupById(id);
         contractorGroupService.deleteById(id);
         return ResponseEntity.ok().build();
-
     }
 
 
@@ -65,6 +68,7 @@ public class ContractorGroupRestController {
     public ResponseEntity<ContractorGroupDto> getById(
             @ApiParam(name = "id", required = true)
             @PathVariable("id") long id) {
+        checkEntityService.checkExistContractorGroupById(id);
         ContractorGroupDto contractorGroupDto = contractorGroupService.getById(id);
         return ResponseEntity.ok(contractorGroupDto);
     }
@@ -81,6 +85,7 @@ public class ContractorGroupRestController {
     public ResponseEntity<ContractorGroupDto> update(
             @ApiParam(name = "update typeofContractor")
             @RequestBody ContractorGroupDto contractorGroupDto) {
+        checkEntityService.checkExistContractorGroupById(contractorGroupDto.getId());
         contractorGroupService.update(contractorGroupDto);
         return ResponseEntity.ok().build();
     }
