@@ -7,10 +7,3 @@ INSERT INTO departments (name, sort_number) VALUES ('Транспортный о
 INSERT INTO departments (name, sort_number) VALUES ('Финансовый отдел', 7);
 INSERT INTO departments (name, sort_number) VALUES ('Отдел маркетинга', 8);
 INSERT INTO departments (name, sort_number) VALUES ('HR отдел', 9);
-
-
-
-
-
-
-
