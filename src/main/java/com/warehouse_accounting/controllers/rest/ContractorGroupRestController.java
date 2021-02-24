@@ -20,7 +20,8 @@ public class ContractorGroupRestController {
     private final ContractorGroupService contractorGroupService;
     private final CheckEntityService checkEntityService;
 
-    public ContractorGroupRestController(ContractorGroupService contractorGroupService, CheckEntityService checkEntityService) {
+    public ContractorGroupRestController(ContractorGroupService contractorGroupService, 
+                                         CheckEntityService checkEntityService) {
         this.contractorGroupService = contractorGroupService;
         this.checkEntityService = checkEntityService;
     }
