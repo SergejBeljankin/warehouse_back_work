@@ -9,7 +9,6 @@ spring:
     password: root
     initialization-mode: always
 
-
   jpa:
     open-in-view: false
     show-sql: true
