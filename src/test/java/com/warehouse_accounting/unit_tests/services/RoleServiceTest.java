@@ -1,6 +1,5 @@
 package com.warehouse_accounting.unit_tests.services;
 
-import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.repositories.RoleRepository;
 import com.warehouse_accounting.services.impl.RoleServiceImpl;
@@ -19,7 +18,6 @@ import java.util.List;
 
 import static org.mockito.Mockito.when;
 
-
 @SpringBootTest
 class RoleServiceTest {
 
@@ -36,12 +34,12 @@ class RoleServiceTest {
     @BeforeAll
     static void initMethod() {
         roleDto1 = RoleDto.builder()
-                .id((long)1)
+                .id((long) 1)
                 .sortNumber("1")
                 .name("first")
                 .build();
         roleDto2 = RoleDto.builder()
-                .id((long)2)
+                .id((long) 2)
                 .sortNumber("2")
                 .name("second")
                 .build();
@@ -52,15 +50,15 @@ class RoleServiceTest {
     void getAll() {
         when(roleRepository.getAll()).thenReturn(roleDtoList);
         List<RoleDto> resultRoleDtoList = roleService.getAll();
-        Assertions.assertEquals(resultRoleDtoList, roleDtoList);
         Assert.notNull(resultRoleDtoList, "а тут вылез null");
+        Assertions.assertEquals(resultRoleDtoList, roleDtoList);
         Mockito.verify(roleRepository, Mockito.times(1))
                 .getAll();
     }
 
     @Test
     void getById() {
-        when(roleRepository.getById((long)1)).thenReturn(roleDto1);
+        when(roleRepository.getById((long) 1)).thenReturn(roleDto1);
         Assertions.assertEquals(roleService.getById((long) 1), roleDto1);
         Mockito.verify(roleRepository, Mockito.times(1))
                 .getById(ArgumentMatchers.eq((long) 1));
@@ -69,18 +67,16 @@ class RoleServiceTest {
 
     @Test
     void create() {
-        Role role = ConverterDto.convertToModel(roleDto1);
         roleService.create(roleDto1);
         Mockito.verify(roleRepository, Mockito.times(1))
-                .save(ArgumentMatchers.eq(role));
+                .save(ArgumentMatchers.eq(ConverterDto.convertToModel(roleDto1)));
     }
 
     @Test
     void update() {
-        Role role = ConverterDto.convertToModel(roleDto2);
         roleService.update(roleDto2);
         Mockito.verify(roleRepository, Mockito.times(1))
-                .save(ArgumentMatchers.eq(role));
+                .save(ArgumentMatchers.eq(ConverterDto.convertToModel(roleDto2)));
     }
 
     @Test
