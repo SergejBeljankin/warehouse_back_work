@@ -26,7 +26,8 @@ public class DataInitializer {
     private final RoleService roleService;
     private final UnitService unitService;
 
-    public DataInitializer(RoleService roleService, UnitService unitService) {
+    public DataInitializer(RoleService roleService, 
+                           UnitService unitService) {
         this.roleService = roleService;
         this.unitService = unitService;
     }
