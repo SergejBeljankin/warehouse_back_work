@@ -1,1 +1,1 @@
-INSERT INTO warehouse (name, sort_number) VALUES ('Основной склад', '1');
+INSERT INTO warehouses (name, sort_number) VALUES ('Основной склад', '1');
