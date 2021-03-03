@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TransferDto {
+public class MovementDto {
 
     private Long id;
 
@@ -26,19 +26,19 @@ public class TransferDto {
 
     private BigDecimal sum = BigDecimal.valueOf(0);
 
-    private boolean transferred;
+    private boolean moved;
 
     private boolean printed;
 
     private String comment;
 
-    public TransferDto(Long id,
+    public MovementDto(Long id,
                        LocalDateTime dateTime,
                        Long warehouseFromId,
                        Long warehouseToId,
                        Long companyId,
                        BigDecimal sum,
-                       boolean transferred,
+                       boolean moved,
                        boolean printed,
                        String comment) {
         this.id = id;
@@ -47,7 +47,7 @@ public class TransferDto {
         this.warehouseTo.setId(warehouseToId);
         this.company.setId(companyId);
         this.sum = sum;
-        this.transferred = transferred;
+        this.moved = moved;
         this.printed = printed;
         this.comment = comment;
     }

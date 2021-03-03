@@ -15,7 +15,7 @@ import com.warehouse_accounting.models.Position;
 import com.warehouse_accounting.models.ProductGroup;
 import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.TaxSystem;
-import com.warehouse_accounting.models.Transfer;
+import com.warehouse_accounting.models.Movement;
 import com.warehouse_accounting.models.TypeOfContractor;
 import com.warehouse_accounting.models.TypeOfPrice;
 import com.warehouse_accounting.models.Unit;
@@ -35,7 +35,7 @@ import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.models.dto.ProductGroupDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
-import com.warehouse_accounting.models.dto.TransferDto;
+import com.warehouse_accounting.models.dto.MovementDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
@@ -491,15 +491,15 @@ public class ConverterDto {
                 .sortNumber(e.getSortNumber()).build()).collect(Collectors.toSet());
     }
 
-    public static Transfer convertToModel(TransferDto dto) {
-        return Transfer.builder()
+    public static Movement convertToModel(MovementDto dto) {
+        return Movement.builder()
                 .id(dto.getId())
                 .dateTime(dto.getDateTime())
                 .warehouseFrom(convertToModel(dto.getWarehouseFrom()))
                 .warehouseTo(convertToModel(dto.getWarehouseTo()))
                 .company(convertToModel(dto.getCompany()))
                 .sum(dto.getSum())
-                .transferred(dto.isTransferred())
+                .moved(dto.isMoved())
                 .printed(dto.isPrinted())
                 .comment(dto.getComment()).build();
     }

@@ -21,8 +21,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "transfers")
-public class Transfer {
+@Table(name = "movements")
+public class Movement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +44,7 @@ public class Transfer {
     private BigDecimal sum;
 
     @Column
-    private boolean transferred;
+    private boolean moved;
 
     @Column
     private boolean printed;
