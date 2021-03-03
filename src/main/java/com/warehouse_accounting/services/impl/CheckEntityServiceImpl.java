@@ -196,10 +196,15 @@ public class CheckEntityServiceImpl implements CheckEntityService {
             throw new NotFoundEntityException("ProductGroup с id=" + productGroupID + ", не найден");
         }
     }
-//
-//    public void checkExistTypeOfInvoiceById(Long typeOfInvoiceID) {
+
+    @Override
+    public void checkExistContractorById(Long contractorId) {
+
+    }
+
+    public void checkExistTypeOfInvoiceById(Long typeOfInvoiceID) {
 //        if (!typeOfInvoiceRepository.existsById(typeOfInvoiceID)) {
 //            throw new NotFoundEntityException("TypeOfInvoiceID с id=" + typeOfInvoiceID + ", не найден");
 //        }
-//    }
+    }
 }
