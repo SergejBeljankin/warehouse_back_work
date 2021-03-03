@@ -67,7 +67,7 @@ public class MovementRestController {
             @ApiResponse(code = 404, message = "Данный контроллер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public ResponseEntity<?> create(@ApiParam(name = "MovementDto", value = "объект MovementD для создания",
+    public ResponseEntity<?> create(@ApiParam(name = "MovementDto", value = "объект MovementDto для создания",
             required = true) @RequestBody MovementDto movementDto) {
         service.create(movementDto);
         return ResponseEntity.ok().build();
@@ -80,7 +80,7 @@ public class MovementRestController {
             @ApiResponse(code = 404, message = "Данный контроллер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public ResponseEntity<?> update(@ApiParam(name = "Movement", value = "объект MovementDto для обновления",
+    public ResponseEntity<?> update(@ApiParam(name = "MovementDto", value = "объект MovementDto для обновления",
             required = true) @RequestBody MovementDto movementDto) {
         checkEntityService.checkExistMovementById(movementDto.getId());
         service.update(movementDto);
