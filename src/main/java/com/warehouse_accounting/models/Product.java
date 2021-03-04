@@ -40,7 +40,7 @@ public class Product {
     @Column(scale = 6)
     private BigDecimal volume;
 
-    @Column(scale = 3)
+    @Column(scale = 2)
     private BigDecimal purchasePrice;
 
     @Column
