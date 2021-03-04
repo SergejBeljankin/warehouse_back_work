@@ -55,8 +55,8 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     private Contractor contractor;
 
-//    @OneToMany(fetch = FetchType.LAZY)
-//    private List<TypeOfPrice> typeOfPrices;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<ProductPrice> productPrices;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private TaxSystem taxSystem;
