@@ -10,6 +10,7 @@ import com.warehouse_accounting.repositories.DepartmentRepository;
 import com.warehouse_accounting.repositories.EmployeeRepository;
 import com.warehouse_accounting.repositories.ImageRepository;
 import com.warehouse_accounting.repositories.LegalDetailRepository;
+import com.warehouse_accounting.repositories.MovementRepository;
 import com.warehouse_accounting.repositories.PositionRepository;
 import com.warehouse_accounting.repositories.ProductGroupRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
@@ -45,6 +46,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final TypeOfPriceRepository typeOfPriceRepository;
     private final UnitRepository unitRepository;
     private final WarehouseRepository warehouseRepository;
+    private final MovementRepository movementRepository;
     //private final TypeOfInvoiceRepository typeOfInvoiceRepository;
 
     public CheckEntityServiceImpl(UnitRepository unitRepository,
@@ -64,9 +66,10 @@ public class CheckEntityServiceImpl implements CheckEntityService {
                                   TypeOfPriceRepository typeOfPriceRepository,
                                   WarehouseRepository warehouseRepository,
                                   ProductGroupRepository productGroupRepository,
-                                  EmployeeRepository employeeRepository
+                                  EmployeeRepository employeeRepository,
+                                  MovementRepository movementRepository
 //                                 ,TypeOfInvoiceRepository typeOfInvoiceRepository
-                                 ) {
+    ) {
         this.unitRepository = unitRepository;
         this.attributeOfCalculationObjectRepository = attributeOfCalculationObjectRepository;
         this.bankAccountRepository = bankAccountRepository;
@@ -85,6 +88,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
         this.warehouseRepository = warehouseRepository;
         this.productGroupRepository = productGroupRepository;
         this.employeeRepository = employeeRepository;
+        this.movementRepository = movementRepository;
 //        this.typeOfInvoiceRepository = typeOfInvoiceRepository;
     }
 
@@ -200,6 +204,13 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     @Override
     public void checkExistContractorById(Long contractorId) {
 
+    }
+
+    @Override
+    public void checkExistMovementById(Long movementId) {
+        if (!movementRepository.existsById(movementId)) {
+            throw new NotFoundEntityException("Movement с id=" + movementId + ", не найден");
+        }
     }
 
     public void checkExistTypeOfInvoiceById(Long typeOfInvoiceID) {
