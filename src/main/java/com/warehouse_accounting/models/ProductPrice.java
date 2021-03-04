@@ -12,10 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.util.List;
+
 
 @Data
 @NoArgsConstructor
@@ -32,8 +31,8 @@ public class ProductPrice {
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<TypeOfPrice> typeOfPrices;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TypeOfPrice typeOfPrice;
 
     @Column(scale = 2)
     private BigDecimal price;
