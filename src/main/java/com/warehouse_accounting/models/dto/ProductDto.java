@@ -32,7 +32,7 @@ public class ProductDto {
 
     private ContractorDto contractorDto = new ContractorDto();
 
-    private List<ProductPrice> productPricesDto = new ArrayList<>();
+    private List<ProductPriceDto> productPricesDto = new ArrayList<>();
 
     private TaxSystemDto taxSystemDto = new TaxSystemDto();
 
