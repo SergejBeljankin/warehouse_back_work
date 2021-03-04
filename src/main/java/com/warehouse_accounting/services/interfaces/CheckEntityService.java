@@ -42,6 +42,8 @@ public interface CheckEntityService {
 
     void checkExistMovementById(Long contractorId);
 
-
 //    void checkExistTypeOfInvoiceById(Long typeOfInvoiceID);
+
+    void checkExistInvoiceById(Long invoiceID);
+
 }
