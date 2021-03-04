@@ -4,10 +4,12 @@ import com.warehouse_accounting.models.Company;
 import com.warehouse_accounting.models.Employee;
 import com.warehouse_accounting.models.TypeOfInvoice;
 import com.warehouse_accounting.models.Warehouse;
+import com.warehouse_accounting.models.Project;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.warehouse_accounting.models.InvoiceEdit;
 //import com.warehouse_accounting.models.InvoiceProduct;
 
 import javax.persistence.CascadeType;
@@ -20,6 +22,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
@@ -53,14 +56,13 @@ public class Invoice {
     private boolean isPosted;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Employee invoiceOwner;
+    private Employee invoiceAuthor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Company company;
 
-    // Сущность Project ещё не реализована!
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private Project project;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Project project;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Warehouse warehouse;
@@ -84,4 +86,7 @@ public class Invoice {
 
     @Column(scale = 2)
     private BigDecimal total;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<InvoiceEdit> edits;
 }
