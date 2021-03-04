@@ -81,12 +81,6 @@ public class Invoice {
     @ManyToOne(fetch = FetchType.LAZY)
     private Contract contract;
 
-    @Column(scale = 2)
-    private BigDecimal subTotal;
-
-    @Column(scale = 2)
-    private BigDecimal total;
-
     @OneToMany(fetch = FetchType.LAZY)
     private Set<InvoiceEdit> edits;
 }
