@@ -10,6 +10,8 @@ import com.warehouse_accounting.models.Currency;
 import com.warehouse_accounting.models.Department;
 import com.warehouse_accounting.models.Employee;
 import com.warehouse_accounting.models.Image;
+import com.warehouse_accounting.models.Invoice;
+import com.warehouse_accounting.models.InvoiceEdit;
 import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.Position;
 import com.warehouse_accounting.models.ProductGroup;
@@ -17,6 +19,7 @@ import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.TaxSystem;
 import com.warehouse_accounting.models.Movement;
 import com.warehouse_accounting.models.TypeOfContractor;
+import com.warehouse_accounting.models.TypeOfInvoice;
 import com.warehouse_accounting.models.TypeOfPrice;
 import com.warehouse_accounting.models.Unit;
 import com.warehouse_accounting.models.Warehouse;
@@ -30,6 +33,8 @@ import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
 import com.warehouse_accounting.models.dto.EmployeeDto;
 import com.warehouse_accounting.models.dto.ImageDto;
+import com.warehouse_accounting.models.dto.InvoiceDto;
+import com.warehouse_accounting.models.dto.InvoiceEditDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.models.dto.ProductGroupDto;
@@ -502,5 +507,35 @@ public class ConverterDto {
                 .moved(dto.isMoved())
                 .printed(dto.isPrinted())
                 .comment(dto.getComment()).build();
+    }
+
+    public static Invoice convertToModel(InvoiceDto dto){
+        return Invoice.builder()
+                .id(dto.getId())
+                .number(dto.getNumber())
+                .invoiceDateTime(dto.getInvoiceDateTime())
+                .type(TypeOfInvoice.valueOf(dto.getType()))
+                .isPosted(dto.isPosted())
+                .invoiceAuthor(convertToModel(dto.getInvoiceAuthor()))
+                .company(convertToModel(dto.getCompanyDto()))
+                .project(convertToModel(dto.getProjectDto()))
+                .warehouse(convertToModel(dto.getWarehouseDto()))
+                .invoiceProducts(dto.getProductDtos().stream().map(productDto -> convertToModel(productDto)).collect(Collectors.toSet()))
+                .comment(dto.getComment())
+                .contractor(convertToModel(dto.getContractorDto()))
+                .contract(convertToModel(dto.getContractDto()))
+                .edits(dto.getEdits().stream().map(invoiceEditDto -> convertToModel(invoiceEditDto)).collect(Collectors.toSet()))
+                .build();
+    }
+
+    public static InvoiceEdit convertToModel(InvoiceEditDto dto){
+        return InvoiceEdit.builder()
+                .id(dto.getId())
+                .editAuthor(dto.getEditAuthor())
+                .dateTime(dto.getDateTime())
+                .field(dto.getField())
+                .before(dto.getBefore())
+                .after(dto.getAfter())
+                .build();
     }
 }

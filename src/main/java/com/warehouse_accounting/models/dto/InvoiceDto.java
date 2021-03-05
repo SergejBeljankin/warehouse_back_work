@@ -31,7 +31,7 @@ public class InvoiceDto {
     private CompanyDto companyDto = new CompanyDto();
     private ProjectDto projectDto = new ProjectDto();
     private WarehouseDto warehouseDto = new WarehouseDto();
-//    private Set<InvoiceProductDto> productDtos = new HashSet();
+    private Set<InvoiceProductDto> productDtos = new HashSet();
     private String comment;
     private ContractorDto contractorDto = new ContractorDto();
     private ContractDto contractDto = new ContractDto();
