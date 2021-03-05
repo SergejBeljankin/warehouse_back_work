@@ -19,9 +19,9 @@ public class InvoiceProductDto {
 
     private ProductDto productDto = new ProductDto();
 
-    private BigDecimal count;
+    private BigDecimal count = BigDecimal.valueOf(0);
 
-    private BigDecimal price;
+    private BigDecimal price = BigDecimal.valueOf(0);
 
     private BigDecimal sum = count.multiply(price);
 
