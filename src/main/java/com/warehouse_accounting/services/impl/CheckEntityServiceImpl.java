@@ -89,8 +89,10 @@ public class CheckEntityServiceImpl implements CheckEntityService {
         this.departmentRepository = departmentRepository;
         this.imageRepository = imageRepository;
         this.invoiceRepository = invoiceRepository;
+        this.invoiceProductRepository = invoiceProductRepository;
         this.legalDetailRepository = legalDetailRepository;
         this.positionRepository = positionRepository;
+        this.projectRepository = projectRepository;
         this.roleRepository = roleRepository;
         this.taxSystemRepository = taxSystemRepository;
         this.typeOfContractorRepository = typeOfContractorRepository;

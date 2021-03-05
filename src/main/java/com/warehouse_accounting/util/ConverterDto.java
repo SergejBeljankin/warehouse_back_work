@@ -561,18 +561,18 @@ public class ConverterDto {
                 .build();
     }
 
-    public static InvoiceProductDto convertToDto(InvoiceProduct invoiceProduct) {
-        return InvoiceProductDto.builder()
-                .id(invoiceProduct.getId())
-                .invoiceDto(convertToDto(invoiceProduct.getInvoice()))
-                .productDto(convertToDto(invoiceProduct.getProduct()))
-                .count(invoiceProduct.getCount())
-                .price(invoiceProduct.getPrice())
-                .sum(invoiceProduct.getSum())
-                .build();
-    }
+//    public static InvoiceProductDto convertToDto(InvoiceProduct invoiceProduct) {
+//        return InvoiceProductDto.builder()
+//                .id(invoiceProduct.getId())
+//                .invoiceDto(convertToDto(invoiceProduct.getInvoice()))
+//                .productDto(convertToDto(invoiceProduct.getProduct()))
+//                .count(invoiceProduct.getCount())
+//                .price(invoiceProduct.getPrice())
+//                .sum(invoiceProduct.getSum())
+//                .build();
+//    }
 
-    public static InvoiceProduct convertToDto(InvoiceProductDto invoiceProductDto) {
+    public static InvoiceProduct convertToModel(InvoiceProductDto invoiceProductDto) {
         return InvoiceProduct.builder()
                 .id(invoiceProductDto.getId())
                 .invoice(convertToModel(invoiceProductDto.getInvoiceDto()))
