@@ -13,9 +13,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -31,11 +30,11 @@ public class InvoiceDto {
     private CompanyDto companyDto = new CompanyDto();
     private ProjectDto projectDto = new ProjectDto();
     private WarehouseDto warehouseDto = new WarehouseDto();
-//    private Set<InvoiceProductDto> productDtos = new HashSet();
+    private List<InvoiceProductDto> productDtos = new ArrayList<>();
     private String comment;
     private ContractorDto contractorDto = new ContractorDto();
     private ContractDto contractDto = new ContractDto();
-    private Set<InvoiceEditDto> edits = new HashSet<>();
+    private List<InvoiceEditDto> edits = new ArrayList<>();
 
     public InvoiceDto(Long id,
                       String number,
