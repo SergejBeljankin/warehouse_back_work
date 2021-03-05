@@ -520,11 +520,11 @@ public class ConverterDto {
                 .company(convertToModel(dto.getCompanyDto()))
                 .project(convertToModel(dto.getProjectDto()))
                 .warehouse(convertToModel(dto.getWarehouseDto()))
-                .invoiceProducts(dto.getProductDtos().stream().map(productDto -> convertToModel(productDto)).collect(Collectors.toSet()))
+                .invoiceProducts(dto.getProductDtos().stream().map(productDto -> convertToModel(productDto)).collect(Collectors.toList()))
                 .comment(dto.getComment())
                 .contractor(convertToModel(dto.getContractorDto()))
                 .contract(convertToModel(dto.getContractDto()))
-                .edits(dto.getEdits().stream().map(invoiceEditDto -> convertToModel(invoiceEditDto)).collect(Collectors.toSet()))
+                .edits(dto.getEdits().stream().map(invoiceEditDto -> convertToModel(invoiceEditDto)).collect(Collectors.toList()))
                 .build();
     }
 

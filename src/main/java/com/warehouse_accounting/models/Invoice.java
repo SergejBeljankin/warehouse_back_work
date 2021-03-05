@@ -85,5 +85,5 @@ public class Invoice {
     private Contract contract;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private Set<InvoiceEdit> edits;
+    private List<InvoiceEdit> edits;
 }
