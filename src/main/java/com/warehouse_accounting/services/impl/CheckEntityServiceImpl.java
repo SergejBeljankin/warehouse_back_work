@@ -218,15 +218,15 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     }
 
     @Override
-    public void checkExistInvoiceById(Long invoiceID) {
-        if(!invoiceRepository.existsById(invoiceID)){
-            throw new NotFoundEntityException("Invoice с id=" + invoiceID + " не найден.");
+    public void checkExistInvoiceById(Long invoiceId) {
+        if(!invoiceRepository.existsById(invoiceId)){
+            throw new NotFoundEntityException("Invoice с id=" + invoiceId + " не найден.");
         }
     }
 
-    public void checkExistTypeOfInvoiceById(Long typeOfInvoiceID) {
-//        if (!typeOfInvoiceRepository.existsById(typeOfInvoiceID)) {
-//            throw new NotFoundEntityException("TypeOfInvoiceID с id=" + typeOfInvoiceID + ", не найден");
+    public void checkExistTypeOfInvoiceById(Long typeOfInvoiceId) {
+//        if (!typeOfInvoiceRepository.existsById(typeOfInvoiceId)) {
+//            throw new NotFoundEntityException("TypeOfInvoiceId с id=" + typeOfInvoiceId + ", не найден");
 //        }
     }
 }
