@@ -15,6 +15,7 @@ import com.warehouse_accounting.models.InvoiceEdit;
 import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.Position;
 import com.warehouse_accounting.models.ProductGroup;
+import com.warehouse_accounting.models.Project;
 import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.TaxSystem;
 import com.warehouse_accounting.models.Movement;
@@ -38,6 +39,7 @@ import com.warehouse_accounting.models.dto.InvoiceEditDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.models.dto.ProductGroupDto;
+import com.warehouse_accounting.models.dto.ProjectDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
 import com.warehouse_accounting.models.dto.MovementDto;
@@ -536,6 +538,24 @@ public class ConverterDto {
                 .field(dto.getField())
                 .before(dto.getBefore())
                 .after(dto.getAfter())
+                .build();
+    }
+
+    public static Project convertToModel(ProjectDto projectDto){
+        return Project.builder()
+                .id(projectDto.getId())
+                .name(projectDto.getName())
+                .code(projectDto.getCode())
+                .description(projectDto.getDescription())
+                .build();
+    }
+
+    public static ProjectDto convertToDto(Project project) {
+        return ProjectDto.builder()
+                .id(project.getId())
+                .name(project.getName())
+                .code(project.getCode())
+                .description(project.getDescription())
                 .build();
     }
 }

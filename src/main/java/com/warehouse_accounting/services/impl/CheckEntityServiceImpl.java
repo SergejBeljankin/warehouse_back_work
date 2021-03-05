@@ -14,6 +14,7 @@ import com.warehouse_accounting.repositories.LegalDetailRepository;
 import com.warehouse_accounting.repositories.MovementRepository;
 import com.warehouse_accounting.repositories.PositionRepository;
 import com.warehouse_accounting.repositories.ProductGroupRepository;
+import com.warehouse_accounting.repositories.ProjectRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
 import com.warehouse_accounting.repositories.TaxSystemRepository;
 import com.warehouse_accounting.repositories.TypeOfContractorRepository;
@@ -42,6 +43,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final LegalDetailRepository legalDetailRepository;
     private final PositionRepository positionRepository;
     private final ProductGroupRepository productGroupRepository;
+    private final ProjectRepository projectRepository;
     private final RoleRepository roleRepository;
     private final TaxSystemRepository taxSystemRepository;
     private final TypeOfContractorRepository typeOfContractorRepository;
@@ -63,6 +65,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
                                   InvoiceRepository invoiceRepository,
                                   LegalDetailRepository legalDetailRepository,
                                   PositionRepository positionRepository,
+                                  ProjectRepository projectRepository,
                                   RoleRepository roleRepository,
                                   TaxSystemRepository taxSystemRepository,
                                   TypeOfContractorRepository typeOfContractorRepository,
@@ -85,6 +88,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
         this.invoiceRepository = invoiceRepository;
         this.legalDetailRepository = legalDetailRepository;
         this.positionRepository = positionRepository;
+        this.projectRepository = projectRepository;
         this.roleRepository = roleRepository;
         this.taxSystemRepository = taxSystemRepository;
         this.typeOfContractorRepository = typeOfContractorRepository;
@@ -223,6 +227,14 @@ public class CheckEntityServiceImpl implements CheckEntityService {
             throw new NotFoundEntityException("Invoice с id=" + invoiceId + " не найден.");
         }
     }
+
+    @Override
+    public void checkExistProjectById(Long projectId) {
+        if(!projectRepository.existsById(projectId)){
+            throw new NotFoundEntityException("Project с id=" + projectId + " не найден.");
+        }
+    }
+
 
     public void checkExistTypeOfInvoiceById(Long typeOfInvoiceId) {
 //        if (!typeOfInvoiceRepository.existsById(typeOfInvoiceId)) {
