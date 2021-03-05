@@ -27,6 +27,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 
@@ -67,10 +68,9 @@ public class Invoice {
     @ManyToOne(fetch = FetchType.LAZY)
     private Warehouse warehouse;
 
-    // Сущность InvoiceProduct ещё не реализована!
-//    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinTable(name = "products_in_invoices", joinColumns = @JoinColumn(name = "invoice_id"), inverseJoinColumns = @JoinColumn(name = "invoice_product_id"))
-//    private Set<InvoiceProduct> products;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<InvoiceProduct> invoiceProducts;
 
     @Column
     private String comment;
