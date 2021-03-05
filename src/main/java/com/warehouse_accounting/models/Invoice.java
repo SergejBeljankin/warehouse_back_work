@@ -15,6 +15,8 @@ import com.warehouse_accounting.models.InvoiceEdit;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -51,6 +53,7 @@ public class Invoice {
     private LocalDateTime invoiceDateTime;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private TypeOfInvoice type;
 
     @Column

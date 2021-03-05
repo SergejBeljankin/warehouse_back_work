@@ -11,11 +11,10 @@ import java.util.List;
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 
-    @Query("SELECT NEW com.warehouse_accounting.models.dto.InvoiceDto" +
-            "(i.id, " +
+    @Query("SELECT NEW com.warehouse_accounting.models.dto.InvoiceDto(i.id, " +
             "i.number, " +
             "i.invoiceDateTime, " +
-            "i.type.name(), " +
+            "i.type, " +
             "i.isPosted, " +
             "i.invoiceAuthor.id, " +
             "i.company.id, " +
@@ -27,11 +26,10 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
             "FROM Invoice i")
     List<InvoiceDto> getAll();
 
-    @Query("SELECT NEW com.warehouse_accounting.models.dto.InvoiceDto(" +
-            "(i.id, " +
+    @Query("SELECT NEW com.warehouse_accounting.models.dto.InvoiceDto(i.id, " +
             "i.number, " +
             "i.invoiceDateTime, " +
-            "i.type.name(), " +
+            "i.type, " +
             "i.isPosted, " +
             "i.invoiceAuthor.id, " +
             "i.company.id, " +

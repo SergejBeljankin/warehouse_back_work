@@ -36,10 +36,10 @@ public class InvoiceProduct {
     private Product product;
 
     @Column(scale = 2)
-    private BigDecimal count;
+    private BigDecimal count= BigDecimal.valueOf(0);
 
     @Column(scale = 2)
-    private BigDecimal price;
+    private BigDecimal price= BigDecimal.valueOf(0);
 
     @Column(scale = 2)
     private BigDecimal sum = count.multiply(price);
