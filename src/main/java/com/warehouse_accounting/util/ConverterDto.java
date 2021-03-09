@@ -15,6 +15,7 @@ import com.warehouse_accounting.models.InvoiceEdit;
 import com.warehouse_accounting.models.InvoiceProduct;
 import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.Position;
+import com.warehouse_accounting.models.Product;
 import com.warehouse_accounting.models.ProductGroup;
 import com.warehouse_accounting.models.Project;
 import com.warehouse_accounting.models.Role;
@@ -40,6 +41,7 @@ import com.warehouse_accounting.models.dto.InvoiceDto;
 import com.warehouse_accounting.models.dto.InvoiceEditDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.PositionDto;
+import com.warehouse_accounting.models.dto.ProductDto;
 import com.warehouse_accounting.models.dto.ProductGroupDto;
 import com.warehouse_accounting.models.dto.ProjectDto;
 import com.warehouse_accounting.models.dto.RoleDto;
@@ -581,5 +583,27 @@ public class ConverterDto {
                 .price(invoiceProductDto.getPrice())
                 .sum(invoiceProductDto.getSum())
                 .build();
+    }
+
+    public static Product convertToModel(ProductDto productDto){
+        return Product.builder()
+                .id(productDto.getId())
+                .name(productDto.getName())
+                .weight(productDto.getWeight())
+                .volume(productDto.getVolume())
+                .purchasePrice(productDto.getPurchasePrice())
+                .description(productDto.getDescription())
+                .unit(convertToModel(productDto.getUnitDto()))
+                .archive(productDto.getArchive())
+                .contractor(convertToModel(productDto.getContractorDto()))
+                .productPrices(productDto.getProductPricesDto().stream().map(productPriceDto
+                        -> convertToModel(productPriceDto)).collect(Collectors.toList()))
+                .taxSystem(convertToModel(productDto.getTaxSystemDto()))
+                .images(productDto.getImagesDto().stream().map(imageDto
+                        -> convertToModel(imageDto)).collect(Collectors.toList()))
+                .productGroup(convertToModel(productDto.getProductGroupDto()))
+                .attributeOfCalculationObject(convertToModel(productDto.getAttributeOfCalculationObjectDto()))
+                .build();
+
     }
 }

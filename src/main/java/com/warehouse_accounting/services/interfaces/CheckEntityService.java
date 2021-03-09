@@ -50,4 +50,6 @@ public interface CheckEntityService {
 
     void checkExistProjectById(Long projectId);
 
+    void checkExistProductById(Long productId);
+
 }

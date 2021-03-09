@@ -15,6 +15,7 @@ import com.warehouse_accounting.repositories.LegalDetailRepository;
 import com.warehouse_accounting.repositories.MovementRepository;
 import com.warehouse_accounting.repositories.PositionRepository;
 import com.warehouse_accounting.repositories.ProductGroupRepository;
+import com.warehouse_accounting.repositories.ProductRepository;
 import com.warehouse_accounting.repositories.ProjectRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
 import com.warehouse_accounting.repositories.TaxSystemRepository;
@@ -44,6 +45,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final InvoiceProductRepository invoiceProductRepository;
     private final LegalDetailRepository legalDetailRepository;
     private final PositionRepository positionRepository;
+    private final ProductRepository productRepository;
     private final ProductGroupRepository productGroupRepository;
     private final ProjectRepository projectRepository;
     private final RoleRepository roleRepository;
@@ -68,6 +70,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
                                   InvoiceProductRepository invoiceProductRepository,
                                   LegalDetailRepository legalDetailRepository,
                                   PositionRepository positionRepository,
+                                  ProductRepository productRepository,
                                   ProjectRepository projectRepository,
                                   RoleRepository roleRepository,
                                   TaxSystemRepository taxSystemRepository,
@@ -92,6 +95,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
         this.invoiceProductRepository = invoiceProductRepository;
         this.legalDetailRepository = legalDetailRepository;
         this.positionRepository = positionRepository;
+        this.productRepository = productRepository;
         this.projectRepository = projectRepository;
         this.roleRepository = roleRepository;
         this.taxSystemRepository = taxSystemRepository;
@@ -243,6 +247,13 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistProjectById(Long projectId) {
         if(!projectRepository.existsById(projectId)){
             throw new NotFoundEntityException("Project с id=" + projectId + " не найден.");
+        }
+    }
+
+    @Override
+    public void checkExistProductById(Long productId) {
+        if(!productRepository.existsById(productId)){
+            throw new NotFoundEntityException("Product с id=" + productId + " не найден.");
         }
     }
 
