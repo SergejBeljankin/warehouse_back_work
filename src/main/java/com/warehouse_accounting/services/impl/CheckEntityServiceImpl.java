@@ -9,6 +9,7 @@ import com.warehouse_accounting.repositories.CurrencyRepository;
 import com.warehouse_accounting.repositories.DepartmentRepository;
 import com.warehouse_accounting.repositories.EmployeeRepository;
 import com.warehouse_accounting.repositories.ImageRepository;
+import com.warehouse_accounting.repositories.InvoiceProductRepository;
 import com.warehouse_accounting.repositories.InvoiceRepository;
 import com.warehouse_accounting.repositories.LegalDetailRepository;
 import com.warehouse_accounting.repositories.MovementRepository;
@@ -40,6 +41,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final EmployeeRepository employeeRepository;
     private final ImageRepository imageRepository;
     private final InvoiceRepository invoiceRepository;
+    private final InvoiceProductRepository invoiceProductRepository;
     private final LegalDetailRepository legalDetailRepository;
     private final PositionRepository positionRepository;
     private final ProductGroupRepository productGroupRepository;
@@ -63,6 +65,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
                                   DepartmentRepository departmentRepository,
                                   ImageRepository imageRepository,
                                   InvoiceRepository invoiceRepository,
+                                  InvoiceProductRepository invoiceProductRepository,
                                   LegalDetailRepository legalDetailRepository,
                                   PositionRepository positionRepository,
                                   ProjectRepository projectRepository,
@@ -86,6 +89,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
         this.departmentRepository = departmentRepository;
         this.imageRepository = imageRepository;
         this.invoiceRepository = invoiceRepository;
+        this.invoiceProductRepository = invoiceProductRepository;
         this.legalDetailRepository = legalDetailRepository;
         this.positionRepository = positionRepository;
         this.projectRepository = projectRepository;
@@ -225,6 +229,13 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistInvoiceById(Long invoiceId) {
         if(!invoiceRepository.existsById(invoiceId)){
             throw new NotFoundEntityException("Invoice с id=" + invoiceId + " не найден.");
+        }
+    }
+
+    @Override
+    public void checkExistInvoiceProductById(Long invoiceProductId) {
+        if(invoiceProductRepository.existsById(invoiceProductId)){
+            throw new NotFoundEntityException("InvoiceProduct с id=" + invoiceProductId + " не найден.");
         }
     }
 

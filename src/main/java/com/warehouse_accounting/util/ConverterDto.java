@@ -12,6 +12,7 @@ import com.warehouse_accounting.models.Employee;
 import com.warehouse_accounting.models.Image;
 import com.warehouse_accounting.models.Invoice;
 import com.warehouse_accounting.models.InvoiceEdit;
+import com.warehouse_accounting.models.InvoiceProduct;
 import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.Position;
 import com.warehouse_accounting.models.ProductGroup;
@@ -34,6 +35,7 @@ import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
 import com.warehouse_accounting.models.dto.EmployeeDto;
 import com.warehouse_accounting.models.dto.ImageDto;
+import com.warehouse_accounting.models.dto.InvoiceProductDto;
 import com.warehouse_accounting.models.dto.InvoiceDto;
 import com.warehouse_accounting.models.dto.InvoiceEditDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
@@ -556,6 +558,28 @@ public class ConverterDto {
                 .name(project.getName())
                 .code(project.getCode())
                 .description(project.getDescription())
+                .build();
+    }
+
+//    public static InvoiceProductDto convertToDto(InvoiceProduct invoiceProduct) {
+//        return InvoiceProductDto.builder()
+//                .id(invoiceProduct.getId())
+//                .invoiceDto(convertToDto(invoiceProduct.getInvoice()))
+//                .productDto(convertToDto(invoiceProduct.getProduct()))
+//                .count(invoiceProduct.getCount())
+//                .price(invoiceProduct.getPrice())
+//                .sum(invoiceProduct.getSum())
+//                .build();
+//    }
+
+    public static InvoiceProduct convertToModel(InvoiceProductDto invoiceProductDto) {
+        return InvoiceProduct.builder()
+                .id(invoiceProductDto.getId())
+                .invoice(convertToModel(invoiceProductDto.getInvoiceDto()))
+                .product(convertToModel(invoiceProductDto.getProductDto()))
+                .count(invoiceProductDto.getCount())
+                .price(invoiceProductDto.getPrice())
+                .sum(invoiceProductDto.getSum())
                 .build();
     }
 }
