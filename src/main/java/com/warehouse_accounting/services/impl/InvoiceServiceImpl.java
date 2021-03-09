@@ -6,6 +6,7 @@ import com.warehouse_accounting.repositories.ContractRepository;
 import com.warehouse_accounting.repositories.ContractorRepository;
 import com.warehouse_accounting.repositories.EmployeeRepository;
 import com.warehouse_accounting.repositories.InvoiceRepository;
+import com.warehouse_accounting.repositories.ProjectRepository;
 import com.warehouse_accounting.repositories.WarehouseRepository;
 import com.warehouse_accounting.services.interfaces.InvoiceService;
 import com.warehouse_accounting.util.ConverterDto;
@@ -26,30 +27,10 @@ public class InvoiceServiceImpl implements InvoiceService {
     private WarehouseRepository warehouseRepository;
 
     @Override
-    public List<InvoiceDto> getAll() {
-        List<InvoiceDto> invoiceDtos = invoiceRepository.getAll();
-        for(InvoiceDto invoiceDto : invoiceDtos){
-            invoiceDto.setInvoiceAuthor(employeeRepository.getById(invoiceDto.getInvoiceAuthor().getId()));
-            invoiceDto.setCompanyDto(companyRepository.getById(invoiceDto.getCompanyDto().getId()));
-            invoiceDto.setProjectDto(projectRepository.getById(invoiceDto.getProjectDto().getId()));
-            invoiceDto.setWarehouseDto(warehouseRepository.getById(invoiceDto.getWarehouseDto().getId()));
-            invoiceDto.setContractorDto(contractorRepository.getById(invoiceDto.getContractorDto().getId()));
-            invoiceDto.setContractDto(contractRepository.getById(invoiceDto.getContractDto().getId()));
-        }
-        return invoiceDtos;
-    }
+    public List<InvoiceDto> getAll() {return invoiceRepository.getAll();}
 
     @Override
-    public InvoiceDto getById(Long id) {
-        InvoiceDto invoiceDto = invoiceRepository.getById(id);
-        invoiceDto.setInvoiceAuthor(employeeRepository.getById(invoiceDto.getInvoiceAuthor().getId()));
-        invoiceDto.setCompanyDto(companyRepository.getById(invoiceDto.getCompanyDto().getId()));
-        invoiceDto.setProjectDto(projectRepository.getById(invoiceDto.getProjectDto().getId()));
-        invoiceDto.setWarehouseDto(warehouseRepository.getById(invoiceDto.getWarehouseDto().getId()));
-        invoiceDto.setContractorDto(contractorRepository.getById(invoiceDto.getContractorDto().getId()));
-        invoiceDto.setContractDto(contractRepository.getById(invoiceDto.getContractDto().getId()));
-        return invoiceDto;
-    }
+    public InvoiceDto getById(Long id) {return invoiceRepository.getById(id);}
 
     @Override
     public void create(InvoiceDto invoiceDto) {
