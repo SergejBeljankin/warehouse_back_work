@@ -613,6 +613,7 @@ public class ConverterDto {
                 .id(dto.getId())
                 .product(convertToModel(dto.getProductDto()))
                 .typeOfPrice(convertToModel(dto.getTypeOfPriceDto()))
+                .price(dto.getPrice())
                 .build();
     }
 
