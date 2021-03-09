@@ -44,4 +44,9 @@ public class PositionServiceImpl implements PositionService {
     public void deleteById(Long id) {
         positionRepository.deleteById(id);
     }
+
+    @Override
+    public List<PositionDto> getAllByLikeQuery(String value) {
+        return positionRepository.getAllByLikeQuery(value);
+    }
 }
