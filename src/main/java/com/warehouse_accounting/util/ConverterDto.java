@@ -17,6 +17,7 @@ import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.Position;
 import com.warehouse_accounting.models.Product;
 import com.warehouse_accounting.models.ProductGroup;
+import com.warehouse_accounting.models.ProductPrice;
 import com.warehouse_accounting.models.Project;
 import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.TaxSystem;
@@ -43,6 +44,7 @@ import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.models.dto.ProductDto;
 import com.warehouse_accounting.models.dto.ProductGroupDto;
+import com.warehouse_accounting.models.dto.ProductPriceDto;
 import com.warehouse_accounting.models.dto.ProjectDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
@@ -90,7 +92,7 @@ public class ConverterDto {
                 .build();
     }
 
-    public static AttributeOfCalculationObjectDto convertToDto (AttributeOfCalculationObject model) {
+    public static AttributeOfCalculationObjectDto convertToDto(AttributeOfCalculationObject model) {
         return AttributeOfCalculationObjectDto.builder()
                 .id(model.getId())
                 .name(model.getName())
@@ -99,7 +101,7 @@ public class ConverterDto {
                 .build();
     }
 
-    public static AttributeOfCalculationObject convertToModel (AttributeOfCalculationObjectDto dto) {
+    public static AttributeOfCalculationObject convertToModel(AttributeOfCalculationObjectDto dto) {
         return AttributeOfCalculationObject.builder()
                 .id(dto.getId())
                 .name(dto.getName())
@@ -415,14 +417,14 @@ public class ConverterDto {
     }
 
     public static TypeOfPriceDto convertToDto(TypeOfPrice typeOfPrice) {
-        return  TypeOfPriceDto.builder()
+        return TypeOfPriceDto.builder()
                 .id(typeOfPrice.getId())
                 .name(typeOfPrice.getName())
                 .sortNumber(typeOfPrice.getSortNumber())
                 .build();
     }
 
-    public  static TypeOfPrice convertToModel(TypeOfPriceDto typeOfPriceDto) {
+    public static TypeOfPrice convertToModel(TypeOfPriceDto typeOfPriceDto) {
         return TypeOfPrice.builder()
                 .id(typeOfPriceDto.getId())
                 .name(typeOfPriceDto.getName())
@@ -431,7 +433,7 @@ public class ConverterDto {
     }
 
     public static ContractorDto convertToDto(Contractor contractor) {
-        return  ContractorDto.builder()
+        return ContractorDto.builder()
                 .id(contractor.getId())
                 .name(contractor.getName())
                 .inn(contractor.getInn())
@@ -450,7 +452,7 @@ public class ConverterDto {
                 .build();
     }
 
-    public  static Contractor convertToModel(ContractorDto contractorDto) {
+    public static Contractor convertToModel(ContractorDto contractorDto) {
         return Contractor.builder()
                 .id(contractorDto.getId())
                 .name(contractorDto.getName())
@@ -488,8 +490,8 @@ public class ConverterDto {
                 .image(convertToModel(employeeDto.getImage())).build();
     }
 
-    public static Set<Role> convertToModel(Set<RoleDto> model){
-        return model.stream().map(e-> Role.builder()
+    public static Set<Role> convertToModel(Set<RoleDto> model) {
+        return model.stream().map(e -> Role.builder()
                 .id(e.getId())
                 .name(e.getName())
                 .sortNumber(e.getSortNumber()).build()).collect(Collectors.toSet());
@@ -515,7 +517,7 @@ public class ConverterDto {
                 .comment(dto.getComment()).build();
     }
 
-    public static Invoice convertToModel(InvoiceDto dto){
+    public static Invoice convertToModel(InvoiceDto dto) {
         return Invoice.builder()
                 .id(dto.getId())
                 .number(dto.getNumber())
@@ -534,7 +536,7 @@ public class ConverterDto {
                 .build();
     }
 
-    public static InvoiceEdit convertToModel(InvoiceEditDto dto){
+    public static InvoiceEdit convertToModel(InvoiceEditDto dto) {
         return InvoiceEdit.builder()
                 .id(dto.getId())
                 .editAuthor(dto.getEditAuthor())
@@ -545,7 +547,7 @@ public class ConverterDto {
                 .build();
     }
 
-    public static Project convertToModel(ProjectDto projectDto){
+    public static Project convertToModel(ProjectDto projectDto) {
         return Project.builder()
                 .id(projectDto.getId())
                 .name(projectDto.getName())
@@ -604,6 +606,17 @@ public class ConverterDto {
                 .productGroup(convertToModel(productDto.getProductGroupDto()))
                 .attributeOfCalculationObject(convertToModel(productDto.getAttributeOfCalculationObjectDto()))
                 .build();
-
     }
+
+    public static ProductPrice convertToModel(ProductPriceDto dto){
+        return ProductPrice.builder()
+                .id(dto.getId())
+                .product(convertToModel(dto.getProductDto()))
+                .typeOfPrice(convertToModel(dto.getTypeOfPriceDto()))
+                .price(dto.getPrice())
+                .build();
+    }
+
+
+
 }

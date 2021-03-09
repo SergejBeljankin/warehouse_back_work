@@ -52,4 +52,5 @@ public interface CheckEntityService {
 
     void checkExistProductById(Long productId);
 
+    void checkExistProductPriceById(Long productPriceId);
 }
