@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class InvoiceEditDto {
     private Long id;
-    private Employee editAuthor;
+    private EmployeeDto editAuthorDto;
     private LocalDateTime dateTime;
     private String field;
     private String before;
@@ -28,7 +28,7 @@ public class InvoiceEditDto {
                    String before,
                    String after) {
         this.id = id;
-        this.editAuthor.setId(editAuthorId);
+        this.editAuthorDto.setId(editAuthorId);
         this.dateTime = dateTime;
         this.field = field;
         this.before = before;

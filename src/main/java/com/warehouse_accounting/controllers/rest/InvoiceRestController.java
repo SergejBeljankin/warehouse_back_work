@@ -72,7 +72,6 @@ public class InvoiceRestController {
     public ResponseEntity<?> create(
             @ApiParam(name = "invoiceDto", value = "Накладная (Объект InvoiceDto), которую требуется сохранить в базе данных.")
             @RequestBody InvoiceDto invoiceDto){
-        checkEntityService.checkExistInvoiceById(invoiceDto.getId());
         invoiceService.create(invoiceDto);
         return ResponseEntity.ok().build();
     }

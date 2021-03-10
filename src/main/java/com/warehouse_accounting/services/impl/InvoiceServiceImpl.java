@@ -14,23 +14,60 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 @Service
 @Transactional
 public class InvoiceServiceImpl implements InvoiceService {
 
-    private CompanyRepository companyRepository;
-    private ContractorRepository contractorRepository;
-    private ContractRepository contractRepository;
-    private EmployeeRepository employeeRepository;
-    private InvoiceRepository invoiceRepository;
-    private ProjectRepository projectRepository;
-    private WarehouseRepository warehouseRepository;
+    private final CompanyRepository companyRepository;
+    private final ContractorRepository contractorRepository;
+    private final ContractRepository contractRepository;
+    private final EmployeeRepository employeeRepository;
+    private final InvoiceRepository invoiceRepository;
+    private final ProjectRepository projectRepository;
+    private final WarehouseRepository warehouseRepository;
+
+    public InvoiceServiceImpl(CompanyRepository companyRepository,
+                              ContractorRepository contractorRepository,
+                              ContractRepository contractRepository,
+                              EmployeeRepository employeeRepository,
+                              InvoiceRepository invoiceRepository,
+                              ProjectRepository projectRepository,
+                              WarehouseRepository warehouseRepository) {
+        this.companyRepository = companyRepository;
+        this.contractorRepository = contractorRepository;
+        this.contractRepository = contractRepository;
+        this.employeeRepository = employeeRepository;
+        this.invoiceRepository = invoiceRepository;
+        this.projectRepository = projectRepository;
+        this.warehouseRepository = warehouseRepository;
+    }
 
     @Override
-    public List<InvoiceDto> getAll() {return invoiceRepository.getAll();}
+    public List<InvoiceDto> getAll() {
+        List<InvoiceDto> invoiceDtos = invoiceRepository.getAll();
+        for (InvoiceDto invoiceDto : invoiceDtos) {
+            invoiceDto.setInvoiceAuthor(employeeRepository.getById(invoiceDto.getInvoiceAuthor().getId()));
+            invoiceDto.setCompanyDto(companyRepository.getById(invoiceDto.getCompanyDto().getId()));
+            invoiceDto.setProjectDto(projectRepository.getById(invoiceDto.getProjectDto().getId()));
+            invoiceDto.setWarehouseDto(warehouseRepository.getById(invoiceDto.getWarehouseDto().getId()));
+            invoiceDto.setContractorDto(contractorRepository.getById(invoiceDto.getContractorDto().getId()));
+            invoiceDto.setContractDto(contractRepository.getById(invoiceDto.getContractDto().getId()));
+        }
+        return invoiceDtos;
+    }
 
     @Override
-    public InvoiceDto getById(Long id) {return invoiceRepository.getById(id);}
+    public InvoiceDto getById(Long id) {
+        InvoiceDto invoiceDto = invoiceRepository.getById(id);
+        invoiceDto.setInvoiceAuthor(employeeRepository.getById(invoiceDto.getInvoiceAuthor().getId()));
+        invoiceDto.setCompanyDto(companyRepository.getById(invoiceDto.getCompanyDto().getId()));
+        invoiceDto.setProjectDto(projectRepository.getById(invoiceDto.getProjectDto().getId()));
+        invoiceDto.setWarehouseDto(warehouseRepository.getById(invoiceDto.getWarehouseDto().getId()));
+        invoiceDto.setContractorDto(contractorRepository.getById(invoiceDto.getContractorDto().getId()));
+        invoiceDto.setContractDto(contractRepository.getById(invoiceDto.getContractDto().getId()));
+        return invoiceDto;
+    }
 
     @Override
     public void create(InvoiceDto invoiceDto) {
