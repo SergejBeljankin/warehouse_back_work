@@ -27,4 +27,7 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
             ")"+
             "FROM Image im WHERE im.id=:id")
     ImageDto getById(@Param("id") Long id);
+
+    @Query("SELECT p.images FROM Product p WHERE p.id = :id")
+    List<Image> getListImageById(@Param("id") Long id);
 }
