@@ -63,7 +63,7 @@ public class ProjectRestController {
     )
     public ResponseEntity<ProjectDto> getById(@ApiParam(name = "id", value = "id для получения Project", required = true)
                                                   @PathVariable("id") Long id) {
-        checkEntityService.checkExistUnitById(id);
+        checkEntityService.checkExistProjectById(id);
         return ResponseEntity.ok(projectService.getById(id));
     }
 
@@ -77,7 +77,6 @@ public class ProjectRestController {
     )
     public ResponseEntity<?> create(@ApiParam(name = "ProjectDto", value = "ProjectDto для создания Project", required = true)
                                         @RequestBody ProjectDto projectDto) {
-        checkEntityService.checkExistUnitById(projectDto.getId());
         projectService.create(projectDto);
         return ResponseEntity.ok().build();
     }
@@ -92,7 +91,7 @@ public class ProjectRestController {
     )
     public ResponseEntity<?> update(@ApiParam(name = "ProjectDto", value = "ProjectDto для обновления Project", required = true)
                                         @RequestBody ProjectDto projectDto) {
-        checkEntityService.checkExistUnitById(projectDto.getId());
+        checkEntityService.checkExistProjectById(projectDto.getId());
         projectService.update(projectDto);
         return ResponseEntity.ok().build();
     }
@@ -107,7 +106,7 @@ public class ProjectRestController {
     )
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "id удаляемого Project", required = true)
                                             @PathVariable("id") Long id) {
-        checkEntityService.checkExistUnitById(id);
+        checkEntityService.checkExistProjectById(id);
         projectService.deleteById(id);
         return ResponseEntity.ok().build();
     }
