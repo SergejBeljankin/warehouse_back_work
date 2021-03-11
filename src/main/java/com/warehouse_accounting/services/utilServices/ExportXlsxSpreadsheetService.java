@@ -1,4 +1,4 @@
-package com.warehouse_accounting.services;
+package com.warehouse_accounting.services.utilServices;
 
 import com.warehouse_accounting.models.dto.MovementDto;
 import com.warehouse_accounting.repositories.MovementRepository;

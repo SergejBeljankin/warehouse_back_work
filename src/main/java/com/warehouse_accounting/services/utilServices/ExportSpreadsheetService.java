@@ -1,4 +1,4 @@
-package com.warehouse_accounting.services;
+package com.warehouse_accounting.services.utilServices;
 
 public interface ExportSpreadsheetService {
 

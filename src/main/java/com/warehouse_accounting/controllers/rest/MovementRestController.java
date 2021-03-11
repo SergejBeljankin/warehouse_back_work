@@ -1,7 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.MovementDto;
-import com.warehouse_accounting.services.ExportXlsxSpreadsheetService;
+import com.warehouse_accounting.services.utilServices.ExportXlsxSpreadsheetService;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.MovementService;
 import io.swagger.annotations.Api;
