@@ -4,6 +4,7 @@ import com.warehouse_accounting.models.dto.InvoiceProductDto;
 import com.warehouse_accounting.repositories.InvoiceProductRepository;
 import com.warehouse_accounting.repositories.InvoiceRepository;
 import com.warehouse_accounting.repositories.ProductRepository;
+import com.warehouse_accounting.services.interfaces.InvoiceProductService;
 import com.warehouse_accounting.util.ConverterDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 @Service
 @Transactional
-public class InvoiceProductServiceImpl implements com.warehouse_accounting.services.interfaces.InvoiceProductService {
+public class InvoiceProductServiceImpl implements InvoiceProductService {
     private final InvoiceProductRepository invoiceProductRepository;
     private final InvoiceRepository invoiceRepository;
     private final ProductRepository productRepository;
