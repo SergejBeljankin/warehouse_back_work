@@ -447,7 +447,7 @@ public class ConverterDto {
                 .contractorGroupDto(convertToDto(contractor.getContractorGroup()))
                 .typeOfContractorDto(convertToDto(contractor.getTypeOfContractor()))
                 .typeOfPriceDto(convertToDto(contractor.getTypeOfPrice()))
-                .bankAccountDtos(contractor.getBankAccounts().stream().map(bankAccount -> convertToDto(bankAccount)).collect(Collectors.toList()))
+                .bankAccountDtos(contractor.getBankAccounts().stream().map(ConverterDto::convertToDto).collect(Collectors.toList()))
                 .legalDetailDto(convertToDto(contractor.getLegalDetail()))
                 .build();
     }
@@ -467,7 +467,7 @@ public class ConverterDto {
                 .contractorGroup(convertToModel(contractorDto.getContractorGroupDto()))
                 .typeOfContractor(convertToModel(contractorDto.getTypeOfContractorDto()))
                 .typeOfPrice(convertToModel(contractorDto.getTypeOfPriceDto()))
-                .bankAccounts(contractorDto.getBankAccountDtos().stream().map(bankAccountDto -> convertToModel(bankAccountDto)).collect(Collectors.toList()))
+                .bankAccounts(contractorDto.getBankAccountDtos().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
                 .legalDetail(convertToModel(contractorDto.getLegalDetailDto()))
                 .build();
     }
@@ -486,8 +486,26 @@ public class ConverterDto {
                 .password(employeeDto.getPassword())
                 .department(convertToModel(employeeDto.getDepartment()))
                 .position(convertToModel(employeeDto.getPosition()))
-                .roles(convertToModel(employeeDto.getRoles()))
+                .roles(employeeDto.getRoles().stream().map(ConverterDto::convertToModel).collect(Collectors.toSet()))
                 .image(convertToModel(employeeDto.getImage())).build();
+    }
+
+    public static EmployeeDto convertToDto(Employee employee) {
+        return EmployeeDto.builder()
+                .id(employee.getId())
+                .lastName(employee.getLastName())
+                .firstName(employee.getFirstName())
+                .middleName(employee.getMiddleName())
+                .sortNumber(employee.getSortNumber())
+                .phone(employee.getPhone())
+                .inn(employee.getInn())
+                .description(employee.getDescription())
+                .email(employee.getEmail())
+                .password(employee.getPassword())
+                .department(convertToDto(employee.getDepartment()))
+                .position(convertToDto(employee.getPosition()))
+                .roles(employee.getRoles().stream().map(ConverterDto::convertToDto).collect(Collectors.toSet()))
+                .image(convertToDto(employee.getImage())).build();
     }
 
     public static Set<Role> convertToModel(Set<RoleDto> model) {
@@ -528,22 +546,53 @@ public class ConverterDto {
                 .company(convertToModel(dto.getCompanyDto()))
                 .project(convertToModel(dto.getProjectDto()))
                 .warehouse(convertToModel(dto.getWarehouseDto()))
-                .invoiceProducts(dto.getProductDtos().stream().map(productDto -> convertToModel(productDto)).collect(Collectors.toList()))
+                .invoiceProducts(dto.getProductDtos().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
                 .comment(dto.getComment())
                 .contractor(convertToModel(dto.getContractorDto()))
                 .contract(convertToModel(dto.getContractDto()))
-                .edits(dto.getEdits().stream().map(invoiceEditDto -> convertToModel(invoiceEditDto)).collect(Collectors.toList()))
+                .edits(dto.getEdits().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
                 .build();
+    }
+
+    public static InvoiceDto convertToDto(Invoice invoice) {
+        return InvoiceDto.builder()
+                .id(invoice.getId())
+                .number(invoice.getNumber())
+                .invoiceDateTime(invoice.getInvoiceDateTime())
+                .type(invoice.getType().name())
+                .isPosted(invoice.isPosted())
+                .invoiceAuthor(convertToDto(invoice.getInvoiceAuthor()))
+                .companyDto(convertToDto(invoice.getCompany()))
+                .projectDto(convertToDto(invoice.getProject()))
+                .warehouseDto(convertToDto(invoice.getWarehouse()))
+                .productDtos(invoice.getInvoiceProducts().stream().map(ConverterDto::convertToDto).collect(Collectors.toList()))
+                .comment(invoice.getComment())
+                .contractorDto(convertToDto(invoice.getContractor()))
+                .contractDto(convertToDto(invoice.getContract()))
+                .edits(invoice.getEdits().stream().map(ConverterDto::convertToDto).collect(Collectors.toList()))
+                .build();
+
     }
 
     public static InvoiceEdit convertToModel(InvoiceEditDto dto) {
         return InvoiceEdit.builder()
                 .id(dto.getId())
-                .editAuthor(dto.getEditAuthor())
+                .editAuthor(convertToModel(dto.getEditAuthorDto()))
                 .dateTime(dto.getDateTime())
                 .field(dto.getField())
                 .before(dto.getBefore())
                 .after(dto.getAfter())
+                .build();
+    }
+
+    public static InvoiceEditDto convertToDto(InvoiceEdit invoiceEdit) {
+        return InvoiceEditDto.builder()
+                .id(invoiceEdit.getId())
+                .editAuthorDto(convertToDto(invoiceEdit.getEditAuthor()))
+                .dateTime(invoiceEdit.getDateTime())
+                .field(invoiceEdit.getField())
+                .before(invoiceEdit.getBefore())
+                .after(invoiceEdit.getAfter())
                 .build();
     }
 
@@ -565,16 +614,16 @@ public class ConverterDto {
                 .build();
     }
 
-//    public static InvoiceProductDto convertToDto(InvoiceProduct invoiceProduct) {
-//        return InvoiceProductDto.builder()
-//                .id(invoiceProduct.getId())
-//                .invoiceDto(convertToDto(invoiceProduct.getInvoice()))
-//                .productDto(convertToDto(invoiceProduct.getProduct()))
-//                .count(invoiceProduct.getCount())
-//                .price(invoiceProduct.getPrice())
-//                .sum(invoiceProduct.getSum())
-//                .build();
-//    }
+    public static InvoiceProductDto convertToDto(InvoiceProduct invoiceProduct) {
+        return InvoiceProductDto.builder()
+                .id(invoiceProduct.getId())
+                .invoiceDto(convertToDto(invoiceProduct.getInvoice()))
+                .productDto(convertToDto(invoiceProduct.getProduct()))
+                .count(invoiceProduct.getCount())
+                .price(invoiceProduct.getPrice())
+                .sum(invoiceProduct.getSum())
+                .build();
+    }
 
     public static InvoiceProduct convertToModel(InvoiceProductDto invoiceProductDto) {
         return InvoiceProduct.builder()
@@ -587,7 +636,7 @@ public class ConverterDto {
                 .build();
     }
 
-    public static Product convertToModel(ProductDto productDto){
+    public static Product convertToModel(ProductDto productDto) {
         return Product.builder()
                 .id(productDto.getId())
                 .name(productDto.getName())
@@ -598,17 +647,34 @@ public class ConverterDto {
                 .unit(convertToModel(productDto.getUnitDto()))
                 .archive(productDto.getArchive())
                 .contractor(convertToModel(productDto.getContractorDto()))
-                .productPrices(productDto.getProductPricesDto().stream().map(productPriceDto
-                        -> convertToModel(productPriceDto)).collect(Collectors.toList()))
+                .productPrices(productDto.getProductPricesDto().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
                 .taxSystem(convertToModel(productDto.getTaxSystemDto()))
-                .images(productDto.getImagesDto().stream().map(imageDto
-                        -> convertToModel(imageDto)).collect(Collectors.toList()))
+                .images(productDto.getImagesDto().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
                 .productGroup(convertToModel(productDto.getProductGroupDto()))
                 .attributeOfCalculationObject(convertToModel(productDto.getAttributeOfCalculationObjectDto()))
                 .build();
     }
 
-    public static ProductPrice convertToModel(ProductPriceDto dto){
+    public static ProductDto convertToDto(Product product) {
+        return ProductDto.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .weight(product.getWeight())
+                .volume(product.getVolume())
+                .purchasePrice(product.getPurchasePrice())
+                .description(product.getDescription())
+                .unitDto(convertToDto(product.getUnit()))
+                .archive(product.getArchive())
+                .contractorDto(convertToDto(product.getContractor()))
+                .productPricesDto(product.getProductPrices().stream().map(ConverterDto::convertToDto).collect(Collectors.toList()))
+                .taxSystemDto(convertToDto(product.getTaxSystem()))
+                .imagesDto(product.getImages().stream().map(ConverterDto::convertToDto).collect(Collectors.toList()))
+                .productGroupDto(convertToDto(product.getProductGroup()))
+                .attributeOfCalculationObjectDto(convertToDto(product.getAttributeOfCalculationObject()))
+                .build();
+    }
+
+    public static ProductPrice convertToModel(ProductPriceDto dto) {
         return ProductPrice.builder()
                 .id(dto.getId())
                 .product(convertToModel(dto.getProductDto()))
@@ -617,6 +683,13 @@ public class ConverterDto {
                 .build();
     }
 
-
+    public static ProductPriceDto convertToDto(ProductPrice productPrice) {
+        return ProductPriceDto.builder()
+                .id(productPrice.getId())
+                .productDto(convertToDto(productPrice.getProduct()))
+                .typeOfPriceDto(convertToDto(productPrice.getTypeOfPrice()))
+                .price(productPrice.getPrice())
+                .build();
+    }
 
 }
