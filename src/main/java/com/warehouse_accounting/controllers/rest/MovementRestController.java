@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.MovementDto;
+import com.warehouse_accounting.services.utilServices.ExportXlsxSpreadsheetService;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.MovementService;
 import io.swagger.annotations.Api;
@@ -9,6 +10,9 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,11 +33,14 @@ public class MovementRestController {
 
     private final MovementService service;
     private final CheckEntityService checkEntityService;
+    private final ExportXlsxSpreadsheetService exportXlsxFileService;
 
     public MovementRestController(MovementService service,
-                                  CheckEntityService checkEntityService) {
+                                  CheckEntityService checkEntityService,
+                                  ExportXlsxSpreadsheetService exportXlsxFileService) {
         this.service = service;
         this.checkEntityService = checkEntityService;
+        this.exportXlsxFileService = exportXlsxFileService;
     }
 
     @GetMapping
@@ -100,4 +107,20 @@ public class MovementRestController {
         service.deleteById(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/export/xlsx")
+    @ApiOperation(value = "Скачать таблицу со списком MovementDto")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Успешное получение таблицы со списком MovementDto"),
+            @ApiResponse(code = 404, message = "Данный контроллер не найден"),
+            @ApiResponse(code = 403, message = "Операция запрещена"),
+            @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
+    public ResponseEntity<Resource> getExcel() {
+        String filename = "some.xlsx";
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+                .body(exportXlsxFileService.getWorkbook(MovementDto.class));
+    }
+
 }
