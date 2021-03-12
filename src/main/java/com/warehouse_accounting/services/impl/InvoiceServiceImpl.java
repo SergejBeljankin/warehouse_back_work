@@ -5,6 +5,7 @@ import com.warehouse_accounting.repositories.CompanyRepository;
 import com.warehouse_accounting.repositories.ContractRepository;
 import com.warehouse_accounting.repositories.ContractorRepository;
 import com.warehouse_accounting.repositories.EmployeeRepository;
+import com.warehouse_accounting.repositories.InvoiceEditRepository;
 import com.warehouse_accounting.repositories.InvoiceProductRepository;
 import com.warehouse_accounting.repositories.InvoiceRepository;
 import com.warehouse_accounting.repositories.ProjectRepository;
