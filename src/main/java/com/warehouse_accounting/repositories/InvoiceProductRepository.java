@@ -31,4 +31,8 @@ public interface InvoiceProductRepository extends JpaRepository<InvoiceProduct, 
             "i.sum)" +
             "FROM InvoiceProduct i WHERE i.id = :id")
     InvoiceProductDto getById(@Param("id") Long id);
+
+
+    @Query("SELECT i.invoiceProducts FROM Invoice i WHERE i.id = :id")
+    List<InvoiceProduct> getListInvoiceProductById(@Param("id") Long id);
 }
