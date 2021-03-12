@@ -17,7 +17,9 @@ public class InvoiceProductServiceImpl implements InvoiceProductService {
     private final InvoiceRepository invoiceRepository;
     private final ProductRepository productRepository;
 
-    public InvoiceProductServiceImpl(InvoiceProductRepository invoiceProductRepository, InvoiceRepository invoiceRepository, ProductRepository productRepository) {
+    public InvoiceProductServiceImpl(InvoiceProductRepository invoiceProductRepository, 
+                                     InvoiceRepository invoiceRepository, 
+                                     ProductRepository productRepository) {
         this.invoiceProductRepository = invoiceProductRepository;
         this.invoiceRepository = invoiceRepository;
         this.productRepository = productRepository;
