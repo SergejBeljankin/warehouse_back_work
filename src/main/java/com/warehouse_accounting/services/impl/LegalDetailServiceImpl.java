@@ -1,14 +1,17 @@
 package com.warehouse_accounting.services.impl;
 
+import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.repositories.LegalDetailRepository;
 import com.warehouse_accounting.repositories.TypeOfContractorRepository;
 import com.warehouse_accounting.services.interfaces.LegalDetailService;
 import com.warehouse_accounting.util.ConverterDto;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -23,10 +26,9 @@ public class LegalDetailServiceImpl implements LegalDetailService {
     }
 
     @Override
-    public List<LegalDetailDto> getAll()
-    {
+    public List<LegalDetailDto> getAll() {
         List<LegalDetailDto> legalDetailDtos = legalDetailRepository.getAll();
-        for (LegalDetailDto legalDetailDto: legalDetailDtos) {
+        for (LegalDetailDto legalDetailDto : legalDetailDtos) {
             legalDetailDto.setTypeOfContractorDto(typeOfContractorRepository.getById(legalDetailDto.getTypeOfContractorDto().getId()));
         }
         return legalDetailDtos;
@@ -52,5 +54,12 @@ public class LegalDetailServiceImpl implements LegalDetailService {
     @Override
     public void deleteById(Long id) {
         legalDetailRepository.deleteById(id);
+    }
+
+    @Override
+    public List<LegalDetailDto> getAllBySpecification(Specification<LegalDetail> specifications) {
+        return legalDetailRepository.findAll(specifications)
+                .stream()
+                .map(ConverterDto::convertToDto).collect(Collectors.toList());
     }
 }

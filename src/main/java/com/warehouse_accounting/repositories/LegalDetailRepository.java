@@ -3,6 +3,7 @@ package com.warehouse_accounting.repositories;
 import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface LegalDetailRepository extends JpaRepository<LegalDetail, Long> {
+public interface LegalDetailRepository extends JpaRepository<LegalDetail, Long>, JpaSpecificationExecutor<LegalDetail> {
 
     @Query("SELECT NEW com.warehouse_accounting.models.dto.LegalDetailDto(" +
             "ld.id," +
