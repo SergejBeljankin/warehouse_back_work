@@ -35,6 +35,6 @@ public interface PositionRepository extends JpaRepository<Position, Long> {
             "p.name, " +
             "p.sortNumber) " +
             "FROM Position p " +
-            "WHERE CONCAT(p.id, p.name) like %:searchValue%")
+            "WHERE LOWER(CONCAT(p.id, p.name)) like LOWER(CONCAT('%', :searchValue, '%'))")
     List<PositionDto> getAllByLikeQuery(@Param("searchValue") String searchValue);
 }
