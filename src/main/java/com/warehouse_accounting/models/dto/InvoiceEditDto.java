@@ -1,7 +1,7 @@
 package com.warehouse_accounting.models.dto;
 
+import com.warehouse_accounting.models.dto.EmployeeDto;
 
-import com.warehouse_accounting.models.Employee;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,18 +15,18 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class InvoiceEditDto {
     private Long id;
-    private EmployeeDto editAuthorDto;
+    private EmployeeDto editAuthorDto = new EmployeeDto();
     private LocalDateTime dateTime;
     private String field;
     private String before;
     private String after;
 
-    InvoiceEditDto(Long id,
-                   Long editAuthorId,
-                   LocalDateTime dateTime,
-                   String field,
-                   String before,
-                   String after) {
+    public InvoiceEditDto(Long id,
+                          Long editAuthorId,
+                          LocalDateTime dateTime,
+                          String field,
+                          String before,
+                          String after) {
         this.id = id;
         this.editAuthorDto.setId(editAuthorId);
         this.dateTime = dateTime;
