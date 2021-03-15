@@ -28,4 +28,13 @@ public interface PositionRepository extends JpaRepository<Position, Long> {
             "FROM Position p " +
             "WHERE p.id=:id")
     PositionDto getById(@Param("id") Long id);
+
+    @Query("SELECT " +
+            "NEW com.warehouse_accounting.models.dto.PositionDto(" +
+            "p.id, " +
+            "p.name, " +
+            "p.sortNumber) " +
+            "FROM Position p " +
+            "WHERE LOWER(CONCAT(p.id, p.name)) like LOWER(CONCAT('%', :searchValue, '%'))")
+    List<PositionDto> getAllByLikeQuery(@Param("searchValue") String searchValue);
 }

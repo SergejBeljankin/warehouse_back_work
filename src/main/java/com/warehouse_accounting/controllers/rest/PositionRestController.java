@@ -100,4 +100,16 @@ public class PositionRestController {
         service.deleteById(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/search/{value}")
+    @ApiOperation(value = "Возвращает список PositionDto содержащее в полях value")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Успешное получение списка PositionDto"),
+            @ApiResponse(code = 404, message = "Данный контроллер не найден"),
+            @ApiResponse(code = 403, message = "Операция запрещена"),
+            @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
+    public ResponseEntity<List<PositionDto>> searchPositionDto(@ApiParam(name = "value", value = "Значение для поиска в PositionDto",
+            required = true) @PathVariable("value") String value) {
+        return ResponseEntity.ok(service.getAllByLikeQuery(value));
+    }
 }

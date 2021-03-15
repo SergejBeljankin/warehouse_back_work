@@ -14,4 +14,6 @@ public interface PositionService {
     void update(PositionDto dto);
 
     void deleteById(Long id);
+
+    List<PositionDto> getAllByLikeQuery(String value);
 }
