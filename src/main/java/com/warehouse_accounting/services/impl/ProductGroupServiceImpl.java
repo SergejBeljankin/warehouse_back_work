@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
 @Service
 @Transactional
 public class ProductGroupServiceImpl implements ProductGroupService {
@@ -21,18 +22,12 @@ public class ProductGroupServiceImpl implements ProductGroupService {
 
     @Override
     public List<ProductGroupDto> getAll() {
-        List <ProductGroupDto> productGroupDtoList = productGroupRepository.getAll();
-        productGroupDtoList.forEach(productGroupDto -> {
-            productGroupDto.setProductGroupDto(productGroupRepository.getById(productGroupDto.getProductGroupDto().getId()));
-        });
-        return productGroupDtoList;
+        return productGroupRepository.getAll();
     }
 
     @Override
     public ProductGroupDto getById(Long id) {
-        ProductGroupDto productGroupDto = productGroupRepository.getById(id);
-        productGroupDto.setProductGroupDto(productGroupRepository.getById(productGroupDto.getProductGroupDto().getId()));
-        return productGroupDto;
+        return productGroupRepository.getById(id);
     }
 
     @Override

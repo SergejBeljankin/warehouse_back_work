@@ -403,16 +403,18 @@ public class ConverterDto {
                 .id(productGroup.getId())
                 .name(productGroup.getName())
                 .sortNumber(productGroup.getSortNumber())
-                .productGroupDto(convertToDto(productGroup.getProductGroup()))
+                .parentId(productGroup.getParentProductGroup().getId())
                 .build();
     }
 
     public static ProductGroup convertToModel(ProductGroupDto productGroupDto) {
+        ProductGroup productGroup = new ProductGroup();
+        productGroup.setId(productGroupDto.getParentId());
         return ProductGroup.builder()
                 .id(productGroupDto.getId())
                 .name(productGroupDto.getName())
                 .sortNumber(productGroupDto.getSortNumber())
-                .productGroup(convertToModel(productGroupDto.getProductGroupDto()))
+                .parentProductGroup(productGroup)
                 .build();
     }
 
