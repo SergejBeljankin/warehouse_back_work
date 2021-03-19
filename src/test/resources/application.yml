@@ -3,3 +3,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create
+
+data-init:
+  unit-data: src/main/resources/data_for_initializer/Валюта.xlsx

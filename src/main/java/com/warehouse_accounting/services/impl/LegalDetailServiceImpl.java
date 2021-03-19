@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,7 +30,9 @@ public class LegalDetailServiceImpl implements LegalDetailService {
     public List<LegalDetailDto> getAll() {
         List<LegalDetailDto> legalDetailDtos = legalDetailRepository.getAll();
         for (LegalDetailDto legalDetailDto : legalDetailDtos) {
-            legalDetailDto.setTypeOfContractorDto(typeOfContractorRepository.getById(legalDetailDto.getTypeOfContractorDto().getId()));
+            if (Objects.nonNull(legalDetailDto.getTypeOfContractorDto())) {
+                legalDetailDto.setTypeOfContractorDto(typeOfContractorRepository.getById(legalDetailDto.getTypeOfContractorDto().getId()));
+            }
         }
         return legalDetailDtos;
     }
@@ -37,7 +40,9 @@ public class LegalDetailServiceImpl implements LegalDetailService {
     @Override
     public LegalDetailDto getById(Long id) {
         LegalDetailDto legalDetailDto = legalDetailRepository.getById(id);
-        legalDetailDto.setTypeOfContractorDto(typeOfContractorRepository.getById(legalDetailDto.getTypeOfContractorDto().getId()));
+        if (Objects.nonNull(legalDetailDto.getTypeOfContractorDto())) {
+            legalDetailDto.setTypeOfContractorDto(typeOfContractorRepository.getById(legalDetailDto.getTypeOfContractorDto().getId()));
+        }
         return legalDetailDto;
     }
 
