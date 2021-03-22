@@ -353,6 +353,7 @@ public class ConverterDto {
     }
 
     public static ContractDto convertToDto(Contract contract) {
+
         return ContractDto.builder()
                 .id(contract.getId())
                 .number(contract.getNumber())
@@ -446,15 +447,31 @@ public class ConverterDto {
                 .address(contractor.getAddress())
                 .commentToAddress(contractor.getCommentToAddress())
                 .comment(contractor.getComment())
-                .contractorGroupDto(convertToDto(contractor.getContractorGroup()))
-                .typeOfContractorDto(convertToDto(contractor.getTypeOfContractor()))
-                .typeOfPriceDto(convertToDto(contractor.getTypeOfPrice()))
-                .bankAccountDtos(contractor.getBankAccounts().stream().map(ConverterDto::convertToDto).collect(Collectors.toList()))
+                .contractorGroupId(contractor.getContractorGroup() != null
+                        ? contractor.getContractorGroup().getId() : null)
+                .contractorGroupName(contractor.getContractorGroup() != null
+                        ? contractor.getContractorGroup().getName() : null)
+                .typeOfContractorId(contractor.getTypeOfContractor() != null
+                        ? contractor.getTypeOfContractor().getId() : null)
+                .typeOfContractorName(contractor.getTypeOfContractor() != null
+                        ? contractor.getTypeOfContractor().getName() : null)
+                .typeOfPriceId(contractor.getTypeOfPrice() != null
+                        ? contractor.getTypeOfPrice().getId() : null)
+                .typeOfPriceName(contractor.getTypeOfPrice() != null
+                        ? contractor.getTypeOfPrice().getName() : null)
+                .bankAccountDtos(contractor.getBankAccounts().stream()
+                        .map(ConverterDto::convertToDto).collect(Collectors.toList()))
                 .legalDetailDto(convertToDto(contractor.getLegalDetail()))
                 .build();
     }
 
     public static Contractor convertToModel(ContractorDto contractorDto) {
+        ContractorGroup contractorGroup = new ContractorGroup();
+        contractorGroup.setId(contractorDto.getContractorGroupId());
+        TypeOfContractor typeOfContractor = new TypeOfContractor();
+        typeOfContractor.setId(contractorDto.getTypeOfContractorId());
+        TypeOfPrice typeOfPrice = new TypeOfPrice();
+        typeOfPrice.setId(contractorDto.getTypeOfPriceId());
         return Contractor.builder()
                 .id(contractorDto.getId())
                 .name(contractorDto.getName())
@@ -466,11 +483,14 @@ public class ConverterDto {
                 .address(contractorDto.getAddress())
                 .commentToAddress(contractorDto.getCommentToAddress())
                 .comment(contractorDto.getComment())
-                .contractorGroup(convertToModel(contractorDto.getContractorGroupDto()))
-                .typeOfContractor(convertToModel(contractorDto.getTypeOfContractorDto()))
-                .typeOfPrice(convertToModel(contractorDto.getTypeOfPriceDto()))
-                .bankAccounts(contractorDto.getBankAccountDtos().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
-                .legalDetail(convertToModel(contractorDto.getLegalDetailDto()))
+                .contractorGroup(contractorGroup)
+                .typeOfContractor(typeOfContractor)
+                .typeOfPrice(typeOfPrice)
+                .bankAccounts(contractorDto.getBankAccountDtos() != null ?
+                        contractorDto.getBankAccountDtos().stream()
+                                .map(ConverterDto::convertToModel).collect(Collectors.toList()) : null)
+                .legalDetail(contractorDto.getLegalDetailDto() != null ?
+                        convertToModel(contractorDto.getLegalDetailDto()) : null)
                 .build();
     }
 
