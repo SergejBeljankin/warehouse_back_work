@@ -30,12 +30,8 @@ class ProjectRestControllerTest {
     @Autowired
     private ProjectRestController projectRestController;
 
-    private static ObjectMapper objectMapper;
-
-    @BeforeAll
-    static void init() {
-        objectMapper = new ObjectMapper();
-    }
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     void testExistence() {

@@ -20,8 +20,6 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 class ProjectServiceImplTest {
 
-    private static ProjectDto projectDto;
-    private static List<ProjectDto> projectDtoList;
 
     @InjectMocks
     private ProjectServiceImpl projectService;
@@ -29,16 +27,15 @@ class ProjectServiceImplTest {
     @Mock
     private ProjectRepository projectRepository;
 
-    @BeforeAll
-    static void initMethod(){
-        projectDto = ProjectDto.builder()
+
+    private final ProjectDto projectDto = ProjectDto.builder()
                 .id(1L)
                 .name("Test1")
                 .code("test1")
                 .description("test1")
                 .build();
-        projectDtoList = List.of(projectDto);
-    }
+    private final List<ProjectDto> projectDtoList = List.of(projectDto);
+
 
     @Test
     void getAll() {
