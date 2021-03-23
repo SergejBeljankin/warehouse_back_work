@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "technological_operation")
+@Table(name = "technological_operations")
 public class TechnologicalOperation {
 
     @Id
@@ -40,17 +40,15 @@ public class TechnologicalOperation {
 
 //    TODO: when the TechnologicalMap be create, it is necessary to implement the connection
 //    this class in not create
-//    @Column
+//    @ManyToOne(fetch = FetchType.LAZY)
 //    private TechnologicalMap technologicalMap;
 
     @Column
     private BigDecimal volumeOfProduction;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column
     private Warehouse warehouseForMaterials;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column
     private Warehouse warehouseForProduct;
 }
