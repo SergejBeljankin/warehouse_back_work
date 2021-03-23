@@ -558,20 +558,32 @@ public class ConverterDto {
     }
 
     public static Invoice convertToModel(InvoiceDto dto) {
+        Employee invoiceAuthor = new Employee();
+        invoiceAuthor.setId(dto.getInvoiceAuthorId());
+        Company company = new Company();
+        company.setId(dto.getCompanyId());
+        Project project = new Project();
+        project.setId(dto.getProjectId());
+        Warehouse warehouse = new Warehouse();
+        warehouse.setId(dto.getWarehouseId());
+        Contractor contractor = new Contractor();
+        contractor.setId(dto.getContractorId());
+        Contract contract = new Contract();
+        contract.setId(dto.getContractId());
         return Invoice.builder()
                 .id(dto.getId())
                 .number(dto.getNumber())
                 .invoiceDateTime(dto.getInvoiceDateTime())
                 .type(TypeOfInvoice.valueOf(dto.getType()))
                 .isPosted(dto.isPosted())
-                .invoiceAuthor(convertToModel(dto.getInvoiceAuthor()))
-                .company(convertToModel(dto.getCompanyDto()))
-                .project(convertToModel(dto.getProjectDto()))
-                .warehouse(convertToModel(dto.getWarehouseDto()))
+                .invoiceAuthor(invoiceAuthor)
+                .company(company)
+                .project(project)
+                .warehouse(warehouse)
                 .invoiceProducts(dto.getProductDtos().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
                 .comment(dto.getComment())
-                .contractor(convertToModel(dto.getContractorDto()))
-                .contract(convertToModel(dto.getContractDto()))
+                .contractor(contractor)
+                .contract(contract)
                 .edits(dto.getEdits().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
                 .build();
     }
@@ -583,17 +595,24 @@ public class ConverterDto {
                 .invoiceDateTime(invoice.getInvoiceDateTime())
                 .type(invoice.getType().name())
                 .isPosted(invoice.isPosted())
-                .invoiceAuthor(convertToDto(invoice.getInvoiceAuthor()))
-                .companyDto(convertToDto(invoice.getCompany()))
-                .projectDto(convertToDto(invoice.getProject()))
-                .warehouseDto(convertToDto(invoice.getWarehouse()))
+                .invoiceAuthorId(invoice.getInvoiceAuthor() != null ? invoice.getInvoiceAuthor().getId() : null)
+                .invoiceAuthorLastName(invoice.getInvoiceAuthor() != null ? invoice.getInvoiceAuthor().getLastName() : null)
+                .invoiceAuthorFirstName(invoice.getInvoiceAuthor() != null ? invoice.getInvoiceAuthor().getFirstName() : null)
+                .companyId(invoice.getCompany() != null ? invoice.getCompany().getId() : null)
+                .companyName(invoice.getCompany() != null ? invoice.getCompany().getName() : null)
+                .projectId(invoice.getProject() != null ? invoice.getProject().getId() : null)
+                .projectName(invoice.getProject() != null ? invoice.getProject().getName() : null)
+                .warehouseId(invoice.getWarehouse() != null ? invoice.getWarehouse().getId() : null)
+                .warehouseName(invoice.getWarehouse() != null ? invoice.getWarehouse().getName() : null)
                 .productDtos(invoice.getInvoiceProducts().stream().map(ConverterDto::convertToDto).collect(Collectors.toList()))
                 .comment(invoice.getComment())
-                .contractorDto(convertToDto(invoice.getContractor()))
-                .contractDto(convertToDto(invoice.getContract()))
+                .contractorId(invoice.getContractor() != null ? invoice.getContractor().getId() : null)
+                .contractorName(invoice.getContractor() != null ? invoice.getContractor().getName() : null)
+                .contractId(invoice.getContract() != null ? invoice.getContract().getId() : null)
+                .contractNumber(invoice.getContract() != null ? invoice.getContract().getNumber() : null)
+                .contractDate(invoice.getContract() != null ? invoice.getContract().getContractDate() : null)
                 .edits(invoice.getEdits().stream().map(ConverterDto::convertToDto).collect(Collectors.toList()))
                 .build();
-
     }
 
     public static InvoiceEdit convertToModel(InvoiceEditDto dto) {

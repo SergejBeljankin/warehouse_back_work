@@ -1,20 +1,29 @@
 package com.warehouse_accounting.models.dto;
 
-import com.warehouse_accounting.models.dto.CompanyDto;
-import com.warehouse_accounting.models.dto.ContractDto;
-import com.warehouse_accounting.models.dto.ContractorDto;
-import com.warehouse_accounting.models.dto.EmployeeDto;
 import com.warehouse_accounting.models.TypeOfInvoice;
-import com.warehouse_accounting.models.dto.WarehouseDto;
-import com.warehouse_accounting.models.dto.InvoiceEditDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+/*
+ * ИНФОРМАЦИЯ ДЛЯ ФРОНТ-РАЗРАБОТЧИКА
+ * Для снижения количества запросов к базе при передаче на фронт объектов типа Invoice
+ * класс InvoiceDto реконструирован: там, где это было возможно, вместо полей-объектов
+ * используются поля-примитивы или строки.
+ * Ваша задача - при разработке фронтовой части Invoice собрать информацию для полей
+ * "Создан" и "Договор", сконкатенировав поля InvoiceDto следующим образом:
+ *
+ * "Создан":
+ * invoiceAuthorLastName + пробел + первая буква invoiceAuthorFirstName + точка.
+ * "Договор":
+ * "№" + contractNumber + пробел + "от" + пробел + contractDate
+ */
 
 @Data
 @Builder
@@ -26,14 +35,30 @@ public class InvoiceDto {
     private LocalDateTime invoiceDateTime;
     private String type;
     private boolean isPosted;
-    private EmployeeDto invoiceAuthor = new EmployeeDto();
-    private CompanyDto companyDto = new CompanyDto();
-    private ProjectDto projectDto = new ProjectDto();
-    private WarehouseDto warehouseDto = new WarehouseDto();
+
+    private Long invoiceAuthorId;
+    private String invoiceAuthorLastName;
+    private String invoiceAuthorFirstName;
+
+    private Long companyId;
+    private String companyName;
+
+    private Long projectId;
+    private String projectName;
+
+    private Long warehouseId;
+    private String warehouseName;
+
     private List<InvoiceProductDto> productDtos = new ArrayList<>();
     private String comment;
-    private ContractorDto contractorDto = new ContractorDto();
-    private ContractDto contractDto = new ContractDto();
+
+    private Long contractorId;
+    private String contractorName;
+
+    private Long contractId;
+    private String contractNumber;
+    private LocalDate contractDate;
+
     private List<InvoiceEditDto> edits = new ArrayList<>();
 
     public InvoiceDto(Long id,
@@ -42,23 +67,39 @@ public class InvoiceDto {
                       TypeOfInvoice type,
                       boolean isPosted,
                       Long invoiceAuthorId,
-                      Long companyDtoId,
-                      Long projectDtoId,
-                      Long warehouseDtoId,
+                      String invoiceAuthorLastName,
+                      String invoiceAuthorFirstName,
+                      Long companyId,
+                      String companyName,
+                      Long projectId,
+                      String projectName,
+                      Long warehouseId,
+                      String warehouseName,
                       String comment,
-                      Long contractorDtoId,
-                      Long contractDtoId) {
+                      Long contractorId,
+                      String contractorName,
+                      Long contractId,
+                      String contractNumber,
+                      LocalDate contractDate) {
         this.id = id;
         this.number = number;
         this.invoiceDateTime = invoiceDateTime;
         this.type = type.name();
         this.isPosted = isPosted;
-        this.invoiceAuthor.setId(invoiceAuthorId);
-        this.companyDto.setId(companyDtoId);
-        this.projectDto.setId(projectDtoId);
-        this.warehouseDto.setId(warehouseDtoId);
+        this.invoiceAuthorId = invoiceAuthorId;
+        this.invoiceAuthorLastName = invoiceAuthorLastName;
+        this.invoiceAuthorFirstName = invoiceAuthorFirstName;
+        this.companyId = companyId;
+        this.companyName = companyName;
+        this.projectId = projectId;
+        this.projectName = projectName;
+        this.warehouseId = warehouseId;
+        this.warehouseName = warehouseName;
         this.comment = comment;
-        this.contractorDto.setId(contractorDtoId);
-        this.contractDto.setId(contractDtoId);
+        this.contractorId = contractorId;
+        this.contractorName = contractorName;
+        this.contractId = contractId;
+        this.contractNumber = contractNumber;
+        this.contractDate = contractDate;
     }
 }
