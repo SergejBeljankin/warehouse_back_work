@@ -5,6 +5,7 @@ import com.warehouse_accounting.repositories.BankAccountRepository;
 import com.warehouse_accounting.repositories.CompanyRepository;
 import com.warehouse_accounting.repositories.ContractRepository;
 import com.warehouse_accounting.repositories.ContractorGroupRepository;
+import com.warehouse_accounting.repositories.ContractorRepository;
 import com.warehouse_accounting.repositories.CurrencyRepository;
 import com.warehouse_accounting.repositories.DepartmentRepository;
 import com.warehouse_accounting.repositories.EmployeeRepository;
@@ -38,6 +39,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final CompanyRepository companyRepository;
     private final ContractorGroupRepository contractorGroupRepository;
     private final ContractRepository contractRepository;
+    private final ContractorRepository contractorRepository;
     private final CurrencyRepository currencyRepository;
     private final DepartmentRepository departmentRepository;
     private final EmployeeRepository employeeRepository;
@@ -65,7 +67,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
                                   CompanyRepository companyRepository,
                                   ContractorGroupRepository contractorGroupRepository,
                                   ContractRepository contractRepository,
-                                  CurrencyRepository currencyRepository,
+                                  ContractorRepository contractorRepository, CurrencyRepository currencyRepository,
                                   DepartmentRepository departmentRepository,
                                   ImageRepository imageRepository,
                                   InvoiceRepository invoiceRepository,
@@ -91,6 +93,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
         this.companyRepository = companyRepository;
         this.contractorGroupRepository = contractorGroupRepository;
         this.contractRepository = contractRepository;
+        this.contractorRepository = contractorRepository;
         this.currencyRepository = currencyRepository;
         this.departmentRepository = departmentRepository;
         this.imageRepository = imageRepository;
@@ -223,7 +226,9 @@ public class CheckEntityServiceImpl implements CheckEntityService {
 
     @Override
     public void checkExistContractorById(Long contractorId) {
-
+        if (!contractorRepository.existsById(contractorId)) {
+            throw new NotFoundEntityException("Contractor с id=" + contractorId + ", не найден");
+        }
     }
 
     @Override

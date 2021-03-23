@@ -33,11 +33,17 @@ public class ContractorDto {
 
     private String comment;
 
-    private ContractorGroupDto contractorGroupDto = new ContractorGroupDto();
+    private Long contractorGroupId;
 
-    private TypeOfContractorDto typeOfContractorDto = new TypeOfContractorDto();
+    private String contractorGroupName;
 
-    private TypeOfPriceDto typeOfPriceDto = new TypeOfPriceDto();
+    private Long typeOfContractorId;
+
+    private String typeOfContractorName;
+
+    private Long typeOfPriceId;
+
+    private String typeOfPriceName;
 
     private List<BankAccountDto> bankAccountDtos = new ArrayList<>();
 
@@ -54,9 +60,12 @@ public class ContractorDto {
             String address,
             String commentToAddress,
             String comment,
-            Long contractorGroupDtoId,
-            Long typeOfContractorDtoId,
-            Long typeOfPriceDtoId,
+            Long contractorGroupId,
+            String contractorGroupName,
+            Long typeOfContractorId,
+            String typeOfContractorName,
+            Long typeOfPriceId,
+            String typeOfPriceName,
             Long legalDetailDtoId
     ) {
         this.id = id;
@@ -69,9 +78,12 @@ public class ContractorDto {
         this.address = address;
         this.commentToAddress = commentToAddress;
         this.comment = comment;
-        this.contractorGroupDto.setId(contractorGroupDtoId);
-        this.typeOfContractorDto.setId(typeOfContractorDtoId);
-        this.typeOfPriceDto.setId(typeOfPriceDtoId);
+        this.contractorGroupId = contractorGroupId;
+        this.contractorGroupName = contractorGroupName;
+        this.typeOfContractorId = typeOfContractorId;
+        this.typeOfContractorName = typeOfContractorName;
+        this.typeOfPriceId = typeOfPriceId;
+        this.typeOfPriceName = typeOfPriceName;
         this.legalDetailDto.setId(legalDetailDtoId);
     }
 }

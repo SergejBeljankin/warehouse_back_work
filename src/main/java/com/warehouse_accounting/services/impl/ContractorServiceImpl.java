@@ -20,24 +20,15 @@ import java.util.stream.Collectors;
 public class ContractorServiceImpl implements ContractorService {
 
     private final ContractorRepository contractorRepository;
-    private final ContractorGroupRepository contractorGroupRepository;
-    private final TypeOfContractorRepository typeOfContractorRepository;
-    private final TypeOfPriceRepository typeOfPriceRepository;
     private final BankAccountRepository bankAccountRepository;
     private final LegalDetailRepository legalDetailRepository;
 
     public ContractorServiceImpl(
             ContractorRepository contractorRepository,
-            ContractorGroupRepository contractorGroupRepository,
-            TypeOfContractorRepository typeOfContractorRepository,
-            TypeOfPriceRepository typeOfPriceRepository,
             BankAccountRepository bankAccountRepository,
             LegalDetailRepository legalDetailRepository
     ) {
         this.contractorRepository = contractorRepository;
-        this.contractorGroupRepository = contractorGroupRepository;
-        this.typeOfContractorRepository = typeOfContractorRepository;
-        this.typeOfPriceRepository = typeOfPriceRepository;
         this.bankAccountRepository = bankAccountRepository;
         this.legalDetailRepository = legalDetailRepository;
     }
@@ -45,12 +36,12 @@ public class ContractorServiceImpl implements ContractorService {
     @Override
     public List<ContractorDto> getAll() {
         List<ContractorDto> contractorDtos = contractorRepository.getAll();
-        for (ContractorDto contractorDto: contractorDtos) {
-            contractorDto.setContractorGroupDto(contractorGroupRepository.getById(contractorDto.getContractorGroupDto().getId()));
-            contractorDto.setTypeOfContractorDto(typeOfContractorRepository.getById(contractorDto.getTypeOfContractorDto().getId()));
-            contractorDto.setTypeOfPriceDto(typeOfPriceRepository.getById(contractorDto.getTypeOfPriceDto().getId()));
-            contractorDto.setLegalDetailDto(legalDetailRepository.getById(contractorDto.getLegalDetailDto().getId()));
-            contractorDto.setBankAccountDtos(bankAccountRepository.getListById(contractorDto.getId()).stream().map(bankAccount -> ConverterDto.convertToDto(bankAccount)).collect(Collectors.toList()));
+        for (ContractorDto contractorDto : contractorDtos) {
+            contractorDto.setLegalDetailDto(legalDetailRepository.getById(
+                    contractorDto.getLegalDetailDto().getId()));
+            contractorDto.setBankAccountDtos(bankAccountRepository.getListById(
+                    contractorDto.getId()).stream()
+                    .map(ConverterDto::convertToDto).collect(Collectors.toList()));
         }
         return contractorDtos;
     }
@@ -58,11 +49,11 @@ public class ContractorServiceImpl implements ContractorService {
     @Override
     public ContractorDto getById(Long id) {
         ContractorDto contractorDto = contractorRepository.getById(id);
-        contractorDto.setContractorGroupDto(contractorGroupRepository.getById(contractorDto.getContractorGroupDto().getId()));
-        contractorDto.setTypeOfContractorDto(typeOfContractorRepository.getById(contractorDto.getTypeOfContractorDto().getId()));
-        contractorDto.setTypeOfPriceDto(typeOfPriceRepository.getById(contractorDto.getTypeOfPriceDto().getId()));
-        contractorDto.setLegalDetailDto(legalDetailRepository.getById(contractorDto.getLegalDetailDto().getId()));
-        contractorDto.setBankAccountDtos(bankAccountRepository.getListById(contractorDto.getId()).stream().map(bankAccount -> ConverterDto.convertToDto(bankAccount)).collect(Collectors.toList()));
+        contractorDto.setLegalDetailDto(legalDetailRepository.getById(
+                contractorDto.getLegalDetailDto().getId()));
+        contractorDto.setBankAccountDtos(bankAccountRepository.getListById(
+                contractorDto.getId()).stream()
+                .map(ConverterDto::convertToDto).collect(Collectors.toList()));
         return contractorDto;
     }
 
