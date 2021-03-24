@@ -71,7 +71,6 @@ public class Invoice {
     @ManyToOne(fetch = FetchType.LAZY)
     private Warehouse warehouse;
 
-
     @OneToMany(fetch = FetchType.LAZY)
     private List<InvoiceProduct> invoiceProducts;
 
