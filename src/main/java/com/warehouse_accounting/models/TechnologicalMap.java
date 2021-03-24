@@ -5,18 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.List;
 
 /**
  * This class is model is on the "Мой Склад" in the tab "Производство"
@@ -37,46 +35,40 @@ import java.util.Set;
 @Table(name = "technological_maps")
 public class TechnologicalMap {
     @Id
-    @Column(name = "technological_map_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "technological_map_name")
     private String name;
 
-    @Column(name = "technological_map_comment")
     private String comment;
+    /**
+     * Indicates whether the object is in the archive or not.
+     * Items moved to the archive are not displayed in directories and reports.
+     * The archive allows you to hide outdated items without deleting them.
+     */
+    private boolean isArhived;
 
     /**
      * The amount of additional costs per production operation.
      */
-    @Column(name = "technological_map_production_cost")
     private BigDecimal productionCost;
 
     /**
      * @see TechnologicalMapGroup
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "technological_map_group",
-            referencedColumnName = "technological_map_group_id")
     private TechnologicalMapGroup technologicalMapGroup;
 
     /**
      * Products that will be produced as a result of the operation.
-     *
-     * @see Product
      */
-    @Column(name = "technological_map_finished_products")
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Product> finishedProducts;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<TechnologicalMapProduct> finishedProducts;
 
     /**
      * Products that will be debited as a result of the operation.
-     *
-     * @see Product
      */
-    @Column(name = "technological_map_materials")
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Product> materials;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<TechnologicalMapMaterial> materials;
 }
 
