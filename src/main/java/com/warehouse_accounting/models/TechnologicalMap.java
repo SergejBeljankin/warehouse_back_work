@@ -51,13 +51,13 @@ public class TechnologicalMap {
      * The archive allows you to hide outdated items without deleting them.
      */
     @Column
-    private boolean isArhived;
+    private boolean isArhived = false;
 
     /**
      * The amount of additional costs per production operation.
      */
     @Column
-    private BigDecimal productionCost;
+    private BigDecimal productionCost = BigDecimal.valueOf(0);;
 
     /**
      * @see TechnologicalMapGroup
