@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -38,19 +39,24 @@ public class TechnologicalMap {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private String name;
 
+    @Column
     private String comment;
+
     /**
      * Indicates whether the object is in the archive or not.
      * Items moved to the archive are not displayed in directories and reports.
      * The archive allows you to hide outdated items without deleting them.
      */
+    @Column
     private boolean isArhived;
 
     /**
      * The amount of additional costs per production operation.
      */
+    @Column
     private BigDecimal productionCost;
 
     /**
