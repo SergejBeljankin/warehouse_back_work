@@ -1,5 +1,6 @@
 package com.warehouse_accounting.models.dto;
 
+import com.warehouse_accounting.models.TechnologicalMap;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,8 +21,8 @@ public class ProductionOrderDto {
     private Long companyId;
     private String companyName;
 
-    private Long technologicalMapId;
-    private String technologicalMapName;
+    // not create TechnologicalMapDto
+    //private TechnologicalMapDto technologicalMap;
 
     private BigDecimal volumeOfProduction;
     private Long warehouseId;
