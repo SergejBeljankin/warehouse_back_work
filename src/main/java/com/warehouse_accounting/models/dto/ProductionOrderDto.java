@@ -30,7 +30,31 @@ public class ProductionOrderDto {
     private LocalDate planDate;
     private Long projectId;
     private String projectName;
-
     private String comment;
 
+    public ProductionOrderDto(Long id,
+                              String number,
+                              LocalDateTime dateTime,
+                              Long companyId,
+                              String companyName,
+                              BigDecimal volumeOfProduction,
+                              Long warehouseId,
+                              String warehouseName,
+                              LocalDate planDate,
+                              Long projectId,
+                              String projectName,
+                              String comment) {
+        this.id = id;
+        this.number = number;
+        this.dateTime = dateTime;
+        this.companyId = companyId;
+        this.companyName = companyName;
+        this.volumeOfProduction = volumeOfProduction;
+        this.warehouseId = warehouseId;
+        this.warehouseName = warehouseName;
+        this.planDate = planDate;
+        this.projectId = projectId;
+        this.projectName = projectName;
+        this.comment = comment;
+    }
 }
