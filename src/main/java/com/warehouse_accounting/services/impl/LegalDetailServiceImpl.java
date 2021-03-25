@@ -19,31 +19,20 @@ import java.util.stream.Collectors;
 public class LegalDetailServiceImpl implements LegalDetailService {
 
     private final LegalDetailRepository legalDetailRepository;
-    private final TypeOfContractorRepository typeOfContractorRepository;
 
-    public LegalDetailServiceImpl(LegalDetailRepository legalDetailRepository, TypeOfContractorRepository typeOfContractorRepository) {
+
+    public LegalDetailServiceImpl(LegalDetailRepository legalDetailRepository) {
         this.legalDetailRepository = legalDetailRepository;
-        this.typeOfContractorRepository = typeOfContractorRepository;
     }
 
     @Override
     public List<LegalDetailDto> getAll() {
-        List<LegalDetailDto> legalDetailDtos = legalDetailRepository.getAll();
-        for (LegalDetailDto legalDetailDto : legalDetailDtos) {
-            if (Objects.nonNull(legalDetailDto.getTypeOfContractorDto())) {
-                legalDetailDto.setTypeOfContractorDto(typeOfContractorRepository.getById(legalDetailDto.getTypeOfContractorDto().getId()));
-            }
-        }
-        return legalDetailDtos;
+        return legalDetailRepository.getAll();
     }
 
     @Override
     public LegalDetailDto getById(Long id) {
-        LegalDetailDto legalDetailDto = legalDetailRepository.getById(id);
-        if (Objects.nonNull(legalDetailDto.getTypeOfContractorDto())) {
-            legalDetailDto.setTypeOfContractorDto(typeOfContractorRepository.getById(legalDetailDto.getTypeOfContractorDto().getId()));
-        }
-        return legalDetailDto;
+        return legalDetailRepository.getById(id);
     }
 
     @Override

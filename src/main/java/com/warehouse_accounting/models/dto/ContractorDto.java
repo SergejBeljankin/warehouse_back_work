@@ -17,8 +17,6 @@ public class ContractorDto {
 
     private String name;
 
-    private String inn;
-
     private String sortNumber;
 
     private String phone;
@@ -33,13 +31,11 @@ public class ContractorDto {
 
     private String comment;
 
+    private String numberDiscountCard;
+
     private Long contractorGroupId;
 
     private String contractorGroupName;
-
-    private Long typeOfContractorId;
-
-    private String typeOfContractorName;
 
     private Long typeOfPriceId;
 
@@ -52,7 +48,6 @@ public class ContractorDto {
     public ContractorDto(
             Long id,
             String name,
-            String inn,
             String sortNumber,
             String phone,
             String fax,
@@ -60,17 +55,15 @@ public class ContractorDto {
             String address,
             String commentToAddress,
             String comment,
+            String numberDiscountCard,
             Long contractorGroupId,
             String contractorGroupName,
-            Long typeOfContractorId,
-            String typeOfContractorName,
             Long typeOfPriceId,
             String typeOfPriceName,
             Long legalDetailDtoId
     ) {
         this.id = id;
         this.name = name;
-        this.inn = inn;
         this.sortNumber = sortNumber;
         this.phone = phone;
         this.fax = fax;
@@ -78,10 +71,9 @@ public class ContractorDto {
         this.address = address;
         this.commentToAddress = commentToAddress;
         this.comment = comment;
+        this.numberDiscountCard = numberDiscountCard;
         this.contractorGroupId = contractorGroupId;
         this.contractorGroupName = contractorGroupName;
-        this.typeOfContractorId = typeOfContractorId;
-        this.typeOfContractorName = typeOfContractorName;
         this.typeOfPriceId = typeOfPriceId;
         this.typeOfPriceName = typeOfPriceName;
         this.legalDetailDto.setId(legalDetailDtoId);

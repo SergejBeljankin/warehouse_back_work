@@ -32,6 +32,7 @@ import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.ContractDto;
 import com.warehouse_accounting.models.dto.ContractorDto;
+import com.warehouse_accounting.models.dto.ContractorGetALLDto;
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
@@ -313,42 +314,35 @@ public class ConverterDto {
     }
 
     public static LegalDetail convertToModel(LegalDetailDto legalDetailDto) {
+        TypeOfContractor typeOfContractor = new TypeOfContractor();
+        typeOfContractor.setId(legalDetailDto.getTypeOfContractorId());
         return LegalDetail.builder()
                 .id(legalDetailDto.getId())
-                .lastName(legalDetailDto.getLastName())
-                .firstName(legalDetailDto.getFirstName())
-                .middleName(legalDetailDto.getMiddleName())
+                .fullName(legalDetailDto.getFullName())
                 .address(legalDetailDto.getAddress())
                 .commentToAddress(legalDetailDto.getCommentToAddress())
                 .inn(legalDetailDto.getInn())
+                .kpp(legalDetailDto.getKpp())
                 .okpo(legalDetailDto.getOkpo())
-                .ogrnip(legalDetailDto.getOgrnip())
-                .numberOfTheCertificate(legalDetailDto.getNumberOfTheCertificate())
-                .dateOfTheCertificate(legalDetailDto.getDateOfTheCertificate())
-                .typeOfContractor(
-                        legalDetailDto.getTypeOfContractorDto() != null
-                                ? convertToModel(legalDetailDto.getTypeOfContractorDto())
-                                : null)
+                .ogrn(legalDetailDto.getOgrn())
+                .typeOfContractor(typeOfContractor)
                 .build();
     }
 
     public static LegalDetailDto convertToDto(LegalDetail legalDetail) {
         return LegalDetailDto.builder()
                 .id(legalDetail.getId())
-                .lastName(legalDetail.getLastName())
-                .firstName(legalDetail.getFirstName())
-                .middleName(legalDetail.getMiddleName())
+                .fullName(legalDetail.getFullName())
                 .address(legalDetail.getAddress())
                 .commentToAddress(legalDetail.getCommentToAddress())
                 .inn(legalDetail.getInn())
+                .kpp(legalDetail.getKpp())
                 .okpo(legalDetail.getOkpo())
-                .ogrnip(legalDetail.getOgrnip())
-                .numberOfTheCertificate(legalDetail.getNumberOfTheCertificate())
-                .dateOfTheCertificate(legalDetail.getDateOfTheCertificate())
-                .typeOfContractorDto(
-                        legalDetail.getTypeOfContractor() != null
-                                ? convertToDto(legalDetail.getTypeOfContractor())
-                                : null)
+                .ogrn(legalDetail.getOgrn())
+                .typeOfContractorId(legalDetail.getTypeOfContractor() != null
+                        ? legalDetail.getTypeOfContractor().getId() : null)
+                .typeOfContractorName(legalDetail.getTypeOfContractor() != null
+                        ? legalDetail.getTypeOfContractor().getName() : null)
                 .build();
     }
 
@@ -439,7 +433,6 @@ public class ConverterDto {
         return ContractorDto.builder()
                 .id(contractor.getId())
                 .name(contractor.getName())
-                .inn(contractor.getInn())
                 .sortNumber(contractor.getSortNumber())
                 .phone(contractor.getPhone())
                 .fax(contractor.getFax())
@@ -447,14 +440,11 @@ public class ConverterDto {
                 .address(contractor.getAddress())
                 .commentToAddress(contractor.getCommentToAddress())
                 .comment(contractor.getComment())
+                .numberDiscountCard(contractor.getNumberDiscountCard())
                 .contractorGroupId(contractor.getContractorGroup() != null
                         ? contractor.getContractorGroup().getId() : null)
                 .contractorGroupName(contractor.getContractorGroup() != null
                         ? contractor.getContractorGroup().getName() : null)
-                .typeOfContractorId(contractor.getTypeOfContractor() != null
-                        ? contractor.getTypeOfContractor().getId() : null)
-                .typeOfContractorName(contractor.getTypeOfContractor() != null
-                        ? contractor.getTypeOfContractor().getName() : null)
                 .typeOfPriceId(contractor.getTypeOfPrice() != null
                         ? contractor.getTypeOfPrice().getId() : null)
                 .typeOfPriceName(contractor.getTypeOfPrice() != null
@@ -468,14 +458,11 @@ public class ConverterDto {
     public static Contractor convertToModel(ContractorDto contractorDto) {
         ContractorGroup contractorGroup = new ContractorGroup();
         contractorGroup.setId(contractorDto.getContractorGroupId());
-        TypeOfContractor typeOfContractor = new TypeOfContractor();
-        typeOfContractor.setId(contractorDto.getTypeOfContractorId());
         TypeOfPrice typeOfPrice = new TypeOfPrice();
         typeOfPrice.setId(contractorDto.getTypeOfPriceId());
         return Contractor.builder()
                 .id(contractorDto.getId())
                 .name(contractorDto.getName())
-                .inn(contractorDto.getInn())
                 .sortNumber(contractorDto.getSortNumber())
                 .phone(contractorDto.getPhone())
                 .fax(contractorDto.getFax())
@@ -483,8 +470,8 @@ public class ConverterDto {
                 .address(contractorDto.getAddress())
                 .commentToAddress(contractorDto.getCommentToAddress())
                 .comment(contractorDto.getComment())
+                .numberDiscountCard(contractorDto.getNumberDiscountCard())
                 .contractorGroup(contractorGroup)
-                .typeOfContractor(typeOfContractor)
                 .typeOfPrice(typeOfPrice)
                 .bankAccounts(contractorDto.getBankAccountDtos() != null ?
                         contractorDto.getBankAccountDtos().stream()

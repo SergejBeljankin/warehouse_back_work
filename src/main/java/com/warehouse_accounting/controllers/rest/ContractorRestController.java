@@ -1,5 +1,6 @@
 package com.warehouse_accounting.controllers.rest;
 
+import com.warehouse_accounting.models.dto.ContractorGetALLDto;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.ContractorService;
 import com.warehouse_accounting.models.dto.ContractorDto;
@@ -36,14 +37,14 @@ public class ContractorRestController {
     }
 
     @GetMapping
-    @ApiOperation(value = "Возвращает все параметры рассчитываемого объекта", notes = "Возвращает список ContractorDto",
-            response = ContractorDto.class, responseContainer = "List")
+    @ApiOperation(value = "Возвращает все параметры рассчитываемого объекта", notes = "Возвращает список ContractorGetALLDto",
+            response = ContractorGetALLDto.class, responseContainer = "List")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Успешное получение листа ContractorDto"),
+            @ApiResponse(code = 200, message = "Успешное получение листа ContractorGetALLDto"),
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public ResponseEntity<List<ContractorDto>> getAll() {
+    public ResponseEntity<List<ContractorGetALLDto>> getAll() {
         return ResponseEntity.ok(contractorService.getAll());
     }
 
