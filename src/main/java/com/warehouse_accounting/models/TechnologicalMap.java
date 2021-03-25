@@ -51,7 +51,7 @@ public class TechnologicalMap {
      * The archive allows you to hide outdated items without deleting them.
      */
     @Column
-    private boolean isArhived = false;
+    private boolean isArchived = false;
 
     /**
      * The amount of additional costs per production operation.
