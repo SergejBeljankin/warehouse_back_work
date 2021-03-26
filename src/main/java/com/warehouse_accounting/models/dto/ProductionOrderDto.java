@@ -21,8 +21,7 @@ public class ProductionOrderDto {
     private Long companyId;
     private String companyName;
 
-    // not create TechnologicalMapDto
-    //private TechnologicalMapDto technologicalMap;
+    private TechnologicalMapDto techMapDto;
 
     private BigDecimal volumeOfProduction;
     private Long warehouseId;
@@ -37,6 +36,7 @@ public class ProductionOrderDto {
                               LocalDateTime dateTime,
                               Long companyId,
                               String companyName,
+                              Long techMapDtoId,
                               BigDecimal volumeOfProduction,
                               Long warehouseId,
                               String warehouseName,
@@ -49,6 +49,7 @@ public class ProductionOrderDto {
         this.dateTime = dateTime;
         this.companyId = companyId;
         this.companyName = companyName;
+        this.techMapDto.setId(techMapDtoId);
         this.volumeOfProduction = volumeOfProduction;
         this.warehouseId = warehouseId;
         this.warehouseName = warehouseName;

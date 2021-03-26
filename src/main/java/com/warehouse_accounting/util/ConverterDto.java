@@ -53,6 +53,7 @@ import com.warehouse_accounting.models.dto.ProjectDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
 import com.warehouse_accounting.models.dto.MovementDto;
+import com.warehouse_accounting.models.dto.TechnologicalMapDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
@@ -723,7 +724,7 @@ public class ConverterDto {
                 .build();
     }
 
-    public static ProductionOrder convertToModal(ProductionOrderDto dto) {
+    public static ProductionOrder convertToModel(ProductionOrderDto dto) {
         Company company = new Company();
         company.setId(dto.getCompanyId());
         Warehouse warehouse = new Warehouse();
@@ -735,8 +736,8 @@ public class ConverterDto {
                 .number(dto.getNumber())
                 .dateTime(dto.getDateTime())
                 .company(company)
-                // not create TechnologicalMapDto
-                //.technologicalMap(convertToModal(dto.getTechnologicalMapDto()))
+                //not create convertToModel for TechnologicalMap
+                //.technologicalMap(convertToModel(dto.getTechMapDto()))
                 .volumeOfProduction(dto.getVolumeOfProduction())
                 .warehouseForMaterials(warehouse)
                 .planDate(dto.getPlanDate())
@@ -752,8 +753,8 @@ public class ConverterDto {
                 .dateTime(productionOrder.getDateTime())
                 .companyId(productionOrder.getCompany() != null ? productionOrder.getCompany().getId(): null)
                 .companyName(productionOrder.getCompany() != null ? productionOrder.getCompany().getName() : null)
-                // not create TechnologicalMapDto
-                //.technologicalMap(convertToDo(productionOrder.getTechnologicalMap())
+                //not create convertToDo for TechnologicalMap
+                //.techMapDto(convertToDo(productionOrder.getTechnologicalMap()))
                 .volumeOfProduction(productionOrder.getVolumeOfProduction())
                 .warehouseId(productionOrder.getWarehouseForMaterials() != null ? productionOrder.getWarehouseForMaterials().getId() : null)
                 .warehouseName(productionOrder.getWarehouseForMaterials() != null ? productionOrder.getWarehouseForMaterials().getName() : null)
@@ -763,6 +764,4 @@ public class ConverterDto {
                 .comment(productionOrder.getComment())
                 .build();
     }
-
-
 }
