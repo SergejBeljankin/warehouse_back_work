@@ -24,32 +24,12 @@ public class TechnologicalОperationDto {
     private LocalDateTime technologicalОperationDateTime;
     private BigDecimal volumeOfProduction;
 
-//    private Long idTechnologicalMap;
-//    private String nameTechnologicalMap;
+//    private Long TechnologicalMapId;
+//    private String TechnologicalMapName;
 
-    private Long idWarehouseForMaterials;
-    private String nameWarehouseForMaterials;
+    private Long warehouseForMaterialsId;
+    private String warehouseForMaterialsName;
 
-    private Long idWarehouseForProduct;
-    private String nameWarehouseForProduct;
-
-
-    public TechnologicalОperationDto(Long id,
-                                     String number,
-                                     LocalDateTime technologicalОperationDateTime,
-                                     BigDecimal volumeOfProduction,
-//                                     TechnologicalMap technologicalMap,
-                                     Warehouse warehouseForMaterials,
-                                     Warehouse warehouseForProduct){
-        this.id = id;
-        this.number = number;
-        this.technologicalОperationDateTime = technologicalОperationDateTime;
-        this.volumeOfProduction = volumeOfProduction;
-//        this.idTechnologicalMap = technologicalMap.getId();
-//        this.nameTechnologicalMap = technologicalMap.getName();
-        this.idWarehouseForMaterials = warehouseForMaterials.getId();
-        this.nameWarehouseForMaterials = warehouseForMaterials.getName();
-        this.idWarehouseForProduct = warehouseForProduct.getId();
-        this.nameWarehouseForProduct =warehouseForProduct.getName();
-    }
+    private Long warehouseForProductId;
+    private String warehouseForProductName;
 }
