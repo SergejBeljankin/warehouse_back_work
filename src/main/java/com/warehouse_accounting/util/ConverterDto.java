@@ -567,11 +567,11 @@ public class ConverterDto {
                 .company(company)
                 .project(project)
                 .warehouse(warehouse)
-                .invoiceProducts(dto.getProductDtos().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
+                .invoiceProducts(dto.getProductDtos() != null ? dto.getProductDtos().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()): null)
                 .comment(dto.getComment())
                 .contractor(contractor)
                 .contract(contract)
-                .edits(dto.getEdits().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
+                .edits(dto.getEdits() != null ? dto.getEdits().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()) : null)
                 .build();
     }
 
