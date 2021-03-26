@@ -42,79 +42,62 @@ class LegalDetailRestControllerTest {
     @Autowired
     private ObjectMapper mapper;
 
-    private static List<LegalDetailDto> legalDetailDtoList = new ArrayList<>();
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final List<LegalDetailDto> legalDetailDtoList = new ArrayList<>();
+
 
     @BeforeAll
-    private static void initLegalDetail() {
-        TypeOfContractorDto legal = TypeOfContractorDto.builder()
-                .id(1L)
-                .name("Юридическое лицо")
-                .sortNumber("1").build();
-
-        TypeOfContractorDto entrepreneur = TypeOfContractorDto.builder()
-                .id(2L)
-                .name("Индивидуальный предприниматель")
-                .sortNumber("2").build();
+    static void initLegalDetail() {
 
         LegalDetailDto legalDetailDto_1 = LegalDetailDto.builder()
                 .id(1L)
-                .lastName("Александра")
-                .firstName("Васина")
-                .middleName("Валерьевна")
+                .fullName("Александра")
                 .address("1-й Вязовский пр-д, 4, стр. 19, Москва, 109428")
                 .commentToAddress("-")
                 .inn("7731537604")
                 .okpo("93318947")
-                .ogrnip("1067746195330")
-                .numberOfTheCertificate("241")
-                .dateOfTheCertificate(LocalDate.parse("2020-04-03", formatter))
-                .typeOfContractorDto(legal)
+                .ogrn("1067746195330")
+                .kpp("111111111")
+                .typeOfContractorId(1L)
+                .typeOfContractorName("Юридическое лицо")
                 .build();
 
         LegalDetailDto legalDetailDto_2 = LegalDetailDto.builder()
                 .id(2L)
-                .lastName("Спартак")
-                .firstName("Сократян")
-                .middleName("Мушегович")
+                .fullName("Спартак")
                 .address("Омская обл., г. Омск, ул. Ленина, д. 38 пом. 16, этаж 4")
                 .commentToAddress("-")
                 .inn("7631588604")
+                .kpp("111111111")
                 .okpo("04152913")
-                .ogrnip("1165543081879")
-                .numberOfTheCertificate("10021")
-                .dateOfTheCertificate(LocalDate.parse("2021-02-21", formatter))
-                .typeOfContractorDto(legal)
+                .ogrn("1165543081879")
+                .typeOfContractorId(1L)
+                .typeOfContractorName("Юридическое лицо")
                 .build();
 
         LegalDetailDto legalDetailDto_3 = LegalDetailDto.builder()
                 .id(3L)
-                .lastName("Оксана")
-                .firstName("Демченко")
-                .middleName("Владимировна")
+                .fullName("Оксана")
                 .address("Краснодарский кр., г. Горячий Ключ, ул. Ленина, д. 37")
                 .commentToAddress("основной")
                 .inn("2305023045")
+                .kpp("111111111")
                 .okpo("93814283")
-                .ogrnip("1062305001440")
-                .numberOfTheCertificate("741000А")
-                .dateOfTheCertificate(LocalDate.parse("2020-01-12", formatter))
-                .typeOfContractorDto(entrepreneur)
+                .ogrn("1062305001440")
+                .typeOfContractorId(2L)
+                .typeOfContractorName("Индивидуальный предприниматель")
                 .build();
 
         LegalDetailDto legalDetailDto_4 = LegalDetailDto.builder()
                 .id(4L)
-                .lastName("Сергей")
-                .firstName("Кондратенко")
-                .middleName("Сергеевич")
+                .fullName("Сергей")
                 .address("г. Москва, ул. 1-Я Магистральная, д. 2 стр. 1 этаж 3, ком. 8")
                 .commentToAddress("")
                 .inn("7714921994")
+                .kpp("111111111")
                 .okpo("22709223")
-                .ogrnip("5137746124368")
-                .numberOfTheCertificate("241")
-                .dateOfTheCertificate(LocalDate.parse("2021-01-23", formatter))
-                .typeOfContractorDto(entrepreneur)
+                .ogrn("5137746124368")
+                .typeOfContractorId(2L)
+                .typeOfContractorName("Индивидуальный предприниматель")
                 .build();
 
         legalDetailDtoList.addAll(Arrays.asList(legalDetailDto_1, legalDetailDto_2, legalDetailDto_3, legalDetailDto_4));
@@ -143,29 +126,23 @@ class LegalDetailRestControllerTest {
 
     @Test
     void testCreate() throws Exception {
-        TypeOfContractorDto physical = TypeOfContractorDto.builder()
-                .id(3L)
-                .name("Физическое лицо")
-                .sortNumber("3").build();
 
         LegalDetailDto legalDetailDto_5 = LegalDetailDto.builder()
                 .id(5L)
-                .lastName("Остап")
-                .firstName("Бендер-Задунайский")
-                .middleName("Ибрагимович")
+                .fullName("Остап")
                 .address("Московская обл., г. Ногинск, рабочий пос. Обухово, шоссе Кудиновское, д. 6 стр. 1 офис 59")
                 .commentToAddress("")
                 .inn("7743013902")
+                .kpp("111111111")
                 .okpo("")
-                .ogrnip("")
-                .numberOfTheCertificate("10050004")
-                .dateOfTheCertificate(LocalDate.parse("2019-05-25", formatter))
-                .typeOfContractorDto(physical)
+                .ogrn("")
+                .typeOfContractorId(3L)
+                .typeOfContractorName("Физическое лицо")
                 .build();
 
         legalDetailDtoList.add(legalDetailDto_5);
 
-        mockMvc.perform(put("/api/legal_details")
+        mockMvc.perform(post("/api/legal_details")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(legalDetailDto_5)))
                 .andExpect(status().isOk());
@@ -187,20 +164,18 @@ class LegalDetailRestControllerTest {
     void testUpdate() throws Exception {
         LegalDetailDto legalDetailDto_1 = LegalDetailDto.builder()
                 .id(1L)
-                .lastName("Александра")
-                .firstName("Васина")
-                .middleName("Валерьевна")
+                .fullName("Александра")
                 .address("1-й Вязовский пр-д, 4, стр. 19, Москва, 109428")
                 .commentToAddress("-")
                 .inn("7731537604")
+                .kpp("111111111")
                 .okpo("93318947")
-                .ogrnip("1067746195330")
-                .numberOfTheCertificate("241")
-                .dateOfTheCertificate(LocalDate.parse("2020-04-21", formatter))
-                .typeOfContractorDto(null)
+                .ogrn("1067746195330")
+                .typeOfContractorId(1L)
+                .typeOfContractorName("Юридическое лицо")
                 .build();
 
-        mockMvc.perform(post("/api/legal_details")
+        mockMvc.perform(put("/api/legal_details")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(legalDetailDto_1)))
                 .andExpect(status().isOk());
@@ -224,29 +199,29 @@ class LegalDetailRestControllerTest {
     @Test
     void testFilter() throws Exception {
         List<LegalDetailDto> collectBetween = legalDetailDtoList.stream()
-                .filter(dto -> dto.getId().equals(2L) | dto.getId().equals(4L))
-                .collect(Collectors.toList());
-
-        List<LegalDetailDto> collectBetweenAndType = legalDetailDtoList.stream()
                 .filter(dto -> dto.getId().equals(2L))
                 .collect(Collectors.toList());
+//
+//        List<LegalDetailDto> collectBetweenAndType = legalDetailDtoList.stream()
+//                .filter(dto -> dto.getId().equals(2L))
+//                .collect(Collectors.toList());
 
-        mockMvc.perform(get("/api/legal_details/filter?dateOfTheCertificateBetween=2021-01-01;2021-03-18"))
+        mockMvc.perform(get("/api/legal_details/filter?fullName=Спартак"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(mapper.writeValueAsString(collectBetween)));
 
-        mockMvc.perform(get("/api/legal_details/filter?dateOfTheCertificateBetween=2021-01-01;2021-03-18" +
-                "&typeOfContractorName=Юридическое лицо"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().json(mapper.writeValueAsString(collectBetweenAndType)));
-
-        mockMvc.perform(get("/api/legal_details/filter?dateOfTheCertificateBetween=2021-01-01;2021-03-18" +
-                "&typeOfContractorName=Юридическое лицо" +
-                "&inn=1234567890"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().json("[]"));
+//        mockMvc.perform(get("/api/legal_details/filter?dateOfTheCertificateBetween=2021-01-01;2021-03-18" +
+//                "&typeOfContractorName=Юридическое лицо"))
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(content().json(mapper.writeValueAsString(collectBetweenAndType)));
+//
+//        mockMvc.perform(get("/api/legal_details/filter?dateOfTheCertificateBetween=2021-01-01;2021-03-18" +
+//                "&typeOfContractorName=Юридическое лицо" +
+//                "&inn=1234567890"))
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(content().json("[]"));
     }
 }

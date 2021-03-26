@@ -71,7 +71,7 @@ public class LegalDetailRestController {
         return ResponseEntity.ok(legalDetailService.getById(id));
     }
 
-    @PutMapping
+    @PostMapping
     @ApiOperation(value = "Создает юрдическую информацию")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Успешное создание юридической информации"),
@@ -86,7 +86,7 @@ public class LegalDetailRestController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping
+    @PutMapping
     @ApiOperation(value = "Изменяет юрдическую информацию")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Успешное изменение юридической информации"),
@@ -127,31 +127,24 @@ public class LegalDetailRestController {
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "lastName", value = "Значение поля lastName объекта по которому хотим отфильтровать, example: String", dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "firstName", value = "Значение поля firstName объекта по которому хотим отфильтровать, example: String", dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "middleName", value = "Значение поля middleName объекта по которому хотим отфильтровать, example: String", dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "fullName", value = "Значение поля fullName объекта по которому хотим отфильтровать, example: String", dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "commentToAddress", value = "Значение поля commentToAddress объекта по которому хотим отфильтровать, example: String", dataType = "string", paramType = "query"),
             @ApiImplicitParam(name = "inn", value = "Значение поля inn объекта по которому хотим отфильтровать, example: String", dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "kpp", value = "Значение поля kpp объекта по которому хотим отфильтровать, example: String", dataType = "string", paramType = "query"),
             @ApiImplicitParam(name = "okpo", value = "Значение поля okpo объекта по которому хотим отфильтровать, example: String", dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "ogrnip", value = "Значение поля ogrnip объекта по которому хотим отфильтровать, example: String", dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "numberOfTheCertificate", value = "Значение поля ogrnip объекта по которому хотим отфильтровать, example: String", dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "dateOfTheCertificateBetween", value = "Значение поля dateOfTheCertificate c/по дату для фильтрации, example: 2021-03-01;2021-03-10", dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "dateOfTheCertificateEquals", value = "Значение поля dateOfTheCertificate объекта по которому хотим отфильтровать, example: 2021-03-08", dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "ogrn", value = "Значение поля ogrn объекта по которому хотим отфильтровать, example: String", dataType = "string", paramType = "query"),
             @ApiImplicitParam(name = "typeOfContractorName", value = "Значение поля typeOfContractor - name объекта по которому хотим отфильтровать, example: string", dataType = "string", paramType = "query"),
             @ApiImplicitParam(name = "typeOfContractorId", value = "Значение поля typeOfContractor - id объекта по которому хотим отфильтровать, example: 1", dataType = "string", paramType = "query")
     })
     public ResponseEntity<List<LegalDetailDto>> filterBySpecification(
             @Join(path = "typeOfContractor", alias = "toc")
             @And({
-                    @Spec(path = "lastName", spec = Equal.class),
-                    @Spec(path = "middleName", spec = Equal.class),
+                    @Spec(path = "fullName", spec = Equal.class),
                     @Spec(path = "commentToAddress", spec = Equal.class),
                     @Spec(path = "inn", spec = Equal.class),
+                    @Spec(path = "kpp", spec = Equal.class),
                     @Spec(path = "okpo", spec = Equal.class),
-                    @Spec(path = "ogrnip", spec = Equal.class),
-                    @Spec(path = "numberOfTheCertificate", spec = Equal.class),
-                    @Spec(path = "dateOfTheCertificate", params = "dateOfTheCertificateBetween", paramSeparator = '\u003B', config = "yyyy-MM-dd", spec = Between.class),
-                    @Spec(path = "dateOfTheCertificate", params = "dateOfTheCertificateEquals", config = "yyyy-MM-dd", spec = Equal.class),
+                    @Spec(path = "ogrn", spec = Equal.class),
                     @Spec(path = "toc.name", params = "typeOfContractorName", spec = Equal.class),
                     @Spec(path = "toc.id", params = "typeOfContractorId", spec = Equal.class)
             }) Specification<LegalDetail> specification) {

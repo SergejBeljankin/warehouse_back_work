@@ -29,13 +29,7 @@ public class LegalDetail {
     private Long id;
 
     @Column
-    private String lastName;
-
-    @Column
-    private String firstName;
-
-    @Column
-    private String middleName;
+    private String fullName;
 
     @Column
     private String address;
@@ -47,16 +41,13 @@ public class LegalDetail {
     private String inn;
 
     @Column
+    private String kpp;
+
+    @Column
     private String okpo;
 
     @Column
-    private String ogrnip;
-
-    @Column
-    private String numberOfTheCertificate;
-
-    @Column
-    private LocalDate dateOfTheCertificate;
+    private String ogrn;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private TypeOfContractor typeOfContractor;

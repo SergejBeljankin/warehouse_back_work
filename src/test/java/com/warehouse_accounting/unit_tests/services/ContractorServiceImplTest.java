@@ -1,6 +1,7 @@
 package com.warehouse_accounting.unit_tests.services;
 
 import com.warehouse_accounting.models.dto.ContractorDto;
+import com.warehouse_accounting.models.dto.ContractorGetALLDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.repositories.BankAccountRepository;
@@ -15,8 +16,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,27 +39,46 @@ class ContractorServiceImplTest {
     @InjectMocks
     private ContractorServiceImpl contractorService;
 
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private final ContractorGetALLDto contractorGetALLDto = ContractorGetALLDto.builder()
+            .id(1L)
+            .name("name")
+            .sortNumber("sortNumber")
+            .phone("phone")
+            .fax("fax")
+            .email("email")
+            .address("address")
+            .comment("comment")
+            .numberDiscountCard("numberDiscountCard")
+            .legalDetailId(1L)
+            .legalDetailFullName("legalDetailFullName")
+            .legalDetailAddress("legalDetailAddress")
+            .legalDetailInn("legalDetailInn")
+            .legalDetailKpp("legalDetailKpp")
+            .legalDetailTypeOfContractorId(1L)
+            .legalDetailTypeOfContractorName("legalDetailTypeOfContractorName")
+            .contractorGroupId(1L)
+            .contractorGroupName("contractorGroupName")
+            .typeOfPriceId(1L)
+            .typeOfPriceName("typeOfPriceName")
+            .build();
+    private final List<ContractorGetALLDto> contractorGetALLDtoList = List.of(contractorGetALLDto);
+
 
     private final LegalDetailDto legalDetailDto = LegalDetailDto.builder()
             .id(1L)
-            .lastName("lastName")
-            .firstName("tst")
-            .middleName("firstName")
+            .fullName("fullName")
             .address("address")
             .commentToAddress("-")
             .inn("inn")
             .okpo("okpo")
-            .ogrnip("ogrnip")
-            .numberOfTheCertificate("numberOfTheCertificate")
-            .dateOfTheCertificate(LocalDate.parse("2021-03-22", formatter))
-            .typeOfContractorDto(new TypeOfContractorDto())
+            .ogrn("ogrn")
+            .typeOfContractorId(1L)
+            .typeOfContractorName("Юридическое лицо")
             .build();
 
     private final ContractorDto contractorDto = ContractorDto.builder()
             .id(1L)
             .name("name")
-            .inn("inn")
             .sortNumber("sortNumber")
             .phone("phone")
             .fax("fax")
@@ -70,8 +88,6 @@ class ContractorServiceImplTest {
             .comment("comment")
             .contractorGroupId(1L)
             .contractorGroupName("test")
-            .typeOfContractorId(1L)
-            .typeOfContractorName("test")
             .typeOfPriceId(1L)
             .typeOfPriceName("test")
             .legalDetailDto(legalDetailDto)
@@ -81,15 +97,15 @@ class ContractorServiceImplTest {
 
     @Test
     void getAll() {
-        when(contractorRepository.getAll()).thenReturn(contractorDtoList);
+        when(contractorRepository.getAll()).thenReturn(contractorGetALLDtoList);
         when(legalDetailRepository.getById(contractorDto.getLegalDetailDto().getId()))
                 .thenReturn(contractorDto.getLegalDetailDto());
         when(bankAccountRepository.getListById(contractorDto.getId()).stream()
                 .map(ConverterDto::convertToDto).collect(Collectors.toList()))
                 .thenReturn(contractorDto.getBankAccountDtos());
-        List<ContractorDto> contractorDtoListTest = contractorService.getAll();
-        assertNotNull(contractorDtoListTest, "contractorDtoListTestTest = null");
-        assertEquals(contractorDtoListTest, contractorDtoList);
+        List<ContractorGetALLDto> contractorGetALLDtoListTest = contractorService.getAll();
+        assertNotNull(contractorGetALLDtoListTest, "contractorGetALLDtoListTest = null");
+        assertEquals(contractorGetALLDtoListTest, contractorGetALLDtoList);
         System.out.println(contractorDtoList);
         verify(contractorRepository, times(1)).getAll();
     }
