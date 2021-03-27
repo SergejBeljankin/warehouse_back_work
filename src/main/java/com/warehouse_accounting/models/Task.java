@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "task")
+@Table(name = "tasks")
 public class Task {
 
     @Id
@@ -25,15 +25,17 @@ public class Task {
     @Column
     private LocalDateTime deadline;
 
-    @OneToOne
+    @Column LocalDateTime dateOfCreation;
+
+    @ManyToOne
     private Employee executor;
 
     @Column
     private Boolean isDone;
 
-    @Column
-    private String contragent;
+    @ManyToOne
+    private Contractor contractor;
 
     @Column
-    private String document;
+    private TypeOfInvoice document;
 }
