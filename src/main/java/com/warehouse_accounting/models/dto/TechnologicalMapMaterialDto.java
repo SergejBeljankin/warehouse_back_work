@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TechnologicalMapMaterialDto {
+
     private Long id;
 
     private Long materialId;

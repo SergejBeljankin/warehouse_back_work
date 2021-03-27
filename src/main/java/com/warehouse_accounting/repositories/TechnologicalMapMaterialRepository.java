@@ -39,5 +39,5 @@ public interface TechnologicalMapMaterialRepository extends JpaRepository<Techno
     TechnologicalMapMaterialDto getById(@Param("id") Long id);
 
     @Query("SELECT material.finishedProducts FROM TechnologicalMap material WHERE material.id = :id")
-    List<TechnologicalMapMaterialDto> getListTechnologicalMapMaterialById(@Param("id") Long id);
+    List<TechnologicalMapMaterial> getListTechnologicalMapMaterialById(@Param("id") Long id);
 }

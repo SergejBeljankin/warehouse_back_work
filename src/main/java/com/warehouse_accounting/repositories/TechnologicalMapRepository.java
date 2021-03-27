@@ -29,7 +29,7 @@ public interface TechnologicalMapRepository extends JpaRepository<TechnologicalM
             "group.name)" +
             "FROM TechnologicalMap map " +
             "LEFT JOIN TechnologicalMapGroup group ON (map.technologicalMapGroup.id = group.id)")
-    List<TechnologicalMap> getAll();
+    List<TechnologicalMapDto> getAll();
 
     @Query("SELECT NEW com.warehouse_accounting.models.dto.TechnologicalMapDto(" +
             "map.id," +
