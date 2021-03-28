@@ -25,22 +25,22 @@ public interface TechnologicalMapRepository extends JpaRepository<TechnologicalM
             "map.comment," +
             "map.isArchived," +
             "map.productionCost," +
-            "group.id," +
-            "group.name)" +
+            "map_group.id," +
+            "map_group.name)" +
             "FROM TechnologicalMap map " +
-            "LEFT JOIN TechnologicalMapGroup group ON (map.technologicalMapGroup.id = group.id)")
+            "LEFT JOIN TechnologicalMapGroup map_group ON (map.technologicalMapGroup.id = map_group.id)")
     List<TechnologicalMapDto> getAll();
 
     @Query("SELECT NEW com.warehouse_accounting.models.dto.TechnologicalMapDto(" +
-            "map.id," +
-            "map.name," +
-            "map.comment," +
-            "map.isArchived," +
-            "map.productionCost," +
-            "group.id," +
-            "group.name)" +
+            "map.id, " +
+            "map.name, " +
+            "map.comment, " +
+            "map.isArchived, " +
+            "map.productionCost, " +
+            "map_group.id, " +
+            "map_group.name) " +
             "FROM TechnologicalMap map " +
-            "LEFT JOIN TechnologicalMapGroup group ON (map.technologicalMapGroup.id = group.id)" +
+            "LEFT JOIN TechnologicalMapGroup map_group ON (map.technologicalMapGroup.id = map_group.id) " +
             "WHERE map.id = :id")
     TechnologicalMapDto getById(@Param("id") Long id);
 }

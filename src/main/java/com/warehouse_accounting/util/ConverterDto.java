@@ -737,16 +737,18 @@ public class ConverterDto {
                 .isArchived(technologicalMapDto.isArchived())
                 .productionCost(technologicalMapDto.getProductionCost())
                 .technologicalMapGroup(technologicalMapGroup)
-                .finishedProducts(technologicalMapDto
-                        .getFinishedProducts()
+                .finishedProducts((technologicalMapDto.getFinishedProducts() != null)
+                        ? technologicalMapDto.getFinishedProducts()
                         .stream()
                         .map(ConverterDto::convertToModel)
-                        .collect(Collectors.toList()))
-                .materials(technologicalMapDto
-                        .getMaterials()
+                        .collect(Collectors.toList())
+                        : null)
+                .materials((technologicalMapDto.getMaterials() != null)
+                        ? technologicalMapDto.getMaterials()
                         .stream()
                         .map(ConverterDto::convertToModel)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toList())
+                        : null)
                 .build();
     }
 
@@ -757,8 +759,10 @@ public class ConverterDto {
                 .comment(technologicalMap.getComment())
                 .isArchived(technologicalMap.isArchived())
                 .productionCost(technologicalMap.getProductionCost())
-                .technologicalMapGroupId(technologicalMap.getTechnologicalMapGroup().getId())
-                .technologicalMapGroupName(technologicalMap.getTechnologicalMapGroup().getName())
+                .technologicalMapGroupId((technologicalMap.getTechnologicalMapGroup() != null) ?
+                        technologicalMap.getTechnologicalMapGroup().getId() : null)
+                .technologicalMapGroupName((technologicalMap.getTechnologicalMapGroup() != null) ?
+                        technologicalMap.getTechnologicalMapGroup().getName() : null)
                 .build();
     }
 
@@ -801,8 +805,8 @@ public class ConverterDto {
     public static TechnologicalMapProductDto convertToDto(TechnologicalMapProduct technologicalMapProduct) {
         return TechnologicalMapProductDto.builder()
                 .id(technologicalMapProduct.getId())
-                .finishedProductId(technologicalMapProduct.getFinishedProducts().getId())
-                .finishedProductsName(technologicalMapProduct.getFinishedProducts().getName())
+                .finishedProductId((technologicalMapProduct.getFinishedProducts() != null) ? technologicalMapProduct.getFinishedProducts().getId() : null)
+                .finishedProductsName((technologicalMapProduct.getFinishedProducts() != null) ? technologicalMapProduct.getFinishedProducts().getName() : null)
                 .count(technologicalMapProduct.getCount())
                 .technologicalMapDto(convertToDto(technologicalMapProduct.getTechnologicalMap()))
                 .build();
@@ -824,8 +828,8 @@ public class ConverterDto {
     public static TechnologicalMapMaterialDto convertToDto(TechnologicalMapMaterial technologicalMapMaterial) {
         return TechnologicalMapMaterialDto.builder()
                 .id(technologicalMapMaterial.getId())
-                .materialId(technologicalMapMaterial.getMaterials().getId())
-                .materialName(technologicalMapMaterial.getMaterials().getName())
+                .materialId((technologicalMapMaterial.getMaterials() != null) ? technologicalMapMaterial.getMaterials().getId() : null)
+                .materialName((technologicalMapMaterial.getMaterials() != null) ? technologicalMapMaterial.getMaterials().getName() : null)
                 .count(technologicalMapMaterial.getCount())
                 .technologicalMapDto(convertToDto(technologicalMapMaterial.getTechnologicalMap()))
                 .build();
