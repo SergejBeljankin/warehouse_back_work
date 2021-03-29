@@ -38,9 +38,8 @@ public class ProductionOrder {
     @ManyToOne(fetch = FetchType.LAZY)
     private Company company;
 
-//    this class in not create
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private TechnologicalMap technologicalMap;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TechnologicalMap technologicalMap;
 
     @Column
     private BigDecimal volumeOfProduction;
