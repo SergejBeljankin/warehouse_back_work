@@ -19,6 +19,7 @@ import com.warehouse_accounting.models.Position;
 import com.warehouse_accounting.models.Product;
 import com.warehouse_accounting.models.ProductGroup;
 import com.warehouse_accounting.models.ProductPrice;
+import com.warehouse_accounting.models.ProductionOrder;
 import com.warehouse_accounting.models.Project;
 import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.TaxSystem;
@@ -36,6 +37,7 @@ import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.ContractDto;
 import com.warehouse_accounting.models.dto.ContractorDto;
+import com.warehouse_accounting.models.dto.ContractorGetALLDto;
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
@@ -50,6 +52,7 @@ import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.models.dto.ProductDto;
 import com.warehouse_accounting.models.dto.ProductGroupDto;
 import com.warehouse_accounting.models.dto.ProductPriceDto;
+import com.warehouse_accounting.models.dto.ProductionOrderDto;
 import com.warehouse_accounting.models.dto.ProjectDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
@@ -836,4 +839,44 @@ public class ConverterDto {
     }
 
 
+    public static ProductionOrder convertToModel(ProductionOrderDto dto) {
+        Company company = new Company();
+        company.setId(dto.getCompanyId());
+        Warehouse warehouse = new Warehouse();
+        warehouse.setId(dto.getWarehouseId());
+        Project project = new Project();
+        project.setId(dto.getProjectId());
+        return ProductionOrder.builder()
+                .id(dto.getId())
+                .number(dto.getNumber())
+                .dateTime(dto.getDateTime())
+                .company(company)
+                //not create convertToModel for TechnologicalMap
+                //.technologicalMap(convertToModel(dto.getTechMapDto()))
+                .volumeOfProduction(dto.getVolumeOfProduction())
+                .warehouseForMaterials(warehouse)
+                .planDate(dto.getPlanDate())
+                .project(project)
+                .comment(dto.getComment())
+                .build();
+    }
+
+    public static ProductionOrderDto convertToDo(ProductionOrder productionOrder) {
+        return ProductionOrderDto.builder()
+                .id(productionOrder.getId())
+                .number(productionOrder.getNumber())
+                .dateTime(productionOrder.getDateTime())
+                .companyId(productionOrder.getCompany() != null ? productionOrder.getCompany().getId(): null)
+                .companyName(productionOrder.getCompany() != null ? productionOrder.getCompany().getName() : null)
+                //not create convertToDo for TechnologicalMap
+                //.techMapDto(convertToDo(productionOrder.getTechnologicalMap()))
+                .volumeOfProduction(productionOrder.getVolumeOfProduction())
+                .warehouseId(productionOrder.getWarehouseForMaterials() != null ? productionOrder.getWarehouseForMaterials().getId() : null)
+                .warehouseName(productionOrder.getWarehouseForMaterials() != null ? productionOrder.getWarehouseForMaterials().getName() : null)
+                .planDate(productionOrder.getPlanDate())
+                .projectId(productionOrder.getProject() != null ? productionOrder.getProject().getId() : null)
+                .projectName(productionOrder.getProject() != null ? productionOrder.getProject().getName() : null)
+                .comment(productionOrder.getComment())
+                .build();
+    }
 }
