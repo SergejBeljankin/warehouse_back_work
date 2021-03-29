@@ -39,4 +39,7 @@ public class TechnologicalMapProduct {
 
     @Column(scale = 2)
     private BigDecimal count= BigDecimal.valueOf(1);
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TechnologicalMap technologicalMap;
 }
