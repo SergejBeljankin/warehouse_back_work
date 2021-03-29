@@ -31,11 +31,12 @@ public class Task {
     private Employee executor;
 
     @Column
-    private Boolean isDone;
+    private Boolean isDone = false;
+
 
     @ManyToOne
     private Contractor contractor;
 
-    @Column
+    @Enumerated(EnumType.STRING)
     private TypeOfInvoice document;
 }
