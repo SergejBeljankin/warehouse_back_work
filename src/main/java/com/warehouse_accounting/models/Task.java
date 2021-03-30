@@ -37,6 +37,6 @@ public class Task {
     @ManyToOne
     private Contractor contractor;
 
-    @Enumerated(EnumType.STRING)
-    private TypeOfInvoice document;
+    @ManyToOne
+    private Document document;
 }
