@@ -47,5 +47,13 @@ public class TechnologicalMapGroup {
     @ManyToOne(fetch = FetchType.LAZY)
     private TechnologicalMapGroup parentTechnologicalMapGroup;
 
+    /**
+     * Indicates whether the object is in the archive or not.
+     * Items moved to the archive are not displayed in directories and reports.
+     * The archive allows you to hide outdated items without deleting them.
+     */
+    @Column
+    private boolean isArchived = false;
+
 }
 
