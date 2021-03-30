@@ -8,7 +8,7 @@ public interface ProductionOrderService {
 
     List<ProductionOrderDto> getAll();
 
-    ProductionOrderDto getById();
+    ProductionOrderDto getById(Long id);
 
     void create(ProductionOrderDto productionOrderDto);
 
