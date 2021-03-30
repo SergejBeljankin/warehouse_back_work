@@ -14,14 +14,19 @@ import com.warehouse_accounting.models.Invoice;
 import com.warehouse_accounting.models.InvoiceEdit;
 import com.warehouse_accounting.models.InvoiceProduct;
 import com.warehouse_accounting.models.LegalDetail;
+import com.warehouse_accounting.models.Movement;
 import com.warehouse_accounting.models.Position;
 import com.warehouse_accounting.models.Product;
 import com.warehouse_accounting.models.ProductGroup;
 import com.warehouse_accounting.models.ProductPrice;
+import com.warehouse_accounting.models.ProductionOrder;
 import com.warehouse_accounting.models.Project;
 import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.TaxSystem;
-import com.warehouse_accounting.models.Movement;
+import com.warehouse_accounting.models.TechnologicalMap;
+import com.warehouse_accounting.models.TechnologicalMapGroup;
+import com.warehouse_accounting.models.TechnologicalMapMaterial;
+import com.warehouse_accounting.models.TechnologicalMapProduct;
 import com.warehouse_accounting.models.TypeOfContractor;
 import com.warehouse_accounting.models.TypeOfInvoice;
 import com.warehouse_accounting.models.TypeOfPrice;
@@ -32,23 +37,29 @@ import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.ContractDto;
 import com.warehouse_accounting.models.dto.ContractorDto;
+import com.warehouse_accounting.models.dto.ContractorGetALLDto;
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
 import com.warehouse_accounting.models.dto.EmployeeDto;
 import com.warehouse_accounting.models.dto.ImageDto;
-import com.warehouse_accounting.models.dto.InvoiceProductDto;
 import com.warehouse_accounting.models.dto.InvoiceDto;
 import com.warehouse_accounting.models.dto.InvoiceEditDto;
+import com.warehouse_accounting.models.dto.InvoiceProductDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
+import com.warehouse_accounting.models.dto.MovementDto;
 import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.models.dto.ProductDto;
 import com.warehouse_accounting.models.dto.ProductGroupDto;
 import com.warehouse_accounting.models.dto.ProductPriceDto;
+import com.warehouse_accounting.models.dto.ProductionOrderDto;
 import com.warehouse_accounting.models.dto.ProjectDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
-import com.warehouse_accounting.models.dto.MovementDto;
+import com.warehouse_accounting.models.dto.TechnologicalMapDto;
+import com.warehouse_accounting.models.dto.TechnologicalMapGroupDto;
+import com.warehouse_accounting.models.dto.TechnologicalMapMaterialDto;
+import com.warehouse_accounting.models.dto.TechnologicalMapProductDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
@@ -313,42 +324,35 @@ public class ConverterDto {
     }
 
     public static LegalDetail convertToModel(LegalDetailDto legalDetailDto) {
+        TypeOfContractor typeOfContractor = new TypeOfContractor();
+        typeOfContractor.setId(legalDetailDto.getTypeOfContractorId());
         return LegalDetail.builder()
                 .id(legalDetailDto.getId())
-                .lastName(legalDetailDto.getLastName())
-                .firstName(legalDetailDto.getFirstName())
-                .middleName(legalDetailDto.getMiddleName())
+                .fullName(legalDetailDto.getFullName())
                 .address(legalDetailDto.getAddress())
                 .commentToAddress(legalDetailDto.getCommentToAddress())
                 .inn(legalDetailDto.getInn())
+                .kpp(legalDetailDto.getKpp())
                 .okpo(legalDetailDto.getOkpo())
-                .ogrnip(legalDetailDto.getOgrnip())
-                .numberOfTheCertificate(legalDetailDto.getNumberOfTheCertificate())
-                .dateOfTheCertificate(legalDetailDto.getDateOfTheCertificate())
-                .typeOfContractor(
-                        legalDetailDto.getTypeOfContractorDto() != null
-                                ? convertToModel(legalDetailDto.getTypeOfContractorDto())
-                                : null)
+                .ogrn(legalDetailDto.getOgrn())
+                .typeOfContractor(typeOfContractor)
                 .build();
     }
 
     public static LegalDetailDto convertToDto(LegalDetail legalDetail) {
         return LegalDetailDto.builder()
                 .id(legalDetail.getId())
-                .lastName(legalDetail.getLastName())
-                .firstName(legalDetail.getFirstName())
-                .middleName(legalDetail.getMiddleName())
+                .fullName(legalDetail.getFullName())
                 .address(legalDetail.getAddress())
                 .commentToAddress(legalDetail.getCommentToAddress())
                 .inn(legalDetail.getInn())
+                .kpp(legalDetail.getKpp())
                 .okpo(legalDetail.getOkpo())
-                .ogrnip(legalDetail.getOgrnip())
-                .numberOfTheCertificate(legalDetail.getNumberOfTheCertificate())
-                .dateOfTheCertificate(legalDetail.getDateOfTheCertificate())
-                .typeOfContractorDto(
-                        legalDetail.getTypeOfContractor() != null
-                                ? convertToDto(legalDetail.getTypeOfContractor())
-                                : null)
+                .ogrn(legalDetail.getOgrn())
+                .typeOfContractorId(legalDetail.getTypeOfContractor() != null
+                        ? legalDetail.getTypeOfContractor().getId() : null)
+                .typeOfContractorName(legalDetail.getTypeOfContractor() != null
+                        ? legalDetail.getTypeOfContractor().getName() : null)
                 .build();
     }
 
@@ -439,7 +443,6 @@ public class ConverterDto {
         return ContractorDto.builder()
                 .id(contractor.getId())
                 .name(contractor.getName())
-                .inn(contractor.getInn())
                 .sortNumber(contractor.getSortNumber())
                 .phone(contractor.getPhone())
                 .fax(contractor.getFax())
@@ -447,14 +450,11 @@ public class ConverterDto {
                 .address(contractor.getAddress())
                 .commentToAddress(contractor.getCommentToAddress())
                 .comment(contractor.getComment())
+                .numberDiscountCard(contractor.getNumberDiscountCard())
                 .contractorGroupId(contractor.getContractorGroup() != null
                         ? contractor.getContractorGroup().getId() : null)
                 .contractorGroupName(contractor.getContractorGroup() != null
                         ? contractor.getContractorGroup().getName() : null)
-                .typeOfContractorId(contractor.getTypeOfContractor() != null
-                        ? contractor.getTypeOfContractor().getId() : null)
-                .typeOfContractorName(contractor.getTypeOfContractor() != null
-                        ? contractor.getTypeOfContractor().getName() : null)
                 .typeOfPriceId(contractor.getTypeOfPrice() != null
                         ? contractor.getTypeOfPrice().getId() : null)
                 .typeOfPriceName(contractor.getTypeOfPrice() != null
@@ -468,14 +468,11 @@ public class ConverterDto {
     public static Contractor convertToModel(ContractorDto contractorDto) {
         ContractorGroup contractorGroup = new ContractorGroup();
         contractorGroup.setId(contractorDto.getContractorGroupId());
-        TypeOfContractor typeOfContractor = new TypeOfContractor();
-        typeOfContractor.setId(contractorDto.getTypeOfContractorId());
         TypeOfPrice typeOfPrice = new TypeOfPrice();
         typeOfPrice.setId(contractorDto.getTypeOfPriceId());
         return Contractor.builder()
                 .id(contractorDto.getId())
                 .name(contractorDto.getName())
-                .inn(contractorDto.getInn())
                 .sortNumber(contractorDto.getSortNumber())
                 .phone(contractorDto.getPhone())
                 .fax(contractorDto.getFax())
@@ -483,8 +480,8 @@ public class ConverterDto {
                 .address(contractorDto.getAddress())
                 .commentToAddress(contractorDto.getCommentToAddress())
                 .comment(contractorDto.getComment())
+                .numberDiscountCard(contractorDto.getNumberDiscountCard())
                 .contractorGroup(contractorGroup)
-                .typeOfContractor(typeOfContractor)
                 .typeOfPrice(typeOfPrice)
                 .bankAccounts(contractorDto.getBankAccountDtos() != null ?
                         contractorDto.getBankAccountDtos().stream()
@@ -580,11 +577,11 @@ public class ConverterDto {
                 .company(company)
                 .project(project)
                 .warehouse(warehouse)
-                .invoiceProducts(dto.getProductDtos().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
+                .invoiceProducts(dto.getProductDtos() != null ? dto.getProductDtos().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()) : null)
                 .comment(dto.getComment())
                 .contractor(contractor)
                 .contract(contract)
-                .edits(dto.getEdits().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
+                .edits(dto.getEdits() != null ? dto.getEdits().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()) : null)
                 .build();
     }
 
@@ -733,4 +730,153 @@ public class ConverterDto {
                 .build();
     }
 
+    public static TechnologicalMap convertToModel(TechnologicalMapDto technologicalMapDto) {
+        TechnologicalMapGroup technologicalMapGroup = new TechnologicalMapGroup();
+        technologicalMapGroup.setId(technologicalMapDto.getTechnologicalMapGroupId());
+        return TechnologicalMap.builder()
+                .id(technologicalMapDto.getId())
+                .name(technologicalMapDto.getName())
+                .comment(technologicalMapDto.getComment())
+                .isArchived(technologicalMapDto.isArchived())
+                .productionCost(technologicalMapDto.getProductionCost())
+                .technologicalMapGroup(technologicalMapGroup)
+                .finishedProducts((technologicalMapDto.getFinishedProducts() != null)
+                        ? technologicalMapDto.getFinishedProducts()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList())
+                        : null)
+                .materials((technologicalMapDto.getMaterials() != null)
+                        ? technologicalMapDto.getMaterials()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList())
+                        : null)
+                .build();
+    }
+
+    public static TechnologicalMapDto convertToDto(TechnologicalMap technologicalMap) {
+        return TechnologicalMapDto.builder()
+                .id(technologicalMap.getId())
+                .name(technologicalMap.getName())
+                .comment(technologicalMap.getComment())
+                .isArchived(technologicalMap.isArchived())
+                .productionCost(technologicalMap.getProductionCost())
+                .technologicalMapGroupId((technologicalMap.getTechnologicalMapGroup() != null) ?
+                        technologicalMap.getTechnologicalMapGroup().getId() : null)
+                .technologicalMapGroupName((technologicalMap.getTechnologicalMapGroup() != null) ?
+                        technologicalMap.getTechnologicalMapGroup().getName() : null)
+                .build();
+    }
+
+    public static TechnologicalMapGroup convertToModel(TechnologicalMapGroupDto technologicalMapGroupDto) {
+        TechnologicalMapGroup parentTechnologicalMapGroup = new TechnologicalMapGroup();
+        parentTechnologicalMapGroup.setId(technologicalMapGroupDto.getParentTechnologicalMapGroupId());
+        return TechnologicalMapGroup.builder()
+                .id(technologicalMapGroupDto.getId())
+                .name(technologicalMapGroupDto.getName())
+                .code(technologicalMapGroupDto.getCode())
+                .comment(technologicalMapGroupDto.getComment())
+                .parentTechnologicalMapGroup(parentTechnologicalMapGroup)
+                .build();
+    }
+
+    public static TechnologicalMapGroupDto convertToDto(TechnologicalMapGroup technologicalMapGroup) {
+        return TechnologicalMapGroupDto.builder()
+                .id(technologicalMapGroup.getId())
+                .name(technologicalMapGroup.getName())
+                .code(technologicalMapGroup.getCode())
+                .comment(technologicalMapGroup.getComment())
+                .parentTechnologicalMapGroupId(technologicalMapGroup.getId())
+                .parentTechnologicalMapGroupName(technologicalMapGroup.getName())
+                .build();
+    }
+
+    public static TechnologicalMapProduct convertToModel(TechnologicalMapProductDto technologicalMapProductDto) {
+        Product finishedProducts = new Product();
+        finishedProducts.setId(technologicalMapProductDto.getFinishedProductId());
+        TechnologicalMap technologicalMap = new TechnologicalMap();
+        technologicalMap.setId(technologicalMapProductDto.getTechnologicalMapDto().getId());
+        return TechnologicalMapProduct.builder()
+                .id(technologicalMapProductDto.getId())
+                .finishedProducts(finishedProducts)
+                .count(technologicalMapProductDto.getCount())
+                .technologicalMap(technologicalMap)
+                .build();
+    }
+
+    public static TechnologicalMapProductDto convertToDto(TechnologicalMapProduct technologicalMapProduct) {
+        return TechnologicalMapProductDto.builder()
+                .id(technologicalMapProduct.getId())
+                .finishedProductId((technologicalMapProduct.getFinishedProducts() != null) ? technologicalMapProduct.getFinishedProducts().getId() : null)
+                .finishedProductsName((technologicalMapProduct.getFinishedProducts() != null) ? technologicalMapProduct.getFinishedProducts().getName() : null)
+                .count(technologicalMapProduct.getCount())
+                .technologicalMapDto(convertToDto(technologicalMapProduct.getTechnologicalMap()))
+                .build();
+    }
+
+    public static TechnologicalMapMaterial convertToModel(TechnologicalMapMaterialDto technologicalMapMaterialDto) {
+        Product materials = new Product();
+        materials.setId(technologicalMapMaterialDto.getMaterialId());
+        TechnologicalMap technologicalMap = new TechnologicalMap();
+        technologicalMap.setId(technologicalMapMaterialDto.getTechnologicalMapDto().getId());
+        return TechnologicalMapMaterial.builder()
+                .id(technologicalMapMaterialDto.getId())
+                .materials(materials)
+                .count(technologicalMapMaterialDto.getCount())
+                .technologicalMap(technologicalMap)
+                .build();
+    }
+
+    public static TechnologicalMapMaterialDto convertToDto(TechnologicalMapMaterial technologicalMapMaterial) {
+        return TechnologicalMapMaterialDto.builder()
+                .id(technologicalMapMaterial.getId())
+                .materialId((technologicalMapMaterial.getMaterials() != null) ? technologicalMapMaterial.getMaterials().getId() : null)
+                .materialName((technologicalMapMaterial.getMaterials() != null) ? technologicalMapMaterial.getMaterials().getName() : null)
+                .count(technologicalMapMaterial.getCount())
+                .technologicalMapDto(convertToDto(technologicalMapMaterial.getTechnologicalMap()))
+                .build();
+    }
+
+
+    public static ProductionOrder convertToModel(ProductionOrderDto dto) {
+        Company company = new Company();
+        company.setId(dto.getCompanyId());
+        Warehouse warehouse = new Warehouse();
+        warehouse.setId(dto.getWarehouseId());
+        Project project = new Project();
+        project.setId(dto.getProjectId());
+        return ProductionOrder.builder()
+                .id(dto.getId())
+                .number(dto.getNumber())
+                .dateTime(dto.getDateTime())
+                .company(company)
+                //not create convertToModel for TechnologicalMap
+                //.technologicalMap(convertToModel(dto.getTechMapDto()))
+                .volumeOfProduction(dto.getVolumeOfProduction())
+                .warehouseForMaterials(warehouse)
+                .planDate(dto.getPlanDate())
+                .project(project)
+                .comment(dto.getComment())
+                .build();
+    }
+
+    public static ProductionOrderDto convertToDo(ProductionOrder productionOrder) {
+        return ProductionOrderDto.builder()
+                .id(productionOrder.getId())
+                .number(productionOrder.getNumber())
+                .dateTime(productionOrder.getDateTime())
+                .companyId(productionOrder.getCompany() != null ? productionOrder.getCompany().getId(): null)
+                .companyName(productionOrder.getCompany() != null ? productionOrder.getCompany().getName() : null)
+                //not create convertToDo for TechnologicalMap
+                //.techMapDto(convertToDo(productionOrder.getTechnologicalMap()))
+                .volumeOfProduction(productionOrder.getVolumeOfProduction())
+                .warehouseId(productionOrder.getWarehouseForMaterials() != null ? productionOrder.getWarehouseForMaterials().getId() : null)
+                .warehouseName(productionOrder.getWarehouseForMaterials() != null ? productionOrder.getWarehouseForMaterials().getName() : null)
+                .planDate(productionOrder.getPlanDate())
+                .projectId(productionOrder.getProject() != null ? productionOrder.getProject().getId() : null)
+                .projectName(productionOrder.getProject() != null ? productionOrder.getProject().getName() : null)
+                .comment(productionOrder.getComment())
+                .build();
+    }
 }

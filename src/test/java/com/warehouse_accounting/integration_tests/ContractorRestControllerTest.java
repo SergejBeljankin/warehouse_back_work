@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.warehouse_accounting.controllers.rest.ContractorRestController;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.ContractorDto;
+import com.warehouse_accounting.models.dto.ContractorGetALLDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import org.junit.jupiter.api.BeforeAll;
@@ -51,8 +52,34 @@ class ContractorRestControllerTest {
 
     private static final List<ContractorDto> contractorDtoList = new ArrayList<>();
 
+    private static List<ContractorGetALLDto> contractorGetALLDtoList = new ArrayList<>();
+
     @BeforeAll
     static void init() {
+        ContractorGetALLDto contractorGetALLDto = ContractorGetALLDto.builder()
+                .id(1L)
+                .name("name")
+                .sortNumber("sortNumber")
+                .phone("phone")
+                .fax("fax")
+                .email("email")
+                .address("address")
+                .comment("comment")
+                .numberDiscountCard("numberDiscountCard")
+                .legalDetailId(1L)
+                .legalDetailFullName("Александра")
+                .legalDetailAddress("1-й Вязовский пр-д, 4, стр. 19, Москва, 109428")
+                .legalDetailInn("7731537604")
+                .legalDetailKpp("111111111")
+                .legalDetailTypeOfContractorId(1L)
+                .legalDetailTypeOfContractorName("Юридическое лицо")
+                .contractorGroupId(1L)
+                .contractorGroupName("Покупатель")
+                .typeOfPriceId(1L)
+                .typeOfPriceName("Оптовая")
+                .build();
+      contractorGetALLDtoList = List.of(contractorGetALLDto);
+
         BankAccountDto bankAccountDto1 = BankAccountDto.builder()
                 .id(1L)
                 .account("account")
@@ -76,21 +103,18 @@ class ContractorRestControllerTest {
 
         List<BankAccountDto> bankAccountDtoList = List.of(bankAccountDto1, bankAccountDto2);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         LegalDetailDto legalDetailDto = LegalDetailDto.builder()
                 .id(1L)
-                .lastName("Александра")
-                .firstName("Васина")
-                .middleName("Валерьевна")
+                .fullName("Александра")
                 .address("1-й Вязовский пр-д, 4, стр. 19, Москва, 109428")
                 .commentToAddress("-")
                 .inn("7731537604")
+                .kpp("111111111")
                 .okpo("93318947")
-                .ogrnip("1067746195330")
-                .numberOfTheCertificate("241")
-                .dateOfTheCertificate(LocalDate.parse("2020-04-03", formatter))
-                .typeOfContractorDto(new TypeOfContractorDto(1L, null, null))
+                .ogrn("1067746195330")
+                .typeOfContractorId(1L)
+                .typeOfContractorName("Юридическое лицо")
                 .build();
 
         ContractorDto contractorDto = ContractorDto.builder()
@@ -99,15 +123,13 @@ class ContractorRestControllerTest {
                 .comment("comment")
                 .commentToAddress("commentToAddress")
                 .name("name")
-                .inn("inn")
+                .numberDiscountCard("numberDiscountCard")
                 .sortNumber("sortNumber")
                 .phone("phone")
                 .fax("fax")
                 .email("email")
                 .contractorGroupId(1L)
                 .contractorGroupName("Покупатель")
-                .typeOfContractorId(1L)
-                .typeOfContractorName("Юридическое лицо")
                 .typeOfPriceId(1L)
                 .typeOfPriceName("Оптовая")
                 .legalDetailDto(legalDetailDto)
@@ -128,7 +150,7 @@ class ContractorRestControllerTest {
     void getAll() throws Exception {
         this.mockMvc.perform(get("/api/contractors"))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(contractorDtoList)));
+                .andExpect(content().json(objectMapper.writeValueAsString(contractorGetALLDtoList)));
     }
 
     @Test
@@ -146,15 +168,13 @@ class ContractorRestControllerTest {
                 .comment("comment1")
                 .commentToAddress("commentToAddress1")
                 .name("name1")
-                .inn("inn1")
+                .numberDiscountCard("numberDiscountCard1")
                 .sortNumber("sortNumber1")
                 .phone("phone1")
                 .fax("fax1")
                 .email("email1")
                 .contractorGroupId(1L)
                 .contractorGroupName("Покупатель")
-                .typeOfContractorId(1L)
-                .typeOfContractorName("Юридическое лицо")
                 .typeOfPriceId(1L)
                 .typeOfPriceName("Оптовая")
                 .legalDetailDto(null)
@@ -183,15 +203,13 @@ class ContractorRestControllerTest {
                 .comment("comment")
                 .commentToAddress("commentToAddress")
                 .name("name")
-                .inn("inn")
+                .numberDiscountCard("numberDiscountCard")
                 .sortNumber("sortNumber")
                 .phone("phone")
                 .fax("fax")
                 .email("email")
                 .contractorGroupId(1L)
                 .contractorGroupName("Покупатель")
-                .typeOfContractorId(1L)
-                .typeOfContractorName("Юридическое лицо")
                 .typeOfPriceId(1L)
                 .typeOfPriceName("Оптовая")
                 .legalDetailDto(null)

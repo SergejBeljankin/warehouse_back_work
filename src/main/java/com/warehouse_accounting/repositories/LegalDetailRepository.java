@@ -15,35 +15,31 @@ public interface LegalDetailRepository extends JpaRepository<LegalDetail, Long>,
 
     @Query("SELECT NEW com.warehouse_accounting.models.dto.LegalDetailDto(" +
             "ld.id," +
-            "ld.lastName," +
-            "ld.firstName," +
-            "ld.middleName," +
+            "ld.fullName," +
             "ld.address," +
             "ld.commentToAddress," +
             "ld.inn," +
+            "ld.kpp," +
             "ld.okpo," +
-            "ld.ogrnip," +
-            "ld.numberOfTheCertificate," +
-            "ld.dateOfTheCertificate," +
-            "ld.typeOfContractor.id" +
+            "ld.ogrn," +
+            "ld.typeOfContractor.id," +
+            "ld.typeOfContractor.name" +
             ")" +
-            "FROM LegalDetail ld")
+            "FROM LegalDetail ld left join TypeOfContractor tc on (ld.typeOfContractor.id = tc.id)")
     List<LegalDetailDto> getAll();
 
     @Query("SELECT NEW com.warehouse_accounting.models.dto.LegalDetailDto(" +
             "ld.id," +
-            "ld.lastName," +
-            "ld.firstName," +
-            "ld.middleName," +
+            "ld.fullName," +
             "ld.address," +
             "ld.commentToAddress," +
             "ld.inn," +
+            "ld.kpp," +
             "ld.okpo," +
-            "ld.ogrnip," +
-            "ld.numberOfTheCertificate," +
-            "ld.dateOfTheCertificate," +
-            "ld.typeOfContractor.id" +
+            "ld.ogrn," +
+            "ld.typeOfContractor.id," +
+            "ld.typeOfContractor.name" +
             ")" +
-            "FROM LegalDetail ld WHERE ld.id = :id")
+            "FROM LegalDetail ld left join TypeOfContractor tc on (ld.typeOfContractor.id = tc.id) WHERE ld.id = :id")
     LegalDetailDto getById(@Param("id") Long id);
 }

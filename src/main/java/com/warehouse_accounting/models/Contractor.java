@@ -32,9 +32,6 @@ public class Contractor {
     @Column
     private String name;
 
-    @Column(unique = true)
-    private String inn;
-
     @Column
     private String sortNumber;
 
@@ -56,11 +53,11 @@ public class Contractor {
     @Column
     private String comment;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private ContractorGroup contractorGroup;
+    @Column
+    private String numberDiscountCard;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private TypeOfContractor typeOfContractor;
+    private ContractorGroup contractorGroup;
 
     @OneToOne(fetch = FetchType.LAZY)
     private TypeOfPrice typeOfPrice;

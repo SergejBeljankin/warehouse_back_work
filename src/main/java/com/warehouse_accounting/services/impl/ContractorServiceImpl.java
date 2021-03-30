@@ -1,6 +1,7 @@
 package com.warehouse_accounting.services.impl;
 
 import com.warehouse_accounting.models.dto.ContractorDto;
+import com.warehouse_accounting.models.dto.ContractorGetALLDto;
 import com.warehouse_accounting.repositories.BankAccountRepository;
 import com.warehouse_accounting.repositories.ContractorGroupRepository;
 import com.warehouse_accounting.repositories.ContractorRepository;
@@ -33,17 +34,21 @@ public class ContractorServiceImpl implements ContractorService {
         this.legalDetailRepository = legalDetailRepository;
     }
 
-    @Override
-    public List<ContractorDto> getAll() {
-        List<ContractorDto> contractorDtos = contractorRepository.getAll();
-        for (ContractorDto contractorDto : contractorDtos) {
-            contractorDto.setLegalDetailDto(legalDetailRepository.getById(
-                    contractorDto.getLegalDetailDto().getId()));
-            contractorDto.setBankAccountDtos(bankAccountRepository.getListById(
-                    contractorDto.getId()).stream()
-                    .map(ConverterDto::convertToDto).collect(Collectors.toList()));
-        }
-        return contractorDtos;
+//    @Override
+//    public List<ContractorDto> getAll() {
+//        List<ContractorDto> contractorDtos = contractorRepository.getAll();
+//        for (ContractorDto contractorDto : contractorDtos) {
+//            contractorDto.setLegalDetailDto(legalDetailRepository.getById(
+//                    contractorDto.getLegalDetailDto().getId()));
+//            contractorDto.setBankAccountDtos(bankAccountRepository.getListById(
+//                    contractorDto.getId()).stream()
+//                    .map(ConverterDto::convertToDto).collect(Collectors.toList()));
+//        }
+//        return contractorDtos;
+//    }
+@Override
+    public List<ContractorGetALLDto> getAll() {
+        return contractorRepository.getAll();
     }
 
     @Override

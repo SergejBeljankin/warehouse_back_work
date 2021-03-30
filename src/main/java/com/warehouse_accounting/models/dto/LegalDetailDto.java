@@ -15,11 +15,7 @@ import java.time.LocalDate;
 public class LegalDetailDto {
     private Long id;
 
-    private String lastName;
-
-    private String firstName;
-
-    private String middleName;
+    private String fullName;
 
     private String address;
 
@@ -27,40 +23,14 @@ public class LegalDetailDto {
 
     private String inn;
 
+    private String kpp;
+
     private String okpo;
 
-    private String ogrnip;
+    private String ogrn;
 
-    private String numberOfTheCertificate;
+    private Long typeOfContractorId;
 
-    private LocalDate dateOfTheCertificate;
+    private String typeOfContractorName;
 
-    private TypeOfContractorDto typeOfContractorDto = new TypeOfContractorDto();
-
-    public LegalDetailDto(
-            Long id,
-            String lastName,
-            String firstName,
-            String middleName,
-            String address,
-            String commentToAddress,
-            String inn,
-            String okpo,
-            String ogrnip,
-            String numberOfTheCertificate,
-            LocalDate dateOfTheCertificate,
-            Long typeOfContractorDtoId) {
-        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.address = address;
-        this.commentToAddress = commentToAddress;
-        this.inn = inn;
-        this.okpo = okpo;
-        this.ogrnip = ogrnip;
-        this.numberOfTheCertificate = numberOfTheCertificate;
-        this.dateOfTheCertificate = dateOfTheCertificate;
-        this.typeOfContractorDto.setId(typeOfContractorDtoId);
-    }
 }
