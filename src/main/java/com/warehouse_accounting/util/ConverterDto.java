@@ -14,6 +14,7 @@ import com.warehouse_accounting.models.Invoice;
 import com.warehouse_accounting.models.InvoiceEdit;
 import com.warehouse_accounting.models.InvoiceProduct;
 import com.warehouse_accounting.models.LegalDetail;
+import com.warehouse_accounting.models.Movement;
 import com.warehouse_accounting.models.Position;
 import com.warehouse_accounting.models.Product;
 import com.warehouse_accounting.models.ProductGroup;
@@ -22,8 +23,10 @@ import com.warehouse_accounting.models.ProductionOrder;
 import com.warehouse_accounting.models.Project;
 import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.TaxSystem;
-import com.warehouse_accounting.models.Movement;
 import com.warehouse_accounting.models.TechnologicalMap;
+import com.warehouse_accounting.models.TechnologicalMapGroup;
+import com.warehouse_accounting.models.TechnologicalMapMaterial;
+import com.warehouse_accounting.models.TechnologicalMapProduct;
 import com.warehouse_accounting.models.TypeOfContractor;
 import com.warehouse_accounting.models.TypeOfInvoice;
 import com.warehouse_accounting.models.TypeOfPrice;
@@ -40,10 +43,11 @@ import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
 import com.warehouse_accounting.models.dto.EmployeeDto;
 import com.warehouse_accounting.models.dto.ImageDto;
-import com.warehouse_accounting.models.dto.InvoiceProductDto;
 import com.warehouse_accounting.models.dto.InvoiceDto;
 import com.warehouse_accounting.models.dto.InvoiceEditDto;
+import com.warehouse_accounting.models.dto.InvoiceProductDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
+import com.warehouse_accounting.models.dto.MovementDto;
 import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.models.dto.ProductDto;
 import com.warehouse_accounting.models.dto.ProductGroupDto;
@@ -52,8 +56,10 @@ import com.warehouse_accounting.models.dto.ProductionOrderDto;
 import com.warehouse_accounting.models.dto.ProjectDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
-import com.warehouse_accounting.models.dto.MovementDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapDto;
+import com.warehouse_accounting.models.dto.TechnologicalMapGroupDto;
+import com.warehouse_accounting.models.dto.TechnologicalMapMaterialDto;
+import com.warehouse_accounting.models.dto.TechnologicalMapProductDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
@@ -571,7 +577,7 @@ public class ConverterDto {
                 .company(company)
                 .project(project)
                 .warehouse(warehouse)
-                .invoiceProducts(dto.getProductDtos() != null ? dto.getProductDtos().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()): null)
+                .invoiceProducts(dto.getProductDtos() != null ? dto.getProductDtos().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()) : null)
                 .comment(dto.getComment())
                 .contractor(contractor)
                 .contract(contract)
@@ -723,6 +729,115 @@ public class ConverterDto {
                 .price(productPrice.getPrice())
                 .build();
     }
+
+    public static TechnologicalMap convertToModel(TechnologicalMapDto technologicalMapDto) {
+        TechnologicalMapGroup technologicalMapGroup = new TechnologicalMapGroup();
+        technologicalMapGroup.setId(technologicalMapDto.getTechnologicalMapGroupId());
+        return TechnologicalMap.builder()
+                .id(technologicalMapDto.getId())
+                .name(technologicalMapDto.getName())
+                .comment(technologicalMapDto.getComment())
+                .isArchived(technologicalMapDto.isArchived())
+                .productionCost(technologicalMapDto.getProductionCost())
+                .technologicalMapGroup(technologicalMapGroup)
+                .finishedProducts((technologicalMapDto.getFinishedProducts() != null)
+                        ? technologicalMapDto.getFinishedProducts()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList())
+                        : null)
+                .materials((technologicalMapDto.getMaterials() != null)
+                        ? technologicalMapDto.getMaterials()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList())
+                        : null)
+                .build();
+    }
+
+    public static TechnologicalMapDto convertToDto(TechnologicalMap technologicalMap) {
+        return TechnologicalMapDto.builder()
+                .id(technologicalMap.getId())
+                .name(technologicalMap.getName())
+                .comment(technologicalMap.getComment())
+                .isArchived(technologicalMap.isArchived())
+                .productionCost(technologicalMap.getProductionCost())
+                .technologicalMapGroupId((technologicalMap.getTechnologicalMapGroup() != null) ?
+                        technologicalMap.getTechnologicalMapGroup().getId() : null)
+                .technologicalMapGroupName((technologicalMap.getTechnologicalMapGroup() != null) ?
+                        technologicalMap.getTechnologicalMapGroup().getName() : null)
+                .build();
+    }
+
+    public static TechnologicalMapGroup convertToModel(TechnologicalMapGroupDto technologicalMapGroupDto) {
+        TechnologicalMapGroup parentTechnologicalMapGroup = new TechnologicalMapGroup();
+        parentTechnologicalMapGroup.setId(technologicalMapGroupDto.getParentTechnologicalMapGroupId());
+        return TechnologicalMapGroup.builder()
+                .id(technologicalMapGroupDto.getId())
+                .name(technologicalMapGroupDto.getName())
+                .code(technologicalMapGroupDto.getCode())
+                .comment(technologicalMapGroupDto.getComment())
+                .parentTechnologicalMapGroup(parentTechnologicalMapGroup)
+                .build();
+    }
+
+    public static TechnologicalMapGroupDto convertToDto(TechnologicalMapGroup technologicalMapGroup) {
+        return TechnologicalMapGroupDto.builder()
+                .id(technologicalMapGroup.getId())
+                .name(technologicalMapGroup.getName())
+                .code(technologicalMapGroup.getCode())
+                .comment(technologicalMapGroup.getComment())
+                .parentTechnologicalMapGroupId(technologicalMapGroup.getId())
+                .parentTechnologicalMapGroupName(technologicalMapGroup.getName())
+                .build();
+    }
+
+    public static TechnologicalMapProduct convertToModel(TechnologicalMapProductDto technologicalMapProductDto) {
+        Product finishedProducts = new Product();
+        finishedProducts.setId(technologicalMapProductDto.getFinishedProductId());
+        TechnologicalMap technologicalMap = new TechnologicalMap();
+        technologicalMap.setId(technologicalMapProductDto.getTechnologicalMapDto().getId());
+        return TechnologicalMapProduct.builder()
+                .id(technologicalMapProductDto.getId())
+                .finishedProducts(finishedProducts)
+                .count(technologicalMapProductDto.getCount())
+                .technologicalMap(technologicalMap)
+                .build();
+    }
+
+    public static TechnologicalMapProductDto convertToDto(TechnologicalMapProduct technologicalMapProduct) {
+        return TechnologicalMapProductDto.builder()
+                .id(technologicalMapProduct.getId())
+                .finishedProductId((technologicalMapProduct.getFinishedProducts() != null) ? technologicalMapProduct.getFinishedProducts().getId() : null)
+                .finishedProductsName((technologicalMapProduct.getFinishedProducts() != null) ? technologicalMapProduct.getFinishedProducts().getName() : null)
+                .count(technologicalMapProduct.getCount())
+                .technologicalMapDto(convertToDto(technologicalMapProduct.getTechnologicalMap()))
+                .build();
+    }
+
+    public static TechnologicalMapMaterial convertToModel(TechnologicalMapMaterialDto technologicalMapMaterialDto) {
+        Product materials = new Product();
+        materials.setId(technologicalMapMaterialDto.getMaterialId());
+        TechnologicalMap technologicalMap = new TechnologicalMap();
+        technologicalMap.setId(technologicalMapMaterialDto.getTechnologicalMapDto().getId());
+        return TechnologicalMapMaterial.builder()
+                .id(technologicalMapMaterialDto.getId())
+                .materials(materials)
+                .count(technologicalMapMaterialDto.getCount())
+                .technologicalMap(technologicalMap)
+                .build();
+    }
+
+    public static TechnologicalMapMaterialDto convertToDto(TechnologicalMapMaterial technologicalMapMaterial) {
+        return TechnologicalMapMaterialDto.builder()
+                .id(technologicalMapMaterial.getId())
+                .materialId((technologicalMapMaterial.getMaterials() != null) ? technologicalMapMaterial.getMaterials().getId() : null)
+                .materialName((technologicalMapMaterial.getMaterials() != null) ? technologicalMapMaterial.getMaterials().getName() : null)
+                .count(technologicalMapMaterial.getCount())
+                .technologicalMapDto(convertToDto(technologicalMapMaterial.getTechnologicalMap()))
+                .build();
+    }
+
 
     public static ProductionOrder convertToModel(ProductionOrderDto dto) {
         Company company = new Company();

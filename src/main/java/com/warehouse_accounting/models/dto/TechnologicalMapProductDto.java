@@ -25,5 +25,19 @@ public class TechnologicalMapProductDto {
     private Long finishedProductId;
     private String finishedProductsName;
 
-    private BigDecimal count= BigDecimal.valueOf(1);
+    private BigDecimal count = BigDecimal.valueOf(1);
+
+    private TechnologicalMapDto technologicalMapDto = new TechnologicalMapDto();
+
+    public TechnologicalMapProductDto(Long id,
+                                      Long finishedProductId,
+                                      String finishedProductsName,
+                                      BigDecimal count,
+                                      Long technologicalMapDto) {
+        this.id = id;
+        this.finishedProductId = finishedProductId;
+        this.finishedProductsName = finishedProductsName;
+        this.count = count;
+        this.technologicalMapDto.setId(technologicalMapDto);
+    }
 }
