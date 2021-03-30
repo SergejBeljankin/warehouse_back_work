@@ -27,6 +27,7 @@ import com.warehouse_accounting.models.TechnologicalMap;
 import com.warehouse_accounting.models.TechnologicalMapGroup;
 import com.warehouse_accounting.models.TechnologicalMapMaterial;
 import com.warehouse_accounting.models.TechnologicalMapProduct;
+import com.warehouse_accounting.models.TechnologicalOperation;
 import com.warehouse_accounting.models.TypeOfContractor;
 import com.warehouse_accounting.models.TypeOfInvoice;
 import com.warehouse_accounting.models.TypeOfPrice;
@@ -60,6 +61,7 @@ import com.warehouse_accounting.models.dto.TechnologicalMapDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapGroupDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapMaterialDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapProductDto;
+import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
@@ -879,4 +881,49 @@ public class ConverterDto {
                 .comment(productionOrder.getComment())
                 .build();
     }
+
+    public static TechnologicalOperation convertToModel(TechnologicalOperationDto technologicalOperationDto){
+        Warehouse warehouseForMaterials = new Warehouse();
+        warehouseForMaterials.setId(technologicalOperationDto.getWarehouseForMaterialsId());
+        Warehouse warehouseForProduct = new Warehouse();
+        warehouseForProduct.setId(technologicalOperationDto.getWarehouseForProductId());
+        Company company = new Company();
+        company.setId(technologicalOperationDto.getCompanyId());
+        Project project = new Project();
+        project.setId(technologicalOperationDto.getProjectId());
+        return TechnologicalOperation.builder()
+                .id(technologicalOperationDto.getId())
+                .isArchive(technologicalOperationDto.isArchive())
+                .number(technologicalOperationDto.getNumber())
+                .date(technologicalOperationDto.getTechnologicalOperationDateTime())
+                .company(company)
+                .technologicalMapObj(convertToModel(technologicalOperationDto.getTechnologicalMapDtoObj()))
+                .volumeOfProduction(technologicalOperationDto.getVolumeOfProduction())
+                .warehouseForMaterials(warehouseForMaterials)
+                .warehouseForProduct(warehouseForProduct)
+                .project(project)
+                .comments(technologicalOperationDto.getComments())
+                .build();
+    }
+
+    public static TechnologicalOperationDto convertToDto(TechnologicalOperation technologicalOperation){
+        return TechnologicalOperationDto.builder()
+                .id(technologicalOperation.getId())
+                .number(technologicalOperation.getNumber())
+                .isArchive(technologicalOperation.isArchive())
+                .technologicalOperationDateTime(technologicalOperation.getDate())
+                .companyId(technologicalOperation.getCompany() != null ? technologicalOperation.getCompany().getId() : null)
+                .companyName(technologicalOperation.getCompany() != null ? technologicalOperation.getCompany().getName() : null)
+                .technologicalMapDtoObj(convertToDto(technologicalOperation.getTechnologicalMapObj()))
+                .volumeOfProduction(technologicalOperation.getVolumeOfProduction())
+                .warehouseForMaterialsId(technologicalOperation.getWarehouseForMaterials() != null ? technologicalOperation.getWarehouseForMaterials().getId() : null)
+                .warehouseForMaterialsName(technologicalOperation.getWarehouseForMaterials() != null ? technologicalOperation.getWarehouseForMaterials().getName() : null)
+                .warehouseForProductId(technologicalOperation.getWarehouseForProduct() != null ? technologicalOperation.getWarehouseForProduct().getId() : null)
+                .warehouseForProductName(technologicalOperation.getWarehouseForProduct() != null ? technologicalOperation.getWarehouseForProduct().getName() : null)
+                .projectId(technologicalOperation.getProject() != null ? technologicalOperation.getProject().getId() : null)
+                .projectName(technologicalOperation.getProject() != null ? technologicalOperation.getProject().getName() : null)
+                .comments(technologicalOperation.getComments())
+                .build();
+    }
+
 }
