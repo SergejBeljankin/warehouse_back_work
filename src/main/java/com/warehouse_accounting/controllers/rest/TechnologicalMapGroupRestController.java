@@ -114,7 +114,9 @@ public class TechnologicalMapGroupRestController {
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "deleteById", notes = "Deleting a TechnologicalMapGroup by ID")
+    @ApiOperation(
+            value = "deleteById",
+            notes = "Deleting a TechnologicalMapGroup by ID")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное удаление TechnologicalMapGroup"),
             @ApiResponse(code = 404, message = "Данный контроллер не найден"),
