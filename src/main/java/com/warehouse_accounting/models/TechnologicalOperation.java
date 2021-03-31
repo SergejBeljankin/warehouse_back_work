@@ -36,12 +36,16 @@ public class TechnologicalOperation {
     private String number;
 
     @Column
+    private boolean isArchive;
+
+    @Column
     private LocalDateTime date;
 
-//    TODO: when the TechnologicalMap be create, it is necessary to implement the connection
-//    this class in not create
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private TechnologicalMap technologicalMap;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Company company;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TechnologicalMap technologicalMapObj;
 
     @Column
     private BigDecimal volumeOfProduction;
@@ -51,4 +55,10 @@ public class TechnologicalOperation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Warehouse warehouseForProduct;
+
+    @ManyToOne
+    private Project project;
+
+    @Column
+    private String comments;
 }
