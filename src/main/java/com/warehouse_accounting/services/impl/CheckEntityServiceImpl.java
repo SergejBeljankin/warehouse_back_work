@@ -283,7 +283,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     }
     @Override
     public void checkExistProductionOrderById(Long productionOrderId) {
-        if(productionOrderRepository.existsById(productionOrderId)){
+        if(!productionOrderRepository.existsById(productionOrderId)){
             throw new NotFoundEntityException("ProductionOrder с id=" + productionOrderId + " не найден.");
         }
     }
