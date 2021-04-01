@@ -33,7 +33,6 @@ public class Task {
     @Column
     private Boolean isDone = false;
 
-
     @ManyToOne
     private Contractor contractor;
 

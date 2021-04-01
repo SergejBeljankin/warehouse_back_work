@@ -1,46 +1,28 @@
 package com.warehouse_accounting.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "documents")
+@Data
+@Getter
+@Setter
 public abstract class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private TypeOfInvoice type;
-
-    @ManyToOne
-    private Contractor contractor;
-
-    @ManyToOne
-    private Company company;
+    @Column
+    private String type;
 
     @Column
-    private LocalDateTime period;
+    private LocalDateTime date;
 
-    @Column
-    private Long sum;
+    @OneToMany
+    private List<Task> tasks;
 
-    @Column
-    private Boolean fromWarehouse;
-
-    @Column
-    private String currency;
-
-    @Column
-    private String status;
 
 }
