@@ -1,7 +1,5 @@
 package com.warehouse_accounting.controllers.rest;
 
-
-import com.warehouse_accounting.models.TechnologicalOperation;
 import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.TechnologicalOperationService;
@@ -11,7 +9,6 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
