@@ -21,7 +21,7 @@ public class ProductionOrderDto {
     private Long companyId;
     private String companyName;
 
-    private TechnologicalMapDto techMapDto;
+    private TechnologicalMapDto techMapDto = new TechnologicalMapDto();
 
     private BigDecimal volumeOfProduction;
     private Long warehouseId;
