@@ -674,6 +674,7 @@ public class ConverterDto {
     }
 
     public static Product convertToModel(ProductDto productDto) {
+
         return Product.builder()
                 .id(productDto.getId())
                 .name(productDto.getName())
@@ -681,14 +682,14 @@ public class ConverterDto {
                 .volume(productDto.getVolume())
                 .purchasePrice(productDto.getPurchasePrice())
                 .description(productDto.getDescription())
-                .unit(convertToModel(productDto.getUnitDto()))
+                .unit(productDto.getUnitDto() != null ? convertToModel(productDto.getUnitDto()) : null)
                 .archive(productDto.getArchive())
-                .contractor(convertToModel(productDto.getContractorDto()))
-                .productPrices(productDto.getProductPricesDto().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
-                .taxSystem(convertToModel(productDto.getTaxSystemDto()))
-                .images(productDto.getImagesDto().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
-                .productGroup(convertToModel(productDto.getProductGroupDto()))
-                .attributeOfCalculationObject(convertToModel(productDto.getAttributeOfCalculationObjectDto()))
+                .contractor(productDto.getContractorDto() != null ? convertToModel(productDto.getContractorDto()) : null)
+                .productPrices(productDto.getProductPricesDto() != null ? productDto.getProductPricesDto().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()) : null)
+                .taxSystem(productDto.getTaxSystemDto() != null ? convertToModel(productDto.getTaxSystemDto()) : null)
+                .images(productDto.getImagesDto() != null ? productDto.getImagesDto().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()) : null)
+                .productGroup(productDto.getProductGroupDto() != null ? convertToModel(productDto.getProductGroupDto()) : null)
+                .attributeOfCalculationObject(productDto.getAttributeOfCalculationObjectDto() != null ? convertToModel(productDto.getAttributeOfCalculationObjectDto()) : null)
                 .build();
     }
 
