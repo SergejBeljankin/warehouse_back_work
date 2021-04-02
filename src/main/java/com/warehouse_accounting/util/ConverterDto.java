@@ -37,7 +37,6 @@ import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.ContractDto;
 import com.warehouse_accounting.models.dto.ContractorDto;
-import com.warehouse_accounting.models.dto.ContractorGetALLDto;
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
@@ -770,8 +769,12 @@ public class ConverterDto {
     }
 
     public static TechnologicalMapGroup convertToModel(TechnologicalMapGroupDto technologicalMapGroupDto) {
-        TechnologicalMapGroup parentTechnologicalMapGroup = new TechnologicalMapGroup();
-        parentTechnologicalMapGroup.setId(technologicalMapGroupDto.getParentTechnologicalMapGroupId());
+        TechnologicalMapGroup parentTechnologicalMapGroup = null;
+        if (technologicalMapGroupDto.getParentTechnologicalMapGroupId() != null) {
+            parentTechnologicalMapGroup = new TechnologicalMapGroup();
+            parentTechnologicalMapGroup.setId(technologicalMapGroupDto.getParentTechnologicalMapGroupId());
+            parentTechnologicalMapGroup.setName(technologicalMapGroupDto.getParentTechnologicalMapGroupName());
+        }
         return TechnologicalMapGroup.builder()
                 .id(technologicalMapGroupDto.getId())
                 .name(technologicalMapGroupDto.getName())
@@ -866,7 +869,7 @@ public class ConverterDto {
                 .id(productionOrder.getId())
                 .number(productionOrder.getNumber())
                 .dateTime(productionOrder.getDateTime())
-                .companyId(productionOrder.getCompany() != null ? productionOrder.getCompany().getId(): null)
+                .companyId(productionOrder.getCompany() != null ? productionOrder.getCompany().getId() : null)
                 .companyName(productionOrder.getCompany() != null ? productionOrder.getCompany().getName() : null)
                 //not create convertToDo for TechnologicalMap
                 //.techMapDto(convertToDo(productionOrder.getTechnologicalMap()))

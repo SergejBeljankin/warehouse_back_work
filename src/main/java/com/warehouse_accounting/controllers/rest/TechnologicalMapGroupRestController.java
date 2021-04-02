@@ -72,8 +72,7 @@ public class TechnologicalMapGroupRestController {
     public ResponseEntity<TechnologicalMapGroupDto> getById(
             @ApiParam(name = "id", value = "id для получения TechnologicalMapGroup", required = true)
             @PathVariable("id") Long id) {
-//        TODO: Need to implement
-//        checkEntityService.checkExistTechnologicalMapGroupById(id);
+        checkEntityService.checkExistTechnologicalMapGroupById(id);
         return ResponseEntity.ok(technologicalMapGroupService.getById(id));
     }
 
@@ -107,8 +106,7 @@ public class TechnologicalMapGroupRestController {
     public ResponseEntity<?> update(
             @ApiParam(name = "TechnologicalMapGroupDto", value = "TechnologicalMapGroupDto for update TechnologicalMapGroup", required = true)
             @RequestBody TechnologicalMapGroupDto technologicalMapGroupDto) {
-//        TODO: Need to implement
-//        checkEntityService.checkExistTechnologicalMapGroupById(technologicalMapGroupDto.getId());
+        checkEntityService.checkExistTechnologicalMapGroupById(technologicalMapGroupDto.getId());
         technologicalMapGroupService.update(technologicalMapGroupDto);
         return ResponseEntity.ok().build();
     }
@@ -126,8 +124,7 @@ public class TechnologicalMapGroupRestController {
     public ResponseEntity<?> deleteById(
             @ApiParam(name = "id", value = "id удаляемого TechnologicalMapGroup", required = true)
             @PathVariable("id") Long id) {
-//        TODO: Need to implement
-//        checkEntityService.checkExistTechnologicalMapGroupById(id);
+        checkEntityService.checkExistTechnologicalMapGroupById(id);
         technologicalMapGroupService.deleteById(id);
         return ResponseEntity.ok().build();
     }
