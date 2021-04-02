@@ -897,7 +897,7 @@ public class ConverterDto {
                 .number(technologicalOperationDto.getNumber())
                 .date(technologicalOperationDto.getTechnologicalOperationDateTime())
                 .company(company)
-                .technologicalMapObj(convertToModel(technologicalOperationDto.getTechnologicalMapDtoObj()))
+                .technologicalMapObj(technologicalOperationDto.getTechnologicalMapDtoObj()!= null ? convertToModel(technologicalOperationDto.getTechnologicalMapDtoObj()) : null)
                 .volumeOfProduction(technologicalOperationDto.getVolumeOfProduction())
                 .warehouseForMaterials(warehouseForMaterials)
                 .warehouseForProduct(warehouseForProduct)
