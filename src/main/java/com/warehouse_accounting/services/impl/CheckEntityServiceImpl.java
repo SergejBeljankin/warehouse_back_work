@@ -22,6 +22,7 @@ import com.warehouse_accounting.repositories.ProductionOrderRepository;
 import com.warehouse_accounting.repositories.ProjectRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
 import com.warehouse_accounting.repositories.TaxSystemRepository;
+import com.warehouse_accounting.repositories.TechnologicalOperationRepository;
 import com.warehouse_accounting.repositories.TypeOfContractorRepository;
 import com.warehouse_accounting.repositories.TypeOfPriceRepository;
 import com.warehouse_accounting.repositories.UnitRepository;
@@ -62,6 +63,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final MovementRepository movementRepository;
     private final ProductionOrderRepository productionOrderRepository;
     //private final TypeOfInvoiceRepository typeOfInvoiceRepository;
+    private final TechnologicalOperationRepository technologicalOperationRepository;
 
     public CheckEntityServiceImpl(UnitRepository unitRepository,
                                   AttributeOfCalculationObjectRepository attributeOfCalculationObjectRepository,
@@ -88,7 +90,8 @@ public class CheckEntityServiceImpl implements CheckEntityService {
                                   EmployeeRepository employeeRepository,
                                   MovementRepository movementRepository,
 //                                 ,TypeOfInvoiceRepository typeOfInvoiceRepository
-                                  ProductionOrderRepository productionOrderRepository){
+                                  ProductionOrderRepository productionOrderRepository,
+                                  TechnologicalOperationRepository technologicalOperationRepository){
         this.unitRepository = unitRepository;
         this.attributeOfCalculationObjectRepository = attributeOfCalculationObjectRepository;
         this.bankAccountRepository = bankAccountRepository;
@@ -116,6 +119,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
         this.movementRepository = movementRepository;
 //        this.typeOfInvoiceRepository = typeOfInvoiceRepository;
         this.productionOrderRepository = productionOrderRepository;
+        this.technologicalOperationRepository = technologicalOperationRepository;
     }
 
     public void checkExistUnitById(Long unitId) {
@@ -273,6 +277,13 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistProductPriceById(Long productPriceId) {
         if(!productPriceRepository.existsById(productPriceId)){
             throw new NotFoundEntityException("ProductPrice с id=" + productPriceId + " не найден.");
+        }
+    }
+
+    @Override
+    public void checkExistTechnologicalOperationById(Long technologicalOperationId) {
+        if (!technologicalOperationRepository.existsById(technologicalOperationId)){
+            throw new NotFoundEntityException("TechnologicalOperation c id=" + technologicalOperationId + "не найденю");
         }
     }
 

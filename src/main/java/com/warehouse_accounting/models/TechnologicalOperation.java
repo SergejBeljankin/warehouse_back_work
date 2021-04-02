@@ -56,7 +56,7 @@ public class TechnologicalOperation {
     @ManyToOne(fetch = FetchType.LAZY)
     private Warehouse warehouseForProduct;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Project project;
 
     @Column
