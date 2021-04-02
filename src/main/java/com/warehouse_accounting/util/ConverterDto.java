@@ -852,12 +852,12 @@ public class ConverterDto {
                 .id(dto.getId())
                 .number(dto.getNumber())
                 .dateTime(dto.getDateTime())
-                .company(company)
-                .technologicalMap(convertToModel(dto.getTechMapDto()))
+                .company(dto.getCompanyId() != null ? company : null)
+                .technologicalMap(dto.getTechMapDto() != null ? convertToModel(dto.getTechMapDto()) : null)
                 .volumeOfProduction(dto.getVolumeOfProduction())
-                .warehouseForMaterials(warehouse)
+                .warehouseForMaterials(dto.getWarehouseId() != null ? warehouse : null)
                 .planDate(dto.getPlanDate())
-                .project(project)
+                .project(dto.getProjectId() != null ? project : null)
                 .comment(dto.getComment())
                 .build();
     }

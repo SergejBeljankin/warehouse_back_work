@@ -1,14 +1,18 @@
 package com.warehouse_accounting.services.impl;
 
+import com.warehouse_accounting.models.Company;
+import com.warehouse_accounting.models.ProductionOrder;
 import com.warehouse_accounting.models.dto.InvoiceEditDto;
 import com.warehouse_accounting.models.dto.ProductionOrderDto;
 import com.warehouse_accounting.repositories.ProductionOrderRepository;
 import com.warehouse_accounting.repositories.TechnologicalMapRepository;
 import com.warehouse_accounting.services.interfaces.ProductionOrderService;
 import com.warehouse_accounting.util.ConverterDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +50,6 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
     @Override
     public void create(ProductionOrderDto productionOrderDto) {
         productionOrderRepository.save(ConverterDto.convertToModel(productionOrderDto));
-
     }
 
     @Override
