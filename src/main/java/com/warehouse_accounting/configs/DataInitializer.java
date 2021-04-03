@@ -173,17 +173,7 @@ public class DataInitializer {
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу TechnologicalMapGroup", e);
         }
-//    try{
-//        technologicalMapMaterialService.create(
-//                TechnologicalMapMaterialDto.builder()
-//                        .id(1L)
-//
-//                        .count()
-//                        .build()
-//        );
-//    } catch (Exception e) {
-//        log.error("Не удалось заполнить таблицу TechnologicalMapMaterial", e);
-//    }
+
         try {
             technologicalMapService.create(
                     TechnologicalMapDto.builder()
@@ -191,31 +181,41 @@ public class DataInitializer {
                             .name("Изготовление газировки")
                             .productionCost(BigDecimal.valueOf(100500))
                             .isArchived(false)
-                            .comment("Серкретный рецепт произврдства газировки")
+                            .comment("Секретный рецепт производства газировки")
                             .materials(null)
                             .finishedProducts(null)
                             .technologicalMapGroupId(1L)
                             .build()
             );
+
+            technologicalMapService.create(
+                    TechnologicalMapDto.builder()
+                            .name("Технология - найди сам и реализуй")
+                            .productionCost(BigDecimal.valueOf(0))
+                            .isArchived(false)
+                            .comment("Пришел с идеей - ушел с заданием")
+                            .materials(null)
+                            .finishedProducts(null)
+                            .technologicalMapGroupId(2L)
+                            .build()
+            );
+
             TechnologicalMapDto technologicalMap = technologicalMapService.getById(1L);
 
             List<TechnologicalMapMaterialDto> materialDtos = new ArrayList<>();
             materialDtos.add(new TechnologicalMapMaterialDto().builder()
-                    .id(1L)
                     .materialId(productService.getById(1L).getId())
                     .materialName(productService.getById(1L).getName())
                     .count(BigDecimal.valueOf(2))
                     .technologicalMapDto(technologicalMap)
                     .build());
             materialDtos.add(new TechnologicalMapMaterialDto().builder()
-                    .id(2L)
                     .materialId(productService.getById(2L).getId())
                     .materialName(productService.getById(2L).getName())
                     .count(BigDecimal.valueOf(1))
                     .technologicalMapDto(technologicalMap)
                     .build());
             materialDtos.add(new TechnologicalMapMaterialDto().builder()
-                    .id(3L)
                     .materialId(productService.getById(3L).getId())
                     .materialName(productService.getById(3L).getName())
                     .count(BigDecimal.valueOf(1))
@@ -225,7 +225,6 @@ public class DataInitializer {
 
             List<TechnologicalMapProductDto> productDtos = new ArrayList<>();
             productDtos.add(new TechnologicalMapProductDto().builder()
-                    .id(1L)
                     .finishedProductId(productService.getById(4L).getId())
                     .finishedProductsName(productService.getById(4L).getName())
                     .count(BigDecimal.valueOf(1))
@@ -233,8 +232,8 @@ public class DataInitializer {
                     .build());
             technologicalMapProductService.create(productDtos.get(0));
 
-            technologicalMap.setMaterials(materialDtos);
-            technologicalMap.setFinishedProducts(productDtos);
+           // technologicalMap.setMaterials(materialDtos);
+           // technologicalMap.setFinishedProducts(productDtos);
 
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу TechnologicalMap", e);
