@@ -1,7 +1,5 @@
 package com.warehouse_accounting.configs;
 
-import com.warehouse_accounting.models.TechnologicalMap;
-import com.warehouse_accounting.models.TechnologicalMapProduct;
 import com.warehouse_accounting.models.dto.ProductDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapDto;
@@ -230,10 +228,11 @@ public class DataInitializer {
                     .count(BigDecimal.valueOf(1))
                     .technologicalMapDto(technologicalMap)
                     .build());
-            technologicalMapProductService.create(productDtos.get(0));
+            //technologicalMapProductService.create(productDtos.get(0));
+            productDtos.forEach(technologicalMapProductService::create);
 
-           // technologicalMap.setMaterials(materialDtos);
-           // technologicalMap.setFinishedProducts(productDtos);
+            technologicalMap.setMaterials(materialDtos);
+            technologicalMap.setFinishedProducts(productDtos);
 
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу TechnologicalMap", e);
