@@ -116,6 +116,8 @@ class InvoiceProductServiceTest {
         List<InvoiceProductDto> invoiceProductDtoListInTest = invoiceProductService.getAll();
         assertNotNull(invoiceProductDtoListInTest, "invoiceProductDtoListInTest == null");
         assertEquals(invoiceProductDtoListInTest, invoiceProductDtos);
+        assertEquals(invoiceRepository.getById(1L),invoiceDto);
+        assertEquals(productRepository.getById(1L),productDto);
         verify(invoiceProductRepository, times(1)).getAll();
     }
 
@@ -125,6 +127,8 @@ class InvoiceProductServiceTest {
         when(invoiceRepository.getById(invoiceProductDto.getId())).thenReturn(invoiceDto);
         when(productRepository.getById(invoiceProductDto.getId())).thenReturn(productDto);
         assertEquals(invoiceProductRepository.getById(1L), invoiceProductDto);
+        assertEquals(invoiceRepository.getById(1L),invoiceDto);
+        assertEquals(productRepository.getById(1L),productDto);
         verify(invoiceProductRepository, times(1)).getById(ArgumentMatchers.eq(1L));
     }
 }
