@@ -1,11 +1,8 @@
 package com.warehouse_accounting.unit_tests.services;
 
 import com.warehouse_accounting.models.dto.ProductionOrderDto;
-import com.warehouse_accounting.models.dto.TechnologicalMapDto;
 import com.warehouse_accounting.repositories.ProductionOrderRepository;
-import com.warehouse_accounting.repositories.TechnologicalMapRepository;
 import com.warehouse_accounting.services.impl.ProductionOrderServiceImpl;
-import com.warehouse_accounting.services.interfaces.ProductionOrderService;
 import com.warehouse_accounting.util.ConverterDto;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -13,9 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
