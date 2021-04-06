@@ -57,4 +57,6 @@ public interface CheckEntityService {
     void checkExistTechnologicalOperationById(Long technologicalOperationId);
 
     void checkExistProductionOrderById(Long productionOrderId);
+
+    void checkExistCountryById(Long countryId);
 }
