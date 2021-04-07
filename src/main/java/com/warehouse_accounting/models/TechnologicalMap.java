@@ -15,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -35,7 +34,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "technological_maps")
-public class TechnologicalMap extends Document{
+public class TechnologicalMap {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -58,7 +57,7 @@ public class TechnologicalMap extends Document{
      * The amount of additional costs per production operation.
      */
     @Column
-    private BigDecimal productionCost = BigDecimal.valueOf(0);;
+    private BigDecimal productionCost = BigDecimal.valueOf(0);
 
     /**
      * @see TechnologicalMapGroup

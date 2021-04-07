@@ -35,7 +35,7 @@ public class TechnologicalMapProductServiceImpl implements TechnologicalMapProdu
         for (TechnologicalMapProductDto technologicalMapProductDto : technologicalMapProductDtos) {
             technologicalMapProductDto.setTechnologicalMapDto(
                     technologicalMapRepository.getById(technologicalMapProductDto.getTechnologicalMapDto().getId()));
-            }
+        }
         return technologicalMapProductDtos;
     }
 
@@ -43,7 +43,7 @@ public class TechnologicalMapProductServiceImpl implements TechnologicalMapProdu
     public TechnologicalMapProductDto getById(Long id) {
         TechnologicalMapProductDto technologicalMapProductDto = technilogicalMapProductRepository.getById(id);
         technologicalMapProductDto.setTechnologicalMapDto(
-                    technologicalMapRepository.getById(technologicalMapProductDto.getTechnologicalMapDto().getId()));
+                technologicalMapRepository.getById(technologicalMapProductDto.getTechnologicalMapDto().getId()));
 
         return technologicalMapProductDto;
     }

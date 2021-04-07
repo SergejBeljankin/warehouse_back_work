@@ -40,7 +40,7 @@ public class TypeOfContractorServiceImpl implements TypeOfContractorService {
     }
 
     @Override
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         typeOfContractorRepository.deleteById(id);
     }
 
