@@ -793,8 +793,8 @@ public class ConverterDto {
                 .name(technologicalMapGroup.getName())
                 .code(technologicalMapGroup.getCode())
                 .comment(technologicalMapGroup.getComment())
-                .parentTechnologicalMapGroupId(technologicalMapGroup.getId())
-                .parentTechnologicalMapGroupName(technologicalMapGroup.getName())
+                .parentTechnologicalMapGroupId((technologicalMapGroup.getParentTechnologicalMapGroup()!=null)?technologicalMapGroup.getParentTechnologicalMapGroup().getId():null)
+                .parentTechnologicalMapGroupName((technologicalMapGroup.getParentTechnologicalMapGroup()!=null)?technologicalMapGroup.getParentTechnologicalMapGroup().getName():null)
                 .build();
     }
 
@@ -898,12 +898,12 @@ public class ConverterDto {
                 .isArchive(technologicalOperationDto.isArchive())
                 .number(technologicalOperationDto.getNumber())
                 .date(technologicalOperationDto.getTechnologicalOperationDateTime())
-                .company(company)
+                .company(null)
                 .technologicalMapObj(technologicalOperationDto.getTechnologicalMapDtoObj()!= null ? convertToModel(technologicalOperationDto.getTechnologicalMapDtoObj()) : null)
                 .volumeOfProduction(technologicalOperationDto.getVolumeOfProduction())
                 .warehouseForMaterials(warehouseForMaterials)
                 .warehouseForProduct(warehouseForProduct)
-                .project(project)
+                .project(null)
                 .comments(technologicalOperationDto.getComments())
                 .build();
     }

@@ -1,7 +1,13 @@
 delete
 from technological_map_groups;
 
-insert into technological_map_groups(id, code, comment, is_archived, name, parent_technological_map_group_id)
-values (1, 'G1', 'coment 1', false, 'Group 1', null),
-       (2, 'G2', 'coment 2', false, 'Group 2', null),
-       (3, 'G1-1', 'coment 3', false, 'Group 1-1', 1)
+INSERT INTO technological_map_groups (id, name, code, comment)
+VALUES (1, 'Группа 1', 'ТкГ1', 'Первая группа технологических карт');
+INSERT INTO technological_map_groups (id, name, code, comment, parent_technological_map_group_id)
+VALUES (2, 'Группа 1-1', 'ТкГ1-1', 'Первая подгруппа первой группы технологических карт',1);
+INSERT INTO technological_map_groups (id, name, code, comment, parent_technological_map_group_id)
+VALUES (3, 'Группа 1-2', 'ТкГ1-2', 'Вторая подгруппа первой группы технологических карт',1);
+INSERT INTO technological_map_groups (id, name, code, comment)
+VALUES (4, 'Группа 2', 'ТкГ2', 'Вторая группа технологических карт');
+INSERT INTO technological_map_groups (id, name, code, comment, parent_technological_map_group_id)
+VALUES (5, 'Группа 2-1', 'ТкГ2-1', 'Первая подгруппа второй группы технологических карт',2);

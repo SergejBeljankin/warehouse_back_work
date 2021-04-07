@@ -56,60 +56,6 @@ public class TechnologicalMapRestControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-//    private static final List<TechnologicalMapDto> technologicalMapDtos = new ArrayList<>();
-//    private static final List<TechnologicalMapProductDto> productDtos = new ArrayList<>();
-//    private static final List<TechnologicalMapMaterialDto> materialDtos = new ArrayList<>();
-
-//    @BeforeAll
-//    static void init() {
-//        TechnologicalMapDto technologicalMapDto =
-//                TechnologicalMapDto.builder()
-//                        .id(1L)
-//                        .name("Изготовление газировки")
-//                        .productionCost(BigDecimal.valueOf(100500))
-//                        .isArchived(false)
-//                        .comment("Секретный рецепт производства газировки")
-//                        .materials(null)
-//                        .finishedProducts(null)
-//                        .technologicalMapGroupId(1L)
-//                        .build();
-//
-//        materialDtos.add(new TechnologicalMapMaterialDto().builder()
-//                .id(1L)
-//                .materialId(1L)
-//                .materialName("Вода")
-//                .count(BigDecimal.valueOf(2))
-//                .technologicalMapDto(technologicalMapDto)
-//                .build());
-//        materialDtos.add(new TechnologicalMapMaterialDto().builder()
-//                .id(2L)
-//                .materialId(2L)
-//                .materialName("Газ в балоне")
-//                .count(BigDecimal.valueOf(1))
-//                .technologicalMapDto(technologicalMapDto)
-//                .build());
-//        materialDtos.add(new TechnologicalMapMaterialDto().builder()
-//                .id(3L)
-//                .materialId(3L)
-//                .materialName("Бутылка стеклянная")
-//                .count(BigDecimal.valueOf(1))
-//                .technologicalMapDto(technologicalMapDto)
-//                .build());
-//
-//        productDtos.add(new TechnologicalMapProductDto().builder()
-//                .id(1L)
-//                .finishedProductId(4L)
-//                .finishedProductsName("Газировка")
-//                .count(BigDecimal.valueOf(1))
-//                .technologicalMapDto(technologicalMapDto)
-//                .build());
-//
-//        technologicalMapDto.setMaterials(materialDtos);
-//        technologicalMapDto.setFinishedProducts(productDtos);
-//
-//        technologicalMapDtos.addAll(Collections.singletonList(technologicalMapDto));
-//    }
-
     @Test
     void testExistence() {
         assertThat(technologicalMapRestController).isNotNull();
