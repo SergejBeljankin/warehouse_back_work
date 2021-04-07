@@ -38,7 +38,6 @@ import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.ContractDto;
 import com.warehouse_accounting.models.dto.ContractorDto;
-import com.warehouse_accounting.models.dto.ContractorGetALLDto;
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
@@ -677,6 +676,7 @@ public class ConverterDto {
     }
 
     public static Product convertToModel(ProductDto productDto) {
+
         return Product.builder()
                 .id(productDto.getId())
                 .name(productDto.getName())
@@ -684,14 +684,14 @@ public class ConverterDto {
                 .volume(productDto.getVolume())
                 .purchasePrice(productDto.getPurchasePrice())
                 .description(productDto.getDescription())
-                .unit(convertToModel(productDto.getUnitDto()))
+                .unit(productDto.getUnitDto() != null ? convertToModel(productDto.getUnitDto()) : null)
                 .archive(productDto.getArchive())
-                .contractor(convertToModel(productDto.getContractorDto()))
-                .productPrices(productDto.getProductPricesDto().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
-                .taxSystem(convertToModel(productDto.getTaxSystemDto()))
-                .images(productDto.getImagesDto().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
-                .productGroup(convertToModel(productDto.getProductGroupDto()))
-                .attributeOfCalculationObject(convertToModel(productDto.getAttributeOfCalculationObjectDto()))
+                .contractor(productDto.getContractorDto() != null ? convertToModel(productDto.getContractorDto()) : null)
+                .productPrices(productDto.getProductPricesDto() != null ? productDto.getProductPricesDto().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()) : null)
+                .taxSystem(productDto.getTaxSystemDto() != null ? convertToModel(productDto.getTaxSystemDto()) : null)
+                .images(productDto.getImagesDto() != null ? productDto.getImagesDto().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()) : null)
+                .productGroup(productDto.getProductGroupDto() != null ? convertToModel(productDto.getProductGroupDto()) : null)
+                .attributeOfCalculationObject(productDto.getAttributeOfCalculationObjectDto() != null ? convertToModel(productDto.getAttributeOfCalculationObjectDto()) : null)
                 .build();
     }
 
@@ -772,8 +772,12 @@ public class ConverterDto {
     }
 
     public static TechnologicalMapGroup convertToModel(TechnologicalMapGroupDto technologicalMapGroupDto) {
-        TechnologicalMapGroup parentTechnologicalMapGroup = new TechnologicalMapGroup();
-        parentTechnologicalMapGroup.setId(technologicalMapGroupDto.getParentTechnologicalMapGroupId());
+        TechnologicalMapGroup parentTechnologicalMapGroup = null;
+        if (technologicalMapGroupDto.getParentTechnologicalMapGroupId() != null) {
+            parentTechnologicalMapGroup = new TechnologicalMapGroup();
+            parentTechnologicalMapGroup.setId(technologicalMapGroupDto.getParentTechnologicalMapGroupId());
+            parentTechnologicalMapGroup.setName(technologicalMapGroupDto.getParentTechnologicalMapGroupName());
+        }
         return TechnologicalMapGroup.builder()
                 .id(technologicalMapGroupDto.getId())
                 .name(technologicalMapGroupDto.getName())
@@ -867,7 +871,7 @@ public class ConverterDto {
                 .id(productionOrder.getId())
                 .number(productionOrder.getNumber())
                 .dateTime(productionOrder.getDateTime())
-                .companyId(productionOrder.getCompany() != null ? productionOrder.getCompany().getId(): null)
+                .companyId(productionOrder.getCompany() != null ? productionOrder.getCompany().getId() : null)
                 .companyName(productionOrder.getCompany() != null ? productionOrder.getCompany().getName() : null)
                 .techMapDto(convertToDto(productionOrder.getTechnologicalMap()))
                 .volumeOfProduction(productionOrder.getVolumeOfProduction())

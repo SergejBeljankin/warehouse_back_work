@@ -13,8 +13,12 @@ import java.util.List;
  */
 public interface TechnologicalMapMaterialService {
     List<TechnologicalMapMaterialDto> getAll();
+
     TechnologicalMapMaterialDto getById(Long id);
+
     void create(TechnologicalMapMaterialDto technologicalMapMaterialDto);
+
     void update(TechnologicalMapMaterialDto technologicalMapMaterialDto);
+
     void deleteById(Long id);
 }
