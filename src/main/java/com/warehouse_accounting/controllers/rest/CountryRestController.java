@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/country")
+@RequestMapping("/api/countries")
 @Api(tags = "Country Rest Controller")
 @Tag(name = "Country Rest Controller", description = "CRUD операции с Country")
 public class CountryRestController {

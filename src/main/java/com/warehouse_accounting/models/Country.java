@@ -17,7 +17,7 @@ import java.math.BigInteger;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "country")
+@Table(name = "countries")
 public class Country {
 
     @Id
