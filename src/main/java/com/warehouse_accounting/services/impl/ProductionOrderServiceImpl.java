@@ -33,17 +33,12 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
     @Override
     public List<ProductionOrderDto> getAll() {
         List<ProductionOrderDto> productionOrderDtoList = productionOrderRepository.getAll();
-        for (ProductionOrderDto order : productionOrderDtoList) {
-            order.setTechMapDto(technologicalMapRepository.getById(order.getTechMapDto().getId()));
-        }
         return productionOrderDtoList;
-
     }
 
     @Override
     public ProductionOrderDto getById(Long id) {
         ProductionOrderDto productionOrderDto = productionOrderRepository.getById(id);
-        productionOrderDto.setTechMapDto(technologicalMapRepository.getById(productionOrderDto.getTechMapDto().getId()));
         return productionOrderDto;
     }
 
