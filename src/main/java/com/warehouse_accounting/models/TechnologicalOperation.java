@@ -45,7 +45,7 @@ public class TechnologicalOperation {
     private Company company;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private TechnologicalMap technologicalMapObj;
+    private TechnologicalMap technologicalMap;
 
     @Column
     private BigDecimal volumeOfProduction;

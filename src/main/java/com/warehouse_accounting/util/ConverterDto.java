@@ -889,13 +889,15 @@ public class ConverterDto {
         company.setId(technologicalOperationDto.getCompanyId());
         Project project = new Project();
         project.setId(technologicalOperationDto.getProjectId());
+        TechnologicalMap technologicalMap = new TechnologicalMap();
+        technologicalMap.setId(technologicalOperationDto.getTechnologicalMapId());
         return TechnologicalOperation.builder()
                 .id(technologicalOperationDto.getId())
                 .isArchive(technologicalOperationDto.isArchive())
                 .number(technologicalOperationDto.getNumber())
                 .date(technologicalOperationDto.getTechnologicalOperationDateTime())
                 .company(technologicalOperationDto.getCompanyId() != null ? company : null)
-                .technologicalMapObj(technologicalOperationDto.getTechnologicalMapDtoObj()!= null ? convertToModel(technologicalOperationDto.getTechnologicalMapDtoObj()) : null)
+                .technologicalMap(technologicalOperationDto.getTechnologicalMapId() != null ? technologicalMap : null)
                 .volumeOfProduction(technologicalOperationDto.getVolumeOfProduction())
                 .warehouseForMaterials(technologicalOperationDto.getWarehouseForMaterialsId() != null ? warehouseForMaterials : null)
                 .warehouseForProduct(technologicalOperationDto.getWarehouseForProductId() != null ? warehouseForProduct : null)
@@ -912,7 +914,8 @@ public class ConverterDto {
                 .technologicalOperationDateTime(technologicalOperation.getDate())
                 .companyId(technologicalOperation.getCompany() != null ? technologicalOperation.getCompany().getId() : null)
                 .companyName(technologicalOperation.getCompany() != null ? technologicalOperation.getCompany().getName() : null)
-                .technologicalMapDtoObj(technologicalOperation.getTechnologicalMapObj() != null ? convertToDto(technologicalOperation.getTechnologicalMapObj()) : null)
+                .technologicalMapId(technologicalOperation.getTechnologicalMap() != null ? technologicalOperation.getTechnologicalMap().getId() : null)
+                .technologicalMapName(technologicalOperation.getTechnologicalMap() != null ? technologicalOperation.getTechnologicalMap().getName() : null)
                 .volumeOfProduction(technologicalOperation.getVolumeOfProduction())
                 .warehouseForMaterialsId(technologicalOperation.getWarehouseForMaterials() != null ? technologicalOperation.getWarehouseForMaterials().getId() : null)
                 .warehouseForMaterialsName(technologicalOperation.getWarehouseForMaterials() != null ? technologicalOperation.getWarehouseForMaterials().getName() : null)

@@ -15,28 +15,19 @@ import java.util.List;
 public class TechnologicalOperationServiceImpl implements TechnologicalOperationService {
 
     private final TechnologicalOperationRepository technologicalOperationRepository;
-    private final TechnologicalMapRepository technologicalMapRepository;
 
-    public TechnologicalOperationServiceImpl(TechnologicalOperationRepository technologicalOperationRepository, TechnologicalMapRepository technologicalMapRepository) {
+    public TechnologicalOperationServiceImpl(TechnologicalOperationRepository technologicalOperationRepository) {
         this.technologicalOperationRepository = technologicalOperationRepository;
-        this.technologicalMapRepository = technologicalMapRepository;
     }
 
     @Override
     public List<TechnologicalOperationDto> getAll(){
-        List<TechnologicalOperationDto> technologicalOperationDtos = technologicalOperationRepository.getAll();
-        for (TechnologicalOperationDto technologicalOperationDto: technologicalOperationDtos){
-            technologicalOperationDto.setTechnologicalMapDtoObj(technologicalMapRepository.getById(technologicalOperationDto.getTechnologicalMapDtoObj().getId()
-            ));
-        }
-        return technologicalOperationDtos;
+        return technologicalOperationRepository.getAll();
     }
 
     @Override
     public TechnologicalOperationDto getById(Long id) {
-        TechnologicalOperationDto technologicalOperationDto = technologicalOperationRepository.getById(id);
-        technologicalOperationDto.setTechnologicalMapDtoObj(technologicalMapRepository.getById(technologicalOperationDto.getTechnologicalMapDtoObj().getId()));
-        return technologicalOperationDto;
+        return technologicalOperationRepository.getById(id);
     }
 
     @Override
