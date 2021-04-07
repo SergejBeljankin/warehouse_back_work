@@ -27,7 +27,6 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
     public List<ProductionOrderDto> getAll() {
         List<ProductionOrderDto> productionOrderDtoList = productionOrderRepository.getAll();
         return productionOrderDtoList;
-
     }
 
     @Override
