@@ -6,6 +6,7 @@ import com.warehouse_accounting.repositories.CompanyRepository;
 import com.warehouse_accounting.repositories.ContractRepository;
 import com.warehouse_accounting.repositories.ContractorGroupRepository;
 import com.warehouse_accounting.repositories.ContractorRepository;
+import com.warehouse_accounting.repositories.CountryRepository;
 import com.warehouse_accounting.repositories.CurrencyRepository;
 import com.warehouse_accounting.repositories.DepartmentRepository;
 import com.warehouse_accounting.repositories.EmployeeRepository;
@@ -74,7 +75,61 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final TechnologicalMapMaterialRepository technologicalMapMaterialRepository;
     private final TechnologicalMapProductRepository technologicalMapProductRepository;
     private final TechnologicalOperationRepository technologicalOperationRepository;
+    private final CountryRepository countryRepository;
 
+    public CheckEntityServiceImpl(UnitRepository unitRepository,
+                                  AttributeOfCalculationObjectRepository attributeOfCalculationObjectRepository,
+                                  BankAccountRepository bankAccountRepository,
+                                  CompanyRepository companyRepository,
+                                  ContractorGroupRepository contractorGroupRepository,
+                                  ContractRepository contractRepository,
+                                  ContractorRepository contractorRepository, CurrencyRepository currencyRepository,
+                                  DepartmentRepository departmentRepository,
+                                  ImageRepository imageRepository,
+                                  InvoiceRepository invoiceRepository,
+                                  InvoiceProductRepository invoiceProductRepository,
+                                  LegalDetailRepository legalDetailRepository,
+                                  PositionRepository positionRepository,
+                                  ProductRepository productRepository,
+                                  ProductPriceRepository productPriceRepository,
+                                  ProjectRepository projectRepository,
+                                  RoleRepository roleRepository,
+                                  TaxSystemRepository taxSystemRepository,
+                                  TypeOfContractorRepository typeOfContractorRepository,
+                                  TypeOfPriceRepository typeOfPriceRepository,
+                                  WarehouseRepository warehouseRepository,
+                                  ProductGroupRepository productGroupRepository,
+                                  EmployeeRepository employeeRepository,
+                                  MovementRepository movementRepository,
+//                                 ,TypeOfInvoiceRepository typeOfInvoiceRepository
+                                  ProductionOrderRepository productionOrderRepository,
+                                  TechnologicalOperationRepository technologicalOperationRepository,
+                                  CountryRepository countryRepository){
+        this.unitRepository = unitRepository;
+        this.attributeOfCalculationObjectRepository = attributeOfCalculationObjectRepository;
+        this.bankAccountRepository = bankAccountRepository;
+        this.companyRepository = companyRepository;
+        this.contractorGroupRepository = contractorGroupRepository;
+        this.contractRepository = contractRepository;
+        this.contractorRepository = contractorRepository;
+        this.currencyRepository = currencyRepository;
+        this.departmentRepository = departmentRepository;
+        this.imageRepository = imageRepository;
+        this.invoiceRepository = invoiceRepository;
+        this.invoiceProductRepository = invoiceProductRepository;
+        this.legalDetailRepository = legalDetailRepository;
+        this.positionRepository = positionRepository;
+        this.productRepository = productRepository;
+        this.productPriceRepository = productPriceRepository;
+        this.projectRepository = projectRepository;
+        this.roleRepository = roleRepository;
+        this.taxSystemRepository = taxSystemRepository;
+        this.typeOfContractorRepository = typeOfContractorRepository;
+        this.typeOfPriceRepository = typeOfPriceRepository;
+        this.warehouseRepository = warehouseRepository;
+        this.productGroupRepository = productGroupRepository;
+        this.employeeRepository = employeeRepository;
+        this.movementRepository = movementRepository;
 //    public CheckEntityServiceImpl(UnitRepository unitRepository,
 //                                  AttributeOfCalculationObjectRepository attributeOfCalculationObjectRepository,
 //                                  BankAccountRepository bankAccountRepository,
@@ -127,6 +182,10 @@ public class CheckEntityServiceImpl implements CheckEntityService {
 //        this.employeeRepository = employeeRepository;
 //        this.movementRepository = movementRepository;
 //        this.typeOfInvoiceRepository = typeOfInvoiceRepository;
+        this.productionOrderRepository = productionOrderRepository;
+        this.technologicalOperationRepository = technologicalOperationRepository;
+        this.countryRepository = countryRepository;
+    }
 //        this.productionOrderRepository = productionOrderRepository;
 //        this.technologicalOperationRepository = technologicalOperationRepository;
 //    }
@@ -305,6 +364,13 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistProductionOrderById(Long productionOrderId) {
         if(!productionOrderRepository.existsById(productionOrderId)){
             throw new NotFoundEntityException("ProductionOrder с id=" + productionOrderId + " не найден.");
+        }
+    }
+
+    @Override
+    public void checkExistCountryById(Long countryId) {
+        if(!countryRepository.existsById(countryId)){
+            throw new NotFoundEntityException("Country с id=" + countryId + " не найден.");
         }
     }
 
