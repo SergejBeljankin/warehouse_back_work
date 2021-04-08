@@ -6,6 +6,7 @@ import com.warehouse_accounting.models.Company;
 import com.warehouse_accounting.models.Contract;
 import com.warehouse_accounting.models.Contractor;
 import com.warehouse_accounting.models.ContractorGroup;
+import com.warehouse_accounting.models.Country;
 import com.warehouse_accounting.models.Currency;
 import com.warehouse_accounting.models.Department;
 import com.warehouse_accounting.models.Employee;
@@ -39,6 +40,7 @@ import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.ContractDto;
 import com.warehouse_accounting.models.dto.ContractorDto;
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
+import com.warehouse_accounting.models.dto.CountryDto;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
 import com.warehouse_accounting.models.dto.EmployeeDto;
@@ -925,6 +927,28 @@ public class ConverterDto {
                 .projectId(technologicalOperation.getProject() != null ? technologicalOperation.getProject().getId() : null)
                 .projectName(technologicalOperation.getProject() != null ? technologicalOperation.getProject().getName() : null)
                 .comments(technologicalOperation.getComments())
+                .build();
+    }
+
+    public static Country convertToModel(CountryDto countryDto) {
+        return Country.builder()
+                .id(countryDto.getId())
+                .shortName(countryDto.getShortName())
+                .longName(countryDto.getLongName())
+                .code(countryDto.getCode())
+                .codeOne(countryDto.getCodeOne())
+                .codeTwo(countryDto.getCodeTwo())
+                .build();
+    }
+
+    public static CountryDto convertToDto(Country country) {
+        return CountryDto.builder()
+                .id(country.getId())
+                .shortName(country.getShortName())
+                .longName(country.getLongName())
+                .code(country.getCode())
+                .codeOne(country.getCodeOne())
+                .codeTwo(country.getCodeTwo())
                 .build();
     }
 
