@@ -57,4 +57,12 @@ public interface CheckEntityService {
     void checkExistTechnologicalOperationById(Long technologicalOperationId);
 
     void checkExistProductionOrderById(Long productionOrderId);
+
+    void checkExistTechnologicalMapById(Long invoiceId);
+
+    void checkExistTechnologicalMapGroupById(Long invoiceId);
+
+    void checkExistTechnologicalMapProductById(Long invoiceId);
+
+    void checkExistTechnologicalMapMaterialById(Long invoiceId);
 }

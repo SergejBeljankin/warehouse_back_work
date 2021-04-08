@@ -3,6 +3,7 @@ package com.warehouse_accounting.models;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -20,13 +21,14 @@ import java.time.LocalDateTime;
  * This class is model is on the "Мой Склад" in the tab "Производсство".
  * This model is responsible for the "Тех. операции"
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "technological_operations")
-public class TechnologicalOperation {
+public class TechnologicalOperation extends Document {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

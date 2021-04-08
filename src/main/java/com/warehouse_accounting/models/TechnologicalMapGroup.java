@@ -11,8 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -46,6 +44,14 @@ public class TechnologicalMapGroup {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private TechnologicalMapGroup parentTechnologicalMapGroup;
+
+    /**
+     * Indicates whether the object is in the archive or not.
+     * Items moved to the archive are not displayed in directories and reports.
+     * The archive allows you to hide outdated items without deleting them.
+     */
+    @Column
+    private boolean isArchived = false;
 
 }
 
