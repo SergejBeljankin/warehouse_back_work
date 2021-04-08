@@ -261,9 +261,6 @@ public class DataInitializer {
                             .warehouseForProductName("Основной склад")
                             .build());
 
-            TechnologicalOperationDto technologicalOperationDto = technologicalOperationService.getById(1L);
-            technologicalOperationDto.setNumber("Test");
-            technologicalOperationService.update(technologicalOperationDto);
 
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу TechnologicalOperation", e);
