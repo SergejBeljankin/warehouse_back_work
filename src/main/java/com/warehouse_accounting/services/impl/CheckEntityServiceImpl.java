@@ -2,6 +2,7 @@ package com.warehouse_accounting.services.impl;
 
 import com.warehouse_accounting.repositories.AttributeOfCalculationObjectRepository;
 import com.warehouse_accounting.repositories.BankAccountRepository;
+import com.warehouse_accounting.repositories.CallRepository;
 import com.warehouse_accounting.repositories.CompanyRepository;
 import com.warehouse_accounting.repositories.ContractRepository;
 import com.warehouse_accounting.repositories.ContractorGroupRepository;
@@ -23,11 +24,11 @@ import com.warehouse_accounting.repositories.ProductionOrderRepository;
 import com.warehouse_accounting.repositories.ProjectRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
 import com.warehouse_accounting.repositories.TaxSystemRepository;
-import com.warehouse_accounting.repositories.TechnologicalOperationRepository;
 import com.warehouse_accounting.repositories.TechnologicalMapGroupRepository;
 import com.warehouse_accounting.repositories.TechnologicalMapMaterialRepository;
 import com.warehouse_accounting.repositories.TechnologicalMapProductRepository;
 import com.warehouse_accounting.repositories.TechnologicalMapRepository;
+import com.warehouse_accounting.repositories.TechnologicalOperationRepository;
 import com.warehouse_accounting.repositories.TypeOfContractorRepository;
 import com.warehouse_accounting.repositories.TypeOfPriceRepository;
 import com.warehouse_accounting.repositories.UnitRepository;
@@ -76,6 +77,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final TechnologicalMapProductRepository technologicalMapProductRepository;
     private final TechnologicalOperationRepository technologicalOperationRepository;
     private final CountryRepository countryRepository;
+    private final CallRepository callRepository;
 
 //    public CheckEntityServiceImpl(UnitRepository unitRepository,
 //                                  AttributeOfCalculationObjectRepository attributeOfCalculationObjectRepository,
@@ -344,4 +346,13 @@ public class CheckEntityServiceImpl implements CheckEntityService {
             throw new NotFoundEntityException("TechnologicalMapMaterial с id=" + id + " не найден.");
         }
     }
+
+    @Override
+    public void checkExistCallById(Long callId) {
+        if(!callRepository.existsById(callId)){
+            throw new NotFoundEntityException("Call с id=" + callId + " не найден.");
+        }
+    }
+
+
 }

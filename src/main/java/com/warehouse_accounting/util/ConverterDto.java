@@ -2,6 +2,7 @@ package com.warehouse_accounting.util;
 
 import com.warehouse_accounting.models.AttributeOfCalculationObject;
 import com.warehouse_accounting.models.BankAccount;
+import com.warehouse_accounting.models.Call;
 import com.warehouse_accounting.models.Company;
 import com.warehouse_accounting.models.Contract;
 import com.warehouse_accounting.models.Contractor;
@@ -36,6 +37,7 @@ import com.warehouse_accounting.models.Unit;
 import com.warehouse_accounting.models.Warehouse;
 import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
 import com.warehouse_accounting.models.dto.BankAccountDto;
+import com.warehouse_accounting.models.dto.CallDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.ContractDto;
 import com.warehouse_accounting.models.dto.ContractorDto;
@@ -439,6 +441,54 @@ public class ConverterDto {
                 .id(typeOfPriceDto.getId())
                 .name(typeOfPriceDto.getName())
                 .sortNumber(typeOfPriceDto.getSortNumber())
+                .build();
+    }
+
+    public static CallDto convertToDto(Call call) {
+        return CallDto.builder()
+                .id(call.getId())
+                .callTime(call.getCallTime())
+                .type(call.getType())
+                .number(call.getNumber())
+                .callDuration(call.getCallDuration())
+                .comment(call.getComment())
+                .callRecord(call.getCallRecord())
+                .whenChanged(call.getWhenChanged())
+                .contractorId(call.getContractor() != null
+                        ? call.getContractor().getId() : null)
+                .contractorName(call.getContractor() != null
+                        ? call.getContractor().getName() : null)
+                .employeeWhoCalledId(call.getEmployeeWhoCalled() != null
+                        ? call.getEmployeeWhoCalled().getId() : null)
+                .employeeWhoCalledName(call.getEmployeeWhoCalled() != null
+                        ? call.getEmployeeWhoCalled().getFirstName() : null)
+                .employeeWhoChangedId(call.getEmployeeWhoChanged() != null
+                        ? call.getEmployeeWhoChanged().getId() : null)
+                .employeeWhoChangedName(call.getEmployeeWhoChanged() != null
+                        ? call.getEmployeeWhoChanged().getFirstName() : null)
+                .build();
+    }
+
+    public static Call convertToModel(CallDto callDto) {
+        Contractor contractor = new Contractor();
+        contractor.setId(callDto.getContractorId());
+        Employee employeeWhoCalled = new Employee();
+        employeeWhoCalled.setId(callDto.getEmployeeWhoCalledId());
+        Employee employeeWhoChanged = new Employee();
+        employeeWhoChanged.setId(callDto.getEmployeeWhoChangedId());
+
+        return Call.builder()
+                .id(callDto.getId())
+                .callTime(callDto.getCallTime())
+                .type(callDto.getType())
+                .number(callDto.getNumber())
+                .callDuration(callDto.getCallDuration())
+                .comment(callDto.getComment())
+                .callRecord(callDto.getCallRecord())
+                .whenChanged(callDto.getWhenChanged())
+                .contractor(contractor)
+                .employeeWhoChanged(employeeWhoChanged)
+                .employeeWhoCalled(employeeWhoCalled)
                 .build();
     }
 
@@ -889,7 +939,7 @@ public class ConverterDto {
                 .build();
     }
 
-    public static TechnologicalOperation convertToModel(TechnologicalOperationDto technologicalOperationDto){
+    public static TechnologicalOperation convertToModel(TechnologicalOperationDto technologicalOperationDto) {
         Warehouse warehouseForMaterials = new Warehouse();
         warehouseForMaterials.setId(technologicalOperationDto.getWarehouseForMaterialsId());
         Warehouse warehouseForProduct = new Warehouse();
@@ -915,7 +965,7 @@ public class ConverterDto {
                 .build();
     }
 
-    public static TechnologicalOperationDto convertToDto(TechnologicalOperation technologicalOperation){
+    public static TechnologicalOperationDto convertToDto(TechnologicalOperation technologicalOperation) {
         return TechnologicalOperationDto.builder()
                 .id(technologicalOperation.getId())
                 .number(technologicalOperation.getNumber())
