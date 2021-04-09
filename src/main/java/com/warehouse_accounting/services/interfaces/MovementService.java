@@ -5,6 +5,7 @@ import com.warehouse_accounting.models.dto.MovementDto;
 import java.util.List;
 
 public interface MovementService {
+
     List<MovementDto> getAll();
 
     MovementDto getById(Long id);

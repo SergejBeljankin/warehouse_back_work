@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.Specification;
 import java.util.List;
 
 public interface LegalDetailService {
+
     List<LegalDetailDto> getAll();
 
     LegalDetailDto getById(Long id);
