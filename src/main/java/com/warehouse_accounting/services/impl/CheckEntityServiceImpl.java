@@ -79,62 +79,6 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final CountryRepository countryRepository;
     private final CallRepository callRepository;
 
-//    public CheckEntityServiceImpl(UnitRepository unitRepository,
-//                                  AttributeOfCalculationObjectRepository attributeOfCalculationObjectRepository,
-//                                  BankAccountRepository bankAccountRepository,
-//                                  CompanyRepository companyRepository,
-//                                  ContractorGroupRepository contractorGroupRepository,
-//                                  ContractRepository contractRepository,
-//                                  ContractorRepository contractorRepository, CurrencyRepository currencyRepository,
-//                                  DepartmentRepository departmentRepository,
-//                                  ImageRepository imageRepository,
-//                                  InvoiceRepository invoiceRepository,
-//                                  InvoiceProductRepository invoiceProductRepository,
-//                                  LegalDetailRepository legalDetailRepository,
-//                                  PositionRepository positionRepository,
-//                                  ProductRepository productRepository,
-//                                  ProductPriceRepository productPriceRepository,
-//                                  ProjectRepository projectRepository,
-//                                  RoleRepository roleRepository,
-//                                  TaxSystemRepository taxSystemRepository,
-//                                  TypeOfContractorRepository typeOfContractorRepository,
-//                                  TypeOfPriceRepository typeOfPriceRepository,
-//                                  WarehouseRepository warehouseRepository,
-//                                  ProductGroupRepository productGroupRepository,
-//                                  EmployeeRepository employeeRepository,
-//                                  MovementRepository movementRepository
-////                                 ,TypeOfInvoiceRepository typeOfInvoiceRepository
-//    ){
-//        this.unitRepository = unitRepository;
-//        this.attributeOfCalculationObjectRepository = attributeOfCalculationObjectRepository;
-//        this.bankAccountRepository = bankAccountRepository;
-//        this.companyRepository = companyRepository;
-//        this.contractorGroupRepository = contractorGroupRepository;
-//        this.contractRepository = contractRepository;
-//        this.contractorRepository = contractorRepository;
-//        this.currencyRepository = currencyRepository;
-//        this.departmentRepository = departmentRepository;
-//        this.imageRepository = imageRepository;
-//        this.invoiceRepository = invoiceRepository;
-//        this.invoiceProductRepository = invoiceProductRepository;
-//        this.legalDetailRepository = legalDetailRepository;
-//        this.positionRepository = positionRepository;
-//        this.productRepository = productRepository;
-//        this.productPriceRepository = productPriceRepository;
-//        this.projectRepository = projectRepository;
-//        this.roleRepository = roleRepository;
-//        this.taxSystemRepository = taxSystemRepository;
-//        this.typeOfContractorRepository = typeOfContractorRepository;
-//        this.typeOfPriceRepository = typeOfPriceRepository;
-//        this.warehouseRepository = warehouseRepository;
-//        this.productGroupRepository = productGroupRepository;
-//        this.employeeRepository = employeeRepository;
-//        this.movementRepository = movementRepository;
-//        this.typeOfInvoiceRepository = typeOfInvoiceRepository;
-//        this.productionOrderRepository = productionOrderRepository;
-//        this.technologicalOperationRepository = technologicalOperationRepository;
-//    }
-
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {
             throw new NotFoundEntityException("Ед. измерения с id=" + unitId + ", не найдена");

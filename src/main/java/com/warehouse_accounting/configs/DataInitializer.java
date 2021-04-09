@@ -1,13 +1,14 @@
 package com.warehouse_accounting.configs;
 
-import com.warehouse_accounting.models.TechnologicalMap;
-import com.warehouse_accounting.models.TechnologicalMapProduct;
+import com.warehouse_accounting.models.Task;
+import com.warehouse_accounting.models.TechnologicalOperation;
 import com.warehouse_accounting.models.dto.ProductDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapGroupDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapMaterialDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapProductDto;
+import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
 import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.services.interfaces.ProductService;
 import com.warehouse_accounting.services.interfaces.RoleService;
@@ -15,6 +16,7 @@ import com.warehouse_accounting.services.interfaces.TechnologicalMapGroupService
 import com.warehouse_accounting.services.interfaces.TechnologicalMapMaterialService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapProductService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapService;
+import com.warehouse_accounting.services.interfaces.TechnologicalOperationService;
 import com.warehouse_accounting.services.interfaces.UnitService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.poi.ss.usermodel.Row;
@@ -27,6 +29,7 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileInputStream;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -45,7 +48,7 @@ public class DataInitializer {
     private final TechnologicalMapGroupService technologicalMapGroupService;
     private final TechnologicalMapMaterialService technologicalMapMaterialService;
     private final TechnologicalMapProductService technologicalMapProductService;
-
+    private final TechnologicalOperationService technologicalOperationService;
 
     public DataInitializer(RoleService roleService,
                            UnitService unitService,
@@ -53,7 +56,8 @@ public class DataInitializer {
                            TechnologicalMapService technologicalMapService,
                            TechnologicalMapGroupService technologicalMapGroupService,
                            TechnologicalMapMaterialService technologicalMapMaterialService,
-                           TechnologicalMapProductService technologicalMapProductService) {
+                           TechnologicalMapProductService technologicalMapProductService,
+                           TechnologicalOperationService technologicalOperationService) {
         this.roleService = roleService;
         this.unitService = unitService;
         this.productService = productService;
@@ -61,6 +65,7 @@ public class DataInitializer {
         this.technologicalMapGroupService = technologicalMapGroupService;
         this.technologicalMapMaterialService = technologicalMapMaterialService;
         this.technologicalMapProductService = technologicalMapProductService;
+        this.technologicalOperationService = technologicalOperationService;
     }
 
     @PostConstruct
@@ -69,6 +74,8 @@ public class DataInitializer {
         initUnits();
         initProduct();
         initTechnologicalMap();
+        initTechnologicalOperation();
+        initTask();
     }
 
     private void initRoles() {
@@ -148,7 +155,6 @@ public class DataInitializer {
                             .code("гр1ст1")
                             .comment("Очень важная группа")
                             .parentTechnologicalMapGroupId(null)
-                            .parentTechnologicalMapGroupName(null)
                             .build()
             );
             technologicalMapGroupService.create(
@@ -157,7 +163,6 @@ public class DataInitializer {
                             .code("гр2ст1")
                             .comment("Так себе группа")
                             .parentTechnologicalMapGroupId(null)
-                            .parentTechnologicalMapGroupName(null)
                             .build()
             );
             technologicalMapGroupService.create(
@@ -167,23 +172,12 @@ public class DataInitializer {
                             .code("гр1ст1_о1")
                             .comment("Не на столько важная группа")
                             .parentTechnologicalMapGroupId(1L)
-                            .parentTechnologicalMapGroupName("Группа 1")
                             .build()
             );
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу TechnologicalMapGroup", e);
         }
-//    try{
-//        technologicalMapMaterialService.create(
-//                TechnologicalMapMaterialDto.builder()
-//                        .id(1L)
-//
-//                        .count()
-//                        .build()
-//        );
-//    } catch (Exception e) {
-//        log.error("Не удалось заполнить таблицу TechnologicalMapMaterial", e);
-//    }
+
         try {
             technologicalMapService.create(
                     TechnologicalMapDto.builder()
@@ -191,31 +185,41 @@ public class DataInitializer {
                             .name("Изготовление газировки")
                             .productionCost(BigDecimal.valueOf(100500))
                             .isArchived(false)
-                            .comment("Серкретный рецепт произврдства газировки")
+                            .comment("Секретный рецепт производства газировки")
                             .materials(null)
                             .finishedProducts(null)
                             .technologicalMapGroupId(1L)
                             .build()
             );
+
+            technologicalMapService.create(
+                    TechnologicalMapDto.builder()
+                            .name("Технология - найди сам и реализуй")
+                            .productionCost(BigDecimal.valueOf(0))
+                            .isArchived(false)
+                            .comment("Пришел с идеей - ушел с заданием")
+                            .materials(null)
+                            .finishedProducts(null)
+                            .technologicalMapGroupId(2L)
+                            .build()
+            );
+
             TechnologicalMapDto technologicalMap = technologicalMapService.getById(1L);
 
             List<TechnologicalMapMaterialDto> materialDtos = new ArrayList<>();
             materialDtos.add(new TechnologicalMapMaterialDto().builder()
-                    .id(1L)
                     .materialId(productService.getById(1L).getId())
                     .materialName(productService.getById(1L).getName())
                     .count(BigDecimal.valueOf(2))
                     .technologicalMapDto(technologicalMap)
                     .build());
             materialDtos.add(new TechnologicalMapMaterialDto().builder()
-                    .id(2L)
                     .materialId(productService.getById(2L).getId())
                     .materialName(productService.getById(2L).getName())
                     .count(BigDecimal.valueOf(1))
                     .technologicalMapDto(technologicalMap)
                     .build());
             materialDtos.add(new TechnologicalMapMaterialDto().builder()
-                    .id(3L)
                     .materialId(productService.getById(3L).getId())
                     .materialName(productService.getById(3L).getName())
                     .count(BigDecimal.valueOf(1))
@@ -225,13 +229,13 @@ public class DataInitializer {
 
             List<TechnologicalMapProductDto> productDtos = new ArrayList<>();
             productDtos.add(new TechnologicalMapProductDto().builder()
-                    .id(1L)
                     .finishedProductId(productService.getById(4L).getId())
                     .finishedProductsName(productService.getById(4L).getName())
                     .count(BigDecimal.valueOf(1))
                     .technologicalMapDto(technologicalMap)
                     .build());
-            technologicalMapProductService.create(productDtos.get(0));
+            //technologicalMapProductService.create(productDtos.get(0));
+            productDtos.forEach(technologicalMapProductService::create);
 
             technologicalMap.setMaterials(materialDtos);
             technologicalMap.setFinishedProducts(productDtos);
@@ -240,4 +244,36 @@ public class DataInitializer {
             log.error("Не удалось заполнить таблицу TechnologicalMap", e);
         }
     }
+
+    private void initTechnologicalOperation() {
+        try {
+
+            technologicalOperationService.create(
+                    TechnologicalOperationDto.builder()
+                            .id(1L)
+                            .number("Оп-1")
+                            .technologicalOperationDateTime(LocalDateTime.now())
+                            .technologicalMapDtoObj(technologicalMapService.getById(1L))
+                            .volumeOfProduction(BigDecimal.valueOf(100))
+                            .warehouseForMaterialsId(1L)
+                            .warehouseForMaterialsName("Основной склад")
+                            .warehouseForProductId(1L)
+                            .warehouseForProductName("Основной склад")
+                            .build());
+
+
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу TechnologicalOperation", e);
+        }
+    }
+
+    private void initTask() {
+        try {
+            Task.builder()
+                    .build();
+        } catch (Exception e) {
+        log.error("Не удалось заполнить таблицу Tasks", e);
+    }
+}
+
 }

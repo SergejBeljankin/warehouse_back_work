@@ -794,7 +794,7 @@ public class ConverterDto {
                 .isArchived(technologicalMapDto.isArchived())
                 .productionCost(technologicalMapDto.getProductionCost())
                 .technologicalMapGroup(technologicalMapGroup)
-                .finishedProducts((technologicalMapDto.getFinishedProducts() != null)
+                .products((technologicalMapDto.getFinishedProducts() != null)
                         ? technologicalMapDto.getFinishedProducts()
                         .stream()
                         .map(ConverterDto::convertToModel)
@@ -845,8 +845,8 @@ public class ConverterDto {
                 .name(technologicalMapGroup.getName())
                 .code(technologicalMapGroup.getCode())
                 .comment(technologicalMapGroup.getComment())
-                .parentTechnologicalMapGroupId(technologicalMapGroup.getId())
-                .parentTechnologicalMapGroupName(technologicalMapGroup.getName())
+                .parentTechnologicalMapGroupId((technologicalMapGroup.getParentTechnologicalMapGroup()!=null)?technologicalMapGroup.getParentTechnologicalMapGroup().getId():null)
+                .parentTechnologicalMapGroupName((technologicalMapGroup.getParentTechnologicalMapGroup()!=null)?technologicalMapGroup.getParentTechnologicalMapGroup().getName():null)
                 .build();
     }
 
@@ -857,7 +857,7 @@ public class ConverterDto {
         technologicalMap.setId(technologicalMapProductDto.getTechnologicalMapDto().getId());
         return TechnologicalMapProduct.builder()
                 .id(technologicalMapProductDto.getId())
-                .finishedProducts(finishedProducts)
+                .products(finishedProducts)
                 .count(technologicalMapProductDto.getCount())
                 .technologicalMap(technologicalMap)
                 .build();
@@ -866,8 +866,8 @@ public class ConverterDto {
     public static TechnologicalMapProductDto convertToDto(TechnologicalMapProduct technologicalMapProduct) {
         return TechnologicalMapProductDto.builder()
                 .id(technologicalMapProduct.getId())
-                .finishedProductId((technologicalMapProduct.getFinishedProducts() != null) ? technologicalMapProduct.getFinishedProducts().getId() : null)
-                .finishedProductsName((technologicalMapProduct.getFinishedProducts() != null) ? technologicalMapProduct.getFinishedProducts().getName() : null)
+                .finishedProductId((technologicalMapProduct.getProducts() != null) ? technologicalMapProduct.getProducts().getId() : null)
+                .finishedProductsName((technologicalMapProduct.getProducts() != null) ? technologicalMapProduct.getProducts().getName() : null)
                 .count(technologicalMapProduct.getCount())
                 .technologicalMapDto(convertToDto(technologicalMapProduct.getTechnologicalMap()))
                 .build();

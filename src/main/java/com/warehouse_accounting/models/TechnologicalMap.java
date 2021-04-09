@@ -69,7 +69,7 @@ public class TechnologicalMap {
      * Products that will be produced as a result of the operation.
      */
     @OneToMany(fetch = FetchType.LAZY)
-    private List<TechnologicalMapProduct> finishedProducts;
+    private List<TechnologicalMapProduct> products;
 
     /**
      * Products that will be debited as a result of the operation.

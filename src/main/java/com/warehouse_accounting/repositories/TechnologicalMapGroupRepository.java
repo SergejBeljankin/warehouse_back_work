@@ -20,22 +20,25 @@ import java.util.List;
 @Repository
 public interface TechnologicalMapGroupRepository extends JpaRepository<TechnologicalMapGroup, Long> {
     @Query("SELECT NEW com.warehouse_accounting.models.dto.TechnologicalMapGroupDto(" +
-            "group.id," +
-            "group.name," +
-            "group.code," +
-            "group.comment," +
-            "group.parentTechnologicalMapGroup.id," +
-            "group.parentTechnologicalMapGroup.name)" +
-            "FROM TechnologicalMapGroup group")
+            "g.id, " +
+            "g.name, " +
+            "g.code, " +
+            "g.comment, " +
+            "sub_g.id," +
+            "sub_g.name) " +
+            "FROM TechnologicalMapGroup g " +
+            "LEFT JOIN TechnologicalMapGroup sub_g ON (g.parentTechnologicalMapGroup.id = sub_g.id)")
     List<TechnologicalMapGroupDto> getAll();
 
     @Query("SELECT NEW com.warehouse_accounting.models.dto.TechnologicalMapGroupDto(" +
-            "group.id," +
-            "group.name," +
-            "group.code," +
-            "group.comment," +
-            "group.parentTechnologicalMapGroup.id," +
-            "group.parentTechnologicalMapGroup.name)" +
-            "FROM TechnologicalMapGroup group WHERE group.id = :id")
+            "g.id, " +
+            "g.name, " +
+            "g.code, " +
+            "g.comment, " +
+            "sub_g.id," +
+            "sub_g.name) " +
+            "FROM TechnologicalMapGroup g " +
+            "LEFT JOIN TechnologicalMapGroup sub_g ON (g.parentTechnologicalMapGroup.id = sub_g.id)" +
+            "WHERE g.id = :id ")
     TechnologicalMapGroupDto getById(@Param("id") Long id);
 }
