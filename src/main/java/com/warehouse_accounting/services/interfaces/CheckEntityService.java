@@ -42,7 +42,7 @@ public interface CheckEntityService {
 
     void checkExistMovementById(Long contractorId);
 
-//    void checkExistTypeOfInvoiceById(Long typeOfInvoiceId);
+//  void checkExistTypeOfInvoiceById(Long typeOfInvoiceId);
 
     void checkExistInvoiceById(Long invoiceId);
 

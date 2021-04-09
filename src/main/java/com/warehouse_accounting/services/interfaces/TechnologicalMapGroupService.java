@@ -12,6 +12,7 @@ import java.util.List;
  * Created 26.03.2021
  */
 public interface TechnologicalMapGroupService {
+
     List<TechnologicalMapGroupDto> getAll();
 
     TechnologicalMapGroupDto getById(Long id);
