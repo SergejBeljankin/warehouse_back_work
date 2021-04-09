@@ -854,12 +854,14 @@ public class ConverterDto {
         warehouse.setId(dto.getWarehouseId());
         Project project = new Project();
         project.setId(dto.getProjectId());
+        TechnologicalMap technologicalMap = new TechnologicalMap();
+        technologicalMap.setId(dto.getTechnologicalMapId());
         return ProductionOrder.builder()
                 .id(dto.getId())
                 .number(dto.getNumber())
                 .dateTime(dto.getDateTime())
                 .company(dto.getCompanyId() != null ? company : null)
-                .technologicalMap(dto.getTechMapDto() != null ? convertToModel(dto.getTechMapDto()) : null)
+                .technologicalMap(dto.getTechnologicalMapId() != null ? technologicalMap : null)
                 .volumeOfProduction(dto.getVolumeOfProduction())
                 .warehouseForMaterials(dto.getWarehouseId() != null ? warehouse : null)
                 .planDate(dto.getPlanDate())
@@ -875,7 +877,8 @@ public class ConverterDto {
                 .dateTime(productionOrder.getDateTime())
                 .companyId(productionOrder.getCompany() != null ? productionOrder.getCompany().getId() : null)
                 .companyName(productionOrder.getCompany() != null ? productionOrder.getCompany().getName() : null)
-                .techMapDto(convertToDto(productionOrder.getTechnologicalMap()))
+                .technologicalMapId(productionOrder.getTechnologicalMap() != null ? productionOrder.getTechnologicalMap().getId() : null)
+                .technologicalMapName(productionOrder.getTechnologicalMap() != null ? productionOrder.getTechnologicalMap().getName() : null)
                 .volumeOfProduction(productionOrder.getVolumeOfProduction())
                 .warehouseId(productionOrder.getWarehouseForMaterials() != null ? productionOrder.getWarehouseForMaterials().getId() : null)
                 .warehouseName(productionOrder.getWarehouseForMaterials() != null ? productionOrder.getWarehouseForMaterials().getName() : null)
