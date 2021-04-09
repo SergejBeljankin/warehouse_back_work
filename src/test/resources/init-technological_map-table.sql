@@ -1,4 +1,4 @@
--- DELETE FROM technological_maps;
+DELETE FROM technological_maps;
 
 INSERT INTO technological_maps (
     id,

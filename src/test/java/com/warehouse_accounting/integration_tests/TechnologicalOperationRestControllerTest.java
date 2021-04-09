@@ -38,7 +38,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql(value = {
         "classpath:init-company-table.sql",
         "classpath:init-project-table.sql",
-        "classpath:init-technological_map-table.sql",
         "classpath:init-warehouse-table.sql",
         "classpath:init-technological_operation-table.sql"
 })
@@ -69,7 +68,7 @@ class TechnologicalOperationRestControllerTest {
                 .technologicalOperationDateTime(null)
                 .volumeOfProduction(BigDecimal.valueOf(1.1))
                 .technologicalMapId(1L)
-                .technologicalMapName("Производство стула")
+                .technologicalMapName("Изготовление газировки")
                 .warehouseForMaterialsId(1L)
                 .warehouseForMaterialsName("Основной склад")
                 .warehouseForProductId(1L)
@@ -111,7 +110,7 @@ class TechnologicalOperationRestControllerTest {
                 .technologicalOperationDateTime(null)
                 .volumeOfProduction(BigDecimal.valueOf(2.2))
                 .technologicalMapId(1L)
-                .technologicalMapName("Производство стула")
+                .technologicalMapName("Изготовление газировки")
                 .warehouseForMaterialsId(1L)
                 .warehouseForMaterialsName("Основной склад")
                 .warehouseForProductId(2L)
@@ -146,7 +145,7 @@ class TechnologicalOperationRestControllerTest {
                 .technologicalOperationDateTime(LocalDateTime.now())
                 .volumeOfProduction(BigDecimal.valueOf(1.1))
                 .technologicalMapId(1L)
-                .technologicalMapName("Производство стула")
+                .technologicalMapName("Изготовление газировки")
                 .warehouseForMaterialsId(1L)
                 .warehouseForMaterialsName("Основной склад")
                 .warehouseForProductId(1L)
