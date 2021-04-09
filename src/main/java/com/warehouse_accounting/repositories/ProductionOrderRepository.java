@@ -18,7 +18,8 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
             "po.dateTime, " +
             "c.id, " +
             "c.name, " +
-            "po.technologicalMap.id, " +
+            "tm.id, " +
+            "tm.name, " +
             "po.volumeOfProduction, " +
             "w.id, " +
             "w.name, " +
@@ -29,6 +30,7 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
             "FROM ProductionOrder po " +
             "LEFT JOIN Company c ON (po.company.id = c.id)" +
             "LEFT JOIN Project p ON (po.project.id = p.id)" +
+            "LEFT JOIN TechnologicalMap tm ON (po.technologicalMap.id = tm.id)" +
             "LEFT JOIN Warehouse w ON (po.warehouseForMaterials.id = w.id)")
     List<ProductionOrderDto> getAll();
 
@@ -38,7 +40,8 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
             "po.dateTime, " +
             "c.id, " +
             "c.name, " +
-            "po.technologicalMap.id, " +
+            "tm.id, " +
+            "tm.name, " +
             "po.volumeOfProduction, " +
             "w.id, " +
             "w.name, " +
@@ -49,6 +52,7 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
             "FROM ProductionOrder po " +
             "LEFT JOIN Company c ON (po.company.id = c.id)" +
             "LEFT JOIN Project p ON (po.project.id = p.id)" +
+            "LEFT JOIN TechnologicalMap tm ON (po.technologicalMap.id = tm.id)" +
             "LEFT JOIN Warehouse w ON (po.warehouseForMaterials.id = w.id)"+
             "WHERE po.id = :id")
     ProductionOrderDto getById(@Param("id") Long id);

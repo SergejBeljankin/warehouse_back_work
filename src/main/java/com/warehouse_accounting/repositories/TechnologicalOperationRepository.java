@@ -27,12 +27,14 @@ public interface TechnologicalOperationRepository extends JpaRepository<Technolo
             "c.name, " +
             "p.id, " +
             "p.name, " +
-            "t.technologicalMapObj.id )" +
+            "tech.id, " +
+            "tech.name)" +
             "FROM TechnologicalOperation t " +
             "LEFT JOIN Warehouse wm ON (t.warehouseForMaterials.id = wm.id) " +
             "LEFT JOIN Warehouse wp ON (t.warehouseForProduct.id = wp.id) " +
             "LEFT JOIN Company c ON (t.company.id = c.id) " +
-            "LEFT JOIN Project p ON (t.project.id = p.id) ")
+            "LEFT JOIN Project p ON (t.project.id = p.id) " +
+            "LEFT JOIN TechnologicalMap tech ON (t.technologicalMap.id = tech.id) ")
     List<TechnologicalOperationDto> getAll();
 
     @Query("SELECT NEW com.warehouse_accounting.models.dto.TechnologicalOperationDto("+
@@ -50,12 +52,14 @@ public interface TechnologicalOperationRepository extends JpaRepository<Technolo
             "c.name, " +
             "p.id, " +
             "p.name, " +
-            "t.technologicalMapObj.id )" +
+            "tech.id, " +
+            "tech.name )" +
             "FROM TechnologicalOperation t " +
             "LEFT JOIN Warehouse wm ON (t.warehouseForMaterials.id = wm.id) " +
             "LEFT JOIN Warehouse wp ON (t.warehouseForProduct.id = wp.id) " +
             "LEFT JOIN Company c ON (t.company.id = c.id) " +
             "LEFT JOIN Project p ON (t.project.id = p.id) " +
+            "LEFT JOIN TechnologicalMap tech ON (t.technologicalMap.id = tech.id)" +
             "WHERE t.id = :id")
     TechnologicalOperationDto getById(@Param("id") Long id);
 }

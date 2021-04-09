@@ -38,37 +38,34 @@ public class TechnologicalOperationDto {
     private Long projectId;
     private String projectName;
 
-    private TechnologicalMapDto technologicalMapDtoObj = new TechnologicalMapDto();
+    private Long technologicalMapId;
+    private String technologicalMapName;
 
     public TechnologicalOperationDto(Long id,
                                      String number,
                                      boolean isArchive,
                                      LocalDateTime dateTime,
                                      BigDecimal volumeOfProduction,
-                                     String comments,
                                      Long warehouseForMaterialsId,
                                      String warehouseForMaterialsName,
                                      Long warehouseForProductId,
                                      String warehouseForProductName,
                                      Long companyId,
                                      String companyName,
-                                     Long projectId,
-                                     String projectName,
-                                     Long technologicalMapDtoId){
+                                     Long technologicalMapDtoId,
+                                     String technologicalMapDtoName){
         this.id = id;
         this.number = number;
         this.isArchive = isArchive;
         this.technologicalOperationDateTime = dateTime;
         this.volumeOfProduction = volumeOfProduction;
-        this.comments = comments;
         this.warehouseForMaterialsId = warehouseForMaterialsId;
         this.warehouseForMaterialsName = warehouseForMaterialsName;
         this.warehouseForProductId = warehouseForProductId;
         this.warehouseForProductName = warehouseForProductName;
         this.companyId = companyId;
         this.companyName = companyName;
-        this.projectId = projectId;
-        this.projectName = projectName;
-        this.technologicalMapDtoObj.setId(technologicalMapDtoId);
+        this.technologicalMapId = technologicalMapDtoId;
+        this.technologicalMapName = technologicalMapDtoName;
     }
 }
