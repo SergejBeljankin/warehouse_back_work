@@ -1,5 +1,6 @@
 package com.warehouse_accounting.models.dto;
 
+import com.warehouse_accounting.models.Task;
 import com.warehouse_accounting.models.TechnologicalMap;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Dto модель для подвкладки "Тех. операции" во вкладки "Производство".
@@ -41,17 +44,22 @@ public class TechnologicalOperationDto {
     private Long technologicalMapId;
     private String technologicalMapName;
 
+    private List<TaskDto> tasks = new ArrayList<>();
+
     public TechnologicalOperationDto(Long id,
                                      String number,
                                      boolean isArchive,
                                      LocalDateTime dateTime,
                                      BigDecimal volumeOfProduction,
+                                     String comments,
                                      Long warehouseForMaterialsId,
                                      String warehouseForMaterialsName,
                                      Long warehouseForProductId,
                                      String warehouseForProductName,
                                      Long companyId,
                                      String companyName,
+                                     Long projectId,
+                                     String projectName,
                                      Long technologicalMapDtoId,
                                      String technologicalMapDtoName){
         this.id = id;
@@ -59,12 +67,15 @@ public class TechnologicalOperationDto {
         this.isArchive = isArchive;
         this.technologicalOperationDateTime = dateTime;
         this.volumeOfProduction = volumeOfProduction;
+        this.comments = comments;
         this.warehouseForMaterialsId = warehouseForMaterialsId;
         this.warehouseForMaterialsName = warehouseForMaterialsName;
         this.warehouseForProductId = warehouseForProductId;
         this.warehouseForProductName = warehouseForProductName;
         this.companyId = companyId;
         this.companyName = companyName;
+        this.projectId = projectId;
+        this.projectName = projectName;
         this.technologicalMapId = technologicalMapDtoId;
         this.technologicalMapName = technologicalMapDtoName;
     }

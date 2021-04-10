@@ -965,6 +965,12 @@ public class ConverterDto {
                 .warehouseForProduct(technologicalOperationDto.getWarehouseForProductId() != null ? warehouseForProduct : null)
                 .project(technologicalOperationDto.getProjectId() != null ? project : null)
                 .comments(technologicalOperationDto.getComments())
+                .tasks((technologicalOperationDto.getTasks() != null)
+                        ? technologicalOperationDto.getTasks()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList())
+                        : null)
                 .build();
     }
 
@@ -1012,15 +1018,19 @@ public class ConverterDto {
     }
 
     public static Task convertToModel(TaskDto taskDto) {
-        Employee executor = new Employee();
-        executor.setId(taskDto.getExecutorId());
+        // TODO: Просто заглушка для тестов, исполнитель должен быть всегда.
+        Employee executor = null;
+        if (taskDto.getExecutorId() != null) {
+            executor = new Employee();
+            executor.setId(taskDto.getExecutorId());
+        }
         Contractor contractor = null;
-        if(taskDto.getContractorId() != null) {
+        if (taskDto.getContractorId() != null) {
             contractor = new Contractor();
             contractor.setId(taskDto.getContractorId());
         }
         Document document = null;
-        if(taskDto.getDocumentId() != null) {
+        if (taskDto.getDocumentId() != null) {
             document = new TechnologicalOperation();
             document.setId(taskDto.getDocumentId());
         }

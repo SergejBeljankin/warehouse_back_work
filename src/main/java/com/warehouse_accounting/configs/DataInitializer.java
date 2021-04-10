@@ -1,9 +1,8 @@
 package com.warehouse_accounting.configs;
 
-import com.warehouse_accounting.models.Task;
-import com.warehouse_accounting.models.TechnologicalOperation;
 import com.warehouse_accounting.models.dto.ProductDto;
 import com.warehouse_accounting.models.dto.RoleDto;
+import com.warehouse_accounting.models.dto.TaskDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapGroupDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapMaterialDto;
@@ -12,6 +11,7 @@ import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
 import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.services.interfaces.ProductService;
 import com.warehouse_accounting.services.interfaces.RoleService;
+import com.warehouse_accounting.services.interfaces.TaskService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapGroupService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapMaterialService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapProductService;
@@ -49,6 +49,7 @@ public class DataInitializer {
     private final TechnologicalMapMaterialService technologicalMapMaterialService;
     private final TechnologicalMapProductService technologicalMapProductService;
     private final TechnologicalOperationService technologicalOperationService;
+    private final TaskService taskService;
 
     public DataInitializer(RoleService roleService,
                            UnitService unitService,
@@ -57,7 +58,8 @@ public class DataInitializer {
                            TechnologicalMapGroupService technologicalMapGroupService,
                            TechnologicalMapMaterialService technologicalMapMaterialService,
                            TechnologicalMapProductService technologicalMapProductService,
-                           TechnologicalOperationService technologicalOperationService) {
+                           TechnologicalOperationService technologicalOperationService,
+                           TaskService taskService) {
         this.roleService = roleService;
         this.unitService = unitService;
         this.productService = productService;
@@ -66,6 +68,7 @@ public class DataInitializer {
         this.technologicalMapMaterialService = technologicalMapMaterialService;
         this.technologicalMapProductService = technologicalMapProductService;
         this.technologicalOperationService = technologicalOperationService;
+        this.taskService = taskService;
     }
 
     @PostConstruct
@@ -263,6 +266,68 @@ public class DataInitializer {
                             .build());
 
 
+            technologicalOperationService.create(
+                    TechnologicalOperationDto.builder()
+                            .id(2L)
+                            .number("Оп-2")
+                            .technologicalOperationDateTime(LocalDateTime.now().minusDays(1))
+                            .technologicalMapId(technologicalMapService.getById(1L).getId())
+                            .technologicalMapName(technologicalMapService.getById(1L).getName())
+                            .volumeOfProduction(BigDecimal.valueOf(100))
+                            .warehouseForMaterialsId(1L)
+                            .warehouseForMaterialsName("Основной склад")
+                            .warehouseForProductId(1L)
+                            .warehouseForProductName("Основной склад")
+                            .build());
+
+            TechnologicalOperationDto operationDto = technologicalOperationService.getById(2L);
+            List<TaskDto> taskDtos = new ArrayList<>();
+            taskDtos.add(new TaskDto().builder()
+                    .description("1# Первая таска для Тех операции")
+                    .deadline(LocalDateTime.now().plusDays(1))
+                    .dateOfCreation(LocalDateTime.now())
+                    .documentId(operationDto.getId())
+                    .build());
+            taskDtos.add(new TaskDto().builder()
+                    .description("2# Вторая таска для Тех операции")
+                    .deadline(LocalDateTime.now().plusDays(2))
+                    .dateOfCreation(LocalDateTime.now())
+                    .documentId(operationDto.getId())
+                    .build());
+            taskDtos.forEach(taskService::create);
+
+            operationDto.setTasks(taskDtos);
+
+            List<TaskDto> taskDtos3 = new ArrayList<>();
+            taskDtos3.add(new TaskDto().builder()
+                    .description("3# Первая таска для Тех операции")
+                    .deadline(LocalDateTime.now().plusDays(1))
+                    .dateOfCreation(LocalDateTime.now())
+                    .documentId(operationDto.getId())
+                    .build());
+            taskDtos3.add(new TaskDto().builder()
+                    .description("4# Вторая таска для Тех операции")
+                    .deadline(LocalDateTime.now().plusDays(2))
+                    .dateOfCreation(LocalDateTime.now())
+                    .documentId(operationDto.getId())
+                    .build());
+            taskDtos3.forEach(taskService::create);
+
+            technologicalOperationService.create(
+                    TechnologicalOperationDto.builder()
+                            .id(3L)
+                            .number("Оп-3")
+                            .technologicalOperationDateTime(LocalDateTime.now().minusDays(5))
+                            .technologicalMapId(technologicalMapService.getById(1L).getId())
+                            .technologicalMapName(technologicalMapService.getById(1L).getName())
+                            .volumeOfProduction(BigDecimal.valueOf(100))
+                            .warehouseForMaterialsId(1L)
+                            .warehouseForMaterialsName("Основной склад")
+                            .warehouseForProductId(1L)
+                            .warehouseForProductName("Основной склад")
+                            .tasks(taskDtos3)
+                            .build());
+
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу TechnologicalOperation", e);
         }
@@ -270,11 +335,21 @@ public class DataInitializer {
 
     private void initTask() {
         try {
-            Task.builder()
-                    .build();
+            taskService.create(TaskDto.builder()
+                    .description("Первая просто задача")
+                    .deadline(LocalDateTime.now().plusDays(3))
+                    .dateOfCreation(LocalDateTime.now())
+                    .build());
+
+            taskService.create(TaskDto.builder()
+                    .description("Вторая задача с документом")
+                    .deadline(LocalDateTime.now().plusDays(3))
+                    .dateOfCreation(LocalDateTime.now())
+                    .documentId(1L)
+                    .build());
         } catch (Exception e) {
-        log.error("Не удалось заполнить таблицу Tasks", e);
+            log.error("Не удалось заполнить таблицу Tasks", e);
+        }
     }
-}
 
 }

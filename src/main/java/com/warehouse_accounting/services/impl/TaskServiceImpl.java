@@ -1,10 +1,7 @@
 package com.warehouse_accounting.services.impl;
 
 import com.warehouse_accounting.models.dto.TaskDto;
-import com.warehouse_accounting.models.dto.TechnologicalMapProductDto;
 import com.warehouse_accounting.repositories.TaskRepository;
-import com.warehouse_accounting.repositories.TechnologicalMapProductRepository;
-import com.warehouse_accounting.repositories.TechnologicalMapRepository;
 import com.warehouse_accounting.services.interfaces.TaskService;
 import com.warehouse_accounting.util.ConverterDto;
 import org.springframework.stereotype.Service;
