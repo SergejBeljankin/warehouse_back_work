@@ -28,11 +28,10 @@ public class TaskDto {
     private String description;
     private LocalDateTime deadline;
     private LocalDateTime dateOfCreation;
+    private Boolean isDone = false;
 
     private Long executorId;
     private String executorName;
-
-    private Boolean isDone = false;
 
     private Long contractorId;
     private String contractorName;
