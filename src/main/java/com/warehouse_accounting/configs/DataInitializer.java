@@ -283,13 +283,13 @@ public class DataInitializer {
             TechnologicalOperationDto operationDto = technologicalOperationService.getById(2L);
             List<TaskDto> taskDtos = new ArrayList<>();
             taskDtos.add(new TaskDto().builder()
-                    .description("1# Первая таска для Тех операции")
+                    .description("1# Первая таска для Тех операции 2")
                     .deadline(LocalDateTime.now().plusDays(1))
                     .dateOfCreation(LocalDateTime.now())
                     .documentId(operationDto.getId())
                     .build());
             taskDtos.add(new TaskDto().builder()
-                    .description("2# Вторая таска для Тех операции")
+                    .description("2# Вторая таска для Тех операции 2")
                     .deadline(LocalDateTime.now().plusDays(2))
                     .dateOfCreation(LocalDateTime.now())
                     .documentId(operationDto.getId())
@@ -300,13 +300,13 @@ public class DataInitializer {
 
             List<TaskDto> taskDtos3 = new ArrayList<>();
             taskDtos3.add(new TaskDto().builder()
-                    .description("3# Первая таска для Тех операции")
+                    .description("3# Первая таска для Тех операции 3")
                     .deadline(LocalDateTime.now().plusDays(1))
                     .dateOfCreation(LocalDateTime.now())
                     .documentId(operationDto.getId())
                     .build());
             taskDtos3.add(new TaskDto().builder()
-                    .description("4# Вторая таска для Тех операции")
+                    .description("4# Вторая таска для Тех операции 3")
                     .deadline(LocalDateTime.now().plusDays(2))
                     .dateOfCreation(LocalDateTime.now())
                     .documentId(operationDto.getId())
@@ -342,7 +342,7 @@ public class DataInitializer {
                     .build());
 
             taskService.create(TaskDto.builder()
-                    .description("Вторая задача с документом")
+                    .description("Вторая задача с документом тех операции 1")
                     .deadline(LocalDateTime.now().plusDays(3))
                     .dateOfCreation(LocalDateTime.now())
                     .documentId(1L)
