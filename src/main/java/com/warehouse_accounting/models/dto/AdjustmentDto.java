@@ -1,4 +1,6 @@
 package com.warehouse_accounting.models.dto;
 
-public class Adjustment {
+public class AdjustmentDto {
+
+
 }
