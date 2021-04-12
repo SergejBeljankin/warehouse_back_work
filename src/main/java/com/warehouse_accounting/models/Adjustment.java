@@ -14,10 +14,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Builder
@@ -35,26 +34,26 @@ public class Adjustment {
     private String number;
 
     @Column
-    private LocalDateTime invoiceDateTime;
+    private LocalDateTime dateTimeAdjustment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Company company;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Company counterparty;
+    private Contractor contractor;
 
     @Column
     @Enumerated(EnumType.STRING)
     private TypeOfAdjustment type;
 
     @Column
-    private String score;
+    private BigDecimal currentBalance;
 
     @Column
-    private String cashbox;
+    private BigDecimal totalBalance;
 
     @Column
-    private Double adjustmentAmount;
+    private BigDecimal adjustmentAmount;
 
     @Column
     private String comment;
@@ -62,6 +61,4 @@ public class Adjustment {
     @Column
     private LocalDateTime whenСhanged;
 
-    @Column
-    private String whenChanged;
 }
