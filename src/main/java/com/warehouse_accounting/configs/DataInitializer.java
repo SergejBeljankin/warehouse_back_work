@@ -308,6 +308,7 @@ public class DataInitializer {
                     .description("4# Вторая таска для Тех операции 3")
                     .deadline(LocalDateTime.now().plusDays(2))
                     .dateOfCreation(LocalDateTime.now())
+                    .documentId(3L)
                     .build());
             //taskDtos3.forEach(taskService::create);
 
