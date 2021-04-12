@@ -71,7 +71,7 @@ public class CallRestController {
             @ApiResponse(code = 404, message = "Данный контролер не найден"),
             @ApiResponse(code = 403, message = "Операция запрещена"),
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
-    public ResponseEntity<?> create(@ApiParam(name = "ContractorDto", value = "Объект ContractorDto для создания",
+    public ResponseEntity<?> create(@ApiParam(name = "CallDto", value = "Объект CallDto для создания",
             required = true) @RequestBody CallDto callDto) {
         callService.create(callDto);
         return ResponseEntity.ok().build();
