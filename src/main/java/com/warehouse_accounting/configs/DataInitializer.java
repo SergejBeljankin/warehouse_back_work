@@ -303,15 +303,13 @@ public class DataInitializer {
                     .description("3# Первая таска для Тех операции 3")
                     .deadline(LocalDateTime.now().plusDays(1))
                     .dateOfCreation(LocalDateTime.now())
-                    .documentId(operationDto.getId())
                     .build());
             taskDtos3.add(new TaskDto().builder()
                     .description("4# Вторая таска для Тех операции 3")
                     .deadline(LocalDateTime.now().plusDays(2))
                     .dateOfCreation(LocalDateTime.now())
-                    .documentId(operationDto.getId())
                     .build());
-            taskDtos3.forEach(taskService::create);
+            //taskDtos3.forEach(taskService::create);
 
             technologicalOperationService.create(
                     TechnologicalOperationDto.builder()
