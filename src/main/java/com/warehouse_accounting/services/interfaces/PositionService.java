@@ -5,6 +5,7 @@ import com.warehouse_accounting.models.dto.PositionDto;
 import java.util.List;
 
 public interface PositionService {
+
     List<PositionDto> getAll();
 
     PositionDto getById(Long id);

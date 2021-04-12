@@ -42,7 +42,7 @@ public interface CheckEntityService {
 
     void checkExistMovementById(Long contractorId);
 
-//    void checkExistTypeOfInvoiceById(Long typeOfInvoiceId);
+//  void checkExistTypeOfInvoiceById(Long typeOfInvoiceId);
 
     void checkExistInvoiceById(Long invoiceId);
 
@@ -57,4 +57,16 @@ public interface CheckEntityService {
     void checkExistTechnologicalOperationById(Long technologicalOperationId);
 
     void checkExistProductionOrderById(Long productionOrderId);
+
+    void checkExistCountryById(Long countryId);
+
+    void checkExistTechnologicalMapById(Long invoiceId);
+
+    void checkExistTechnologicalMapGroupById(Long invoiceId);
+
+    void checkExistTechnologicalMapProductById(Long invoiceId);
+
+    void checkExistTechnologicalMapMaterialById(Long invoiceId);
+
+    void checkExistCallById(Long CallrId);
 }

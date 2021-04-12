@@ -2,10 +2,12 @@ package com.warehouse_accounting.util;
 
 import com.warehouse_accounting.models.AttributeOfCalculationObject;
 import com.warehouse_accounting.models.BankAccount;
+import com.warehouse_accounting.models.Call;
 import com.warehouse_accounting.models.Company;
 import com.warehouse_accounting.models.Contract;
 import com.warehouse_accounting.models.Contractor;
 import com.warehouse_accounting.models.ContractorGroup;
+import com.warehouse_accounting.models.Country;
 import com.warehouse_accounting.models.Currency;
 import com.warehouse_accounting.models.Department;
 import com.warehouse_accounting.models.Employee;
@@ -35,11 +37,12 @@ import com.warehouse_accounting.models.Unit;
 import com.warehouse_accounting.models.Warehouse;
 import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
 import com.warehouse_accounting.models.dto.BankAccountDto;
+import com.warehouse_accounting.models.dto.CallDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.ContractDto;
 import com.warehouse_accounting.models.dto.ContractorDto;
-import com.warehouse_accounting.models.dto.ContractorGetALLDto;
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
+import com.warehouse_accounting.models.dto.CountryDto;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
 import com.warehouse_accounting.models.dto.EmployeeDto;
@@ -441,6 +444,54 @@ public class ConverterDto {
                 .build();
     }
 
+    public static CallDto convertToDto(Call call) {
+        return CallDto.builder()
+                .id(call.getId())
+                .callTime(call.getCallTime())
+                .type(call.getType())
+                .number(call.getNumber())
+                .callDuration(call.getCallDuration())
+                .comment(call.getComment())
+                .callRecord(call.getCallRecord())
+                .whenChanged(call.getWhenChanged())
+                .contractorId(call.getContractor() != null
+                        ? call.getContractor().getId() : null)
+                .contractorName(call.getContractor() != null
+                        ? call.getContractor().getName() : null)
+                .employeeWhoCalledId(call.getEmployeeWhoCalled() != null
+                        ? call.getEmployeeWhoCalled().getId() : null)
+                .employeeWhoCalledName(call.getEmployeeWhoCalled() != null
+                        ? call.getEmployeeWhoCalled().getFirstName() : null)
+                .employeeWhoChangedId(call.getEmployeeWhoChanged() != null
+                        ? call.getEmployeeWhoChanged().getId() : null)
+                .employeeWhoChangedName(call.getEmployeeWhoChanged() != null
+                        ? call.getEmployeeWhoChanged().getFirstName() : null)
+                .build();
+    }
+
+    public static Call convertToModel(CallDto callDto) {
+        Contractor contractor = new Contractor();
+        contractor.setId(callDto.getContractorId());
+        Employee employeeWhoCalled = new Employee();
+        employeeWhoCalled.setId(callDto.getEmployeeWhoCalledId());
+        Employee employeeWhoChanged = new Employee();
+        employeeWhoChanged.setId(callDto.getEmployeeWhoChangedId());
+
+        return Call.builder()
+                .id(callDto.getId())
+                .callTime(callDto.getCallTime())
+                .type(callDto.getType())
+                .number(callDto.getNumber())
+                .callDuration(callDto.getCallDuration())
+                .comment(callDto.getComment())
+                .callRecord(callDto.getCallRecord())
+                .whenChanged(callDto.getWhenChanged())
+                .contractor(contractor)
+                .employeeWhoChanged(employeeWhoChanged)
+                .employeeWhoCalled(employeeWhoCalled)
+                .build();
+    }
+
     public static ContractorDto convertToDto(Contractor contractor) {
         return ContractorDto.builder()
                 .id(contractor.getId())
@@ -677,6 +728,7 @@ public class ConverterDto {
     }
 
     public static Product convertToModel(ProductDto productDto) {
+
         return Product.builder()
                 .id(productDto.getId())
                 .name(productDto.getName())
@@ -684,14 +736,14 @@ public class ConverterDto {
                 .volume(productDto.getVolume())
                 .purchasePrice(productDto.getPurchasePrice())
                 .description(productDto.getDescription())
-                .unit(convertToModel(productDto.getUnitDto()))
+                .unit(productDto.getUnitDto() != null ? convertToModel(productDto.getUnitDto()) : null)
                 .archive(productDto.getArchive())
-                .contractor(convertToModel(productDto.getContractorDto()))
-                .productPrices(productDto.getProductPricesDto().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
-                .taxSystem(convertToModel(productDto.getTaxSystemDto()))
-                .images(productDto.getImagesDto().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()))
-                .productGroup(convertToModel(productDto.getProductGroupDto()))
-                .attributeOfCalculationObject(convertToModel(productDto.getAttributeOfCalculationObjectDto()))
+                .contractor(productDto.getContractorDto() != null ? convertToModel(productDto.getContractorDto()) : null)
+                .productPrices(productDto.getProductPricesDto() != null ? productDto.getProductPricesDto().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()) : null)
+                .taxSystem(productDto.getTaxSystemDto() != null ? convertToModel(productDto.getTaxSystemDto()) : null)
+                .images(productDto.getImagesDto() != null ? productDto.getImagesDto().stream().map(ConverterDto::convertToModel).collect(Collectors.toList()) : null)
+                .productGroup(productDto.getProductGroupDto() != null ? convertToModel(productDto.getProductGroupDto()) : null)
+                .attributeOfCalculationObject(productDto.getAttributeOfCalculationObjectDto() != null ? convertToModel(productDto.getAttributeOfCalculationObjectDto()) : null)
                 .build();
     }
 
@@ -742,7 +794,7 @@ public class ConverterDto {
                 .isArchived(technologicalMapDto.isArchived())
                 .productionCost(technologicalMapDto.getProductionCost())
                 .technologicalMapGroup(technologicalMapGroup)
-                .finishedProducts((technologicalMapDto.getFinishedProducts() != null)
+                .products((technologicalMapDto.getFinishedProducts() != null)
                         ? technologicalMapDto.getFinishedProducts()
                         .stream()
                         .map(ConverterDto::convertToModel)
@@ -772,8 +824,12 @@ public class ConverterDto {
     }
 
     public static TechnologicalMapGroup convertToModel(TechnologicalMapGroupDto technologicalMapGroupDto) {
-        TechnologicalMapGroup parentTechnologicalMapGroup = new TechnologicalMapGroup();
-        parentTechnologicalMapGroup.setId(technologicalMapGroupDto.getParentTechnologicalMapGroupId());
+        TechnologicalMapGroup parentTechnologicalMapGroup = null;
+        if (technologicalMapGroupDto.getParentTechnologicalMapGroupId() != null) {
+            parentTechnologicalMapGroup = new TechnologicalMapGroup();
+            parentTechnologicalMapGroup.setId(technologicalMapGroupDto.getParentTechnologicalMapGroupId());
+            parentTechnologicalMapGroup.setName(technologicalMapGroupDto.getParentTechnologicalMapGroupName());
+        }
         return TechnologicalMapGroup.builder()
                 .id(technologicalMapGroupDto.getId())
                 .name(technologicalMapGroupDto.getName())
@@ -789,8 +845,8 @@ public class ConverterDto {
                 .name(technologicalMapGroup.getName())
                 .code(technologicalMapGroup.getCode())
                 .comment(technologicalMapGroup.getComment())
-                .parentTechnologicalMapGroupId(technologicalMapGroup.getId())
-                .parentTechnologicalMapGroupName(technologicalMapGroup.getName())
+                .parentTechnologicalMapGroupId((technologicalMapGroup.getParentTechnologicalMapGroup()!=null)?technologicalMapGroup.getParentTechnologicalMapGroup().getId():null)
+                .parentTechnologicalMapGroupName((technologicalMapGroup.getParentTechnologicalMapGroup()!=null)?technologicalMapGroup.getParentTechnologicalMapGroup().getName():null)
                 .build();
     }
 
@@ -801,7 +857,7 @@ public class ConverterDto {
         technologicalMap.setId(technologicalMapProductDto.getTechnologicalMapDto().getId());
         return TechnologicalMapProduct.builder()
                 .id(technologicalMapProductDto.getId())
-                .finishedProducts(finishedProducts)
+                .products(finishedProducts)
                 .count(technologicalMapProductDto.getCount())
                 .technologicalMap(technologicalMap)
                 .build();
@@ -810,8 +866,8 @@ public class ConverterDto {
     public static TechnologicalMapProductDto convertToDto(TechnologicalMapProduct technologicalMapProduct) {
         return TechnologicalMapProductDto.builder()
                 .id(technologicalMapProduct.getId())
-                .finishedProductId((technologicalMapProduct.getFinishedProducts() != null) ? technologicalMapProduct.getFinishedProducts().getId() : null)
-                .finishedProductsName((technologicalMapProduct.getFinishedProducts() != null) ? technologicalMapProduct.getFinishedProducts().getName() : null)
+                .finishedProductId((technologicalMapProduct.getProducts() != null) ? technologicalMapProduct.getProducts().getId() : null)
+                .finishedProductsName((technologicalMapProduct.getProducts() != null) ? technologicalMapProduct.getProducts().getName() : null)
                 .count(technologicalMapProduct.getCount())
                 .technologicalMapDto(convertToDto(technologicalMapProduct.getTechnologicalMap()))
                 .build();
@@ -848,12 +904,14 @@ public class ConverterDto {
         warehouse.setId(dto.getWarehouseId());
         Project project = new Project();
         project.setId(dto.getProjectId());
+        TechnologicalMap technologicalMap = new TechnologicalMap();
+        technologicalMap.setId(dto.getTechnologicalMapId());
         return ProductionOrder.builder()
                 .id(dto.getId())
                 .number(dto.getNumber())
                 .dateTime(dto.getDateTime())
                 .company(dto.getCompanyId() != null ? company : null)
-                .technologicalMap(dto.getTechMapDto() != null ? convertToModel(dto.getTechMapDto()) : null)
+                .technologicalMap(dto.getTechnologicalMapId() != null ? technologicalMap : null)
                 .volumeOfProduction(dto.getVolumeOfProduction())
                 .warehouseForMaterials(dto.getWarehouseId() != null ? warehouse : null)
                 .planDate(dto.getPlanDate())
@@ -867,9 +925,10 @@ public class ConverterDto {
                 .id(productionOrder.getId())
                 .number(productionOrder.getNumber())
                 .dateTime(productionOrder.getDateTime())
-                .companyId(productionOrder.getCompany() != null ? productionOrder.getCompany().getId(): null)
+                .companyId(productionOrder.getCompany() != null ? productionOrder.getCompany().getId() : null)
                 .companyName(productionOrder.getCompany() != null ? productionOrder.getCompany().getName() : null)
-                .techMapDto(convertToDto(productionOrder.getTechnologicalMap()))
+                .technologicalMapId(productionOrder.getTechnologicalMap() != null ? productionOrder.getTechnologicalMap().getId() : null)
+                .technologicalMapName(productionOrder.getTechnologicalMap() != null ? productionOrder.getTechnologicalMap().getName() : null)
                 .volumeOfProduction(productionOrder.getVolumeOfProduction())
                 .warehouseId(productionOrder.getWarehouseForMaterials() != null ? productionOrder.getWarehouseForMaterials().getId() : null)
                 .warehouseName(productionOrder.getWarehouseForMaterials() != null ? productionOrder.getWarehouseForMaterials().getName() : null)
@@ -880,7 +939,7 @@ public class ConverterDto {
                 .build();
     }
 
-    public static TechnologicalOperation convertToModel(TechnologicalOperationDto technologicalOperationDto){
+    public static TechnologicalOperation convertToModel(TechnologicalOperationDto technologicalOperationDto) {
         Warehouse warehouseForMaterials = new Warehouse();
         warehouseForMaterials.setId(technologicalOperationDto.getWarehouseForMaterialsId());
         Warehouse warehouseForProduct = new Warehouse();
@@ -889,22 +948,24 @@ public class ConverterDto {
         company.setId(technologicalOperationDto.getCompanyId());
         Project project = new Project();
         project.setId(technologicalOperationDto.getProjectId());
+        TechnologicalMap technologicalMap = new TechnologicalMap();
+        technologicalMap.setId(technologicalOperationDto.getTechnologicalMapId());
         return TechnologicalOperation.builder()
                 .id(technologicalOperationDto.getId())
                 .isArchive(technologicalOperationDto.isArchive())
                 .number(technologicalOperationDto.getNumber())
                 .date(technologicalOperationDto.getTechnologicalOperationDateTime())
-                .company(company)
-                .technologicalMapObj(technologicalOperationDto.getTechnologicalMapDtoObj()!= null ? convertToModel(technologicalOperationDto.getTechnologicalMapDtoObj()) : null)
+                .company(technologicalOperationDto.getCompanyId() != null ? company : null)
+                .technologicalMap(technologicalOperationDto.getTechnologicalMapId() != null ? technologicalMap : null)
                 .volumeOfProduction(technologicalOperationDto.getVolumeOfProduction())
-                .warehouseForMaterials(warehouseForMaterials)
-                .warehouseForProduct(warehouseForProduct)
-                .project(project)
+                .warehouseForMaterials(technologicalOperationDto.getWarehouseForMaterialsId() != null ? warehouseForMaterials : null)
+                .warehouseForProduct(technologicalOperationDto.getWarehouseForProductId() != null ? warehouseForProduct : null)
+                .project(technologicalOperationDto.getProjectId() != null ? project : null)
                 .comments(technologicalOperationDto.getComments())
                 .build();
     }
 
-    public static TechnologicalOperationDto convertToDto(TechnologicalOperation technologicalOperation){
+    public static TechnologicalOperationDto convertToDto(TechnologicalOperation technologicalOperation) {
         return TechnologicalOperationDto.builder()
                 .id(technologicalOperation.getId())
                 .number(technologicalOperation.getNumber())
@@ -912,7 +973,8 @@ public class ConverterDto {
                 .technologicalOperationDateTime(technologicalOperation.getDate())
                 .companyId(technologicalOperation.getCompany() != null ? technologicalOperation.getCompany().getId() : null)
                 .companyName(technologicalOperation.getCompany() != null ? technologicalOperation.getCompany().getName() : null)
-                .technologicalMapDtoObj(convertToDto(technologicalOperation.getTechnologicalMapObj()))
+                .technologicalMapId(technologicalOperation.getTechnologicalMap() != null ? technologicalOperation.getTechnologicalMap().getId() : null)
+                .technologicalMapName(technologicalOperation.getTechnologicalMap() != null ? technologicalOperation.getTechnologicalMap().getName() : null)
                 .volumeOfProduction(technologicalOperation.getVolumeOfProduction())
                 .warehouseForMaterialsId(technologicalOperation.getWarehouseForMaterials() != null ? technologicalOperation.getWarehouseForMaterials().getId() : null)
                 .warehouseForMaterialsName(technologicalOperation.getWarehouseForMaterials() != null ? technologicalOperation.getWarehouseForMaterials().getName() : null)
@@ -921,6 +983,28 @@ public class ConverterDto {
                 .projectId(technologicalOperation.getProject() != null ? technologicalOperation.getProject().getId() : null)
                 .projectName(technologicalOperation.getProject() != null ? technologicalOperation.getProject().getName() : null)
                 .comments(technologicalOperation.getComments())
+                .build();
+    }
+
+    public static Country convertToModel(CountryDto countryDto) {
+        return Country.builder()
+                .id(countryDto.getId())
+                .shortName(countryDto.getShortName())
+                .longName(countryDto.getLongName())
+                .code(countryDto.getCode())
+                .codeOne(countryDto.getCodeOne())
+                .codeTwo(countryDto.getCodeTwo())
+                .build();
+    }
+
+    public static CountryDto convertToDto(Country country) {
+        return CountryDto.builder()
+                .id(country.getId())
+                .shortName(country.getShortName())
+                .longName(country.getLongName())
+                .code(country.getCode())
+                .codeOne(country.getCodeOne())
+                .codeTwo(country.getCodeTwo())
                 .build();
     }
 

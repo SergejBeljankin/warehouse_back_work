@@ -1,16 +1,14 @@
 package com.warehouse_accounting.models;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
@@ -20,17 +18,18 @@ import java.time.LocalDateTime;
  * This class is model is on the "Мой Склад" in the tab "Производсство".
  * This model is responsible for the "Тех. операции"
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "technological_operations")
-public class TechnologicalOperation {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class TechnologicalOperation extends Document {
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
 
     @Column
     private String number;
@@ -45,7 +44,7 @@ public class TechnologicalOperation {
     private Company company;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private TechnologicalMap technologicalMapObj;
+    private TechnologicalMap technologicalMap;
 
     @Column
     private BigDecimal volumeOfProduction;

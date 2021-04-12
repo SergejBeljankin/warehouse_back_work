@@ -5,6 +5,7 @@ import com.warehouse_accounting.models.dto.CompanyDto;
 import java.util.List;
 
 public interface CompanyService {
+
     List<CompanyDto> getAll();
 
     CompanyDto getById(Long id);

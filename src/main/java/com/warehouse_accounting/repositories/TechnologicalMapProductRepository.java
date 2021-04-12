@@ -19,23 +19,23 @@ import java.util.List;
 @Repository
 public interface TechnologicalMapProductRepository extends JpaRepository<TechnologicalMapProduct, Long> {
     @Query("SELECT NEW com.warehouse_accounting.models.dto.TechnologicalMapProductDto(" +
-            "product.id," +
-            "product.finishedProducts.id," +
-            "product.finishedProducts.name," +
-            "product.count," +
-            "product.technologicalMap.id)" +
-            "FROM TechnologicalMapProduct product")
+            "finprod.id," +
+            "finprod.products.id," +
+            "finprod.products.name," +
+            "finprod.count," +
+            "finprod.technologicalMap.id)" +
+            "FROM TechnologicalMapProduct finprod")
     List<TechnologicalMapProductDto> getAll();
 
     @Query("SELECT NEW com.warehouse_accounting.models.dto.TechnologicalMapProductDto(" +
-            "product.id," +
-            "product.finishedProducts.id," +
-            "product.finishedProducts.name," +
-            "product.count," +
-            "product.technologicalMap.id)" +
-            "FROM TechnologicalMapProduct product WHERE product.id = :id")
+            "finprod.id," +
+            "finprod.products.id," +
+            "finprod.products.name," +
+            "finprod.count," +
+            "finprod.technologicalMap.id)" +
+            "FROM TechnologicalMapProduct finprod WHERE finprod.id = :id")
     TechnologicalMapProductDto getById(@Param("id") Long id);
 
-    @Query("SELECT product.finishedProducts FROM TechnologicalMap product WHERE product.id = :id")
+    @Query("SELECT finprod FROM TechnologicalMapProduct finprod WHERE finprod.technologicalMap.id = :id")
     List<TechnologicalMapProduct> getListTechnologicalMapProductById(@Param("id") Long id);
 }

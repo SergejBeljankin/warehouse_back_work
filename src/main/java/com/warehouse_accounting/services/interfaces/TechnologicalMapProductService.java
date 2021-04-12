@@ -12,9 +12,14 @@ import java.util.List;
  * Created 26.03.2021
  */
 public interface TechnologicalMapProductService {
+
     List<TechnologicalMapProductDto> getAll();
+
     TechnologicalMapProductDto getById(Long id);
+
     void create(TechnologicalMapProductDto technologicalMapProductDto);
+
     void update(TechnologicalMapProductDto v);
+
     void deleteById(Long id);
 }

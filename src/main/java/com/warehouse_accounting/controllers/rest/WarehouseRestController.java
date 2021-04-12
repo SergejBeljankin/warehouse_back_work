@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("/api/warehouses")
 @Api(tags = "Warehouse Rest Controller")
 @Tag(name = "Warehouse Rest Controller", description = "CRUD операции с объектами")
-public class WarehouseRestController {
+public class WarehouseRestController{
 
     private final WarehouseService warehouseService;
     private final CheckEntityService checkEntityService;

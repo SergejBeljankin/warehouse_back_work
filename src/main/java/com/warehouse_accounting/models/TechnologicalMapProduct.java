@@ -35,7 +35,7 @@ public class TechnologicalMapProduct {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Product finishedProducts;
+    private Product products;
 
     @Column(scale = 2)
     private BigDecimal count= BigDecimal.valueOf(1);

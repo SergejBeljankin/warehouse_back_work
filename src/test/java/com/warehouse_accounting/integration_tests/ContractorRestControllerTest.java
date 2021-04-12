@@ -1,6 +1,6 @@
 package com.warehouse_accounting.integration_tests;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+        import com.fasterxml.jackson.databind.ObjectMapper;
 import com.warehouse_accounting.controllers.rest.ContractorRestController;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.ContractorDto;
@@ -24,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

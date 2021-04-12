@@ -44,5 +44,4 @@ public class BankAccountServiceImpl implements BankAccountService {
         bankAccountRepository.deleteById(id);
     }
 
-
 }
