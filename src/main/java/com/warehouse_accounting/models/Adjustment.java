@@ -46,19 +46,18 @@ public class Adjustment {
     @Enumerated(EnumType.STRING)
     private TypeOfAdjustment type;
 
-    @Column
-    private BigDecimal currentBalance;
+    @Column(scale = 2)
+    private BigDecimal currentBalance = BigDecimal.valueOf(0);
 
-    @Column
-    private BigDecimal totalBalance;
+    @Column(scale = 2)
+    private BigDecimal totalBalance = BigDecimal.valueOf(0);
 
-    @Column
-    private BigDecimal adjustmentAmount;
+    @Column(scale = 2)
+    private BigDecimal adjustmentAmount = BigDecimal.valueOf(0);
 
     @Column
     private String comment;
 
     @Column
     private LocalDateTime whenСhanged;
-
 }
