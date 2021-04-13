@@ -79,10 +79,10 @@ public class DataInitializer {
                            TechnologicalOperationService technologicalOperationService,
                            TaskService taskService,
                            CallService callService,
-                           EmployeeService employeeService
-            , DepartmentService departmentService
-            , ImageService imageService
-            , PositionService positionService) {
+                           EmployeeService employeeService,
+                           DepartmentService departmentService,
+                           ImageService imageService,
+                           PositionService positionService) {
         this.roleService = roleService;
         this.unitService = unitService;
         this.productService = productService;
