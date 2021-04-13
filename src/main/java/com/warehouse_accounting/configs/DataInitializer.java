@@ -456,7 +456,7 @@ public class DataInitializer {
                     .comment("comment")
                     .callRecord("callRecord")
                     .whenChanged(null)
-                    .contractorName("null")
+                    .contractorName(null)
                     .contractorId(null)
                     .employeeWhoChangedName("null")
                     .employeeWhoChangedId(1L)
