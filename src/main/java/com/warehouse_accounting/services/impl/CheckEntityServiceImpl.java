@@ -23,6 +23,7 @@ import com.warehouse_accounting.repositories.ProductRepository;
 import com.warehouse_accounting.repositories.ProductionOrderRepository;
 import com.warehouse_accounting.repositories.ProjectRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
+import com.warehouse_accounting.repositories.TaskRepository;
 import com.warehouse_accounting.repositories.TaxSystemRepository;
 import com.warehouse_accounting.repositories.TechnologicalMapGroupRepository;
 import com.warehouse_accounting.repositories.TechnologicalMapMaterialRepository;
@@ -78,6 +79,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final TechnologicalOperationRepository technologicalOperationRepository;
     private final CountryRepository countryRepository;
     private final CallRepository callRepository;
+    private final TaskRepository taskRepository;
 
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {
@@ -295,6 +297,13 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistCallById(Long callId) {
         if(!callRepository.existsById(callId)){
             throw new NotFoundEntityException("Call с id=" + callId + " не найден.");
+        }
+    }
+
+    @Override
+    public void checkExistTaskById(Long TaskId) {
+        if(!taskRepository.existsById(TaskId)){
+            throw new NotFoundEntityException("Call с id=" + TaskId + " не найден.");
         }
     }
 

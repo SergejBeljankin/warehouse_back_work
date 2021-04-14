@@ -1,9 +1,7 @@
 package com.warehouse_accounting.repositories;
 
 import com.warehouse_accounting.models.TechnologicalMapMaterial;
-import com.warehouse_accounting.models.TechnologicalMapProduct;
 import com.warehouse_accounting.models.dto.TechnologicalMapMaterialDto;
-import com.warehouse_accounting.models.dto.TechnologicalMapProductDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

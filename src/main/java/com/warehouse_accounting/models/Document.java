@@ -40,6 +40,6 @@ public abstract class Document {
     @Column
     private LocalDateTime date;
 
-    @OneToMany(cascade = {CascadeType.PERSIST} )
+    @OneToMany(mappedBy = "document" ,cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     private List<Task> tasks;
 }
