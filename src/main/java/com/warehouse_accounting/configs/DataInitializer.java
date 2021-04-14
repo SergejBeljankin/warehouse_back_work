@@ -1,5 +1,11 @@
 package com.warehouse_accounting.configs;
 
+import com.warehouse_accounting.models.Department;
+import com.warehouse_accounting.models.dto.CallDto;
+import com.warehouse_accounting.models.dto.DepartmentDto;
+import com.warehouse_accounting.models.dto.EmployeeDto;
+import com.warehouse_accounting.models.dto.ImageDto;
+import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.models.dto.ProductDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaskDto;
@@ -9,6 +15,11 @@ import com.warehouse_accounting.models.dto.TechnologicalMapMaterialDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapProductDto;
 import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
 import com.warehouse_accounting.models.dto.UnitDto;
+import com.warehouse_accounting.services.interfaces.CallService;
+import com.warehouse_accounting.services.interfaces.DepartmentService;
+import com.warehouse_accounting.services.interfaces.EmployeeService;
+import com.warehouse_accounting.services.interfaces.ImageService;
+import com.warehouse_accounting.services.interfaces.PositionService;
 import com.warehouse_accounting.services.interfaces.ProductService;
 import com.warehouse_accounting.services.interfaces.RoleService;
 import com.warehouse_accounting.services.interfaces.TaskService;
@@ -31,6 +42,7 @@ import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -50,6 +62,12 @@ public class DataInitializer {
     private final TechnologicalMapProductService technologicalMapProductService;
     private final TechnologicalOperationService technologicalOperationService;
     private final TaskService taskService;
+    private final CallService callService;
+    private final EmployeeService employeeService;
+    private final DepartmentService departmentService;
+    private final ImageService imageService;
+    private final PositionService positionService;
+
 
     public DataInitializer(RoleService roleService,
                            UnitService unitService,
@@ -59,7 +77,12 @@ public class DataInitializer {
                            TechnologicalMapMaterialService technologicalMapMaterialService,
                            TechnologicalMapProductService technologicalMapProductService,
                            TechnologicalOperationService technologicalOperationService,
-                           TaskService taskService) {
+                           TaskService taskService,
+                           CallService callService,
+                           EmployeeService employeeService,
+                           DepartmentService departmentService,
+                           ImageService imageService,
+                           PositionService positionService) {
         this.roleService = roleService;
         this.unitService = unitService;
         this.productService = productService;
@@ -69,6 +92,11 @@ public class DataInitializer {
         this.technologicalMapProductService = technologicalMapProductService;
         this.technologicalOperationService = technologicalOperationService;
         this.taskService = taskService;
+        this.callService = callService;
+        this.employeeService = employeeService;
+        this.departmentService = departmentService;
+        this.imageService = imageService;
+        this.positionService = positionService;
     }
 
     @PostConstruct
@@ -79,6 +107,11 @@ public class DataInitializer {
         initTechnologicalMap();
         initTechnologicalOperation();
         initTask();
+        initDepartment();
+        initImage();
+        initPosition();
+        initEmployees();
+        initCalls();
     }
 
     private void initRoles() {
@@ -348,6 +381,89 @@ public class DataInitializer {
                     .build());
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу Tasks", e);
+        }
+    }
+
+    private void initDepartment() {
+        try {
+            departmentService.create(DepartmentDto.builder()
+                    .id(1L)
+                    .name("departmentName")
+                    .sortNumber("sortNumber")
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу Department", e);
+        }
+    }
+
+    private void initPosition() {
+        try {
+            positionService.create(PositionDto.builder()
+                    .id(1L)
+                    .name("departmentName")
+                    .sortNumber("sortNumber")
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу Positions", e);
+        }
+    }
+
+    private void initImage() {
+        try {
+            imageService.create(ImageDto.builder()
+                    .id(1L)
+                    .imageUrl("imageUrl")
+                    .sortNumber("sortNumber")
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу Images", e);
+        }
+    }
+
+    private void initEmployees() {
+        try {
+            employeeService.create(EmployeeDto.builder()
+                    .id(1L)
+                    .lastName("lastName")
+                    .firstName("firstName")
+                    .middleName("middleName")
+                    .sortNumber("sortNumber")
+                    .phone("phone")
+                    .inn("inn")
+                    .description("description")
+                    .email("some@mail.ru")
+                    .password("password")
+                    .department(departmentService.getById(1L))
+                    .position(positionService.getById(1L))
+                    .image(imageService.getById(1L))
+                    .roles(Collections.emptySet())
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу Employees", e);
+        }
+    }
+
+
+    private void initCalls() {
+        try {
+            callService.create(CallDto.builder()
+                    .id(1L)
+                    .callTime(null)
+                    .type("someType")
+                    .number(1234567890L)
+                    .callDuration(100L)
+                    .comment("comment")
+                    .callRecord("callRecord")
+                    .whenChanged(null)
+                    .contractorName(null)
+                    .contractorId(null)
+                    .employeeWhoChangedName("null")
+                    .employeeWhoChangedId(1L)
+                    .employeeWhoCalledName("null")
+                    .employeeWhoCalledId(1L)
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу Calls", e);
         }
     }
 
