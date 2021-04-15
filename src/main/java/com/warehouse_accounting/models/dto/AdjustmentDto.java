@@ -19,13 +19,13 @@ public class AdjustmentDto {
 
     private String number;
 
+    private LocalDateTime dateTimeAdjustment;
+
     private Long companyId;
     private String companyName;
 
     private Long contractorId;
     private String contractorName;
-
-    private LocalDateTime dateTimeAdjustment;
 
     private TypeOfAdjustment type;
 
