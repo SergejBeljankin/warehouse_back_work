@@ -544,6 +544,9 @@ public class ConverterDto {
                                 .map(ConverterDto::convertToModel).collect(Collectors.toList()) : null)
                 .legalDetail(contractorDto.getLegalDetailDto() != null ?
                         convertToModel(contractorDto.getLegalDetailDto()) : null)
+                .tasks(contractorDto.getTaskDtos() != null ?
+                        contractorDto.getTaskDtos().stream()
+                                .map(ConverterDto::convertToModel).collect(Collectors.toList()) : null)
                 .build();
     }
 

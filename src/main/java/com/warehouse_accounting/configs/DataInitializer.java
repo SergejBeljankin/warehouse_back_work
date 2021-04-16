@@ -1,10 +1,15 @@
 package com.warehouse_accounting.configs;
 
+import com.warehouse_accounting.models.Contractor;
 import com.warehouse_accounting.models.Department;
+import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CallDto;
+import com.warehouse_accounting.models.dto.ContractorDto;
+import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
 import com.warehouse_accounting.models.dto.EmployeeDto;
 import com.warehouse_accounting.models.dto.ImageDto;
+import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.models.dto.ProductDto;
 import com.warehouse_accounting.models.dto.RoleDto;
@@ -14,11 +19,17 @@ import com.warehouse_accounting.models.dto.TechnologicalMapGroupDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapMaterialDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapProductDto;
 import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
+import com.warehouse_accounting.models.dto.TypeOfContractorDto;
+import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
+import com.warehouse_accounting.services.interfaces.BankAccountService;
 import com.warehouse_accounting.services.interfaces.CallService;
+import com.warehouse_accounting.services.interfaces.ContractorGroupService;
+import com.warehouse_accounting.services.interfaces.ContractorService;
 import com.warehouse_accounting.services.interfaces.DepartmentService;
 import com.warehouse_accounting.services.interfaces.EmployeeService;
 import com.warehouse_accounting.services.interfaces.ImageService;
+import com.warehouse_accounting.services.interfaces.LegalDetailService;
 import com.warehouse_accounting.services.interfaces.PositionService;
 import com.warehouse_accounting.services.interfaces.ProductService;
 import com.warehouse_accounting.services.interfaces.RoleService;
@@ -28,6 +39,8 @@ import com.warehouse_accounting.services.interfaces.TechnologicalMapMaterialServ
 import com.warehouse_accounting.services.interfaces.TechnologicalMapProductService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapService;
 import com.warehouse_accounting.services.interfaces.TechnologicalOperationService;
+import com.warehouse_accounting.services.interfaces.TypeOfContractorService;
+import com.warehouse_accounting.services.interfaces.TypeOfPriceService;
 import com.warehouse_accounting.services.interfaces.UnitService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.poi.ss.usermodel.Row;
@@ -67,6 +80,12 @@ public class DataInitializer {
     private final DepartmentService departmentService;
     private final ImageService imageService;
     private final PositionService positionService;
+    private final ContractorService contractorService;
+    private final ContractorGroupService contractorGroupService;
+    private final TypeOfPriceService typeOfPriceService;
+    private final BankAccountService bankAccountService;
+    private final LegalDetailService legalDetailService;
+    private final TypeOfContractorService typeOfContractorService;
 
 
     public DataInitializer(RoleService roleService,
@@ -82,7 +101,13 @@ public class DataInitializer {
                            EmployeeService employeeService,
                            DepartmentService departmentService,
                            ImageService imageService,
-                           PositionService positionService) {
+                           PositionService positionService,
+                           ContractorService contractorService,
+                           ContractorGroupService contractorGroupService,
+                           BankAccountService bankAccountService,
+                           LegalDetailService legalDetailService,
+                           TypeOfContractorService typeOfContractorService,
+                           TypeOfPriceService typeOfPriceService) {
         this.roleService = roleService;
         this.unitService = unitService;
         this.productService = productService;
@@ -97,6 +122,12 @@ public class DataInitializer {
         this.departmentService = departmentService;
         this.imageService = imageService;
         this.positionService = positionService;
+        this.contractorService = contractorService;
+        this.contractorGroupService = contractorGroupService;
+        this.typeOfPriceService = typeOfPriceService;
+        this.bankAccountService = bankAccountService;
+        this.legalDetailService = legalDetailService;
+        this.typeOfContractorService = typeOfContractorService;
     }
 
     @PostConstruct
@@ -106,12 +137,18 @@ public class DataInitializer {
         initProduct();
         initTechnologicalMap();
         initTechnologicalOperation();
-        initTask();
         initDepartment();
         initImage();
         initPosition();
         initEmployees();
+        initContractorGroup();
+        initTypeOfContractor();
+        initLegalDetail();
+        initBankAccount();
+        initTypeOfPrice();
+        initContractors();
         initCalls();
+        initTask();
     }
 
     private void initRoles() {
@@ -378,6 +415,7 @@ public class DataInitializer {
                     .deadline(LocalDateTime.now().plusDays(3))
                     .dateOfCreation(LocalDateTime.now())
                     .documentId(1L)
+                    .contractorId(1L)
                     .build());
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу Tasks", e);
@@ -466,5 +504,88 @@ public class DataInitializer {
             log.error("Не удалось заполнить таблицу Calls", e);
         }
     }
+
+    private void initContractors() {
+        try {
+            List<TaskDto> taskDtos = new ArrayList<>();
+            taskDtos.add(taskService.getById(2L));
+            taskDtos.add(taskService.getById(1L));
+
+            contractorService.create(ContractorDto.builder()
+                    .id(1L)
+                    .name("first_Contractor")
+                    .contractorGroupId(1L)
+                    .typeOfPriceId(1L)
+                    .bankAccountDtos(Collections.EMPTY_LIST)
+                    .legalDetailDto(legalDetailService.getById(1L))
+                    .taskDtos(taskDtos)
+                    .build());
+            contractorService.getById(1L).setTaskDtos(taskDtos);
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу Contractors", e);
+        }
+    }
+
+    private void initContractorGroup() {
+        try {
+            contractorGroupService.create(ContractorGroupDto.builder()
+                    .id(1L)
+                    .name("first_ContractorGroup")
+                    .build());
+
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу contractor_grous", e);
+        }
+    }
+
+    private void initTypeOfPrice() {
+        try {
+            typeOfPriceService.create(TypeOfPriceDto.builder()
+                    .id(1L)
+                    .name("firstTypeOfPrice")
+                    .build());
+
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу type_of_prices", e);
+        }
+    }
+
+    private void initBankAccount() {
+        try {
+            bankAccountService.create(BankAccountDto.builder()
+                    .id(1L)
+//                    .name("first_ContractorGroup")
+                    .build());
+
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу bank_accounts", e);
+        }
+    }
+
+    private void initLegalDetail(){
+        try {
+            legalDetailService.create(LegalDetailDto.builder()
+                    .id(1L)
+                    .fullName("firstFullName")
+                    .typeOfContractorId(1L)
+                    .build());
+
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу legal_details", e);
+        }
+    }
+
+    private void initTypeOfContractor() {
+        try {
+            typeOfContractorService.create(TypeOfContractorDto.builder()
+                    .id(1L)
+                    .name("firstTypeOfContractorName")
+                    .build());
+
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу type_of_contractors", e);
+        }
+    }
+
 
 }
