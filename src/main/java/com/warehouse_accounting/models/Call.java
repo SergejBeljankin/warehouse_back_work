@@ -52,7 +52,7 @@ public class Call {
     private Date whenChanged;
 
     @ManyToOne(fetch = FetchType.LAZY
-            ,cascade = CascadeType.ALL)
+            ,cascade = {CascadeType.PERSIST})
     private Contractor contractor;
 
     @ManyToOne(fetch = FetchType.LAZY

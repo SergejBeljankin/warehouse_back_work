@@ -41,7 +41,7 @@ public class Task {
     @Column
     private Boolean isDone = false;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Contractor contractor;
 
     @ManyToOne

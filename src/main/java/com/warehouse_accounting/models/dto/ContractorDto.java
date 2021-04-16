@@ -45,6 +45,8 @@ public class ContractorDto {
 
     private LegalDetailDto legalDetailDto = new LegalDetailDto();
 
+    private List<TaskDto> taskDtos = new ArrayList<>();
+
     public ContractorDto(
             Long id,
             String name,

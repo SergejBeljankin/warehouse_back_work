@@ -22,8 +22,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest   //поднимает контекст целиком.
 @AutoConfigureMockMvc   //Эта аннотация нужна для того, чтобы появилась возможность внедрить в тестовый класс бин MockMvc
-@Sql(value = {"classpath:init-production_order-table.sql"},
-        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+//@Sql(value = {"classpath:init-production_order-table.sql"},
+//        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class ProductionOrderRestControllerTest {
 
     @Autowired

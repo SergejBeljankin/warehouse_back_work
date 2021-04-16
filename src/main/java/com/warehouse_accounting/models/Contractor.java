@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -62,9 +63,13 @@ public class Contractor {
     @OneToOne(fetch = FetchType.LAZY)
     private TypeOfPrice typeOfPrice;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contractor",fetch = FetchType.LAZY)
     private List<BankAccount> bankAccounts;
 
     @OneToOne(fetch = FetchType.LAZY)
     private LegalDetail legalDetail;
+
+    @OneToMany(mappedBy = "contractor", fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    private List<Task> tasks;
 }
