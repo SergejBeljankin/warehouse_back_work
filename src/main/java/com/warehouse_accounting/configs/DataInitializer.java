@@ -1,22 +1,46 @@
 package com.warehouse_accounting.configs;
 
-import com.warehouse_accounting.models.Task;
-import com.warehouse_accounting.models.TechnologicalOperation;
+import com.warehouse_accounting.models.Contractor;
+import com.warehouse_accounting.models.Department;
+import com.warehouse_accounting.models.dto.BankAccountDto;
+import com.warehouse_accounting.models.dto.CallDto;
+import com.warehouse_accounting.models.dto.ContractorDto;
+import com.warehouse_accounting.models.dto.ContractorGroupDto;
+import com.warehouse_accounting.models.dto.DepartmentDto;
+import com.warehouse_accounting.models.dto.EmployeeDto;
+import com.warehouse_accounting.models.dto.ImageDto;
+import com.warehouse_accounting.models.dto.LegalDetailDto;
+import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.models.dto.ProductDto;
 import com.warehouse_accounting.models.dto.RoleDto;
+import com.warehouse_accounting.models.dto.TaskDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapGroupDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapMaterialDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapProductDto;
 import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
+import com.warehouse_accounting.models.dto.TypeOfContractorDto;
+import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
+import com.warehouse_accounting.services.interfaces.BankAccountService;
+import com.warehouse_accounting.services.interfaces.CallService;
+import com.warehouse_accounting.services.interfaces.ContractorGroupService;
+import com.warehouse_accounting.services.interfaces.ContractorService;
+import com.warehouse_accounting.services.interfaces.DepartmentService;
+import com.warehouse_accounting.services.interfaces.EmployeeService;
+import com.warehouse_accounting.services.interfaces.ImageService;
+import com.warehouse_accounting.services.interfaces.LegalDetailService;
+import com.warehouse_accounting.services.interfaces.PositionService;
 import com.warehouse_accounting.services.interfaces.ProductService;
 import com.warehouse_accounting.services.interfaces.RoleService;
+import com.warehouse_accounting.services.interfaces.TaskService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapGroupService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapMaterialService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapProductService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapService;
 import com.warehouse_accounting.services.interfaces.TechnologicalOperationService;
+import com.warehouse_accounting.services.interfaces.TypeOfContractorService;
+import com.warehouse_accounting.services.interfaces.TypeOfPriceService;
 import com.warehouse_accounting.services.interfaces.UnitService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.poi.ss.usermodel.Row;
@@ -31,6 +55,7 @@ import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -49,6 +74,19 @@ public class DataInitializer {
     private final TechnologicalMapMaterialService technologicalMapMaterialService;
     private final TechnologicalMapProductService technologicalMapProductService;
     private final TechnologicalOperationService technologicalOperationService;
+    private final TaskService taskService;
+    private final CallService callService;
+    private final EmployeeService employeeService;
+    private final DepartmentService departmentService;
+    private final ImageService imageService;
+    private final PositionService positionService;
+    private final ContractorService contractorService;
+    private final ContractorGroupService contractorGroupService;
+    private final TypeOfPriceService typeOfPriceService;
+    private final BankAccountService bankAccountService;
+    private final LegalDetailService legalDetailService;
+    private final TypeOfContractorService typeOfContractorService;
+
 
     public DataInitializer(RoleService roleService,
                            UnitService unitService,
@@ -57,7 +95,19 @@ public class DataInitializer {
                            TechnologicalMapGroupService technologicalMapGroupService,
                            TechnologicalMapMaterialService technologicalMapMaterialService,
                            TechnologicalMapProductService technologicalMapProductService,
-                           TechnologicalOperationService technologicalOperationService) {
+                           TechnologicalOperationService technologicalOperationService,
+                           TaskService taskService,
+                           CallService callService,
+                           EmployeeService employeeService,
+                           DepartmentService departmentService,
+                           ImageService imageService,
+                           PositionService positionService,
+                           ContractorService contractorService,
+                           ContractorGroupService contractorGroupService,
+                           BankAccountService bankAccountService,
+                           LegalDetailService legalDetailService,
+                           TypeOfContractorService typeOfContractorService,
+                           TypeOfPriceService typeOfPriceService) {
         this.roleService = roleService;
         this.unitService = unitService;
         this.productService = productService;
@@ -66,6 +116,18 @@ public class DataInitializer {
         this.technologicalMapMaterialService = technologicalMapMaterialService;
         this.technologicalMapProductService = technologicalMapProductService;
         this.technologicalOperationService = technologicalOperationService;
+        this.taskService = taskService;
+        this.callService = callService;
+        this.employeeService = employeeService;
+        this.departmentService = departmentService;
+        this.imageService = imageService;
+        this.positionService = positionService;
+        this.contractorService = contractorService;
+        this.contractorGroupService = contractorGroupService;
+        this.typeOfPriceService = typeOfPriceService;
+        this.bankAccountService = bankAccountService;
+        this.legalDetailService = legalDetailService;
+        this.typeOfContractorService = typeOfContractorService;
     }
 
     @PostConstruct
@@ -75,6 +137,17 @@ public class DataInitializer {
         initProduct();
         initTechnologicalMap();
         initTechnologicalOperation();
+        initDepartment();
+        initImage();
+        initPosition();
+        initEmployees();
+        initContractorGroup();
+        initTypeOfContractor();
+        initLegalDetail();
+        initBankAccount();
+        initTypeOfPrice();
+        initContractors();
+        initCalls();
         initTask();
     }
 
@@ -253,7 +326,8 @@ public class DataInitializer {
                             .id(1L)
                             .number("Оп-1")
                             .technologicalOperationDateTime(LocalDateTime.now())
-                            .technologicalMapDtoObj(technologicalMapService.getById(1L))
+                            .technologicalMapId(technologicalMapService.getById(1L).getId())
+                            .technologicalMapName(technologicalMapService.getById(1L).getName())
                             .volumeOfProduction(BigDecimal.valueOf(100))
                             .warehouseForMaterialsId(1L)
                             .warehouseForMaterialsName("Основной склад")
@@ -262,6 +336,67 @@ public class DataInitializer {
                             .build());
 
 
+            technologicalOperationService.create(
+                    TechnologicalOperationDto.builder()
+                            .id(2L)
+                            .number("Оп-2")
+                            .technologicalOperationDateTime(LocalDateTime.now().minusDays(1))
+                            .technologicalMapId(technologicalMapService.getById(1L).getId())
+                            .technologicalMapName(technologicalMapService.getById(1L).getName())
+                            .volumeOfProduction(BigDecimal.valueOf(100))
+                            .warehouseForMaterialsId(1L)
+                            .warehouseForMaterialsName("Основной склад")
+                            .warehouseForProductId(1L)
+                            .warehouseForProductName("Основной склад")
+                            .build());
+
+            TechnologicalOperationDto operationDto = technologicalOperationService.getById(2L);
+            List<TaskDto> taskDtos = new ArrayList<>();
+            taskDtos.add(new TaskDto().builder()
+                    .description("1# Первая таска для Тех операции 2")
+                    .deadline(LocalDateTime.now().plusDays(1))
+                    .dateOfCreation(LocalDateTime.now())
+                    .documentId(operationDto.getId())
+                    .build());
+            taskDtos.add(new TaskDto().builder()
+                    .description("2# Вторая таска для Тех операции 2")
+                    .deadline(LocalDateTime.now().plusDays(2))
+                    .dateOfCreation(LocalDateTime.now())
+                    .documentId(operationDto.getId())
+                    .build());
+            taskDtos.forEach(taskService::create);
+
+            operationDto.setTasks(taskDtos);
+
+            List<TaskDto> taskDtos3 = new ArrayList<>();
+            taskDtos3.add(new TaskDto().builder()
+                    .description("3# Первая таска для Тех операции 3")
+                    .deadline(LocalDateTime.now().plusDays(1))
+                    .dateOfCreation(LocalDateTime.now())
+                    .build());
+            taskDtos3.add(new TaskDto().builder()
+                    .description("4# Вторая таска для Тех операции 3")
+                    .deadline(LocalDateTime.now().plusDays(2))
+                    .dateOfCreation(LocalDateTime.now())
+                    .documentId(3L)
+                    .build());
+            //taskDtos3.forEach(taskService::create);
+
+            technologicalOperationService.create(
+                    TechnologicalOperationDto.builder()
+                            .id(3L)
+                            .number("Оп-3")
+                            .technologicalOperationDateTime(LocalDateTime.now().minusDays(5))
+                            .technologicalMapId(technologicalMapService.getById(1L).getId())
+                            .technologicalMapName(technologicalMapService.getById(1L).getName())
+                            .volumeOfProduction(BigDecimal.valueOf(100))
+                            .warehouseForMaterialsId(1L)
+                            .warehouseForMaterialsName("Основной склад")
+                            .warehouseForProductId(1L)
+                            .warehouseForProductName("Основной склад")
+                            .tasks(taskDtos3)
+                            .build());
+
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу TechnologicalOperation", e);
         }
@@ -269,11 +404,188 @@ public class DataInitializer {
 
     private void initTask() {
         try {
-            Task.builder()
-                    .build();
+            taskService.create(TaskDto.builder()
+                    .description("Первая просто задача")
+                    .deadline(LocalDateTime.now().plusDays(3))
+                    .dateOfCreation(LocalDateTime.now())
+                    .build());
+
+            taskService.create(TaskDto.builder()
+                    .description("Вторая задача с документом тех операции 1")
+                    .deadline(LocalDateTime.now().plusDays(3))
+                    .dateOfCreation(LocalDateTime.now())
+                    .documentId(1L)
+                    .contractorId(1L)
+                    .build());
         } catch (Exception e) {
-        log.error("Не удалось заполнить таблицу Tasks", e);
+            log.error("Не удалось заполнить таблицу Tasks", e);
+        }
     }
-}
+
+    private void initDepartment() {
+        try {
+            departmentService.create(DepartmentDto.builder()
+                    .id(1L)
+                    .name("departmentName")
+                    .sortNumber("sortNumber")
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу Department", e);
+        }
+    }
+
+    private void initPosition() {
+        try {
+            positionService.create(PositionDto.builder()
+                    .id(1L)
+                    .name("departmentName")
+                    .sortNumber("sortNumber")
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу Positions", e);
+        }
+    }
+
+    private void initImage() {
+        try {
+            imageService.create(ImageDto.builder()
+                    .id(1L)
+                    .imageUrl("imageUrl")
+                    .sortNumber("sortNumber")
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу Images", e);
+        }
+    }
+
+    private void initEmployees() {
+        try {
+            employeeService.create(EmployeeDto.builder()
+                    .id(1L)
+                    .lastName("lastName")
+                    .firstName("firstName")
+                    .middleName("middleName")
+                    .sortNumber("sortNumber")
+                    .phone("phone")
+                    .inn("inn")
+                    .description("description")
+                    .email("some@mail.ru")
+                    .password("password")
+                    .department(departmentService.getById(1L))
+                    .position(positionService.getById(1L))
+                    .image(imageService.getById(1L))
+                    .roles(Collections.emptySet())
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу Employees", e);
+        }
+    }
+
+
+    private void initCalls() {
+        try {
+            callService.create(CallDto.builder()
+                    .id(1L)
+                    .callTime(null)
+                    .type("someType")
+                    .number(1234567890L)
+                    .callDuration(100L)
+                    .comment("comment")
+                    .callRecord("callRecord")
+                    .whenChanged(null)
+                    .contractorName(null)
+                    .contractorId(null)
+                    .employeeWhoChangedName("null")
+                    .employeeWhoChangedId(1L)
+                    .employeeWhoCalledName("null")
+                    .employeeWhoCalledId(1L)
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу Calls", e);
+        }
+    }
+
+    private void initContractors() {
+        try {
+            List<TaskDto> taskDtos = new ArrayList<>();
+            taskDtos.add(taskService.getById(2L));
+            taskDtos.add(taskService.getById(1L));
+
+            contractorService.create(ContractorDto.builder()
+                    .id(1L)
+                    .name("first_Contractor")
+                    .contractorGroupId(1L)
+                    .typeOfPriceId(1L)
+                    .bankAccountDtos(Collections.EMPTY_LIST)
+                    .legalDetailDto(legalDetailService.getById(1L))
+                    .taskDtos(taskDtos)
+                    .build());
+            contractorService.getById(1L).setTaskDtos(taskDtos);
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу Contractors", e);
+        }
+    }
+
+    private void initContractorGroup() {
+        try {
+            contractorGroupService.create(ContractorGroupDto.builder()
+                    .id(1L)
+                    .name("first_ContractorGroup")
+                    .build());
+
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу contractor_grous", e);
+        }
+    }
+
+    private void initTypeOfPrice() {
+        try {
+            typeOfPriceService.create(TypeOfPriceDto.builder()
+                    .id(1L)
+                    .name("firstTypeOfPrice")
+                    .build());
+
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу type_of_prices", e);
+        }
+    }
+
+    private void initBankAccount() {
+        try {
+            bankAccountService.create(BankAccountDto.builder()
+                    .id(1L)
+//                    .name("first_ContractorGroup")
+                    .build());
+
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу bank_accounts", e);
+        }
+    }
+
+    private void initLegalDetail(){
+        try {
+            legalDetailService.create(LegalDetailDto.builder()
+                    .id(1L)
+                    .fullName("firstFullName")
+                    .typeOfContractorId(1L)
+                    .build());
+
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу legal_details", e);
+        }
+    }
+
+    private void initTypeOfContractor() {
+        try {
+            typeOfContractorService.create(TypeOfContractorDto.builder()
+                    .id(1L)
+                    .name("firstTypeOfContractorName")
+                    .build());
+
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу type_of_contractors", e);
+        }
+    }
+
 
 }

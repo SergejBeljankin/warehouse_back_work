@@ -39,4 +39,7 @@ public class BankAccount {
 
     @Column
     private String sortNumber;
+
+    @ManyToOne
+    private Contractor contractor;
 }

@@ -11,6 +11,7 @@ import com.warehouse_accounting.models.ContractorGroup;
 import com.warehouse_accounting.models.Country;
 import com.warehouse_accounting.models.Currency;
 import com.warehouse_accounting.models.Department;
+import com.warehouse_accounting.models.Document;
 import com.warehouse_accounting.models.Employee;
 import com.warehouse_accounting.models.Image;
 import com.warehouse_accounting.models.Invoice;
@@ -25,6 +26,7 @@ import com.warehouse_accounting.models.ProductPrice;
 import com.warehouse_accounting.models.ProductionOrder;
 import com.warehouse_accounting.models.Project;
 import com.warehouse_accounting.models.Role;
+import com.warehouse_accounting.models.Task;
 import com.warehouse_accounting.models.TaxSystem;
 import com.warehouse_accounting.models.TechnologicalMap;
 import com.warehouse_accounting.models.TechnologicalMapGroup;
@@ -61,6 +63,7 @@ import com.warehouse_accounting.models.dto.ProductPriceDto;
 import com.warehouse_accounting.models.dto.ProductionOrderDto;
 import com.warehouse_accounting.models.dto.ProjectDto;
 import com.warehouse_accounting.models.dto.RoleDto;
+import com.warehouse_accounting.models.dto.TaskDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapGroupDto;
@@ -580,6 +583,9 @@ public class ConverterDto {
                                 .map(ConverterDto::convertToModel).collect(Collectors.toList()) : null)
                 .legalDetail(contractorDto.getLegalDetailDto() != null ?
                         convertToModel(contractorDto.getLegalDetailDto()) : null)
+                .tasks(contractorDto.getTaskDtos() != null ?
+                        contractorDto.getTaskDtos().stream()
+                                .map(ConverterDto::convertToModel).collect(Collectors.toList()) : null)
                 .build();
     }
 
@@ -884,8 +890,8 @@ public class ConverterDto {
                 .name(technologicalMapGroup.getName())
                 .code(technologicalMapGroup.getCode())
                 .comment(technologicalMapGroup.getComment())
-                .parentTechnologicalMapGroupId((technologicalMapGroup.getParentTechnologicalMapGroup()!=null)?technologicalMapGroup.getParentTechnologicalMapGroup().getId():null)
-                .parentTechnologicalMapGroupName((technologicalMapGroup.getParentTechnologicalMapGroup()!=null)?technologicalMapGroup.getParentTechnologicalMapGroup().getName():null)
+                .parentTechnologicalMapGroupId((technologicalMapGroup.getParentTechnologicalMapGroup() != null) ? technologicalMapGroup.getParentTechnologicalMapGroup().getId() : null)
+                .parentTechnologicalMapGroupName((technologicalMapGroup.getParentTechnologicalMapGroup() != null) ? technologicalMapGroup.getParentTechnologicalMapGroup().getName() : null)
                 .build();
     }
 
@@ -1001,6 +1007,12 @@ public class ConverterDto {
                 .warehouseForProduct(technologicalOperationDto.getWarehouseForProductId() != null ? warehouseForProduct : null)
                 .project(technologicalOperationDto.getProjectId() != null ? project : null)
                 .comments(technologicalOperationDto.getComments())
+                .tasks((technologicalOperationDto.getTasks() != null)
+                        ? technologicalOperationDto.getTasks()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList())
+                        : null)
                 .build();
     }
 
@@ -1044,6 +1056,51 @@ public class ConverterDto {
                 .code(country.getCode())
                 .codeOne(country.getCodeOne())
                 .codeTwo(country.getCodeTwo())
+                .build();
+    }
+
+    public static Task convertToModel(TaskDto taskDto) {
+        // TODO: Просто заглушка для тестов, исполнитель должен быть всегда.
+        Employee executor = null;
+        if (taskDto.getExecutorId() != null) {
+            executor = new Employee();
+            executor.setId(taskDto.getExecutorId());
+        }
+        Contractor contractor = null;
+        if (taskDto.getContractorId() != null) {
+            contractor = new Contractor();
+            contractor.setId(taskDto.getContractorId());
+        }
+        Document document = null;
+        if (taskDto.getDocumentId() != null) {
+            document = new TechnologicalOperation();
+            document.setId(taskDto.getDocumentId());
+        }
+        return Task.builder()
+                .id(taskDto.getId())
+                .description(taskDto.getDescription())
+                .deadline(taskDto.getDeadline())
+                .dateOfCreation(taskDto.getDateOfCreation())
+                .isDone(taskDto.getIsDone())
+                .executor(executor)
+                .contractor(contractor)
+                .document(document)
+                .build();
+    }
+
+    public static TaskDto convertToDto(Task task) {
+        return TaskDto.builder()
+                .id(task.getId())
+                .description(task.getDescription())
+                .deadline(task.getDeadline())
+                .dateOfCreation(task.getDateOfCreation())
+                .isDone(task.getIsDone())
+                .executorId(task.getExecutor() != null ? task.getExecutor().getId() : null)
+                .executorName(task.getExecutor() != null ? task.getExecutor().getFirstName() : null)
+                .contractorId(task.getContractor() != null ? task.getContractor().getId() : null)
+                .contractorName(task.getContractor() != null ? task.getContractor().getName() : null)
+                .documentId(task.getDocument() != null ? task.getDocument().getId() : null)
+                .documentName(task.getDocument() != null ? task.getDocument().getType() : null)
                 .build();
     }
 

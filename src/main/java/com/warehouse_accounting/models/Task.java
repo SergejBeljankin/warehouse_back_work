@@ -6,7 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
-
+/**
+ * Задачи помогают организовать работу.
+ * Их можно ставить себе или другим сотрудникам, выполнение отслеживается по уведомлениям.
+ * Задачу можно создать из любого документа.
+ * Также можно настроить автоматическое создание задач в рамках сценариев.
+ * Например, если покупатель в течение недели не оплачивает счет,
+ * можно поставить менеджеру задачу связаться с ним.
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -25,7 +32,8 @@ public class Task {
     @Column
     private LocalDateTime deadline;
 
-    @Column LocalDateTime dateOfCreation;
+    @Column
+    private LocalDateTime dateOfCreation;
 
     @ManyToOne
     private Employee executor;
@@ -33,7 +41,7 @@ public class Task {
     @Column
     private Boolean isDone = false;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Contractor contractor;
 
     @ManyToOne
