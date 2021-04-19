@@ -1,5 +1,6 @@
 package com.warehouse_accounting.util;
 
+import com.warehouse_accounting.models.Adjustment;
 import com.warehouse_accounting.models.AttributeOfCalculationObject;
 import com.warehouse_accounting.models.BankAccount;
 import com.warehouse_accounting.models.Call;
@@ -35,6 +36,7 @@ import com.warehouse_accounting.models.TypeOfInvoice;
 import com.warehouse_accounting.models.TypeOfPrice;
 import com.warehouse_accounting.models.Unit;
 import com.warehouse_accounting.models.Warehouse;
+import com.warehouse_accounting.models.dto.AdjustmentDto;
 import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CallDto;
@@ -105,6 +107,43 @@ public class ConverterDto {
                 .id(roleDto.getId())
                 .name(roleDto.getName())
                 .sortNumber(roleDto.getSortNumber())
+                .build();
+    }
+
+    public static AdjustmentDto convertToDto(Adjustment adjustment) {
+        return AdjustmentDto.builder()
+                .id(adjustment.getId())
+                .number(adjustment.getNumber())
+                .dateTimeAdjustment(adjustment.getDateTimeAdjustment())
+                .companyId(adjustment.getCompany() != null ? adjustment.getCompany().getId() : null)
+                .companyName(adjustment.getCompany() != null ? adjustment.getCompany().getName() : null)
+                .contractorId(adjustment.getContractor() != null ? adjustment.getContractor().getId() : null)
+                .contractorName(adjustment.getContractor() != null ? adjustment.getContractor().getName() : null)
+                .type(adjustment.getType())
+                .currentBalance(adjustment.getCurrentBalance())
+                .totalBalance(adjustment.getTotalBalance())
+                .adjustmentAmount(adjustment.getAdjustmentAmount())
+                .comment(adjustment.getComment())
+                .whenСhanged(adjustment.getWhenСhanged())
+                .build();
+    }
+
+    public static Adjustment convertToModel(AdjustmentDto dto) {
+        Company company = new Company();
+        company.setId(dto.getCompanyId());
+        Contractor contractor = new Contractor();
+        contractor.setId(dto.getContractorId());
+        return Adjustment.builder()
+                .id(dto.getId())
+                .number(dto.getNumber())
+                .company(company)
+                .contractor(contractor)
+                .type(dto.getType())
+                .currentBalance(dto.getCurrentBalance())
+                .totalBalance(dto.getTotalBalance())
+                .adjustmentAmount(dto.getAdjustmentAmount())
+                .comment(dto.getComment())
+                .whenСhanged(dto.getWhenСhanged())
                 .build();
     }
 

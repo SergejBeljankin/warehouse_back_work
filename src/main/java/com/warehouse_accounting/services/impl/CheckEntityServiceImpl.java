@@ -1,5 +1,6 @@
 package com.warehouse_accounting.services.impl;
 
+import com.warehouse_accounting.repositories.AdjustmentRepository;
 import com.warehouse_accounting.repositories.AttributeOfCalculationObjectRepository;
 import com.warehouse_accounting.repositories.BankAccountRepository;
 import com.warehouse_accounting.repositories.CallRepository;
@@ -44,6 +45,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class CheckEntityServiceImpl implements CheckEntityService {
 
+    private final AdjustmentRepository adjustmentRepository;
     private final AttributeOfCalculationObjectRepository attributeOfCalculationObjectRepository;
     private final BankAccountRepository bankAccountRepository;
     private final CompanyRepository companyRepository;
@@ -82,6 +84,12 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {
             throw new NotFoundEntityException("Ед. измерения с id=" + unitId + ", не найдена");
+        }
+    }
+
+    public void checkExistAdjustmentById(Long adjustmentId) {
+        if (!adjustmentRepository.existsById(adjustmentId)) {
+            throw new NotFoundEntityException("Adjustment с id= " + adjustmentId + " , не найден.");
         }
     }
 
