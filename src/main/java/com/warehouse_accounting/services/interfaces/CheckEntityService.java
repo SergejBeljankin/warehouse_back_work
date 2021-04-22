@@ -4,6 +4,8 @@ public interface CheckEntityService {
 
     void checkExistUnitById(Long unitId);
 
+    void checkExistAdjustmentById(Long adjustmentId);
+
     void checkExistAttributeOfCalculationObjectById(Long attributeOfCalculationObjectId);
 
     void checkExistCompanyById(Long companyId);
