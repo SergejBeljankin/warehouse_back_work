@@ -97,7 +97,7 @@ public class AdjustmentRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "Id AdjustmentDto для удаления", required = true)
                                         @PathVariable("id") Long id) {
-        checkEntityService.checkExistCallById(id);
+        checkEntityService.checkExistAdjustmentById(id);
         adjustmentService.deleteById(id);
         return ResponseEntity.ok().build();
     }
