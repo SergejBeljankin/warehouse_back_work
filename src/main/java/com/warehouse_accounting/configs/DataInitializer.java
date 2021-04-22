@@ -1,7 +1,7 @@
 package com.warehouse_accounting.configs;
 
-import com.warehouse_accounting.models.Contractor;
-import com.warehouse_accounting.models.Department;
+import com.warehouse_accounting.models.TypeOfAdjustment;
+import com.warehouse_accounting.models.dto.AdjustmentDto;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CallDto;
 import com.warehouse_accounting.models.dto.ContractorDto;
@@ -22,6 +22,7 @@ import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
+import com.warehouse_accounting.services.interfaces.AdjustmentService;
 import com.warehouse_accounting.services.interfaces.BankAccountService;
 import com.warehouse_accounting.services.interfaces.CallService;
 import com.warehouse_accounting.services.interfaces.ContractorGroupService;
@@ -86,6 +87,7 @@ public class DataInitializer {
     private final BankAccountService bankAccountService;
     private final LegalDetailService legalDetailService;
     private final TypeOfContractorService typeOfContractorService;
+//    private final AdjustmentService adjustmentService;
 
 
     public DataInitializer(RoleService roleService,
@@ -128,6 +130,7 @@ public class DataInitializer {
         this.bankAccountService = bankAccountService;
         this.legalDetailService = legalDetailService;
         this.typeOfContractorService = typeOfContractorService;
+//        this.adjustmentService = adjustmentService;
     }
 
     @PostConstruct
@@ -149,7 +152,30 @@ public class DataInitializer {
         initContractors();
         initCalls();
         initTask();
+//        initAdjustments();
     }
+
+//    private void initAdjustments() {
+//        adjustmentService.create(AdjustmentDto.builder()
+//                .id(1L)
+//                .number("1")
+//                .dateTimeAdjustment(LocalDateTime.of(2021, 01, 01, 21, 30))
+//                .
+//                .build());
+//    }
+    private Long id;
+    private String number;
+    private LocalDateTime dateTimeAdjustment;
+    private Long companyId;
+    private String companyName;
+    private Long contractorId;
+    private String contractorName;
+    private TypeOfAdjustment type;
+    private BigDecimal currentBalance = BigDecimal.valueOf(0);
+    private BigDecimal totalBalance = BigDecimal.valueOf(0);
+    private BigDecimal adjustmentAmount = BigDecimal.valueOf(0);
+    private String comment;
+    private LocalDateTime whenСhanged;
 
     private void initRoles() {
         roleService.create(RoleDto.builder()
