@@ -1,7 +1,5 @@
 package com.warehouse_accounting.configs;
 
-import com.warehouse_accounting.models.Contractor;
-import com.warehouse_accounting.models.Department;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CallDto;
 import com.warehouse_accounting.models.dto.ContractorDto;
@@ -86,7 +84,6 @@ public class DataInitializer {
     private final BankAccountService bankAccountService;
     private final LegalDetailService legalDetailService;
     private final TypeOfContractorService typeOfContractorService;
-
 
     public DataInitializer(RoleService roleService,
                            UnitService unitService,
