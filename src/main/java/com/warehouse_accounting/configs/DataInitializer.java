@@ -1,5 +1,7 @@
 package com.warehouse_accounting.configs;
 
+import com.warehouse_accounting.models.TypeOfAdjustment;
+import com.warehouse_accounting.models.dto.AdjustmentDto;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CallDto;
 import com.warehouse_accounting.models.dto.ContractorDto;
@@ -20,6 +22,7 @@ import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
+import com.warehouse_accounting.services.interfaces.AdjustmentService;
 import com.warehouse_accounting.services.interfaces.BankAccountService;
 import com.warehouse_accounting.services.interfaces.CallService;
 import com.warehouse_accounting.services.interfaces.ContractorGroupService;
@@ -84,6 +87,7 @@ public class DataInitializer {
     private final BankAccountService bankAccountService;
     private final LegalDetailService legalDetailService;
     private final TypeOfContractorService typeOfContractorService;
+    private final AdjustmentService adjustmentService;
 
     public DataInitializer(RoleService roleService,
                            UnitService unitService,
@@ -104,7 +108,7 @@ public class DataInitializer {
                            BankAccountService bankAccountService,
                            LegalDetailService legalDetailService,
                            TypeOfContractorService typeOfContractorService,
-                           TypeOfPriceService typeOfPriceService) {
+                           TypeOfPriceService typeOfPriceService, AdjustmentService adjustmentService) {
         this.roleService = roleService;
         this.unitService = unitService;
         this.productService = productService;
@@ -125,6 +129,7 @@ public class DataInitializer {
         this.bankAccountService = bankAccountService;
         this.legalDetailService = legalDetailService;
         this.typeOfContractorService = typeOfContractorService;
+        this.adjustmentService = adjustmentService;
     }
 
     @PostConstruct
@@ -146,6 +151,59 @@ public class DataInitializer {
         initContractors();
         initCalls();
         initTask();
+        initAdjustment();
+    }
+
+    private void initAdjustment() {
+        try {
+
+        adjustmentService.create(AdjustmentDto.builder()
+                .id(1L)
+                .number("00001")
+                .dateTimeAdjustment(LocalDateTime.now())
+                .companyId(1L)
+                .contractorId(1L)
+                .type(TypeOfAdjustment.ACCOUNTBALANCE)
+                .currentBalance(BigDecimal.valueOf(1000.00))
+                .totalBalance(BigDecimal.valueOf(0.00))
+                .adjustmentAmount(BigDecimal.valueOf(1000.00))
+                .comment("1 Корректировка")
+                .whenСhanged(LocalDateTime.now())
+                .build()
+        );
+
+            adjustmentService.create(AdjustmentDto.builder()
+                    .id(1L)
+                    .number("00001")
+                    .dateTimeAdjustment(LocalDateTime.now())
+                    .companyId(1L)
+                    .contractorId(1L)
+                    .type(TypeOfAdjustment.CASHBALANCE)
+                    .currentBalance(BigDecimal.valueOf(1000.00))
+                    .totalBalance(BigDecimal.valueOf(0.00))
+                    .adjustmentAmount(BigDecimal.valueOf(1000.00))
+                    .comment("1 Корректировка")
+                    .whenСhanged(LocalDateTime.now())
+                    .build()
+            );
+
+            adjustmentService.create(AdjustmentDto.builder()
+                    .id(1L)
+                    .number("00001")
+                    .dateTimeAdjustment(LocalDateTime.now())
+                    .companyId(1L)
+                    .contractorId(1L)
+                    .type(TypeOfAdjustment.COUNTERPARTY)
+                    .currentBalance(BigDecimal.valueOf(1000.00))
+                    .totalBalance(BigDecimal.valueOf(0.00))
+                    .adjustmentAmount(BigDecimal.valueOf(1000.00))
+                    .comment("1 Корректировка")
+                    .whenСhanged(LocalDateTime.now())
+                    .build()
+            );
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу Adjustments", e);
+        }
     }
 
     private void initRoles() {
