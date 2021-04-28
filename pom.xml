@@ -14,7 +14,6 @@
     <name>warehouse_accounting</name>
     <description>Warehouse accounting</description>
     <properties>
-        <maven.compiler.release>11</maven.compiler.release>
         <java.version>11</java.version>
         <jackson.version>2.12.1</jackson.version>
     </properties>
