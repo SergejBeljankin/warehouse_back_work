@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Entity
 @Table(name = "expenditures")
-public class Expenditure {
+public class PaymentExpenditure {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

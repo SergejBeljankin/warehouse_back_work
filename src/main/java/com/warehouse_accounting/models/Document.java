@@ -46,10 +46,4 @@ public abstract class Document {
 
     @OneToMany(mappedBy = "document" ,cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     private List<Task> tasks;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "documents_payments",
-            joinColumns = @JoinColumn(name = "payment_id"),
-            inverseJoinColumns = @JoinColumn(name = "document_id"))
-    private List<Payment> payments;
 }

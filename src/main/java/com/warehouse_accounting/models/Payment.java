@@ -14,7 +14,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -47,16 +46,19 @@ public class Payment {
     private BigDecimal tax;
 
     @Column
+    private boolean isDone;
+
+    @Column
     private String comment;
 
     @Column
     @Enumerated(EnumType.STRING)
     private TypeOfPayment typeOfPayment;
 
-    @OneToMany(mappedBy = "payment",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Task> tasks;
 
-    @ManyToMany(mappedBy = "payments")
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Document> documents;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -69,8 +71,11 @@ public class Payment {
     private Project project;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    private Employee employee;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Contractor contractor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Expenditure expenditure;
+    private PaymentExpenditure paymentExpenditure;
 }

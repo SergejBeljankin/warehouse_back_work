@@ -47,6 +47,4 @@ public class Task {
     @ManyToOne
     private Document document;
 
-    @ManyToOne
-    private Payment payment;
 }
