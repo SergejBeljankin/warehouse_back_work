@@ -304,7 +304,6 @@ public class DataInitializer {
                     .count(BigDecimal.valueOf(1))
                     .technologicalMapDto(technologicalMap)
                     .build());
-            //technologicalMapProductService.create(productDtos.get(0));
             productDtos.forEach(technologicalMapProductService::create);
 
             technologicalMap.setMaterials(materialDtos);

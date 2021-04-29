@@ -1,22 +1,14 @@
 server:
   port: 4446
 
-
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
 #    url: jdbc:postgresql://localhost:5432/warehouse_accounting
 #    username: postgres
 #    password: 8991
-
-        url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/warehouse_accounting}
-        username: ${SPRING_DATASOURCE_USERNAME:postgres}
-        password: ${SPRING_DATASOURCE_PASSWORD:8991}
-
-        java:
-          runtime:
-            version: 11
-
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/warehouse_accounting}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:8991}
     initialization-mode: always
     data: classpath:sql_for_initializer/*.sql
 
