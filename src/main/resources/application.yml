@@ -27,3 +27,10 @@ spring:
 
 data-init:
   unit-data: src/main/resources/data_for_initializer/Валюта.xlsx
+
+java:
+  runtime:
+    version: 11
+
+maven:
+  version: 3.8.1
