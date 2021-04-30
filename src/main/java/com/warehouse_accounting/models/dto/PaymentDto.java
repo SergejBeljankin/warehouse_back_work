@@ -33,8 +33,6 @@ public class PaymentDto {
 
     private TypeOfPayment typeOfPayment;
 
-    private EmployeeDto employeeDto;
-
     private CompanyDto companyDto;
 
     private ContractorDto contractorDto;

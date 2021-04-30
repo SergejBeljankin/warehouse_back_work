@@ -1132,7 +1132,6 @@ public class ConverterDto {
                 .paymentExpenditure(paymentDto.getPaymentExpenditureId() != null ? paymentExpenditure : null)
                 .contractor(convertToModel(paymentDto.getContractorDto()))
                 .company(convertToModel(paymentDto.getCompanyDto()))
-                .employee(convertToModel(paymentDto.getEmployeeDto()))
                 .documents(documents) // На данный момент не существует документов, которые можно было бы привязывать к платежам
                 .tasks(paymentDto.getTaskDtos() != null
                         ? paymentDto.getTaskDtos()
@@ -1158,7 +1157,6 @@ public class ConverterDto {
                 .projectId(payment.getProject() != null ? payment.getProject().getId() : null)
                 .projectName(payment.getProject() != null ? payment.getProject().getName() : null)
                 .paymentExpenditureId(payment.getPaymentExpenditure() != null ? payment.getPaymentExpenditure().getId() : null)
-                .employeeDto(convertToDto(payment.getEmployee()))
                 .companyDto(convertToDto(payment.getCompany()))
                 .contractorDto(convertToDto(payment.getContractor()))
                 .documentId(new ArrayList<>()) // На данный момент не существует документов, которые можно было бы привязывать к платежам

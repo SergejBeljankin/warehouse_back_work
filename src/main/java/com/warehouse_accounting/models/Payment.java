@@ -71,9 +71,6 @@ public class Payment {
     private Project project;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Employee employee;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     private Contractor contractor;
 
     @ManyToOne(fetch = FetchType.LAZY)
