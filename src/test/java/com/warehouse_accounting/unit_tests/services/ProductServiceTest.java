@@ -80,7 +80,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void test_getAll() {
+    void getAll() {
         when(productRepository.getAll()).thenReturn(productDtoList);
         List<ProductDto> productDtoListInTest = productService.getAll();
         assertNotNull(productDtoListInTest, "productDtoListInTest == null");
@@ -89,28 +89,28 @@ class ProductServiceTest {
     }
 
     @Test
-    void test_getById() {
+    void getById() {
         when(productRepository.getById(1L)).thenReturn(productDto);
         assertEquals(productRepository.getById(1L), productDto);
         verify(productRepository, times(1)).getById(ArgumentMatchers.eq(1L));
     }
 
     @Test
-    void test_create() {
+    void create() {
         productService.create(productDto);
         verify(productRepository, times(1))
                 .save(ArgumentMatchers.eq((ConverterDto.convertToModel(productDto))));
     }
 
     @Test
-    void test_update() {
+    void update() {
         productService.create(productDto);
         verify(productRepository, times(1))
                 .save(ArgumentMatchers.eq((ConverterDto.convertToModel(productDto))));
     }
 
     @Test
-    void test_deleteById() {
+    void deleteById() {
         productService.deleteById(1L);
         verify(productRepository, times(1)).deleteById(ArgumentMatchers.eq(1L));
     }
