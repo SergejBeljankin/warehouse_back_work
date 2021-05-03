@@ -2,11 +2,14 @@ package com.warehouse_accounting.models.dto;
 
 
 import com.warehouse_accounting.models.Document;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -15,9 +18,8 @@ import static lombok.AccessLevel.PRIVATE;
 @Jacksonized
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class RecycleBinDto {
-    Long id;
-    Integer quantity;
+    UUID id;
+    String name;
     Date createdDate;
-    Document document;
-
+    List<Document> document;
 }

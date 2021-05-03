@@ -1,34 +1,41 @@
 package com.warehouse_accounting.repositories;
 
 import com.warehouse_accounting.models.RecycleBin;
+import com.warehouse_accounting.models.dto.RecycleBinDto;
 import org.apache.regexp.RE;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface RecycleBinRepository extends JpaRepository<RecycleBin, Long> {
+import java.util.List;
 
-    RecycleBin getRecycleBinById(Long id);
-//    ShoppingCart getShoppingCartBy(Long id);
-//    @Query("SELECT new com.warehouse_accounting.models.dto.ShoppingCartDto(" +
+import java.util.UUID;
+
+@Repository
+public interface RecycleBinRepository extends JpaRepository<RecycleBin, UUID> {
+
+//    RecycleBin getRecycleBinById(UUID id);
+//    RecycleBin getShoppingCartBy(UUID id);
+//    @Query("SELECT new com.warehouse_accounting.models.dto.RecycleBinDto(" +
 //            "r.id," +
-//            "r.userId," +
-//            "r.quantity," +
-//            "r.product" +
+//            "r.name," +
+//            "r.createdDate," +
+//            "r.document" +
 //            ")" +
-//            "FROM ShoppingCart r")
-//    List<ShoppingCartDto> getAll();
+//            "FROM RecycleBin r")
+//    List<RecycleBinDto> getAll();
 //
-//    @Query("SELECT new com.warehouse_accounting.models.dto.ShoppingCartDto(" +
+//    @Query("SELECT new com.warehouse_accounting.models.dto.RecycleBinDto(" +
 //            "r.id," +
-//            "r.userId," +
-//            "r.quantity," +
-//            "r.product" +
+//            "r.name," +
+//            "r.createdDate," +
+//            "r.document" +
 //            ")" +
-//            "FROM ShoppingCart r WHERE r.userId=:id")
-//    ShoppingCartDto getById(@Param("id") Long id);
+//            "FROM RecycleBin r WHERE r.id=:id")
+//    RecycleBinDto getById(@Param("id") UUID id);
 //
 //
-//    @Query("select em.cart from Product em where em.id = :id")
-//    Set<ShoppingCart> findAllByUserIdOrderByCreatedDateDesc(@Param("id") Long id);
+//    @Query("SELECT rb FROM RecycleBin rb WHERE rb.id = :id")
+//    RecycleBin findAllByUserIdOrderByCreatedDateDesc(@Param("id") UUID id);
 }
