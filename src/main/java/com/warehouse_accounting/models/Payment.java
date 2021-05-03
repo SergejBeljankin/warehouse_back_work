@@ -34,6 +34,9 @@ public class Payment {
     private Long id;
 
     @Column
+    private String number;
+
+    @Column
     private LocalDateTime date;
 
     @Column

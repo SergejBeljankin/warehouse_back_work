@@ -1,5 +1,6 @@
 package com.warehouse_accounting.models.dto;
 
+import com.warehouse_accounting.models.Document;
 import com.warehouse_accounting.models.TypeOfPayment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +19,8 @@ import java.util.List;
 public class PaymentDto {
 
     private Long id;
+
+    private String number;
 
     private LocalDateTime date;
 
@@ -49,9 +52,43 @@ public class PaymentDto {
 
     private String paymentExpenditureName;
 
-    private List<Long> documentId;
-
-    private List<String> documentName;
+    private List<Document> documents = new ArrayList<>();
 
     private List<TaskDto> taskDtos = new ArrayList<>();
+
+    public PaymentDto(Long id,
+                      String number,
+                      LocalDateTime date,
+                      BigDecimal amount,
+                      String purpose,
+                      BigDecimal tax,
+                      boolean isDone,
+                      String comment,
+                      TypeOfPayment typeOfPayment,
+                      Long companyId,
+                      Long contractorId,
+                      Long contractId,
+                      String contractNumber,
+                      Long projectId,
+                      String projectName,
+                      Long paymentExpenditureId,
+                      String paymentExpenditureName) {
+        this.id = id;
+        this.number = number;
+        this.date = date;
+        this.amount = amount;
+        this.purpose = purpose;
+        this.tax = tax;
+        this.isDone = isDone;
+        this.comment = comment;
+        this.typeOfPayment = typeOfPayment;
+        this.companyDto.setId(companyId);
+        this.contractorDto.setId(contractorId);
+        this.contractId = contractId;
+        this.contractNumber = contractNumber;
+        this.projectId = projectId;
+        this.projectName = projectName;
+        this.paymentExpenditureId = paymentExpenditureId;
+        this.paymentExpenditureName = paymentExpenditureName;
+    }
 }

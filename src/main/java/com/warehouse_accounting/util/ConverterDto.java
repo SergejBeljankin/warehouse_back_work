@@ -13,7 +13,6 @@ import com.warehouse_accounting.models.Currency;
 import com.warehouse_accounting.models.Department;
 import com.warehouse_accounting.models.Document;
 import com.warehouse_accounting.models.Employee;
-import com.warehouse_accounting.models.PaymentExpenditure;
 import com.warehouse_accounting.models.Image;
 import com.warehouse_accounting.models.Invoice;
 import com.warehouse_accounting.models.InvoiceEdit;
@@ -21,6 +20,7 @@ import com.warehouse_accounting.models.InvoiceProduct;
 import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.Movement;
 import com.warehouse_accounting.models.Payment;
+import com.warehouse_accounting.models.PaymentExpenditure;
 import com.warehouse_accounting.models.Position;
 import com.warehouse_accounting.models.Product;
 import com.warehouse_accounting.models.ProductGroup;
@@ -78,8 +78,6 @@ import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.models.dto.WarehouseDto;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -1116,10 +1114,11 @@ public class ConverterDto {
         project.setId(paymentDto.getProjectId());
         PaymentExpenditure paymentExpenditure = new PaymentExpenditure();
         paymentExpenditure.setId(paymentDto.getPaymentExpenditureId());
-        List<Document> documents = new ArrayList<>(); // На данный момент не существует документов, которые можно было бы привязывать к платежам
+
 
         return Payment.builder()
                 .id(paymentDto.getId())
+                .number(paymentDto.getNumber())
                 .amount(paymentDto.getAmount())
                 .typeOfPayment(paymentDto.getTypeOfPayment())
                 .date(paymentDto.getDate())
@@ -1132,7 +1131,7 @@ public class ConverterDto {
                 .paymentExpenditure(paymentDto.getPaymentExpenditureId() != null ? paymentExpenditure : null)
                 .contractor(convertToModel(paymentDto.getContractorDto()))
                 .company(convertToModel(paymentDto.getCompanyDto()))
-                .documents(documents) // На данный момент не существует документов, которые можно было бы привязывать к платежам
+                .documents(paymentDto.getDocuments()) // На данный момент не существует документов, которые можно было бы привязывать к платежам
                 .tasks(paymentDto.getTaskDtos() != null
                         ? paymentDto.getTaskDtos()
                         .stream()
@@ -1145,6 +1144,7 @@ public class ConverterDto {
     public static PaymentDto convertToDto(Payment payment) {
         return PaymentDto.builder()
                 .id(payment.getId())
+                .number(payment.getNumber())
                 .date(payment.getDate())
                 .amount(payment.getAmount())
                 .purpose(payment.getPurpose())
@@ -1157,9 +1157,10 @@ public class ConverterDto {
                 .projectId(payment.getProject() != null ? payment.getProject().getId() : null)
                 .projectName(payment.getProject() != null ? payment.getProject().getName() : null)
                 .paymentExpenditureId(payment.getPaymentExpenditure() != null ? payment.getPaymentExpenditure().getId() : null)
+                .paymentExpenditureName(payment.getPaymentExpenditure() != null ? payment.getPaymentExpenditure().getName() : null)
                 .companyDto(convertToDto(payment.getCompany()))
                 .contractorDto(convertToDto(payment.getContractor()))
-                .documentId(new ArrayList<>()) // На данный момент не существует документов, которые можно было бы привязывать к платежам
+                .documents(payment.getDocuments()) // На данный момент не существует документов, которые можно было бы привязывать к платежам
                 .taskDtos(payment.getTasks() != null
                         ? payment.getTasks()
                         .stream()
