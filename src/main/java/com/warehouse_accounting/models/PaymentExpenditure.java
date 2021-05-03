@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "expenditures")
+@Table(name = "payment_expenditures")
 public class PaymentExpenditure {
 
     @Id

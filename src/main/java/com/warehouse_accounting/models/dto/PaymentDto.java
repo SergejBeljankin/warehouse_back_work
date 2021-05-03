@@ -36,9 +36,9 @@ public class PaymentDto {
 
     private TypeOfPayment typeOfPayment;
 
-    private CompanyDto companyDto;
+    private CompanyDto companyDto = new CompanyDto();
 
-    private ContractorDto contractorDto;
+    private ContractorDto contractorDto = new ContractorDto();
 
     private Long contractId;
 

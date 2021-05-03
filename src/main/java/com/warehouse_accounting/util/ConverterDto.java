@@ -1129,13 +1129,13 @@ public class ConverterDto {
                 .contract(paymentDto.getContractId() != null ? contract : null)
                 .project(paymentDto.getProjectId() != null ? project : null)
                 .paymentExpenditure(paymentDto.getPaymentExpenditureId() != null ? paymentExpenditure : null)
-                .contractor(convertToModel(paymentDto.getContractorDto()))
-                .company(convertToModel(paymentDto.getCompanyDto()))
+                .contractor(convertToModel(paymentDto.getContractorDto()) != null ? convertToModel(paymentDto.getContractorDto()) : null)
+                .company(convertToModel(paymentDto.getCompanyDto()) != null ? convertToModel(paymentDto.getCompanyDto()) : null)
                 .documents(paymentDto.getDocuments()) // На данный момент не существует документов, которые можно было бы привязывать к платежам
                 .tasks(paymentDto.getTaskDtos() != null
                         ? paymentDto.getTaskDtos()
                         .stream()
-                        .map(task -> convertToModel(task))
+                        .map(ConverterDto::convertToModel)
                         .collect(Collectors.toList())
                         : null)
                 .build();
@@ -1158,13 +1158,13 @@ public class ConverterDto {
                 .projectName(payment.getProject() != null ? payment.getProject().getName() : null)
                 .paymentExpenditureId(payment.getPaymentExpenditure() != null ? payment.getPaymentExpenditure().getId() : null)
                 .paymentExpenditureName(payment.getPaymentExpenditure() != null ? payment.getPaymentExpenditure().getName() : null)
-                .companyDto(convertToDto(payment.getCompany()))
-                .contractorDto(convertToDto(payment.getContractor()))
+                .companyDto(convertToDto(payment.getCompany()) != null ? convertToDto(payment.getCompany()) : null)
+                .contractorDto(convertToDto(payment.getContractor()) != null ? convertToDto(payment.getContractor()) : null)
                 .documents(payment.getDocuments()) // На данный момент не существует документов, которые можно было бы привязывать к платежам
                 .taskDtos(payment.getTasks() != null
                         ? payment.getTasks()
                         .stream()
-                        .map(task -> convertToDto(task))
+                        .map(ConverterDto::convertToDto)
                         .collect(Collectors.toList())
                         : null)
                 .build();
