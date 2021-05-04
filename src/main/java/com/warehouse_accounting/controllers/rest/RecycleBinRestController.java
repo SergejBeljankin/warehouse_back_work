@@ -16,7 +16,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/recycleBin")
+@RequestMapping("/api/recycle-bin")
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class RecycleBinRestController {
     RecycleBinService recycleBinService;
@@ -30,3 +30,4 @@ public class RecycleBinRestController {
         return ResponseEntity.ok(recycleBinService.getById(id));
     }
 }
+// TODO: 5/4/21 Working on completing methods on controller 
