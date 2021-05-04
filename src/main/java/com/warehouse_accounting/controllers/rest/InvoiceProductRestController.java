@@ -53,7 +53,7 @@ public class InvoiceProductRestController {
         return ResponseEntity.ok(invoiceProductService.getAll());
     }
 
-    @GetMapping("{id}" )
+    @GetMapping("/{id}" )
     @ApiOperation(
             value = "getById",
             notes = "Получение InvoiceProduct по id",
