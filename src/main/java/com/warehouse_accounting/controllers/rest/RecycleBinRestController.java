@@ -1,8 +1,14 @@
 package com.warehouse_accounting.controllers.rest;
 
+import com.warehouse_accounting.models.dto.ContractorDto;
 import com.warehouse_accounting.models.dto.RecycleBinDto;
+import com.warehouse_accounting.models.dto.RoleDto;
+import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.RecycleBinService;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -21,13 +27,32 @@ import static lombok.AccessLevel.PRIVATE;
 public class RecycleBinRestController {
     RecycleBinService recycleBinService;
 
+
     @GetMapping
     ResponseEntity<List<RecycleBinDto>> getAll() {
         return ResponseEntity.ok(recycleBinService.getAll());
     }
-    @GetMapping("{id}")
+
+    @GetMapping("/{id}")
     ResponseEntity<RecycleBinDto> getById(@PathVariable UUID id) {
         return ResponseEntity.ok(recycleBinService.getById(id));
     }
+
+    @PostMapping
+    public ResponseEntity<?> create(@RequestBody RecycleBinDto recycleBinDto) {
+        recycleBinService.create(recycleBinDto);
+        return ResponseEntity.ok().build();
+    }
+    @PutMapping
+    public ResponseEntity<?> update(@RequestBody RecycleBinDto recycleBinDto) {
+     recycleBinService.update(recycleBinDto);
+     return ResponseEntity.ok().build();
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable("id") UUID id) {
+        recycleBinService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
 }
-// TODO: 5/4/21 Working on completing methods on controller 
+
+

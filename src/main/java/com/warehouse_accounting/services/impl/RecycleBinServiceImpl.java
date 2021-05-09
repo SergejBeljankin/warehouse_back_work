@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 @Transactional
-public class RecycleBinServiceServiceImpl implements RecycleBinService {
+public class RecycleBinServiceImpl implements RecycleBinService {
     @Delegate
     RecycleBinRepository recycleBinRepository;
 
@@ -54,7 +54,7 @@ public class RecycleBinServiceServiceImpl implements RecycleBinService {
 
     @Override
     public void update(RecycleBinDto recycleBinDto) {
-        RecycleBin recycleBin = new RecycleBin(recycleBinDto.getName(),
+        var recycleBin = new RecycleBin(recycleBinDto.getName(),
                 recycleBinDto.getCreatedDate(),
                 recycleBinDto.getDocument()
         );

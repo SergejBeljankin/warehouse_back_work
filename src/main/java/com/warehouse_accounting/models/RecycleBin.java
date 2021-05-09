@@ -1,7 +1,10 @@
 package com.warehouse_accounting.models;
 
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,7 +19,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 public class RecycleBin {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     UUID id;
 
     @NonNull private String name;
