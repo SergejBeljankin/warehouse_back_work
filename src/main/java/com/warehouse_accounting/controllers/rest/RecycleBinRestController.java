@@ -34,7 +34,7 @@ public class RecycleBinRestController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<RecycleBinDto> getById(@PathVariable UUID id) {
+    ResponseEntity<RecycleBinDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(recycleBinService.getById(id));
     }
 
@@ -49,7 +49,7 @@ public class RecycleBinRestController {
      return ResponseEntity.ok().build();
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable("id") UUID id) {
+    public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
         recycleBinService.deleteById(id);
         return ResponseEntity.ok().build();
     }

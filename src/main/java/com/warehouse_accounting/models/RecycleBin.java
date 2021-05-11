@@ -1,15 +1,17 @@
 package com.warehouse_accounting.models;
 
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -20,7 +22,7 @@ import static javax.persistence.FetchType.LAZY;
 public class RecycleBin {
     @Id
     @GeneratedValue
-    UUID id;
+    Long id;
 
     @NonNull private String name;
 
@@ -28,4 +30,5 @@ public class RecycleBin {
 
     @OneToMany(fetch = LAZY, mappedBy = "recycleBin", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @NonNull private List<Document> document;
+
 }

@@ -10,11 +10,11 @@ public interface RecycleBinService {
 
     List<RecycleBinDto> getAll();
 
-    RecycleBinDto getById(UUID id);
+    RecycleBinDto getById(Long id);
 
     void create(RecycleBinDto recycleBinDto);
 
     void update(RecycleBinDto recycleBinDto);
 
-    void deleteById(UUID id);
+    void deleteById(Long id);
 }

@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 
 @Getter
@@ -18,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecycleBinDto {
-    UUID id;
+    Long id;
     String name;
     Date createdDate;
     List<Document> document;
