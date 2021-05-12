@@ -1,6 +1,6 @@
 package com.warehouse_accounting.integration_tests;
 
-        import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.warehouse_accounting.controllers.rest.ContractorRestController;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.ContractorDto;
@@ -79,7 +79,7 @@ class ContractorRestControllerTest {
                 .typeOfPriceId(1L)
                 .typeOfPriceName("Оптовая")
                 .build();
-      contractorGetALLDtoList = List.of(contractorGetALLDto);
+        contractorGetALLDtoList = List.of(contractorGetALLDto);
 
         BankAccountDto bankAccountDto1 = BankAccountDto.builder()
                 .id(1L)
