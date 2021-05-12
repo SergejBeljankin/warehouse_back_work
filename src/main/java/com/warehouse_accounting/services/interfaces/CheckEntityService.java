@@ -69,7 +69,7 @@ public interface CheckEntityService {
 
     void checkExistTechnologicalMapMaterialById(Long invoiceId);
 
-    void checkExistCallById(Long CallrId);
+    void checkExistCallById(Long CallId);
 
     void checkExistTaskById(Long TaskId);
 

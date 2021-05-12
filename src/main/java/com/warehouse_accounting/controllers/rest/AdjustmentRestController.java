@@ -2,6 +2,7 @@ package com.warehouse_accounting.controllers.rest;
 
 
 import com.warehouse_accounting.models.dto.AdjustmentDto;
+import com.warehouse_accounting.models.dto.CallDto;
 import com.warehouse_accounting.services.interfaces.AdjustmentService;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import io.swagger.annotations.Api;
@@ -9,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/adjustments")
 @Api(tags = "Adjustment Rest Controller")
-//@Tag(name = "Adjustment Rest Controller", description = "CRUD операции с объектами")
+@Tag(name = "Adjustment Rest Controller", description = "CRUD операции с объектами")
 public class AdjustmentRestController {
     private final AdjustmentService adjustmentService;
     private final CheckEntityService checkEntityService;
