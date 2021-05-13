@@ -1,10 +1,84 @@
 package com.warehouse_accounting.util;
 
-import com.warehouse_accounting.models.*;
-import com.warehouse_accounting.models.dto.*;
+import com.warehouse_accounting.models.AttributeOfCalculationObject;
+import com.warehouse_accounting.models.BankAccount;
+import com.warehouse_accounting.models.Call;
+import com.warehouse_accounting.models.Company;
+import com.warehouse_accounting.models.Contract;
+import com.warehouse_accounting.models.Contractor;
+import com.warehouse_accounting.models.ContractorGroup;
+import com.warehouse_accounting.models.Country;
+import com.warehouse_accounting.models.Currency;
+import com.warehouse_accounting.models.Department;
+import com.warehouse_accounting.models.Document;
+import com.warehouse_accounting.models.Employee;
+import com.warehouse_accounting.models.Image;
+import com.warehouse_accounting.models.Invoice;
+import com.warehouse_accounting.models.InvoiceEdit;
+import com.warehouse_accounting.models.InvoiceProduct;
+import com.warehouse_accounting.models.LegalDetail;
+import com.warehouse_accounting.models.Movement;
+import com.warehouse_accounting.models.Position;
+import com.warehouse_accounting.models.Product;
+import com.warehouse_accounting.models.ProductGroup;
+import com.warehouse_accounting.models.ProductPrice;
+import com.warehouse_accounting.models.ProductionOrder;
+import com.warehouse_accounting.models.Project;
+import com.warehouse_accounting.models.RecycleBin;
+import com.warehouse_accounting.models.Role;
+import com.warehouse_accounting.models.Task;
+import com.warehouse_accounting.models.TaxSystem;
+import com.warehouse_accounting.models.TechnologicalMap;
+import com.warehouse_accounting.models.TechnologicalMapGroup;
+import com.warehouse_accounting.models.TechnologicalMapMaterial;
+import com.warehouse_accounting.models.TechnologicalMapProduct;
+import com.warehouse_accounting.models.TechnologicalOperation;
+import com.warehouse_accounting.models.TypeOfContractor;
+import com.warehouse_accounting.models.TypeOfInvoice;
+import com.warehouse_accounting.models.TypeOfPrice;
+import com.warehouse_accounting.models.Unit;
+import com.warehouse_accounting.models.Warehouse;
+import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
+import com.warehouse_accounting.models.dto.BankAccountDto;
+import com.warehouse_accounting.models.dto.CallDto;
+import com.warehouse_accounting.models.dto.CompanyDto;
+import com.warehouse_accounting.models.dto.ContractDto;
+import com.warehouse_accounting.models.dto.ContractorDto;
+import com.warehouse_accounting.models.dto.ContractorGroupDto;
+import com.warehouse_accounting.models.dto.CountryDto;
+import com.warehouse_accounting.models.dto.CurrencyDto;
+import com.warehouse_accounting.models.dto.DepartmentDto;
+import com.warehouse_accounting.models.dto.EmployeeDto;
+import com.warehouse_accounting.models.dto.ImageDto;
+import com.warehouse_accounting.models.dto.InvoiceDto;
+import com.warehouse_accounting.models.dto.InvoiceEditDto;
+import com.warehouse_accounting.models.dto.InvoiceProductDto;
+import com.warehouse_accounting.models.dto.LegalDetailDto;
+import com.warehouse_accounting.models.dto.MovementDto;
+import com.warehouse_accounting.models.dto.PositionDto;
+import com.warehouse_accounting.models.dto.ProductDto;
+import com.warehouse_accounting.models.dto.ProductGroupDto;
+import com.warehouse_accounting.models.dto.ProductPriceDto;
+import com.warehouse_accounting.models.dto.ProductionOrderDto;
+import com.warehouse_accounting.models.dto.ProjectDto;
+import com.warehouse_accounting.models.dto.RecycleBinDto;
+import com.warehouse_accounting.models.dto.RoleDto;
+import com.warehouse_accounting.models.dto.TaskDto;
+import com.warehouse_accounting.models.dto.TaxSystemDto;
+import com.warehouse_accounting.models.dto.TechnologicalMapDto;
+import com.warehouse_accounting.models.dto.TechnologicalMapGroupDto;
+import com.warehouse_accounting.models.dto.TechnologicalMapMaterialDto;
+import com.warehouse_accounting.models.dto.TechnologicalMapProductDto;
+import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
+import com.warehouse_accounting.models.dto.TypeOfContractorDto;
+import com.warehouse_accounting.models.dto.TypeOfPriceDto;
+import com.warehouse_accounting.models.dto.UnitDto;
+import com.warehouse_accounting.models.dto.WarehouseDto;
 
 import java.util.Set;
 import java.util.stream.Collectors;
+
+
 
 public class ConverterDto {
 
