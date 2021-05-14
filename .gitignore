@@ -16,6 +16,7 @@ target/
 
 ### IntelliJ IDEA ###
 .idea
+.logs
 *.iws
 *.iml
 *.ipr
@@ -40,3 +41,4 @@ ehthumbs.db
 Icon?
 Thumbs.db
 *.DS_Store
+/logs/

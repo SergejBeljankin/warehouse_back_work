@@ -1,5 +1,7 @@
 package com.warehouse_accounting.services.interfaces;
 
+import java.util.UUID;
+
 public interface CheckEntityService {
 
     void checkExistUnitById(Long unitId);
