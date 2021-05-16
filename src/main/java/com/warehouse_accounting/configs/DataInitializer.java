@@ -1,6 +1,5 @@
 package com.warehouse_accounting.configs;
 
-import com.warehouse_accounting.models.TypeOfPayment;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CallDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
@@ -25,6 +24,7 @@ import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
+import com.warehouse_accounting.models.TypeOfPayment;
 import com.warehouse_accounting.services.interfaces.BankAccountService;
 import com.warehouse_accounting.services.interfaces.CallService;
 import com.warehouse_accounting.services.interfaces.CompanyService;
