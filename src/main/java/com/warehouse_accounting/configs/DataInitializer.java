@@ -98,7 +98,6 @@ public class DataInitializer {
     private final ContractService contractService;
     private final ProjectService projectService;
 
-
     public DataInitializer(RoleService roleService,
                            UnitService unitService,
                            ProductService productService,
@@ -330,7 +329,6 @@ public class DataInitializer {
                     .count(BigDecimal.valueOf(1))
                     .technologicalMapDto(technologicalMap)
                     .build());
-            //technologicalMapProductService.create(productDtos.get(0));
             productDtos.forEach(technologicalMapProductService::create);
 
             technologicalMap.setMaterials(materialDtos);

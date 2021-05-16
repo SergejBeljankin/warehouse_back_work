@@ -27,6 +27,7 @@ import com.warehouse_accounting.models.ProductGroup;
 import com.warehouse_accounting.models.ProductPrice;
 import com.warehouse_accounting.models.ProductionOrder;
 import com.warehouse_accounting.models.Project;
+import com.warehouse_accounting.models.RecycleBin;
 import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.Task;
 import com.warehouse_accounting.models.TaxSystem;
@@ -65,6 +66,7 @@ import com.warehouse_accounting.models.dto.ProductGroupDto;
 import com.warehouse_accounting.models.dto.ProductPriceDto;
 import com.warehouse_accounting.models.dto.ProductionOrderDto;
 import com.warehouse_accounting.models.dto.ProjectDto;
+import com.warehouse_accounting.models.dto.RecycleBinDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaskDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
@@ -80,6 +82,8 @@ import com.warehouse_accounting.models.dto.WarehouseDto;
 
 import java.util.Set;
 import java.util.stream.Collectors;
+
+
 
 public class ConverterDto {
 
@@ -812,6 +816,22 @@ public class ConverterDto {
                 .productGroupDto(convertToDto(product.getProductGroup()))
                 .attributeOfCalculationObjectDto(convertToDto(product.getAttributeOfCalculationObject()))
                 .build();
+    }
+
+    public static RecycleBinDto convertToDto(RecycleBin recycleBin) {
+        return RecycleBinDto.builder()
+                .id(recycleBin.getId())
+                .name(recycleBin.getName())
+                .createdDate(recycleBin.getCreatedDate())
+                .document(recycleBin.getDocument())
+                .build();
+    }
+
+    public static RecycleBin convertToModel(RecycleBinDto dto) {
+        return new RecycleBin(dto.getName(),
+                dto.getCreatedDate(),
+                dto.getDocument()
+        );
     }
 
     public static ProductPrice convertToModel(ProductPriceDto dto) {

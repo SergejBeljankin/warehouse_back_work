@@ -1,8 +1,11 @@
 package com.warehouse_accounting.services.interfaces;
 
+import java.util.UUID;
+
 public interface CheckEntityService {
 
     void checkExistUnitById(Long unitId);
+
 
     void checkExistAttributeOfCalculationObjectById(Long attributeOfCalculationObjectId);
 
@@ -71,4 +74,6 @@ public interface CheckEntityService {
     void checkExistCallById(Long CallrId);
 
     void checkExistTaskById(Long TaskId);
+
+    void checkExistAdjustmentById(Long adjustmentId);
 }
