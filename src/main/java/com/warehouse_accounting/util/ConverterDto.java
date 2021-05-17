@@ -18,6 +18,7 @@ import com.warehouse_accounting.models.Invoice;
 import com.warehouse_accounting.models.InvoiceEdit;
 import com.warehouse_accounting.models.InvoiceProduct;
 import com.warehouse_accounting.models.LegalDetail;
+import com.warehouse_accounting.models.Memo;
 import com.warehouse_accounting.models.Movement;
 import com.warehouse_accounting.models.Payment;
 import com.warehouse_accounting.models.PaymentExpenditure;
@@ -58,6 +59,7 @@ import com.warehouse_accounting.models.dto.InvoiceDto;
 import com.warehouse_accounting.models.dto.InvoiceEditDto;
 import com.warehouse_accounting.models.dto.InvoiceProductDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
+import com.warehouse_accounting.models.dto.MemoDto;
 import com.warehouse_accounting.models.dto.MovementDto;
 import com.warehouse_accounting.models.dto.PaymentDto;
 import com.warehouse_accounting.models.dto.PositionDto;
@@ -1190,4 +1192,41 @@ public class ConverterDto {
                 .build();
     }
 
+    public static MemoDto convertToDto(Memo memo){
+        return MemoDto.builder()
+                .id(memo.getId())
+                .createDate(memo.getCreateDate())
+                .content(memo.getContent())
+                .contractorId(memo.getContractor() != null
+                        ? memo.getContractor().getId() : null)
+                .contractorName(memo.getContractor() != null
+                        ? memo.getContractor().getName() : null)
+                .employeeWhoCreatedId(memo.getEmployeeWhoCreated() != null
+                        ? memo.getEmployeeWhoCreated().getId() : null)
+                .employeeWhoCreatedName(memo.getEmployeeWhoCreated() != null
+                        ? memo.getEmployeeWhoCreated().getFirstName() : null)
+                .employeeWhoEditedId(memo.getEmployeeWhoEdited() != null
+                        ? memo.getEmployeeWhoEdited().getId() : null)
+                .employeeWhoEditedName(memo.getEmployeeWhoEdited() != null
+                        ? memo.getEmployeeWhoEdited().getFirstName() : null)
+                .build();
+    }
+
+    public static Memo convertToModel(MemoDto memoDto){
+        Contractor contractor = new Contractor();
+        contractor.setId(memoDto.getContractorId());
+        Employee employeeWhoCreated = new Employee();
+        employeeWhoCreated.setId(memoDto.getEmployeeWhoCreatedId());
+        Employee employeeWhoEdited = new Employee();
+        employeeWhoEdited.setId(memoDto.getEmployeeWhoEditedId());
+
+        return Memo.builder()
+                .id(memoDto.getId())
+                .createDate(memoDto.getCreateDate())
+                .content(memoDto.getContent())
+                .employeeWhoCreated(employeeWhoCreated)
+                .employeeWhoEdited(employeeWhoEdited)
+                .contractor(contractor)
+                .build();
+    }
 }

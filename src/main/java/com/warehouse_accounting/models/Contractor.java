@@ -72,4 +72,12 @@ public class Contractor {
     @OneToMany(mappedBy = "contractor", fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Task> tasks;
+
+    @OneToMany(mappedBy = "contractor", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<Memo> memoList;
+
+    @OneToMany(mappedBy = "contractor", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<Call> calls;
 }
