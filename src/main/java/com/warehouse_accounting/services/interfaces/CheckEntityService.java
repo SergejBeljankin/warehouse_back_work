@@ -51,6 +51,8 @@ public interface CheckEntityService {
 
     void checkExistInvoiceProductById(Long invoiceProductId);
 
+    void checkExistPaymentById(Long PaymentId);
+
     void checkExistProjectById(Long projectId);
 
     void checkExistProductById(Long productId);

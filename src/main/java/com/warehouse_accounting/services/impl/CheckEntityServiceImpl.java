@@ -1,5 +1,6 @@
 package com.warehouse_accounting.services.impl;
 
+import com.warehouse_accounting.controllers.rest.PaymentRestController;
 import com.warehouse_accounting.repositories.AdjustmentRepository;
 import com.warehouse_accounting.repositories.AttributeOfCalculationObjectRepository;
 import com.warehouse_accounting.repositories.BankAccountRepository;
@@ -17,6 +18,7 @@ import com.warehouse_accounting.repositories.InvoiceProductRepository;
 import com.warehouse_accounting.repositories.InvoiceRepository;
 import com.warehouse_accounting.repositories.LegalDetailRepository;
 import com.warehouse_accounting.repositories.MovementRepository;
+import com.warehouse_accounting.repositories.PaymentRepository;
 import com.warehouse_accounting.repositories.PositionRepository;
 import com.warehouse_accounting.repositories.ProductGroupRepository;
 import com.warehouse_accounting.repositories.ProductPriceRepository;
@@ -60,6 +62,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final InvoiceRepository invoiceRepository;
     private final InvoiceProductRepository invoiceProductRepository;
     private final LegalDetailRepository legalDetailRepository;
+    private final PaymentRepository paymentRepository;
     private final PositionRepository positionRepository;
     private final ProductRepository productRepository;
     private final ProductGroupRepository productGroupRepository;
@@ -315,5 +318,11 @@ public class CheckEntityServiceImpl implements CheckEntityService {
         }
     }
 
+    @Override
+    public void checkExistPaymentById(Long paymentId) {
+        if(!paymentRepository.existsById(paymentId)) {
+            throw new NotFoundEntityException("Payment с id=" + paymentId + " не найден.");
+        }
+    }
 
 }
