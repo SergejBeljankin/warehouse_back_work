@@ -18,13 +18,17 @@ import com.warehouse_accounting.models.Invoice;
 import com.warehouse_accounting.models.InvoiceEdit;
 import com.warehouse_accounting.models.InvoiceProduct;
 import com.warehouse_accounting.models.LegalDetail;
+import com.warehouse_accounting.models.Memo;
 import com.warehouse_accounting.models.Movement;
+import com.warehouse_accounting.models.Payment;
+import com.warehouse_accounting.models.PaymentExpenditure;
 import com.warehouse_accounting.models.Position;
 import com.warehouse_accounting.models.Product;
 import com.warehouse_accounting.models.ProductGroup;
 import com.warehouse_accounting.models.ProductPrice;
 import com.warehouse_accounting.models.ProductionOrder;
 import com.warehouse_accounting.models.Project;
+import com.warehouse_accounting.models.RecycleBin;
 import com.warehouse_accounting.models.Role;
 import com.warehouse_accounting.models.Task;
 import com.warehouse_accounting.models.TaxSystem;
@@ -55,13 +59,16 @@ import com.warehouse_accounting.models.dto.InvoiceDto;
 import com.warehouse_accounting.models.dto.InvoiceEditDto;
 import com.warehouse_accounting.models.dto.InvoiceProductDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
+import com.warehouse_accounting.models.dto.MemoDto;
 import com.warehouse_accounting.models.dto.MovementDto;
+import com.warehouse_accounting.models.dto.PaymentDto;
 import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.models.dto.ProductDto;
 import com.warehouse_accounting.models.dto.ProductGroupDto;
 import com.warehouse_accounting.models.dto.ProductPriceDto;
 import com.warehouse_accounting.models.dto.ProductionOrderDto;
 import com.warehouse_accounting.models.dto.ProjectDto;
+import com.warehouse_accounting.models.dto.RecycleBinDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaskDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
@@ -77,6 +84,8 @@ import com.warehouse_accounting.models.dto.WarehouseDto;
 
 import java.util.Set;
 import java.util.stream.Collectors;
+
+
 
 public class ConverterDto {
 
@@ -811,6 +820,22 @@ public class ConverterDto {
                 .build();
     }
 
+    public static RecycleBinDto convertToDto(RecycleBin recycleBin) {
+        return RecycleBinDto.builder()
+                .id(recycleBin.getId())
+                .name(recycleBin.getName())
+                .createdDate(recycleBin.getCreatedDate())
+                .document(recycleBin.getDocument())
+                .build();
+    }
+
+    public static RecycleBin convertToModel(RecycleBinDto dto) {
+        return new RecycleBin(dto.getName(),
+                dto.getCreatedDate(),
+                dto.getDocument()
+        );
+    }
+
     public static ProductPrice convertToModel(ProductPriceDto dto) {
         return ProductPrice.builder()
                 .id(dto.getId())
@@ -1104,4 +1129,104 @@ public class ConverterDto {
                 .build();
     }
 
+    public static Payment convertToModel(PaymentDto paymentDto) {
+        Contract contract = new Contract();
+        contract.setId(paymentDto.getContractId());
+        Project project = new Project();
+        project.setId(paymentDto.getProjectId());
+        PaymentExpenditure paymentExpenditure = new PaymentExpenditure();
+        paymentExpenditure.setId(paymentDto.getPaymentExpenditureId());
+
+
+        return Payment.builder()
+                .id(paymentDto.getId())
+                .number(paymentDto.getNumber())
+                .amount(paymentDto.getAmount())
+                .typeOfPayment(paymentDto.getTypeOfPayment())
+                .date(paymentDto.getDate())
+                .purpose(paymentDto.getPurpose())
+                .tax(paymentDto.getTax())
+                .comment(paymentDto.getComment())
+                .isDone(paymentDto.isDone())
+                .contract(paymentDto.getContractId() != null ? contract : null)
+                .project(paymentDto.getProjectId() != null ? project : null)
+                .paymentExpenditure(paymentDto.getPaymentExpenditureId() != null ? paymentExpenditure : null)
+                .contractor(convertToModel(paymentDto.getContractorDto()) != null ? convertToModel(paymentDto.getContractorDto()) : null)
+                .company(convertToModel(paymentDto.getCompanyDto()) != null ? convertToModel(paymentDto.getCompanyDto()) : null)
+                .documents(paymentDto.getDocuments()) // На данный момент не существует документов, которые можно было бы привязывать к платежам
+                .tasks(paymentDto.getTaskDtos() != null
+                        ? paymentDto.getTaskDtos()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList())
+                        : null)
+                .build();
+    }
+
+    public static PaymentDto convertToDto(Payment payment) {
+        return PaymentDto.builder()
+                .id(payment.getId())
+                .number(payment.getNumber())
+                .date(payment.getDate())
+                .amount(payment.getAmount())
+                .purpose(payment.getPurpose())
+                .tax(payment.getTax())
+                .comment(payment.getComment())
+                .isDone(payment.isDone())
+                .typeOfPayment(payment.getTypeOfPayment())
+                .contractId(payment.getContract() != null ? payment.getContract().getId() : null)
+                .contractNumber(payment.getContract() != null ? payment.getContract().getNumber() : null)
+                .projectId(payment.getProject() != null ? payment.getProject().getId() : null)
+                .projectName(payment.getProject() != null ? payment.getProject().getName() : null)
+                .paymentExpenditureId(payment.getPaymentExpenditure() != null ? payment.getPaymentExpenditure().getId() : null)
+                .paymentExpenditureName(payment.getPaymentExpenditure() != null ? payment.getPaymentExpenditure().getName() : null)
+                .companyDto(convertToDto(payment.getCompany()) != null ? convertToDto(payment.getCompany()) : null)
+                .contractorDto(convertToDto(payment.getContractor()) != null ? convertToDto(payment.getContractor()) : null)
+                .documents(payment.getDocuments()) // На данный момент не существует документов, которые можно было бы привязывать к платежам
+                .taskDtos(payment.getTasks() != null
+                        ? payment.getTasks()
+                        .stream()
+                        .map(ConverterDto::convertToDto)
+                        .collect(Collectors.toList())
+                        : null)
+                .build();
+    }
+
+    public static MemoDto convertToDto(Memo memo){
+        return MemoDto.builder()
+                .id(memo.getId())
+                .createDate(memo.getCreateDate())
+                .content(memo.getContent())
+                .contractorId(memo.getContractor() != null
+                        ? memo.getContractor().getId() : null)
+                .contractorName(memo.getContractor() != null
+                        ? memo.getContractor().getName() : null)
+                .employeeWhoCreatedId(memo.getEmployeeWhoCreated() != null
+                        ? memo.getEmployeeWhoCreated().getId() : null)
+                .employeeWhoCreatedName(memo.getEmployeeWhoCreated() != null
+                        ? memo.getEmployeeWhoCreated().getFirstName() : null)
+                .employeeWhoEditedId(memo.getEmployeeWhoEdited() != null
+                        ? memo.getEmployeeWhoEdited().getId() : null)
+                .employeeWhoEditedName(memo.getEmployeeWhoEdited() != null
+                        ? memo.getEmployeeWhoEdited().getFirstName() : null)
+                .build();
+    }
+
+    public static Memo convertToModel(MemoDto memoDto){
+        Contractor contractor = new Contractor();
+        contractor.setId(memoDto.getContractorId());
+        Employee employeeWhoCreated = new Employee();
+        employeeWhoCreated.setId(memoDto.getEmployeeWhoCreatedId());
+        Employee employeeWhoEdited = new Employee();
+        employeeWhoEdited.setId(memoDto.getEmployeeWhoEditedId());
+
+        return Memo.builder()
+                .id(memoDto.getId())
+                .createDate(memoDto.getCreateDate())
+                .content(memoDto.getContent())
+                .employeeWhoCreated(employeeWhoCreated)
+                .employeeWhoEdited(employeeWhoEdited)
+                .contractor(contractor)
+                .build();
+    }
 }

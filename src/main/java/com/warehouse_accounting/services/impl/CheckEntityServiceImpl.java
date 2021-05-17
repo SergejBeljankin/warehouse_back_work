@@ -17,6 +17,7 @@ import com.warehouse_accounting.repositories.InvoiceProductRepository;
 import com.warehouse_accounting.repositories.InvoiceRepository;
 import com.warehouse_accounting.repositories.LegalDetailRepository;
 import com.warehouse_accounting.repositories.MovementRepository;
+import com.warehouse_accounting.repositories.PaymentRepository;
 import com.warehouse_accounting.repositories.PositionRepository;
 import com.warehouse_accounting.repositories.ProductGroupRepository;
 import com.warehouse_accounting.repositories.ProductPriceRepository;
@@ -46,6 +47,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class CheckEntityServiceImpl implements CheckEntityService {
 
+    private final AdjustmentRepository adjustmentRepository;
     private final AttributeOfCalculationObjectRepository attributeOfCalculationObjectRepository;
     private final BankAccountRepository bankAccountRepository;
     private final CompanyRepository companyRepository;
@@ -81,7 +83,6 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final CountryRepository countryRepository;
     private final CallRepository callRepository;
     private final TaskRepository taskRepository;
-    private final AdjustmentRepository adjustmentRepository;
 
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {
@@ -312,6 +313,12 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistAdjustmentById(Long adjustmentId) {
         if (!adjustmentRepository.existsById(adjustmentId)) {
             throw new NotFoundEntityException("Adjustment с id= " + adjustmentId + " , не найден.");
+        }
+    }
+    @Override
+    public void checkExistPaymentById(Long paymentId) {
+        if(!paymentRepository.existsById(paymentId)) {
+            throw new NotFoundEntityException("Payment с id=" + paymentId + " не найден.");
         }
     }
 

@@ -46,4 +46,5 @@ public class Task {
 
     @ManyToOne
     private Document document;
+
 }

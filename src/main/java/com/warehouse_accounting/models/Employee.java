@@ -70,4 +70,8 @@ public class Employee {
     @OneToOne(fetch = FetchType.LAZY)
     private Image image;
 
+    @ManyToOne
+    @JoinColumn(name="file_id")
+    private File file;
+
 }

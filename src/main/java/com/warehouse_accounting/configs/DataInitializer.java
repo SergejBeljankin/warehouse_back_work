@@ -1,18 +1,20 @@
 package com.warehouse_accounting.configs;
 
-import com.warehouse_accounting.models.TypeOfAdjustment;
-import com.warehouse_accounting.models.dto.AdjustmentDto;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CallDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
+import com.warehouse_accounting.models.dto.CompanyDto;
+import com.warehouse_accounting.models.dto.ContractDto;
 import com.warehouse_accounting.models.dto.ContractorDto;
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
 import com.warehouse_accounting.models.dto.EmployeeDto;
 import com.warehouse_accounting.models.dto.ImageDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
+import com.warehouse_accounting.models.dto.PaymentDto;
 import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.models.dto.ProductDto;
+import com.warehouse_accounting.models.dto.ProjectDto;
 import com.warehouse_accounting.models.dto.RoleDto;
 import com.warehouse_accounting.models.dto.TaskDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapDto;
@@ -23,10 +25,13 @@ import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
+import com.warehouse_accounting.models.TypeOfPayment;
 import com.warehouse_accounting.repositories.CompanyRepository;
 import com.warehouse_accounting.services.interfaces.AdjustmentService;
 import com.warehouse_accounting.services.interfaces.BankAccountService;
 import com.warehouse_accounting.services.interfaces.CallService;
+import com.warehouse_accounting.services.interfaces.CompanyService;
+import com.warehouse_accounting.services.interfaces.ContractService;
 import com.warehouse_accounting.services.interfaces.CompanyService;
 import com.warehouse_accounting.services.interfaces.ContractorGroupService;
 import com.warehouse_accounting.services.interfaces.ContractorService;
@@ -34,8 +39,10 @@ import com.warehouse_accounting.services.interfaces.DepartmentService;
 import com.warehouse_accounting.services.interfaces.EmployeeService;
 import com.warehouse_accounting.services.interfaces.ImageService;
 import com.warehouse_accounting.services.interfaces.LegalDetailService;
+import com.warehouse_accounting.services.interfaces.PaymentService;
 import com.warehouse_accounting.services.interfaces.PositionService;
 import com.warehouse_accounting.services.interfaces.ProductService;
+import com.warehouse_accounting.services.interfaces.ProjectService;
 import com.warehouse_accounting.services.interfaces.RoleService;
 import com.warehouse_accounting.services.interfaces.TaskService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapGroupService;
@@ -91,6 +98,7 @@ public class DataInitializer {
     private final LegalDetailService legalDetailService;
     private final TypeOfContractorService typeOfContractorService;
     private final AdjustmentService adjustmentService;
+    private final ProjectService projectService;
 
     public DataInitializer(RoleService roleService,
                            UnitService unitService,
@@ -113,6 +121,8 @@ public class DataInitializer {
                            TypeOfContractorService typeOfContractorService,
                            TypeOfPriceService typeOfPriceService,
                            AdjustmentService adjustmentService) {
+                           TypeOfPriceService typeOfPriceService,
+                           ProjectService projectService) {
         this.roleService = roleService;
         this.unitService = unitService;
         this.productService = productService;
@@ -134,6 +144,10 @@ public class DataInitializer {
         this.legalDetailService = legalDetailService;
         this.typeOfContractorService = typeOfContractorService;
         this.adjustmentService = adjustmentService;
+        this.paymentService = paymentService;
+        this.companyService = companyService;
+        this.contractService = contractService;
+        this.projectService = projectService;
     }
 
     @PostConstruct
@@ -156,8 +170,11 @@ public class DataInitializer {
         initCalls();
         initTask();
         initAdjustments();
+        initProject();
+        initCompany();
+        initContract();
+        initPayment();
     }
-
 
     private void initRoles() {
         roleService.create(RoleDto.builder()
@@ -643,6 +660,84 @@ public class DataInitializer {
                 .comment("3 Корректировка")
                 .whenСhanged(LocalDateTime.now())
                 .build());
+    }
+    private void initPayment() {
+        try {
+            ContractorDto contractorDto = contractorService.getById(1L);
+            CompanyDto companyDto = companyService.getById(1L);
+            List<TaskDto> taskDtos = new ArrayList<>();
+            taskDtos.add(taskService.getById(1L));
+            taskDtos.add(taskService.getById(2L));
+
+            paymentService.create(PaymentDto.builder()
+                    .id(1L)
+                    .number("1")
+                    .amount(BigDecimal.valueOf(10L))
+                    .tax(BigDecimal.valueOf(10L))
+                    .typeOfPayment(TypeOfPayment.INCOMING_PAYMENT)
+                    .projectId(1L)
+                    .projectName("Проект")
+                    .contractId(1L)
+                    .contractNumber("1")
+                    .contractorDto(contractorDto)
+                    .companyDto(companyDto)
+                    .purpose("Цель")
+                    .isDone(true)
+                    .comment("Комментарий")
+                    .documents(new ArrayList<>())
+                    .taskDtos(taskDtos)
+                    .paymentExpenditureId(1L)
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу payments", e);
+        }
+    }
+
+    private void initCompany() {
+        try {
+            LegalDetailDto legalDetailDto = legalDetailService.getById(1L);
+            companyService.create(CompanyDto.builder()
+                    .id(1L)
+                    .name("Организация1")
+                    .address("Чехова1")
+                    .legalDetailDto(legalDetailDto)
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу companies", e);
+        }
+    }
+
+    private void initContract() {
+        try {
+            BankAccountDto bankAccountDto = bankAccountService.getById(1L);
+            ContractorDto contractorDto = contractorService.getById(1L);
+            LegalDetailDto legalDetailDto = legalDetailService.getById(1L);
+            CompanyDto companyDto = companyService.getById(1L);
+
+            contractService.create(ContractDto.builder()
+                    .id(1L)
+                    .amount(BigDecimal.valueOf(10L))
+                    .bankAccountDto(bankAccountDto)
+                    .contractorDto(contractorDto)
+                    .legalDetailDto(legalDetailDto)
+                    .companyDto(companyDto)
+                    .number("1")
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу contracts", e);
+        }
+    }
+
+    private void initProject() {
+        try {
+            projectService.create(ProjectDto.builder()
+                    .id(1L)
+                    .name("Проект1")
+                    .description("Описание1")
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу projects", e);
+        }
     }
 
 }
