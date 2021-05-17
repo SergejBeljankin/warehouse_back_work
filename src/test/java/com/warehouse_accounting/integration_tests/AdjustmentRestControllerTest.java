@@ -66,20 +66,14 @@ public class AdjustmentRestControllerTest {
     void testCreate() throws Exception {
         AdjustmentDto adjustmentDto = AdjustmentDto.builder()
 
-                .id(2L)
                 .number("1234567")
-//                .dateTimeAdjustment(LocalDateTime.now())
                 .companyId(null)
                 .contractorId(null)
-//                .type(TypeOfAdjustment.CASHBALANCE)
-//                    ACCOUNTBALANCE("Остаток на счете"),
-//                    CASHBALANCE("Остаток в кассе"),
-//                    COUNTERPARTY("Баланс контрагента");
-//                .currentBalance(BigDecimal.valueOf(2000.00))
-//                .totalBalance(BigDecimal.valueOf(1000.00))
-//                .adjustmentAmount(BigDecimal.valueOf(1000.00))
+                .type(TypeOfAdjustment.CASHBALANCE)
+                .currentBalance(BigDecimal.valueOf(2000.00))
+                .totalBalance(BigDecimal.valueOf(1000.00))
+                .adjustmentAmount(BigDecimal.valueOf(1000.00))
                 .comment("Новая корректировка")
-//                .whenСhanged(LocalDateTime.now())
                 .build();
 
         String jsonAdjustment = new ObjectMapper().writeValueAsString(adjustmentDto);
@@ -88,11 +82,13 @@ public class AdjustmentRestControllerTest {
                     .content(jsonAdjustment))
                     .andExpect(status().isOk());
 
-        mockMvc.perform(get("/api/adjustments/2"))
+        mockMvc.perform(get("/api/adjustments/4"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.number").value("1234567"))
-                .andExpect(jsonPath("$.comment").value("Новая корректировка"));
+                .andExpect(jsonPath("$.comment").value("Новая корректировка"))
+                .andExpect(jsonPath("$.type").value("CASHBALANCE"))
+                .andExpect(jsonPath("$.adjustmentAmount").value(BigDecimal.valueOf(1000.00)));
     }
 
     @Test

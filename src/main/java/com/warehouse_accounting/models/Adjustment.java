@@ -37,10 +37,10 @@ public class Adjustment {
     @Column
     private LocalDateTime dateTimeAdjustment;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.LAZY) //, cascade = {CascadeType.PERSIST})
     private Company company;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.LAZY) //, cascade = {CascadeType.PERSIST})
     private Contractor contractor;
 
     @Column

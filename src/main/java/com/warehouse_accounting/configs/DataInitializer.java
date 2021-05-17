@@ -4,6 +4,7 @@ import com.warehouse_accounting.models.TypeOfAdjustment;
 import com.warehouse_accounting.models.dto.AdjustmentDto;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CallDto;
+import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.ContractorDto;
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
@@ -26,6 +27,7 @@ import com.warehouse_accounting.repositories.CompanyRepository;
 import com.warehouse_accounting.services.interfaces.AdjustmentService;
 import com.warehouse_accounting.services.interfaces.BankAccountService;
 import com.warehouse_accounting.services.interfaces.CallService;
+import com.warehouse_accounting.services.interfaces.CompanyService;
 import com.warehouse_accounting.services.interfaces.ContractorGroupService;
 import com.warehouse_accounting.services.interfaces.ContractorService;
 import com.warehouse_accounting.services.interfaces.DepartmentService;
@@ -593,25 +595,54 @@ public class DataInitializer {
     }
 
     private void initAdjustments() {
-        try {
-            adjustmentService.create(AdjustmentDto.builder()
-                    .id(1L)
-                    .number("00001")
-                    .dateTimeAdjustment(LocalDateTime.now())
-                    .companyId(null)
-                    .companyName(null)
-                    .contractorId(null)
-                    .contractorName(null)
-                    .type(TypeOfAdjustment.ACCOUNTBALANCE)
-                    .currentBalance(BigDecimal.valueOf(1000.00))
-                    .totalBalance(BigDecimal.valueOf(0.00))
-                    .adjustmentAmount(BigDecimal.valueOf(1000.00))
-                    .comment("1 Корректировка")
-                    .whenСhanged(LocalDateTime.now())
-                    .build());
-        } catch (Exception e) {
-            log.error("Не удалось заполнить таблицу Adjustments", e);
-        }
+
+        adjustmentService.create(AdjustmentDto.builder()
+                .id(1L)
+                .number("00001")
+                .dateTimeAdjustment(LocalDateTime.now())
+                .companyId(null)
+                .companyName(null)
+                .contractorId(null)
+                .contractorName(null)
+                .type(TypeOfAdjustment.ACCOUNTBALANCE)
+                .currentBalance(BigDecimal.valueOf(1000.00))
+                .totalBalance(BigDecimal.valueOf(0.00))
+                .adjustmentAmount(BigDecimal.valueOf(1000.00))
+                .comment("1 Корректировка")
+                .whenСhanged(LocalDateTime.now())
+                .build());
+
+        adjustmentService.create(AdjustmentDto.builder()
+                .id(2L)
+                .number("00002")
+                .dateTimeAdjustment(LocalDateTime.now())
+                .companyId(1L)
+                .companyName("Компания_1")
+                .contractorId(1L)
+                .contractorName("Контр-агент_1")
+                .type(TypeOfAdjustment.CASHBALANCE)
+                .currentBalance(BigDecimal.valueOf(1000.00))
+                .totalBalance(BigDecimal.valueOf(2000.00))
+                .adjustmentAmount(BigDecimal.valueOf(3000.00))
+                .comment("2 Корректировка")
+                .whenСhanged(LocalDateTime.now())
+                .build());
+
+        adjustmentService.create(AdjustmentDto.builder()
+                .id(3L)
+                .number("00003")
+                .dateTimeAdjustment(LocalDateTime.now())
+                .companyId(1L)
+                .companyName("Компания_1")
+                .contractorId(1L)
+                .contractorName("Контр-агент_1")
+                .type(TypeOfAdjustment.COUNTERPARTY)
+                .currentBalance(BigDecimal.valueOf(2000.00))
+                .totalBalance(BigDecimal.valueOf(500.00))
+                .adjustmentAmount(BigDecimal.valueOf(1500.00))
+                .comment("3 Корректировка")
+                .whenСhanged(LocalDateTime.now())
+                .build());
     }
 
 }
