@@ -1,8 +1,10 @@
 package com.warehouse_accounting.configs;
 
+import com.warehouse_accounting.models.TypeOfAdjustment;
+import com.warehouse_accounting.models.TypeOfPayment;
+import com.warehouse_accounting.models.dto.AdjustmentDto;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CallDto;
-import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.ContractDto;
 import com.warehouse_accounting.models.dto.ContractorDto;
@@ -25,14 +27,11 @@ import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
-import com.warehouse_accounting.models.TypeOfPayment;
-import com.warehouse_accounting.repositories.CompanyRepository;
 import com.warehouse_accounting.services.interfaces.AdjustmentService;
 import com.warehouse_accounting.services.interfaces.BankAccountService;
 import com.warehouse_accounting.services.interfaces.CallService;
 import com.warehouse_accounting.services.interfaces.CompanyService;
 import com.warehouse_accounting.services.interfaces.ContractService;
-import com.warehouse_accounting.services.interfaces.CompanyService;
 import com.warehouse_accounting.services.interfaces.ContractorGroupService;
 import com.warehouse_accounting.services.interfaces.ContractorService;
 import com.warehouse_accounting.services.interfaces.DepartmentService;
@@ -99,6 +98,9 @@ public class DataInitializer {
     private final TypeOfContractorService typeOfContractorService;
     private final AdjustmentService adjustmentService;
     private final ProjectService projectService;
+    private final CompanyService companyService;
+    private final ContractService contractService;
+    private final PaymentService paymentService;
 
     public DataInitializer(RoleService roleService,
                            UnitService unitService,
@@ -116,13 +118,15 @@ public class DataInitializer {
                            PositionService positionService,
                            ContractorService contractorService,
                            ContractorGroupService contractorGroupService,
+                           TypeOfPriceService typeOfPriceService,
                            BankAccountService bankAccountService,
                            LegalDetailService legalDetailService,
                            TypeOfContractorService typeOfContractorService,
-                           TypeOfPriceService typeOfPriceService,
-                           AdjustmentService adjustmentService) {
-                           TypeOfPriceService typeOfPriceService,
-                           ProjectService projectService) {
+                           AdjustmentService adjustmentService,
+                           ProjectService projectService,
+                           CompanyService companyService,
+                           ContractService contractService,
+                           PaymentService paymentService) {
         this.roleService = roleService;
         this.unitService = unitService;
         this.productService = productService;
@@ -144,10 +148,10 @@ public class DataInitializer {
         this.legalDetailService = legalDetailService;
         this.typeOfContractorService = typeOfContractorService;
         this.adjustmentService = adjustmentService;
-        this.paymentService = paymentService;
+        this.projectService = projectService;
         this.companyService = companyService;
         this.contractService = contractService;
-        this.projectService = projectService;
+        this.paymentService = paymentService;
     }
 
     @PostConstruct

@@ -83,6 +83,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final CountryRepository countryRepository;
     private final CallRepository callRepository;
     private final TaskRepository taskRepository;
+    private final PaymentRepository paymentRepository;
 
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {
