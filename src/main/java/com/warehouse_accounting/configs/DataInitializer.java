@@ -173,9 +173,9 @@ public class DataInitializer {
         initContractors();
         initCalls();
         initTask();
-        initAdjustments();
         initProject();
         initCompany();
+        initAdjustments();
         initContract();
         initPayment();
     }
@@ -621,10 +621,10 @@ public class DataInitializer {
                 .id(1L)
                 .number("00001")
                 .dateTimeAdjustment(LocalDateTime.now())
-                .companyId(null)
-                .companyName(null)
-                .contractorId(null)
-                .contractorName(null)
+                .companyId(1L)
+                .companyName("Организация1")
+                .contractorId(1L)
+                .contractorName("first_Contractor")
                 .type(TypeOfAdjustment.ACCOUNTBALANCE)
                 .currentBalance(BigDecimal.valueOf(1000.00))
                 .totalBalance(BigDecimal.valueOf(0.00))
@@ -638,9 +638,9 @@ public class DataInitializer {
                 .number("00002")
                 .dateTimeAdjustment(LocalDateTime.now())
                 .companyId(1L)
-                .companyName("Компания_1")
+                .companyName("Организация1")
                 .contractorId(1L)
-                .contractorName("Контр-агент_1")
+                .contractorName("first_Contractor")
                 .type(TypeOfAdjustment.CASHBALANCE)
                 .currentBalance(BigDecimal.valueOf(1000.00))
                 .totalBalance(BigDecimal.valueOf(2000.00))
@@ -654,9 +654,9 @@ public class DataInitializer {
                 .number("00003")
                 .dateTimeAdjustment(LocalDateTime.now())
                 .companyId(1L)
-                .companyName("Компания_1")
+                .companyName("Организация1")
                 .contractorId(1L)
-                .contractorName("Контр-агент_1")
+                .contractorName("first_Contractor")
                 .type(TypeOfAdjustment.COUNTERPARTY)
                 .currentBalance(BigDecimal.valueOf(2000.00))
                 .totalBalance(BigDecimal.valueOf(500.00))

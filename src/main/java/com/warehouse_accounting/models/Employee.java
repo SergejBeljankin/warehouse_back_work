@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.tomcat.jni.File;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -70,8 +71,8 @@ public class Employee {
     @OneToOne(fetch = FetchType.LAZY)
     private Image image;
 
-    @ManyToOne
-    @JoinColumn(name="file_id")
-    private File file;
+//    @ManyToOne
+//    @JoinColumn(name="file_id")
+//    private File file;
 
 }

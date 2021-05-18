@@ -65,7 +65,7 @@ public class AdjustmentRestControllerTest {
     @Test
     void testCreate() throws Exception {
         AdjustmentDto adjustmentDto = AdjustmentDto.builder()
-
+                .id(4L)
                 .number("1234567")
                 .companyId(null)
                 .contractorId(null)
