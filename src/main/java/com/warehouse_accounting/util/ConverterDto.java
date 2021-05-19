@@ -1149,8 +1149,8 @@ public class ConverterDto {
                 .contract(paymentDto.getContractId() != null ? contract : null)
                 .project(paymentDto.getProjectId() != null ? project : null)
                 .paymentExpenditure(paymentDto.getPaymentExpenditureId() != null ? paymentExpenditure : null)
-                .contractor(convertToModel(paymentDto.getContractorDto()) != null ? convertToModel(paymentDto.getContractorDto()) : null)
-                .company(convertToModel(paymentDto.getCompanyDto()) != null ? convertToModel(paymentDto.getCompanyDto()) : null)
+                .contractor(paymentDto.getContractorDto() != null ? convertToModel(paymentDto.getContractorDto()) : null)
+                .company(paymentDto.getCompanyDto() != null ? convertToModel(paymentDto.getCompanyDto()) : null)
                 .documents(paymentDto.getDocuments()) // На данный момент не существует документов, которые можно было бы привязывать к платежам
                 .tasks(paymentDto.getTaskDtos() != null
                         ? paymentDto.getTaskDtos()
