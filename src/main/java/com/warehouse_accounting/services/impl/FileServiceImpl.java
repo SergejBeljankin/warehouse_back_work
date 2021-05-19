@@ -46,4 +46,9 @@ public class FileServiceImpl implements FileService {
         file.setId(fileDto.getId());
         return fileRepository.save(file);
     }
+
+    @Override
+    public void delete(Long id) {
+         fileRepository.deleteById(id);
+    }
 }

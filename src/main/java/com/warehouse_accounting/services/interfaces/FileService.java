@@ -14,5 +14,5 @@ public interface FileService {
 
     File update(FileDto fileDto);
 
-    void deleteById(Long id);
+    void delete(Long id);
 }
