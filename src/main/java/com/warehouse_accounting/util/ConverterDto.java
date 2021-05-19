@@ -86,7 +86,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 
-
 public class ConverterDto {
 
     private ConverterDto() {
@@ -296,7 +295,7 @@ public class ConverterDto {
                 .leader(dto.getLeader())
                 .leaderManagerPosition(dto.getLeaderManagerPosition())
                 .leaderSignature(dto.getLeaderSignature())
-                .legalDetail(convertToModel(dto.getLegalDetailDto()))
+                .legalDetail(dto.getLegalDetailDto() != null ? convertToModel(dto.getLegalDetailDto()) : null)
                 .name(dto.getName())
                 .payerVat(dto.getPayerVat())
                 .phone(dto.getPhone())
@@ -318,7 +317,7 @@ public class ConverterDto {
                 .leader(company.getLeader())
                 .leaderManagerPosition(company.getLeaderManagerPosition())
                 .leaderSignature(company.getLeaderSignature())
-                .legalDetailDto(convertToDto(company.getLegalDetail()))
+                .legalDetailDto(company.getLegalDetail() != null ? convertToDto(company.getLegalDetail()) : null)
                 .name(company.getName())
                 .payerVat(company.getPayerVat())
                 .phone(company.getPhone())
@@ -1192,7 +1191,7 @@ public class ConverterDto {
                 .build();
     }
 
-    public static MemoDto convertToDto(Memo memo){
+    public static MemoDto convertToDto(Memo memo) {
         return MemoDto.builder()
                 .id(memo.getId())
                 .createDate(memo.getCreateDate())
@@ -1212,7 +1211,7 @@ public class ConverterDto {
                 .build();
     }
 
-    public static Memo convertToModel(MemoDto memoDto){
+    public static Memo convertToModel(MemoDto memoDto) {
         Contractor contractor = new Contractor();
         contractor.setId(memoDto.getContractorId());
         Employee employeeWhoCreated = new Employee();

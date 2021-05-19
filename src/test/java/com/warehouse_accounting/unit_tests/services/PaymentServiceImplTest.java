@@ -52,21 +52,12 @@ public class PaymentServiceImplTest {
 
     @BeforeAll
     static void init() {
-        LegalDetailDto legalDetailDto = LegalDetailDto.builder()
-                .id(10L)
-                .build();
-
-        CompanyDto companyDto = CompanyDto.builder()
-                .id(10L)
-                .legalDetailDto(legalDetailDto)
-                .build();
-
         paymentDto = PaymentDto.builder()
                 .id(1L)
                 .number("1")
                 .isDone(true)
                 .contractorDto(ContractorDto.builder().build())
-                .companyDto(companyDto)
+                .companyDto(CompanyDto.builder().build())
                 .paymentExpenditureId(1L)
                 .paymentExpenditureName("Категория")
                 .taskDtos(new ArrayList<>())
