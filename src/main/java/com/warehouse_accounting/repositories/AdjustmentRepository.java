@@ -53,4 +53,3 @@ public interface AdjustmentRepository extends JpaRepository<Adjustment, Long> {
             "WHERE a.id = :id")
     AdjustmentDto getById(@Param("id") Long id);
 }
-
