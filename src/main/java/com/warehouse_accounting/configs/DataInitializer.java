@@ -1,5 +1,8 @@
 package com.warehouse_accounting.configs;
 
+import com.warehouse_accounting.models.TypeOfAdjustment;
+import com.warehouse_accounting.models.TypeOfPayment;
+import com.warehouse_accounting.models.dto.AdjustmentDto;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CallDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
@@ -24,7 +27,7 @@ import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
-import com.warehouse_accounting.models.TypeOfPayment;
+import com.warehouse_accounting.services.interfaces.AdjustmentService;
 import com.warehouse_accounting.services.interfaces.BankAccountService;
 import com.warehouse_accounting.services.interfaces.CallService;
 import com.warehouse_accounting.services.interfaces.CompanyService;
@@ -93,10 +96,11 @@ public class DataInitializer {
     private final BankAccountService bankAccountService;
     private final LegalDetailService legalDetailService;
     private final TypeOfContractorService typeOfContractorService;
-    private final PaymentService paymentService;
+    private final AdjustmentService adjustmentService;
+    private final ProjectService projectService;
     private final CompanyService companyService;
     private final ContractService contractService;
-    private final ProjectService projectService;
+    private final PaymentService paymentService;
 
     public DataInitializer(RoleService roleService,
                            UnitService unitService,
@@ -114,14 +118,15 @@ public class DataInitializer {
                            PositionService positionService,
                            ContractorService contractorService,
                            ContractorGroupService contractorGroupService,
+                           TypeOfPriceService typeOfPriceService,
                            BankAccountService bankAccountService,
                            LegalDetailService legalDetailService,
                            TypeOfContractorService typeOfContractorService,
-                           TypeOfPriceService typeOfPriceService,
-                           PaymentService paymentService,
+                           AdjustmentService adjustmentService,
+                           ProjectService projectService,
                            CompanyService companyService,
                            ContractService contractService,
-                           ProjectService projectService) {
+                           PaymentService paymentService) {
         this.roleService = roleService;
         this.unitService = unitService;
         this.productService = productService;
@@ -142,10 +147,11 @@ public class DataInitializer {
         this.bankAccountService = bankAccountService;
         this.legalDetailService = legalDetailService;
         this.typeOfContractorService = typeOfContractorService;
-        this.paymentService = paymentService;
+        this.adjustmentService = adjustmentService;
+        this.projectService = projectService;
         this.companyService = companyService;
         this.contractService = contractService;
-        this.projectService = projectService;
+        this.paymentService = paymentService;
     }
 
     @PostConstruct
@@ -169,6 +175,7 @@ public class DataInitializer {
         initTask();
         initProject();
         initCompany();
+        initAdjustments();
         initContract();
         initPayment();
     }
@@ -608,6 +615,56 @@ public class DataInitializer {
         }
     }
 
+    private void initAdjustments() {
+
+        adjustmentService.create(AdjustmentDto.builder()
+                .id(1L)
+                .number("00001")
+                .dateTimeAdjustment(LocalDateTime.now())
+                .companyId(1L)
+                .companyName("Организация1")
+                .contractorId(1L)
+                .contractorName("first_Contractor")
+                .type(TypeOfAdjustment.ACCOUNTBALANCE)
+                .currentBalance(BigDecimal.valueOf(1000.00))
+                .totalBalance(BigDecimal.valueOf(0.00))
+                .adjustmentAmount(BigDecimal.valueOf(1000.00))
+                .comment("1 Корректировка")
+                .whenСhanged(LocalDateTime.now())
+                .build());
+
+        adjustmentService.create(AdjustmentDto.builder()
+                .id(2L)
+                .number("00002")
+                .dateTimeAdjustment(LocalDateTime.now())
+                .companyId(1L)
+                .companyName("Организация1")
+                .contractorId(1L)
+                .contractorName("first_Contractor")
+                .type(TypeOfAdjustment.CASHBALANCE)
+                .currentBalance(BigDecimal.valueOf(1000.00))
+                .totalBalance(BigDecimal.valueOf(2000.00))
+                .adjustmentAmount(BigDecimal.valueOf(3000.00))
+                .comment("2 Корректировка")
+                .whenСhanged(LocalDateTime.now())
+                .build());
+
+        adjustmentService.create(AdjustmentDto.builder()
+                .id(3L)
+                .number("00003")
+                .dateTimeAdjustment(LocalDateTime.now())
+                .companyId(1L)
+                .companyName("Организация1")
+                .contractorId(1L)
+                .contractorName("first_Contractor")
+                .type(TypeOfAdjustment.COUNTERPARTY)
+                .currentBalance(BigDecimal.valueOf(2000.00))
+                .totalBalance(BigDecimal.valueOf(500.00))
+                .adjustmentAmount(BigDecimal.valueOf(1500.00))
+                .comment("3 Корректировка")
+                .whenСhanged(LocalDateTime.now())
+                .build());
+    }
     private void initPayment() {
         try {
             ContractorDto contractorDto = contractorService.getById(1L);
