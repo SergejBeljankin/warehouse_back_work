@@ -26,8 +26,9 @@ public class File {
     @Id
     @GeneratedValue
 
-    Long id;
+    @NonNull String name;
     @NonNull int size;
+    @NonNull String location;
     @NonNull Date createdDate;
 
     @OneToMany(fetch = LAZY, mappedBy = "file")
