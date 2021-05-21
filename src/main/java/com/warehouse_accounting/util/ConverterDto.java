@@ -86,7 +86,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 
-
 public class ConverterDto {
 
     private ConverterDto() {
@@ -296,7 +295,7 @@ public class ConverterDto {
                 .leader(dto.getLeader())
                 .leaderManagerPosition(dto.getLeaderManagerPosition())
                 .leaderSignature(dto.getLeaderSignature())
-                .legalDetail(convertToModel(dto.getLegalDetailDto()))
+                .legalDetail(dto.getLegalDetailDto() != null ? convertToModel(dto.getLegalDetailDto()) : null)
                 .name(dto.getName())
                 .payerVat(dto.getPayerVat())
                 .phone(dto.getPhone())
@@ -318,7 +317,7 @@ public class ConverterDto {
                 .leader(company.getLeader())
                 .leaderManagerPosition(company.getLeaderManagerPosition())
                 .leaderSignature(company.getLeaderSignature())
-                .legalDetailDto(convertToDto(company.getLegalDetail()))
+                .legalDetailDto(company.getLegalDetail() != null ? convertToDto(company.getLegalDetail()) : null)
                 .name(company.getName())
                 .payerVat(company.getPayerVat())
                 .phone(company.getPhone())
@@ -1151,8 +1150,8 @@ public class ConverterDto {
                 .contract(paymentDto.getContractId() != null ? contract : null)
                 .project(paymentDto.getProjectId() != null ? project : null)
                 .paymentExpenditure(paymentDto.getPaymentExpenditureId() != null ? paymentExpenditure : null)
-                .contractor(convertToModel(paymentDto.getContractorDto()) != null ? convertToModel(paymentDto.getContractorDto()) : null)
-                .company(convertToModel(paymentDto.getCompanyDto()) != null ? convertToModel(paymentDto.getCompanyDto()) : null)
+                .contractor(paymentDto.getContractorDto() != null ? convertToModel(paymentDto.getContractorDto()) : null)
+                .company(paymentDto.getCompanyDto() != null ? convertToModel(paymentDto.getCompanyDto()) : null)
                 .documents(paymentDto.getDocuments()) // На данный момент не существует документов, которые можно было бы привязывать к платежам
                 .tasks(paymentDto.getTaskDtos() != null
                         ? paymentDto.getTaskDtos()
@@ -1192,7 +1191,7 @@ public class ConverterDto {
                 .build();
     }
 
-    public static MemoDto convertToDto(Memo memo){
+    public static MemoDto convertToDto(Memo memo) {
         return MemoDto.builder()
                 .id(memo.getId())
                 .createDate(memo.getCreateDate())
@@ -1212,7 +1211,7 @@ public class ConverterDto {
                 .build();
     }
 
-    public static Memo convertToModel(MemoDto memoDto){
+    public static Memo convertToModel(MemoDto memoDto) {
         Contractor contractor = new Contractor();
         contractor.setId(memoDto.getContractorId());
         Employee employeeWhoCreated = new Employee();
