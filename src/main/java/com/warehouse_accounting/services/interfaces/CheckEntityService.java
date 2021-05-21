@@ -78,4 +78,6 @@ public interface CheckEntityService {
     void checkExistTaskById(Long TaskId);
 
     void checkExistAdjustmentById(Long adjustmentId);
+
+    void checkExistMemoById(Long memoId);
 }
