@@ -13,6 +13,7 @@ import com.warehouse_accounting.models.Currency;
 import com.warehouse_accounting.models.Department;
 import com.warehouse_accounting.models.Document;
 import com.warehouse_accounting.models.Employee;
+import com.warehouse_accounting.models.File;
 import com.warehouse_accounting.models.Image;
 import com.warehouse_accounting.models.Invoice;
 import com.warehouse_accounting.models.InvoiceEdit;
@@ -54,6 +55,7 @@ import com.warehouse_accounting.models.dto.CountryDto;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
 import com.warehouse_accounting.models.dto.EmployeeDto;
+import com.warehouse_accounting.models.dto.FileDto;
 import com.warehouse_accounting.models.dto.ImageDto;
 import com.warehouse_accounting.models.dto.InvoiceDto;
 import com.warehouse_accounting.models.dto.InvoiceEditDto;
@@ -832,6 +834,21 @@ public class ConverterDto {
         return new RecycleBin(dto.getName(),
                 dto.getCreatedDate(),
                 dto.getDocument()
+        );
+    }
+
+    public static FileDto convertToDto(File file) {
+        return FileDto.builder()
+                .id(file.getId())
+                .size(file.getSize())
+                .employee(file.getEmployee())
+                .build();
+    }
+
+    public static File convertToModel(FileDto dto) {
+        return new File(dto.getSize(),
+                dto.getCreatedDate(),
+                dto.getEmployee()
         );
     }
 
