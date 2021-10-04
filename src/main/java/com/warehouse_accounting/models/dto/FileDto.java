@@ -15,9 +15,11 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder(toBuilder = true)
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class FileDto {
+    long id;
     String name;
     int size;
     String location;
     Date createdDate;
     List<Employee> employee;
+
 }

@@ -29,18 +29,14 @@ public class File {
     private Long id;
     @NonNull String name;
     @NonNull int size;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @NonNull String location;
     @NonNull Date createdDate;
-
     @OneToMany(fetch = LAZY, mappedBy = "file")
     @NonNull List<Employee> employee;
+
+    public File(@NonNull int size, @NonNull Date createdDate, @NonNull List<Employee> employee) {
+        this.size = size;
+        this.createdDate = createdDate;
+        this.employee = employee;
+    }
 }
