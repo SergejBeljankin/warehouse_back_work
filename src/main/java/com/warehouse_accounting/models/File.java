@@ -30,7 +30,14 @@ public class File {
     @NonNull int size;
     @NonNull String location;
     @NonNull Date createdDate;
+    @NonNull Long id;
 
-    @OneToMany(fetch = LAZY, mappedBy = "file")
+    @OneToMany(fetch = LAZY)
     @NonNull List<Employee> employee;
+
+    public File(@NonNull int size, @NonNull Date createdDate, @NonNull List<Employee> employee) {
+        this.size = size;
+        this.createdDate = createdDate;
+        this.employee = employee;
+    }
 }
