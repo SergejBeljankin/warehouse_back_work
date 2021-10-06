@@ -11,6 +11,7 @@ import com.warehouse_accounting.models.dto.ContractorDto;
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
 import com.warehouse_accounting.models.dto.EmployeeDto;
+import com.warehouse_accounting.models.dto.FeedDto;
 import com.warehouse_accounting.models.dto.ImageDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.PaymentDto;
@@ -36,6 +37,7 @@ import com.warehouse_accounting.services.interfaces.ContractorGroupService;
 import com.warehouse_accounting.services.interfaces.ContractorService;
 import com.warehouse_accounting.services.interfaces.DepartmentService;
 import com.warehouse_accounting.services.interfaces.EmployeeService;
+import com.warehouse_accounting.services.interfaces.FeedService;
 import com.warehouse_accounting.services.interfaces.ImageService;
 import com.warehouse_accounting.services.interfaces.LegalDetailService;
 import com.warehouse_accounting.services.interfaces.PaymentService;
@@ -66,6 +68,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -101,6 +104,7 @@ public class DataInitializer {
     private final CompanyService companyService;
     private final ContractService contractService;
     private final PaymentService paymentService;
+    private final FeedService feedService;
 
     public DataInitializer(RoleService roleService,
                            UnitService unitService,
@@ -126,7 +130,8 @@ public class DataInitializer {
                            ProjectService projectService,
                            CompanyService companyService,
                            ContractService contractService,
-                           PaymentService paymentService) {
+                           PaymentService paymentService,
+                           FeedService feedService) {
         this.roleService = roleService;
         this.unitService = unitService;
         this.productService = productService;
@@ -152,6 +157,7 @@ public class DataInitializer {
         this.companyService = companyService;
         this.contractService = contractService;
         this.paymentService = paymentService;
+        this.feedService = feedService;
     }
 
     @PostConstruct
@@ -178,6 +184,7 @@ public class DataInitializer {
         initAdjustments();
         initContract();
         initPayment();
+        initFeed();
     }
 
     private void initRoles() {
@@ -741,6 +748,20 @@ public class DataInitializer {
                     .build());
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу projects", e);
+        }
+    }
+
+    private void initFeed() {
+        try {
+            Date date = new Date();
+            feedService.create(FeedDto.builder()
+                    .id(1L)
+                    .feedHead("Заголовок")
+                    .feedBody("Тело новости")
+                    .feedDate(date)
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу feeds", e);
         }
     }
 

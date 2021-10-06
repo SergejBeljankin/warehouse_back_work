@@ -13,6 +13,7 @@ import com.warehouse_accounting.repositories.CountryRepository;
 import com.warehouse_accounting.repositories.CurrencyRepository;
 import com.warehouse_accounting.repositories.DepartmentRepository;
 import com.warehouse_accounting.repositories.EmployeeRepository;
+import com.warehouse_accounting.repositories.FeedRepository;
 import com.warehouse_accounting.repositories.ImageRepository;
 import com.warehouse_accounting.repositories.InvoiceProductRepository;
 import com.warehouse_accounting.repositories.InvoiceRepository;
@@ -87,6 +88,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final CallRepository callRepository;
     private final TaskRepository taskRepository;
     private final MemoRepository memoRepository;
+    private final FeedRepository feedRepository;
 
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {
@@ -343,6 +345,13 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistMemoById(Long memoId) {
         if (!memoRepository.existsById(memoId)) {
             throw new NotFoundEntityException("Заметка с id=" + memoId + " не найдена.");
+        }
+    }
+
+    @Override
+    public void checkExistFeedById(Long feedId) {
+        if (!feedRepository.existsById(feedId)) {
+            throw new NotFoundEntityException("Новость с id=" + feedId + " не найдена.");
         }
     }
 }
