@@ -28,7 +28,7 @@ class ProductGroupRestControllerTest {
     @Autowired
     private ProductGroupService productGroupService;
     @Autowired
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 
     @Test
     void testExist() {
@@ -62,10 +62,10 @@ class ProductGroupRestControllerTest {
                 .parentId(1L)
                 .build();
 
-        String jsonAdjustment = new ObjectMapper().writeValueAsString(dto);
+        String jsonProductGroup = new ObjectMapper().writeValueAsString(dto);
         mockMvc.perform(post("/api/product_groups")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonAdjustment))
+                        .content(jsonProductGroup))
                 .andExpect(status().isOk());
 
         mockMvc.perform(get("/api/product_groups/4"))
@@ -101,9 +101,6 @@ class ProductGroupRestControllerTest {
 
     @Test
     void deleteById() throws Exception {
-        mockMvc.perform(get("/api/product_groups/3"))
-                .andDo(print())
-                .andExpect(status().isOk());
 
         mockMvc.perform(delete("/api/product_groups/3"))
                 .andDo(print())
