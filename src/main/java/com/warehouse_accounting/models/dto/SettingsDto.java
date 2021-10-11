@@ -6,10 +6,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
+
+@NoArgsConstructor
 public class SettingsDto {
+    public SettingsDto(Long id, EmployeeDto employeeDto, CompanyDto companyDto, WarehouseDto warehouseDto, ContractorDto customerDto, ContractorDto producerDto, ProjectDto projectDto, LanguageDto languageDto, PrintingDocumentsDto printingDocumentsDto, int numberOfAdditionalFieldsPerLine, StartScreenDto startScreenDto, boolean refreshReportsAuto, boolean signatureInLetters, NotificationsDto notificationsDto) {
+        this.id = id;
+        this.employeeDto = employeeDto;
+        this.companyDto = companyDto;
+        this.warehouseDto = warehouseDto;
+        this.customerDto = customerDto;
+        this.producerDto = producerDto;
+        this.projectDto = projectDto;
+        this.languageDto = languageDto;
+        this.printingDocumentsDto = printingDocumentsDto;
+        this.numberOfAdditionalFieldsPerLine = numberOfAdditionalFieldsPerLine;
+        this.startScreenDto = startScreenDto;
+        this.refreshReportsAuto = refreshReportsAuto;
+        this.signatureInLetters = signatureInLetters;
+        this.notificationsDto = notificationsDto;
+    }
 
     private Long id;
 
