@@ -71,4 +71,7 @@ public class Employee {
     @OneToOne(fetch = FetchType.LAZY)
     private Image image;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private Settings settings;
+
 }

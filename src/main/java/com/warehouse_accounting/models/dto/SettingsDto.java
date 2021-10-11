@@ -1,15 +1,14 @@
 package com.warehouse_accounting.models.dto;
 
-import com.warehouse_accounting.models.Notifications;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class SettingsDto {
 
     private Long id;
@@ -35,11 +34,12 @@ public class SettingsDto {
 
     private StartScreenDto startScreenDto;
 
-    private boolean RefreshReportsAuto;
+    private boolean refreshReportsAuto;
 
-    private boolean SignatureInLetters;
+    private boolean signatureInLetters;
 
     // Уведомления
-    private Notifications notifications;
+    private NotificationsDto notificationsDto;
+
 
 }

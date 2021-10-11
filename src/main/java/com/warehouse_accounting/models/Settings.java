@@ -60,10 +60,10 @@ public class Settings {
     private StartScreen startScreen;
 
     @Column
-    private boolean RefreshReportsAuto;
+    private boolean refreshReportsAuto;
 
     @Column
-    private boolean SignatureInLetters;
+    private boolean signatureInLetters;
 
     // Уведомления
     @OneToOne(fetch = FetchType.LAZY)
