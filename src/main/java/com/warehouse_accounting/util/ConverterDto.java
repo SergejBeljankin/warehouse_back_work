@@ -846,10 +846,14 @@ public class ConverterDto {
     }
 
     public static File convertToModel(FileDto dto) {
-        return new File(dto.getSize(),
-                dto.getCreatedDate(),
-                dto.getEmployee()
-        );
+        return File.builder()
+                .id(dto.getId())
+                .name(dto.getName())
+                .size(dto.getSize())
+                .location(dto.getLocation())
+                .createdDate(dto.getCreatedDate())
+                .employee(dto.getEmployee())
+                .build();
     }
 
     public static ProductPrice convertToModel(ProductPriceDto dto) {
