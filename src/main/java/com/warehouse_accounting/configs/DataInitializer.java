@@ -82,8 +82,7 @@ public class DataInitializer {
                            CompanyService companyService,
                            ContractService contractService,
                            PaymentService paymentService,
-                           ProductGroupService productGroupService) {
-                           PaymentService paymentService,
+                           ProductGroupService productGroupService,
                            FeedService feedService) {
         this.roleService = roleService;
         this.unitService = unitService;
