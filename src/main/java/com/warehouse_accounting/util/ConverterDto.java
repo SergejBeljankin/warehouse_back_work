@@ -840,13 +840,19 @@ public class ConverterDto {
     public static FileDto convertToDto(File file) {
         return FileDto.builder()
                 .id(file.getId())
+                .name(file.getName())
                 .size(file.getSize())
+                .location(file.getLocation())
+                .createdDate(file.getCreatedDate())
                 .employee(file.getEmployee())
                 .build();
     }
 
     public static File convertToModel(FileDto dto) {
-        return new File(dto.getSize(),
+        return new File(dto.getId(),
+                dto.getName(),
+                dto.getSize(),
+                dto.getLocation(),
                 dto.getCreatedDate(),
                 dto.getEmployee()
         );
