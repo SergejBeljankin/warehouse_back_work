@@ -1,6 +1,7 @@
 package com.warehouse_accounting.util;
 
 import com.warehouse_accounting.models.Adjustment;
+import com.warehouse_accounting.models.Application;
 import com.warehouse_accounting.models.AttributeOfCalculationObject;
 import com.warehouse_accounting.models.BankAccount;
 import com.warehouse_accounting.models.Call;
@@ -44,6 +45,7 @@ import com.warehouse_accounting.models.TypeOfPrice;
 import com.warehouse_accounting.models.Unit;
 import com.warehouse_accounting.models.Warehouse;
 import com.warehouse_accounting.models.dto.AdjustmentDto;
+import com.warehouse_accounting.models.dto.ApplicationDto;
 import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
 import com.warehouse_accounting.models.dto.BankAccountDto;
 import com.warehouse_accounting.models.dto.CallDto;
@@ -91,6 +93,32 @@ import java.util.stream.Collectors;
 public class ConverterDto {
 
     private ConverterDto() {
+    }
+
+    public static Application convertToModel(ApplicationDto application) {
+        return Application.builder()
+                .id(application.getId())
+                .name(application.getName())
+                .description(application.getDescription())
+                .developer(application.getDeveloper())
+                .devMail(application.getDevMail())
+                .devSite(application.getDevSite())
+                .isFree(application.getIsFree())
+                .logoId(application.getLogoId())
+                .build();
+    }
+
+    public static ApplicationDto convertToDto(Application application) {
+        return ApplicationDto.builder()
+                .id(application.getId())
+                .name(application.getName())
+                .description(application.getDescription())
+                .developer(application.getDeveloper())
+                .devMail(application.getDevMail())
+                .devSite(application.getDevSite())
+                .isFree(application.getIsFree())
+                .logoId(application.getLogoId())
+                .build();
     }
 
     public static Currency convertToModel(CurrencyDto currencyDto) {
@@ -846,7 +874,10 @@ public class ConverterDto {
     }
 
     public static File convertToModel(FileDto dto) {
-        return new File(dto.getSize(),
+        return new File(dto.getId(),
+                dto.getName(),
+                dto.getSize(),
+                dto.getLocation(),
                 dto.getCreatedDate(),
                 dto.getEmployee()
         );

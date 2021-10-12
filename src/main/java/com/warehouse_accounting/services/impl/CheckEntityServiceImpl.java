@@ -2,6 +2,7 @@ package com.warehouse_accounting.services.impl;
 
 import com.warehouse_accounting.controllers.rest.PaymentRestController;
 import com.warehouse_accounting.repositories.AdjustmentRepository;
+import com.warehouse_accounting.repositories.ApplicationRepository;
 import com.warehouse_accounting.repositories.AttributeOfCalculationObjectRepository;
 import com.warehouse_accounting.repositories.BankAccountRepository;
 import com.warehouse_accounting.repositories.CallRepository;
@@ -87,6 +88,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final CallRepository callRepository;
     private final TaskRepository taskRepository;
     private final MemoRepository memoRepository;
+    private final ApplicationRepository applicationRepository;
 
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {
@@ -94,15 +96,9 @@ public class CheckEntityServiceImpl implements CheckEntityService {
         }
     }
 
-    public void checkExistAdjustmentById(Long adjustmentId) {
-        if (!adjustmentRepository.existsById(adjustmentId)) {
-            throw new NotFoundEntityException("Adjustment с id= " + adjustmentId + " , не найден.");
-        }
-    }
-
-    public void checkExistAdjustmentById(Long adjustmentId) {
-        if (!adjustmentRepository.existsById(adjustmentId)) {
-            throw new NotFoundEntityException("Adjustment с id= " + adjustmentId + " , не найден.");
+    public void checkExistApplicationById(Long applicationId) {
+        if (!applicationRepository.existsById(applicationId)) {
+            throw new NotFoundEntityException("Application с id=" + applicationId + ", не найден");
         }
     }
 

@@ -4,8 +4,9 @@ import java.util.UUID;
 
 public interface CheckEntityService {
 
-    void checkExistUnitById(Long unitId);
+    void checkExistApplicationById(Long applicationId);
 
+    void checkExistUnitById(Long unitId);
 
     void checkExistAttributeOfCalculationObjectById(Long attributeOfCalculationObjectId);
 
