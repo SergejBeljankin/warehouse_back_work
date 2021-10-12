@@ -32,7 +32,6 @@ public class File {
     @NonNull int size;
     @NonNull String location;
     @NonNull Date createdDate;
-    @NonNull Long id;
 
     @OneToMany(fetch = LAZY)
     @NonNull List<Employee> employee;

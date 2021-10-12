@@ -21,5 +21,4 @@ public class FileDto {
     String location;
     Date createdDate;
     List<Employee> employee;
-    Long id;
 }
