@@ -102,18 +102,6 @@ public class CheckEntityServiceImpl implements CheckEntityService {
         }
     }
 
-//    public void checkExistAdjustmentById(Long adjustmentId) {
-//        if (!adjustmentRepository.existsById(adjustmentId)) {
-//            throw new NotFoundEntityException("Adjustment с id= " + adjustmentId + " , не найден.");
-//        }
-//    }
-//
-//    public void checkExistAdjustmentById(Long adjustmentId) {
-//        if (!adjustmentRepository.existsById(adjustmentId)) {
-//            throw new NotFoundEntityException("Adjustment с id= " + adjustmentId + " , не найден.");
-//        }
-//    }
-
     public void checkExistAttributeOfCalculationObjectById(Long attributeOfCalculationObjectId) {
         if (!attributeOfCalculationObjectRepository.existsById(attributeOfCalculationObjectId)) {
             throw new NotFoundEntityException("AttributeOfCalculationObject с id=" + attributeOfCalculationObjectId +

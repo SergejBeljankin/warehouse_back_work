@@ -1,5 +1,6 @@
 package com.warehouse_accounting.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -19,12 +20,13 @@ import static lombok.AccessLevel.PRIVATE;
 @Data
 @Entity
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class File {
 
     @Id
     @GeneratedValue
+    Long id;
 
     @NonNull String name;
     @NonNull int size;
