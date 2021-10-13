@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class DataInitializer {
     private final ContractService contractService;
     private final PaymentService paymentService;
     private final ProductGroupService productGroupService;
+    private final FeedService feedService;
 
     public DataInitializer(RoleService roleService,
                            UnitService unitService,
@@ -80,7 +82,8 @@ public class DataInitializer {
                            CompanyService companyService,
                            ContractService contractService,
                            PaymentService paymentService,
-                           ProductGroupService productGroupService) {
+                           ProductGroupService productGroupService,
+                           FeedService feedService) {
         this.roleService = roleService;
         this.unitService = unitService;
         this.productService = productService;
@@ -107,6 +110,7 @@ public class DataInitializer {
         this.contractService = contractService;
         this.paymentService = paymentService;
         this.productGroupService = productGroupService;
+        this.feedService = feedService;
     }
 
     @PostConstruct
@@ -134,6 +138,7 @@ public class DataInitializer {
         initContract();
         initPayment();
         initProductGroup();
+        initFeed();
     }
 
     private void initRoles() {
@@ -723,6 +728,20 @@ public class DataInitializer {
             log.error("Не удалось заполнить таблицу product_groups", e);
         }
 
+    }
+
+    private void initFeed() {
+        try {
+            Date date = new Date();
+            feedService.create(FeedDto.builder()
+                    .id(1L)
+                    .feedHead("Заголовок")
+                    .feedBody("Тело новости")
+                    .feedDate(date)
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу feeds", e);
+        }
     }
 
 }
