@@ -81,4 +81,6 @@ public interface CheckEntityService {
     void checkExistAdjustmentById(Long adjustmentId);
 
     void checkExistMemoById(Long memoId);
+
+    void checkExistFeedById(Long feedId);
 }

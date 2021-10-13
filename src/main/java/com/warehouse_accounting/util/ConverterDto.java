@@ -14,6 +14,7 @@ import com.warehouse_accounting.models.Currency;
 import com.warehouse_accounting.models.Department;
 import com.warehouse_accounting.models.Document;
 import com.warehouse_accounting.models.Employee;
+import com.warehouse_accounting.models.Feed;
 import com.warehouse_accounting.models.File;
 import com.warehouse_accounting.models.Image;
 import com.warehouse_accounting.models.Invoice;
@@ -57,6 +58,7 @@ import com.warehouse_accounting.models.dto.CountryDto;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
 import com.warehouse_accounting.models.dto.EmployeeDto;
+import com.warehouse_accounting.models.dto.FeedDto;
 import com.warehouse_accounting.models.dto.FileDto;
 import com.warehouse_accounting.models.dto.ImageDto;
 import com.warehouse_accounting.models.dto.InvoiceDto;
@@ -868,7 +870,10 @@ public class ConverterDto {
     public static FileDto convertToDto(File file) {
         return FileDto.builder()
                 .id(file.getId())
+                .name(file.getName())
                 .size(file.getSize())
+                .location(file.getLocation())
+                .createdDate(file.getCreatedDate())
                 .employee(file.getEmployee())
                 .build();
     }
@@ -1274,6 +1279,24 @@ public class ConverterDto {
                 .employeeWhoCreated(employeeWhoCreated)
                 .employeeWhoEdited(employeeWhoEdited)
                 .contractor(contractor)
+                .build();
+    }
+
+    public static Feed convertToModel(FeedDto feedDto) {
+        return Feed.builder()
+                .id(feedDto.getId())
+                .feedHead(feedDto.getFeedHead())
+                .feedBody(feedDto.getFeedBody())
+                .feedDate(feedDto.getFeedDate())
+                .build();
+    }
+
+    public static FeedDto convertToDto(Feed feed) {
+        return FeedDto.builder()
+                .id(feed.getId())
+                .feedHead(feed.getFeedHead())
+                .feedBody(feed.getFeedBody())
+                .feedDate(feed.getFeedDate())
                 .build();
     }
 }
