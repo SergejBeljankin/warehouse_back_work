@@ -12,7 +12,7 @@ import javax.persistence.*;
 import static lombok.AccessLevel.PRIVATE;
 
 /*
-Модель отгрузки
+Модель отгрузки доп поля
  */
 @Data
 @AllArgsConstructor
@@ -25,10 +25,10 @@ import static lombok.AccessLevel.PRIVATE;
 public class Shipment extends Supply{
 
     @ManyToOne(fetch = FetchType.LAZY)
-    Contractor consignee;//грузополучатель
+    Contractor consignee;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    Contractor carrier;//перевозчик
+    Contractor carrier;
 
     @Column
     Boolean isPaid;

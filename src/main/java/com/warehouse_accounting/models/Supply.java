@@ -33,19 +33,19 @@ public class Supply {
     LocalDateTime dataTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    Warehouse warehouse;//Со склада
+    Warehouse warehouse;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    Contract contract;//Договор
+    Contract contract;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    Contractor contractor;//Контрагент
+    Contractor contractor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    Company company; //Организация
+    Company company;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    List<Product> products; //товары
+    List<Product> products;
 
     @Column
     BigDecimal sum;
