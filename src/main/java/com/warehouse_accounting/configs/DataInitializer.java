@@ -17,7 +17,10 @@ import com.warehouse_accounting.models.dto.PaymentDto;
 import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.models.dto.ProductDto;
 import com.warehouse_accounting.models.dto.ProjectDto;
+import com.warehouse_accounting.models.dto.RequisitesDto;
 import com.warehouse_accounting.models.dto.RoleDto;
+import com.warehouse_accounting.models.dto.SubscriptionDto;
+import com.warehouse_accounting.models.dto.TariffDto;
 import com.warehouse_accounting.models.dto.TaskDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapGroupDto;
@@ -42,7 +45,10 @@ import com.warehouse_accounting.services.interfaces.PaymentService;
 import com.warehouse_accounting.services.interfaces.PositionService;
 import com.warehouse_accounting.services.interfaces.ProductService;
 import com.warehouse_accounting.services.interfaces.ProjectService;
+import com.warehouse_accounting.services.interfaces.RequisitesService;
 import com.warehouse_accounting.services.interfaces.RoleService;
+import com.warehouse_accounting.services.interfaces.SubscriptionService;
+import com.warehouse_accounting.services.interfaces.TariffService;
 import com.warehouse_accounting.services.interfaces.TaskService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapGroupService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapMaterialService;
@@ -53,6 +59,7 @@ import com.warehouse_accounting.services.interfaces.TypeOfContractorService;
 import com.warehouse_accounting.services.interfaces.TypeOfPriceService;
 import com.warehouse_accounting.services.interfaces.UnitService;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -66,6 +73,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -101,6 +109,9 @@ public class DataInitializer {
     private final CompanyService companyService;
     private final ContractService contractService;
     private final PaymentService paymentService;
+    private final TariffService tariffService;
+    private final RequisitesService requisitesService;
+    private final SubscriptionService subscriptionService;
 
     public DataInitializer(RoleService roleService,
                            UnitService unitService,
@@ -126,7 +137,10 @@ public class DataInitializer {
                            ProjectService projectService,
                            CompanyService companyService,
                            ContractService contractService,
-                           PaymentService paymentService) {
+                           PaymentService paymentService,
+                           TariffService tariffService,
+                           RequisitesService requisitesService,
+                           SubscriptionService subscriptionService) {
         this.roleService = roleService;
         this.unitService = unitService;
         this.productService = productService;
@@ -152,6 +166,9 @@ public class DataInitializer {
         this.companyService = companyService;
         this.contractService = contractService;
         this.paymentService = paymentService;
+        this.tariffService = tariffService;
+        this.requisitesService = requisitesService;
+        this.subscriptionService = subscriptionService;
     }
 
     @PostConstruct
@@ -178,6 +195,9 @@ public class DataInitializer {
         initAdjustments();
         initContract();
         initPayment();
+        initTariff();
+        initRequisites();
+        initSubscription();
     }
 
     private void initRoles() {
@@ -503,6 +523,7 @@ public class DataInitializer {
                     .position(positionService.getById(1L))
                     .image(imageService.getById(1L))
                     .roles(Collections.emptySet())
+                    .tariff(Collections.emptySet())
                     .build());
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу Employees", e);
@@ -590,7 +611,7 @@ public class DataInitializer {
         }
     }
 
-    private void initLegalDetail(){
+    private void initLegalDetail() {
         try {
             legalDetailService.create(LegalDetailDto.builder()
                     .id(1L)
@@ -665,6 +686,7 @@ public class DataInitializer {
                 .whenСhanged(LocalDateTime.now())
                 .build());
     }
+
     private void initPayment() {
         try {
             ContractorDto contractorDto = contractorService.getById(1L);
@@ -744,4 +766,76 @@ public class DataInitializer {
         }
     }
 
+    private void initTariff() {
+        try {
+            Date dateStart = new Date();
+            Date dateEnd = DateUtils.addMonths(dateStart, 12);
+            tariffService.create(TariffDto.builder()
+                    .id(1L)
+                    .tariffName("Базовый")
+                    .dataSpace(1)
+                    .salePointCount(1)
+                    .onlineStoreCount(1)
+                    .paidApplicationOptionCount(1)
+                    .isCRM(true)
+                    .isScripts(true)
+                    .extendedBonusProgram(true)
+                    .paymentPeriod(1)
+                    .totalPrice(1)
+                    .dateStartSubscription(dateStart)
+                    .dateEndSubscription(dateEnd)
+                    .build());
+
+            tariffService.create(TariffDto.builder()
+                    .id(1L)
+                    .tariffName("Старт")
+                    .dataSpace(2)
+                    .salePointCount(5)
+                    .onlineStoreCount(12)
+                    .paidApplicationOptionCount(1)
+                    .isCRM(false)
+                    .isScripts(true)
+                    .extendedBonusProgram(true)
+                    .paymentPeriod(1)
+                    .totalPrice(1)
+                    .dateStartSubscription(dateStart)
+                    .dateEndSubscription(dateEnd)
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу tariff", e);
+        }
+    }
+
+    private void initRequisites() {
+        try {
+            requisitesService.create(RequisitesDto.builder()
+                    .id(1L)
+                    .organization("JM")
+                    .legalAddress("Pobedi street")
+                    .INN(123)
+                    .KPP(123)
+                    .BIK(123)
+                    .checkingAccount(123)
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу requisites", e);
+        }
+    }
+
+    private void initSubscription() {
+        try {
+            Date date = new Date();
+
+            subscriptionService.create(SubscriptionDto.builder()
+                    .id(1L)
+                    .subscriptionExpirationDate(date)
+                    .requisites(requisitesService.getById(1L))
+                    .employee(employeeService.getById(1L))
+                    .tariff(Collections.emptySet())
+                    .build());
+
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу subscription", e);
+        }
+    }
 }

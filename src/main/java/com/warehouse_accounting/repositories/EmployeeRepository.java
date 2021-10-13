@@ -27,7 +27,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
             "e.password, " +
             "e.department.id, " +
             "e.position.id, " +
-            "e.image.id) FROM Employee e")
+            "e.image.id" +
+            ") FROM Employee e")
     List<EmployeeDto> getAll();
 
     @Query("SELECT new com.warehouse_accounting.models.dto.EmployeeDto(" +
@@ -43,7 +44,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
             "e.password, " +
             "e.department.id, " +
             "e.position.id, " +
-            "e.image.id) FROM Employee e where e.id=:id")
+            "e.image.id" +
+            ") FROM Employee e where e.id=:id")
     EmployeeDto getById(@Param("id") Long id);
 
 }

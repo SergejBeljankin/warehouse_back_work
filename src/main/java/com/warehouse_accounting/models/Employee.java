@@ -71,4 +71,7 @@ public class Employee {
     @OneToOne(fetch = FetchType.LAZY)
     private Image image;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Tariff> tariff;
+
 }

@@ -80,4 +80,10 @@ public interface CheckEntityService {
     void checkExistAdjustmentById(Long adjustmentId);
 
     void checkExistMemoById(Long memoId);
+
+    void checkExistTariffById(Long tariffId);
+
+    void checkExistRequisitesById(Long requisitesId);
+
+    void checkExistSubscriptionById(Long subscriptionId);
 }

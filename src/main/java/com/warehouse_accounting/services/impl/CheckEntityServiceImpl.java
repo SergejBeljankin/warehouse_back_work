@@ -26,7 +26,10 @@ import com.warehouse_accounting.repositories.ProductPriceRepository;
 import com.warehouse_accounting.repositories.ProductRepository;
 import com.warehouse_accounting.repositories.ProductionOrderRepository;
 import com.warehouse_accounting.repositories.ProjectRepository;
+import com.warehouse_accounting.repositories.RequisitesRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
+import com.warehouse_accounting.repositories.SubscriptionRepository;
+import com.warehouse_accounting.repositories.TariffRepository;
 import com.warehouse_accounting.repositories.TaskRepository;
 import com.warehouse_accounting.repositories.TaxSystemRepository;
 import com.warehouse_accounting.repositories.TechnologicalMapGroupRepository;
@@ -87,22 +90,13 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final CallRepository callRepository;
     private final TaskRepository taskRepository;
     private final MemoRepository memoRepository;
+    private final TariffRepository tariffRepository;
+    private final RequisitesRepository requisitesRepository;
+    private final SubscriptionRepository subscriptionRepository;
 
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {
             throw new NotFoundEntityException("Ед. измерения с id=" + unitId + ", не найдена");
-        }
-    }
-
-    public void checkExistAdjustmentById(Long adjustmentId) {
-        if (!adjustmentRepository.existsById(adjustmentId)) {
-            throw new NotFoundEntityException("Adjustment с id= " + adjustmentId + " , не найден.");
-        }
-    }
-
-    public void checkExistAdjustmentById(Long adjustmentId) {
-        if (!adjustmentRepository.existsById(adjustmentId)) {
-            throw new NotFoundEntityException("Adjustment с id= " + adjustmentId + " , не найден.");
         }
     }
 
@@ -231,110 +225,111 @@ public class CheckEntityServiceImpl implements CheckEntityService {
 
     @Override
     public void checkExistInvoiceById(Long invoiceId) {
-        if(!invoiceRepository.existsById(invoiceId)){
+        if (!invoiceRepository.existsById(invoiceId)) {
             throw new NotFoundEntityException("Invoice с id=" + invoiceId + " не найден.");
         }
     }
 
     @Override
     public void checkExistInvoiceProductById(Long invoiceProductId) {
-        if(invoiceProductRepository.existsById(invoiceProductId)){
+        if (invoiceProductRepository.existsById(invoiceProductId)) {
             throw new NotFoundEntityException("InvoiceProduct с id=" + invoiceProductId + " не найден.");
         }
     }
 
     @Override
     public void checkExistProjectById(Long projectId) {
-        if(!projectRepository.existsById(projectId)){
+        if (!projectRepository.existsById(projectId)) {
             throw new NotFoundEntityException("Project с id=" + projectId + " не найден.");
         }
     }
 
     @Override
     public void checkExistProductById(Long productId) {
-        if(!productRepository.existsById(productId)){
+        if (!productRepository.existsById(productId)) {
             throw new NotFoundEntityException("Product с id=" + productId + " не найден.");
         }
     }
 
     @Override
     public void checkExistProductPriceById(Long productPriceId) {
-        if(!productPriceRepository.existsById(productPriceId)){
+        if (!productPriceRepository.existsById(productPriceId)) {
             throw new NotFoundEntityException("ProductPrice с id=" + productPriceId + " не найден.");
         }
     }
 
     @Override
     public void checkExistTechnologicalOperationById(Long technologicalOperationId) {
-        if (!technologicalOperationRepository.existsById(technologicalOperationId)){
+        if (!technologicalOperationRepository.existsById(technologicalOperationId)) {
             throw new NotFoundEntityException("TechnologicalOperation c id=" + technologicalOperationId + "не найденю");
         }
     }
 
-    public void checkExistTypeOfInvoiceById(Long typeOfInvoiceId) {
+//    public void checkExistTypeOfInvoiceById(Long typeOfInvoiceId) {
 //        if (!typeOfInvoiceRepository.existsById(typeOfInvoiceId)) {
 //            throw new NotFoundEntityException("TypeOfInvoiceId с id=" + typeOfInvoiceId + ", не найден");
 //        }
-    }
+//    }
+
     @Override
     public void checkExistProductionOrderById(Long productionOrderId) {
-        if(!productionOrderRepository.existsById(productionOrderId)){
+        if (!productionOrderRepository.existsById(productionOrderId)) {
             throw new NotFoundEntityException("ProductionOrder с id=" + productionOrderId + " не найден.");
         }
     }
 
     @Override
     public void checkExistCountryById(Long countryId) {
-        if(!countryRepository.existsById(countryId)){
+        if (!countryRepository.existsById(countryId)) {
             throw new NotFoundEntityException("Country с id=" + countryId + " не найден.");
         }
     }
 
     @Override
     public void checkExistTechnologicalMapById(Long id) {
-        if(!technologicalMapRepository.existsById(id)){
+        if (!technologicalMapRepository.existsById(id)) {
             throw new NotFoundEntityException("TechnologicalMap с id=" + id + " не найден.");
         }
     }
 
     @Override
     public void checkExistTechnologicalMapGroupById(Long id) {
-        if(!technologicalMapGroupRepository.existsById(id)){
+        if (!technologicalMapGroupRepository.existsById(id)) {
             throw new NotFoundEntityException("TechnologicalMapGroup с id=" + id + " не найден.");
         }
     }
 
     @Override
     public void checkExistTechnologicalMapProductById(Long id) {
-        if(!technologicalMapProductRepository.existsById(id)){
+        if (!technologicalMapProductRepository.existsById(id)) {
             throw new NotFoundEntityException("TechnologicalMapProduct с id=" + id + " не найден.");
         }
     }
 
     @Override
     public void checkExistTechnologicalMapMaterialById(Long id) {
-        if(!technologicalMapMaterialRepository.existsById(id)){
+        if (!technologicalMapMaterialRepository.existsById(id)) {
             throw new NotFoundEntityException("TechnologicalMapMaterial с id=" + id + " не найден.");
         }
     }
 
     @Override
     public void checkExistCallById(Long callId) {
-        if(!callRepository.existsById(callId)){
+        if (!callRepository.existsById(callId)) {
             throw new NotFoundEntityException("Call с id=" + callId + " не найден.");
         }
     }
 
     @Override
     public void checkExistTaskById(Long TaskId) {
-        if(!taskRepository.existsById(TaskId)){
+        if (!taskRepository.existsById(TaskId)) {
             throw new NotFoundEntityException("Call с id=" + TaskId + " не найден.");
         }
     }
 
     @Override
     public void checkExistPaymentById(Long paymentId) {
-        if(!paymentRepository.existsById(paymentId)) {
+        if (!paymentRepository.existsById(paymentId)) {
             throw new NotFoundEntityException("Payment с id=" + paymentId + " не найден.");
         }
     }
@@ -343,6 +338,27 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistMemoById(Long memoId) {
         if (!memoRepository.existsById(memoId)) {
             throw new NotFoundEntityException("Заметка с id=" + memoId + " не найдена.");
+        }
+    }
+
+    @Override
+    public void checkExistTariffById(Long tariffId) {
+        if (!tariffRepository.existsById(tariffId)) {
+            throw new NotFoundEntityException("Тариф с id=" + tariffId + " не найден.");
+        }
+    }
+
+    @Override
+    public void checkExistRequisitesById(Long requisitesId) {
+        if (!requisitesRepository.existsById(requisitesId)) {
+            throw new NotFoundEntityException("Реквизиты с id=" + requisitesId + " не найден.");
+        }
+    }
+
+    @Override
+    public void checkExistSubscriptionById(Long subscriptionId) {
+        if (!subscriptionRepository.existsById(subscriptionId)) {
+            throw new NotFoundEntityException("Подписка с id=" + subscriptionId + " не найдена.");
         }
     }
 }

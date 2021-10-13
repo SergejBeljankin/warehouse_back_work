@@ -23,14 +23,27 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE)
 public class File {
 
+
     @Id
     @GeneratedValue
+    long id;
 
     @NonNull String name;
     @NonNull int size;
     @NonNull String location;
     @NonNull Date createdDate;
 
-    @OneToMany(fetch = LAZY, mappedBy = "file")
+    @OneToMany(fetch = LAZY)
     @NonNull List<Employee> employee;
+
+
+
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
+    }
 }
