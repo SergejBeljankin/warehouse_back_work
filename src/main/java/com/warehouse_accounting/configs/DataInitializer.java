@@ -29,6 +29,7 @@ public class DataInitializer {
     @Value("${data-init.unit-data}")
     private File unit_init_file;
 
+    private final ApplicationService applicationService;
     private final RoleService roleService;
     private final UnitService unitService;
     private final ProductService productService;
@@ -57,7 +58,7 @@ public class DataInitializer {
     private final ProductGroupService productGroupService;
     private final FeedService feedService;
 
-    public DataInitializer(RoleService roleService,
+    public DataInitializer(ApplicationService applicationService, RoleService roleService,
                            UnitService unitService,
                            ProductService productService,
                            TechnologicalMapService technologicalMapService,
@@ -84,6 +85,7 @@ public class DataInitializer {
                            PaymentService paymentService,
                            ProductGroupService productGroupService,
                            FeedService feedService) {
+        this.applicationService = applicationService;
         this.roleService = roleService;
         this.unitService = unitService;
         this.productService = productService;
@@ -115,6 +117,7 @@ public class DataInitializer {
 
     @PostConstruct
     public void init() {
+        initApplications();
         initRoles();
         initUnits();
         initProduct();
@@ -139,6 +142,26 @@ public class DataInitializer {
         initPayment();
         initProductGroup();
         initFeed();
+    }
+
+    private void initApplications() {
+        applicationService.create(ApplicationDto.builder()
+                .name("Аналитика BI")
+                .description("готовый инструмент для бизнес-анализа (BI) в Yandex.Cloud " +
+                        "с использованием средств визуализации DataLens. " +
+                        "Приложение содержит готовый набор отчетов, который можно дополнять.")
+                .logoId(2L)
+                .build()
+        );
+
+        applicationService.create(ApplicationDto.builder()
+                .name("Интеграция с Treolan")
+                .description("поставщиком компьютерного оборудования. " +
+                        "Загрузка цен, остатков, описания и фото товара из каталога поставщика. " +
+                        "Установка цен закупки.")
+                .logoId(3L)
+                .build()
+        );
     }
 
     private void initRoles() {
