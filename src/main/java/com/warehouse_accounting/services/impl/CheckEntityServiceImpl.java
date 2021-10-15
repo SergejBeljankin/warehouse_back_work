@@ -98,12 +98,6 @@ public class CheckEntityServiceImpl implements CheckEntityService {
         }
     }
 
-    public void checkExistApplicationById(Long applicationId) {
-        if (!applicationRepository.existsById(applicationId)) {
-            throw new NotFoundEntityException("Application с id=" + applicationId + ", не найден");
-        }
-    }
-
     public void checkExistAdjustmentById(Long adjustmentId) {
         if (!adjustmentRepository.existsById(adjustmentId)) {
             throw new NotFoundEntityException("Adjustment с id= " + adjustmentId + " , не найден.");
