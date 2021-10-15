@@ -26,6 +26,7 @@ public class ProductGroup {
     @Column
     private String sortNumber;
 
-    @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private ProductGroup parentProductGroup;
+    @Column
+    private Long parentId;
+
 }

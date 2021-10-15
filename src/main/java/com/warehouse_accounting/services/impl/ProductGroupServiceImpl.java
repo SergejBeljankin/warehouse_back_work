@@ -45,4 +45,8 @@ public class ProductGroupServiceImpl implements ProductGroupService {
     public void deleteById(Long id) {
         productGroupRepository.deleteById(id);
     }
+
+    @Override
+    public List<ProductGroupDto> getAllIds(Long id) { return productGroupRepository.getAllIds(id);
+    }
 }

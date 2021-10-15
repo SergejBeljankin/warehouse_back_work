@@ -16,4 +16,6 @@ public interface ProductGroupService {
     void update(ProductGroupDto productGroupDto);
 
     void deleteById(Long id);
+
+    List<ProductGroupDto> getAllIds(Long id);
 }
