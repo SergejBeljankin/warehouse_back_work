@@ -32,7 +32,7 @@ public class BonusTransactionDto {
 
     private String bonusProgram;//TODO create model/dto
 
-    private String contragent;//TODO create model/dto
+    private ContractorDto contragent = new ContractorDto();
 
     private String comment;
 
