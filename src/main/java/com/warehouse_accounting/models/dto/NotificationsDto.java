@@ -14,26 +14,46 @@ public class NotificationsDto {
     private Long id;
 
     // Заказы покупателей
-    private SelectorDto buyerOrders;
+    private SelectorDto buyerOrders = new SelectorDto();
 
     // Счета покупателей
-    private SelectorDto buyersInvoices;
+    private SelectorDto buyersInvoices= new SelectorDto();
 
     // Остатки
-    private SelectorDto remainder;
+    private SelectorDto remainder= new SelectorDto();
 
     // Розничная торговля
-    private SelectorDto retail;
+    private SelectorDto retail= new SelectorDto();
 
     // Задачи
-    private SelectorDto tasks;
+    private SelectorDto tasks= new SelectorDto();
 
     // Обмен данными
-    private SelectorDto dataExchange;
+    private SelectorDto dataExchange= new SelectorDto();
 
     // Сценарии
-    private SelectorDto scripts;
+    private SelectorDto scripts= new SelectorDto();
 
     // Интернет-магазины
-    private SelectorDto onlineStores;
+    private SelectorDto onlineStores= new SelectorDto();
+
+    public NotificationsDto(Long id,
+                            Long buyerOrdersId,
+                            Long buyersInvoicesId,
+                            Long remainderId,
+                            Long retailId,
+                            Long tasksId,
+                            Long dataExchangeId,
+                            Long scriptsId,
+                            Long onlineStoresId) {
+        this.id = id;
+        this.buyerOrders.setId(buyerOrdersId);
+        this.buyersInvoices.setId(buyersInvoicesId);
+        this.remainder.setId(remainderId);
+        this.retail.setId(retailId);
+        this.tasks.setId(tasksId);
+        this.dataExchange.setId(dataExchangeId);
+        this.scripts.setId(scriptsId);
+        this.onlineStores.setId(onlineStoresId);
+    }
 }

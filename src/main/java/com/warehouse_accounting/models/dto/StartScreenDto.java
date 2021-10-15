@@ -14,5 +14,5 @@ public class StartScreenDto {
 
     private Long id;
 
-    private String language;
+    private String startScreen;
 }

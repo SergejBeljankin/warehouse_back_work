@@ -23,5 +23,5 @@ public class PrintingDocuments {
     private Long id;
 
     @Column
-    private String language;
+    private String printDoc;
 }

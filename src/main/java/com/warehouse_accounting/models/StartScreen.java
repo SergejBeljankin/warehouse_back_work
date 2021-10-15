@@ -24,5 +24,5 @@ public class StartScreen {
     private Long id;
 
     @Column
-    private String language;
+    private String startScreen;
 }

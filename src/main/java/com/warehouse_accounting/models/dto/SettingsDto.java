@@ -7,55 +7,67 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-
+@AllArgsConstructor
 @NoArgsConstructor
 public class SettingsDto {
-    public SettingsDto(Long id, EmployeeDto employeeDto, CompanyDto companyDto, WarehouseDto warehouseDto, ContractorDto customerDto, ContractorDto producerDto, ProjectDto projectDto, LanguageDto languageDto, PrintingDocumentsDto printingDocumentsDto, int numberOfAdditionalFieldsPerLine, StartScreenDto startScreenDto, boolean refreshReportsAuto, boolean signatureInLetters, NotificationsDto notificationsDto) {
-        this.id = id;
-        this.employeeDto = employeeDto;
-        this.companyDto = companyDto;
-        this.warehouseDto = warehouseDto;
-        this.customerDto = customerDto;
-        this.producerDto = producerDto;
-        this.projectDto = projectDto;
-        this.languageDto = languageDto;
-        this.printingDocumentsDto = printingDocumentsDto;
-        this.numberOfAdditionalFieldsPerLine = numberOfAdditionalFieldsPerLine;
-        this.startScreenDto = startScreenDto;
-        this.refreshReportsAuto = refreshReportsAuto;
-        this.signatureInLetters = signatureInLetters;
-        this.notificationsDto = notificationsDto;
-    }
 
     private Long id;
 
-    private EmployeeDto employeeDto;
+    private EmployeeDto employeeDto = new EmployeeDto();
 
-    private CompanyDto companyDto;
+    private CompanyDto companyDto = new CompanyDto();
 
-    private WarehouseDto warehouseDto;
+    private WarehouseDto warehouseDto = new WarehouseDto();
 
-    private ContractorDto customerDto;
+    private ContractorDto customerDto = new ContractorDto();
 
-    private ContractorDto producerDto;
+    private ContractorDto producerDto = new ContractorDto();
 
-    private ProjectDto projectDto;
+    private ProjectDto projectDto = new ProjectDto();
 
     // Настройки
-    private LanguageDto languageDto;
+    private LanguageDto languageDto = new LanguageDto();
 
-    private PrintingDocumentsDto printingDocumentsDto;
+    private PrintingDocumentsDto printingDocumentsDto = new PrintingDocumentsDto();
 
     private int numberOfAdditionalFieldsPerLine;
 
-    private StartScreenDto startScreenDto;
+    private StartScreenDto startScreenDto = new StartScreenDto();
 
     private boolean refreshReportsAuto;
 
     private boolean signatureInLetters;
 
     // Уведомления
-    private NotificationsDto notificationsDto;
+    private NotificationsDto notificationsDto = new NotificationsDto();
 
-
+    public SettingsDto(Long id,
+                       Long employeeDtoId,
+                       Long companyDtoId,
+                       Long warehouseDtoId,
+                       Long customerDtoId,
+                       Long producerDtId,
+                       Long projectDtoId,
+                       Long languageDtoId,
+                       Long printingDocumentsDtoId,
+                       int numberOfAdditionalFieldsPerLine,
+                       Long startScreenDtoId,
+                       boolean refreshReportsAuto,
+                       boolean signatureInLetters,
+                       Long notificationsDtoId) {
+        this.id = id;
+        this.employeeDto.setId(employeeDtoId);
+        this.companyDto.setId(companyDtoId);
+        this.warehouseDto.setId(warehouseDtoId);
+        this.customerDto.setId(customerDtoId);
+        this.producerDto.setId(producerDtId);
+        this.projectDto.setId(projectDtoId);
+        this.languageDto.setId(languageDtoId);
+        this.printingDocumentsDto.setId(printingDocumentsDtoId);
+        this.numberOfAdditionalFieldsPerLine = numberOfAdditionalFieldsPerLine;
+        this.startScreenDto.setId(startScreenDtoId);
+        this.refreshReportsAuto = refreshReportsAuto;
+        this.signatureInLetters = signatureInLetters;
+        this.notificationsDto.setId(notificationsDtoId);
+    }
 }

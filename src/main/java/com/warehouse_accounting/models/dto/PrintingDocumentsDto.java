@@ -13,5 +13,5 @@ public class PrintingDocumentsDto {
 
     private Long id;
 
-    private String language;
+    private String printDoc;
 }
