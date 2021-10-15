@@ -4,8 +4,9 @@ import java.util.UUID;
 
 public interface CheckEntityService {
 
-    void checkExistUnitById(Long unitId);
+    void checkExistApplicationById(Long applicationId);
 
+    void checkExistUnitById(Long unitId);
 
     void checkExistAttributeOfCalculationObjectById(Long attributeOfCalculationObjectId);
 
@@ -80,4 +81,6 @@ public interface CheckEntityService {
     void checkExistAdjustmentById(Long adjustmentId);
 
     void checkExistMemoById(Long memoId);
+
+    void checkExistFeedById(Long feedId);
 }

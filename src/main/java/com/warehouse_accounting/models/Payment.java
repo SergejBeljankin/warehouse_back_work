@@ -64,7 +64,7 @@ public class Payment {
     @OneToMany(fetch = FetchType.LAZY)
     private List<Document> documents;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     private Company company;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -73,7 +73,7 @@ public class Payment {
     @ManyToOne(fetch = FetchType.LAZY)
     private Project project;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     private Contractor contractor;
 
     @ManyToOne(fetch = FetchType.LAZY)

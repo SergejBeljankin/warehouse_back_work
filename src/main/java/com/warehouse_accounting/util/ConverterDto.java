@@ -1,8 +1,10 @@
 package com.warehouse_accounting.util;
 
 import com.warehouse_accounting.models.Adjustment;
+import com.warehouse_accounting.models.Application;
 import com.warehouse_accounting.models.AttributeOfCalculationObject;
 import com.warehouse_accounting.models.BankAccount;
+import com.warehouse_accounting.models.BonusTransaction;
 import com.warehouse_accounting.models.Call;
 import com.warehouse_accounting.models.Company;
 import com.warehouse_accounting.models.Contract;
@@ -13,6 +15,7 @@ import com.warehouse_accounting.models.Currency;
 import com.warehouse_accounting.models.Department;
 import com.warehouse_accounting.models.Document;
 import com.warehouse_accounting.models.Employee;
+import com.warehouse_accounting.models.Feed;
 import com.warehouse_accounting.models.File;
 import com.warehouse_accounting.models.Image;
 import com.warehouse_accounting.models.Invoice;
@@ -44,8 +47,10 @@ import com.warehouse_accounting.models.TypeOfPrice;
 import com.warehouse_accounting.models.Unit;
 import com.warehouse_accounting.models.Warehouse;
 import com.warehouse_accounting.models.dto.AdjustmentDto;
+import com.warehouse_accounting.models.dto.ApplicationDto;
 import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
 import com.warehouse_accounting.models.dto.BankAccountDto;
+import com.warehouse_accounting.models.dto.BonusTransactionDto;
 import com.warehouse_accounting.models.dto.CallDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.ContractDto;
@@ -55,6 +60,7 @@ import com.warehouse_accounting.models.dto.CountryDto;
 import com.warehouse_accounting.models.dto.CurrencyDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
 import com.warehouse_accounting.models.dto.EmployeeDto;
+import com.warehouse_accounting.models.dto.FeedDto;
 import com.warehouse_accounting.models.dto.FileDto;
 import com.warehouse_accounting.models.dto.ImageDto;
 import com.warehouse_accounting.models.dto.InvoiceDto;
@@ -93,6 +99,32 @@ public class ConverterDto {
     private ConverterDto() {
     }
 
+    public static Application convertToModel(ApplicationDto application) {
+        return Application.builder()
+                .id(application.getId())
+                .name(application.getName())
+                .description(application.getDescription())
+                .developer(application.getDeveloper())
+                .devMail(application.getDevMail())
+                .devSite(application.getDevSite())
+                .isFree(application.getIsFree())
+                .logoId(application.getLogoId())
+                .build();
+    }
+
+    public static ApplicationDto convertToDto(Application application) {
+        return ApplicationDto.builder()
+                .id(application.getId())
+                .name(application.getName())
+                .description(application.getDescription())
+                .developer(application.getDeveloper())
+                .devMail(application.getDevMail())
+                .devSite(application.getDevSite())
+                .isFree(application.getIsFree())
+                .logoId(application.getLogoId())
+                .build();
+    }
+
     public static Currency convertToModel(CurrencyDto currencyDto) {
         return Currency.builder()
                 .id(currencyDto.getId())
@@ -112,6 +144,31 @@ public class ConverterDto {
                 .sortNumber(currency.getSortNumber())
                 .digitalCode(currency.getDigitalCode())
                 .letterCode(currency.getLetterCode())
+                .build();
+    }
+
+
+    public static BonusTransaction convertToModel(BonusTransactionDto bonusTransactionDto){
+        return  BonusTransaction.builder()
+                .id(bonusTransactionDto.getId())
+                .transactionType(bonusTransactionDto.getTransactionType())
+                .bonusValue(bonusTransactionDto.getBonusValue())
+                .transactionStatus(bonusTransactionDto.getTransactionStatus())
+                .executionDate(bonusTransactionDto.getExecutionDate())
+                .bonusProgram(bonusTransactionDto.getBonusProgram())
+                .comment(bonusTransactionDto.getComment())
+                .build();
+    }
+
+    public static BonusTransactionDto convertToDto(BonusTransaction bonusTransaction){
+        return BonusTransactionDto.builder()
+                .id(bonusTransaction.getId())
+                .transactionType(bonusTransaction.getTransactionType())
+                .bonusValue(bonusTransaction.getBonusValue())
+                .transactionStatus(bonusTransaction.getTransactionStatus())
+                .executionDate(bonusTransaction.getExecutionDate())
+                .bonusProgram(bonusTransaction.getBonusProgram())
+                .comment(bonusTransaction.getComment())
                 .build();
     }
 
@@ -840,7 +897,10 @@ public class ConverterDto {
     public static FileDto convertToDto(File file) {
         return FileDto.builder()
                 .id(file.getId())
+                .name(file.getName())
                 .size(file.getSize())
+                .location(file.getLocation())
+                .createdDate(file.getCreatedDate())
                 .employee(file.getEmployee())
                 .build();
     }
@@ -1247,6 +1307,24 @@ public class ConverterDto {
                 .employeeWhoCreated(employeeWhoCreated)
                 .employeeWhoEdited(employeeWhoEdited)
                 .contractor(contractor)
+                .build();
+    }
+
+    public static Feed convertToModel(FeedDto feedDto) {
+        return Feed.builder()
+                .id(feedDto.getId())
+                .feedHead(feedDto.getFeedHead())
+                .feedBody(feedDto.getFeedBody())
+                .feedDate(feedDto.getFeedDate())
+                .build();
+    }
+
+    public static FeedDto convertToDto(Feed feed) {
+        return FeedDto.builder()
+                .id(feed.getId())
+                .feedHead(feed.getFeedHead())
+                .feedBody(feed.getFeedBody())
+                .feedDate(feed.getFeedDate())
                 .build();
     }
 }
