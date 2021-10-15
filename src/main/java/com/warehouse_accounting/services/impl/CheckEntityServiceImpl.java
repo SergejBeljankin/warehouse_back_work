@@ -91,16 +91,11 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final MemoRepository memoRepository;
     private final ApplicationRepository applicationRepository;
     private final FeedRepository feedRepository;
+    private final BonusTransactionRepository bonusTransactionRepository;
 
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {
             throw new NotFoundEntityException("Ед. измерения с id=" + unitId + ", не найдена");
-        }
-    }
-
-    public void checkExistApplicationById(Long applicationId) {
-        if (!applicationRepository.existsById(applicationId)) {
-            throw new NotFoundEntityException("Application с id=" + applicationId + ", не найден");
         }
     }
 
@@ -348,6 +343,13 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistFeedById(Long feedId) {
         if (!feedRepository.existsById(feedId)) {
             throw new NotFoundEntityException("Новость с id=" + feedId + " не найдена.");
+        }
+    }
+
+    @Override
+    public void checkExistBonusTransactionById(Long bonusTransactionId) {
+        if (!bonusTransactionRepository.existsById(bonusTransactionId)) {
+            throw new NotFoundEntityException("BonusTransaction с id=" + bonusTransactionId + ", не найдена");
         }
     }
 }

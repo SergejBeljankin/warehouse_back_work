@@ -60,6 +60,31 @@ public class ConverterDto {
                 .build();
     }
 
+
+    public static BonusTransaction convertToModel(BonusTransactionDto bonusTransactionDto){
+        return  BonusTransaction.builder()
+                .id(bonusTransactionDto.getId())
+                .transactionType(bonusTransactionDto.getTransactionType())
+                .bonusValue(bonusTransactionDto.getBonusValue())
+                .transactionStatus(bonusTransactionDto.getTransactionStatus())
+                .executionDate(bonusTransactionDto.getExecutionDate())
+                .bonusProgram(bonusTransactionDto.getBonusProgram())
+                .comment(bonusTransactionDto.getComment())
+                .build();
+    }
+
+    public static BonusTransactionDto convertToDto(BonusTransaction bonusTransaction){
+        return BonusTransactionDto.builder()
+                .id(bonusTransaction.getId())
+                .transactionType(bonusTransaction.getTransactionType())
+                .bonusValue(bonusTransaction.getBonusValue())
+                .transactionStatus(bonusTransaction.getTransactionStatus())
+                .executionDate(bonusTransaction.getExecutionDate())
+                .bonusProgram(bonusTransaction.getBonusProgram())
+                .comment(bonusTransaction.getComment())
+                .build();
+    }
+
     public static Role convertToModel(RoleDto roleDto) {
         return Role.builder()
                 .id(roleDto.getId())
@@ -410,18 +435,16 @@ public class ConverterDto {
                 .id(productGroup.getId())
                 .name(productGroup.getName())
                 .sortNumber(productGroup.getSortNumber())
-                .parentId(productGroup.getParentProductGroup().getId())
+                .parentId(productGroup.getParentId())
                 .build();
     }
 
     public static ProductGroup convertToModel(ProductGroupDto productGroupDto) {
-        ProductGroup productGroup = new ProductGroup();
-        productGroup.setId(productGroupDto.getParentId());
         return ProductGroup.builder()
                 .id(productGroupDto.getId())
                 .name(productGroupDto.getName())
                 .sortNumber(productGroupDto.getSortNumber())
-                .parentProductGroup(productGroup)
+                .parentId(productGroupDto.getParentId())
                 .build();
     }
 
@@ -794,13 +817,14 @@ public class ConverterDto {
     }
 
     public static File convertToModel(FileDto dto) {
-        return new File(dto.getId(),
-                dto.getName(),
-                dto.getSize(),
-                dto.getLocation(),
-                dto.getCreatedDate(),
-                dto.getEmployee()
-        );
+        return File.builder()
+                .id(dto.getId())
+                .name(dto.getName())
+                .size(dto.getSize())
+                .location(dto.getLocation())
+                .createdDate(dto.getCreatedDate())
+                .employee(dto.getEmployee())
+                .build();
     }
 
     public static ProductPrice convertToModel(ProductPriceDto dto) {

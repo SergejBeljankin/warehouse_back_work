@@ -46,9 +46,10 @@ public class BonusTransaction {
     @Column
     private String bonusProgram;//TODO create model/dto
     @Column
-    private String contragent;//TODO create model/dto
-    @Column
     private String comment;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Contractor contragent;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee owner;
