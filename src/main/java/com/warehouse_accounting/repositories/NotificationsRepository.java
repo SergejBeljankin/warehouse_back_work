@@ -1,5 +1,6 @@
 package com.warehouse_accounting.repositories;
 
+
 import com.warehouse_accounting.models.dto.NotificationsDto;
 import com.warehouse_accounting.models.dto.SettingsDto;
 import java.util.List;
