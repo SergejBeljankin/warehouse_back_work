@@ -734,18 +734,7 @@ public class DataInitializer {
                     .id(1L)
                     .name("Parent Product")
                     .sortNumber("42")
-                    .build());
-            productGroupService.create(ProductGroupDto.builder()
-                    .id(2L)
-                    .name("Product2")
-                    .sortNumber("242")
-                    .parentId(1L)
-                    .build());
-            productGroupService.create(ProductGroupDto.builder()
-                    .id(3L)
-                    .name("Product3")
-                    .sortNumber("342")
-                    .parentId(1L)
+                    .parentId(2L)
                     .build());
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу product_groups", e);
