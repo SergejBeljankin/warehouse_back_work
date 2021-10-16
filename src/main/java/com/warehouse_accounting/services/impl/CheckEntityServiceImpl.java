@@ -1,10 +1,10 @@
 package com.warehouse_accounting.services.impl;
 
-import com.warehouse_accounting.controllers.rest.PaymentRestController;
 import com.warehouse_accounting.repositories.AdjustmentRepository;
 import com.warehouse_accounting.repositories.ApplicationRepository;
 import com.warehouse_accounting.repositories.AttributeOfCalculationObjectRepository;
 import com.warehouse_accounting.repositories.BankAccountRepository;
+import com.warehouse_accounting.repositories.BonusTransactionRepository;
 import com.warehouse_accounting.repositories.CallRepository;
 import com.warehouse_accounting.repositories.CompanyRepository;
 import com.warehouse_accounting.repositories.ContractRepository;
@@ -377,6 +377,13 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistBonusTransactionById(Long bonusTransactionId) {
         if (!bonusTransactionRepository.existsById(bonusTransactionId)) {
             throw new NotFoundEntityException("BonusTransaction с id=" + bonusTransactionId + ", не найдена");
+        }
+    }
+
+    @Override
+    public void checkExistApplicationById(Long applicationId) {
+        if (!applicationRepository.existsById(applicationId)) {
+            throw new NotFoundEntityException("BonusTransaction с id=" + applicationId + ", не найдена");
         }
     }
 }

@@ -33,7 +33,12 @@ import com.warehouse_accounting.models.ProductPrice;
 import com.warehouse_accounting.models.ProductionOrder;
 import com.warehouse_accounting.models.Project;
 import com.warehouse_accounting.models.RecycleBin;
+import com.warehouse_accounting.models.Requisites;
 import com.warehouse_accounting.models.Role;
+import com.warehouse_accounting.models.Shipment;
+import com.warehouse_accounting.models.Subscription;
+import com.warehouse_accounting.models.Supply;
+import com.warehouse_accounting.models.Tariff;
 import com.warehouse_accounting.models.Task;
 import com.warehouse_accounting.models.TaxSystem;
 import com.warehouse_accounting.models.TechnologicalMap;
@@ -79,7 +84,9 @@ import com.warehouse_accounting.models.dto.ProjectDto;
 import com.warehouse_accounting.models.dto.RecycleBinDto;
 import com.warehouse_accounting.models.dto.RequisitesDto;
 import com.warehouse_accounting.models.dto.RoleDto;
+import com.warehouse_accounting.models.dto.ShipmentDto;
 import com.warehouse_accounting.models.dto.SubscriptionDto;
+import com.warehouse_accounting.models.dto.SupplyDto;
 import com.warehouse_accounting.models.dto.TariffDto;
 import com.warehouse_accounting.models.dto.TaskDto;
 import com.warehouse_accounting.models.dto.TaxSystemDto;
@@ -93,6 +100,8 @@ import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.models.dto.WarehouseDto;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -151,8 +160,8 @@ public class ConverterDto {
     }
 
 
-    public static BonusTransaction convertToModel(BonusTransactionDto bonusTransactionDto){
-        return  BonusTransaction.builder()
+    public static BonusTransaction convertToModel(BonusTransactionDto bonusTransactionDto) {
+        return BonusTransaction.builder()
                 .id(bonusTransactionDto.getId())
                 .transactionType(bonusTransactionDto.getTransactionType())
                 .bonusValue(bonusTransactionDto.getBonusValue())
@@ -163,7 +172,7 @@ public class ConverterDto {
                 .build();
     }
 
-    public static BonusTransactionDto convertToDto(BonusTransaction bonusTransaction){
+    public static BonusTransactionDto convertToDto(BonusTransaction bonusTransaction) {
         return BonusTransactionDto.builder()
                 .id(bonusTransaction.getId())
                 .transactionType(bonusTransaction.getTransactionType())
@@ -1312,6 +1321,77 @@ public class ConverterDto {
                 .employeeWhoCreated(employeeWhoCreated)
                 .employeeWhoEdited(employeeWhoEdited)
                 .contractor(contractor)
+                .build();
+    }
+
+    public static Supply convertToModel(SupplyDto supplyDto) {
+        Warehouse warehouse = new Warehouse();
+        Contract contract = new Contract();
+        Contractor contractor = new Contractor();
+        Company company = new Company();
+
+        return Supply.builder()
+                .id(supplyDto.getId())
+                .dataTime(supplyDto.getDataTime())
+                .warehouse(warehouse)
+                .contract(contract)
+                .contractor(contractor)
+                .company(company)
+                .products(new ArrayList<>())
+                .sum(supplyDto.getSum())
+                .paid(supplyDto.getPaid())
+                .isSent(supplyDto.getIsSent())
+                .isPrinted(supplyDto.getIsPrinted())
+                .comment(supplyDto.getComment())
+                .build();
+    }
+
+    public static SupplyDto convertToDto(Supply supply) {
+        return SupplyDto.builder()
+                .id(supply.getId())
+                .dataTime(supply.getDataTime())
+                .warehouseId(supply.getWarehouse().getId())
+                .contractId(supply.getContract().getId())
+                .contractorId(supply.getContractor().getId())
+                .companyId(supply.getCompany().getId())
+                .productDtos(new ArrayList<>())
+                .sum(supply.getSum())
+                .paid(supply.getPaid())
+                .isSent(supply.getIsSent())
+                .isPrinted(supply.getIsPrinted())
+                .comment(supply.getComment())
+                .build();
+    }
+
+    public static Shipment convertToModel(ShipmentDto shipmentDto) {
+        Contractor contractor = new Contractor();
+        return Shipment.builder()
+                .id(shipmentDto.getId())
+                .consignee(contractor)
+                .carrier(contractor)
+                .isPaid(shipmentDto.getIsPaid())
+                .deliveryAddress(shipmentDto.getDeliveryAddress())
+                .build();
+    }
+
+    public static ShipmentDto convertToDto(Shipment shipment) {
+        return ShipmentDto.builder()
+                .id(shipment.getId())
+                .dataTime(shipment.getDataTime())
+                .warehouseId(shipment.getWarehouse().getId())
+                .contractId(shipment.getContract().getId())
+                .contractorId(shipment.getContractor().getId())
+                .companyId(shipment.getCompany().getId())
+                .productDtos(new ArrayList<>())
+                .sum(shipment.getSum())
+                .paid(shipment.getPaid())
+                .isSent(shipment.getIsSent())
+                .isPrinted(shipment.getIsPrinted())
+                .comment(shipment.getComment())
+                .consigneeId(shipment.getConsignee().getId())
+                .carrierId(shipment.getCarrier().getId())
+                .isPaid(shipment.getIsPaid())
+                .deliveryAddress(shipment.getDeliveryAddress())
                 .build();
     }
 

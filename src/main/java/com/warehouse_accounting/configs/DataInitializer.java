@@ -4,7 +4,9 @@ import com.warehouse_accounting.models.BonusTransaction;
 import com.warehouse_accounting.models.TypeOfAdjustment;
 import com.warehouse_accounting.models.TypeOfPayment;
 import com.warehouse_accounting.models.dto.AdjustmentDto;
+import com.warehouse_accounting.models.dto.ApplicationDto;
 import com.warehouse_accounting.models.dto.BankAccountDto;
+import com.warehouse_accounting.models.dto.BonusTransactionDto;
 import com.warehouse_accounting.models.dto.CallDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.ContractDto;
@@ -12,13 +14,18 @@ import com.warehouse_accounting.models.dto.ContractorDto;
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
 import com.warehouse_accounting.models.dto.EmployeeDto;
+import com.warehouse_accounting.models.dto.FeedDto;
 import com.warehouse_accounting.models.dto.ImageDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.PaymentDto;
 import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.models.dto.ProductDto;
+import com.warehouse_accounting.models.dto.ProductGroupDto;
 import com.warehouse_accounting.models.dto.ProjectDto;
+import com.warehouse_accounting.models.dto.RequisitesDto;
 import com.warehouse_accounting.models.dto.RoleDto;
+import com.warehouse_accounting.models.dto.SubscriptionDto;
+import com.warehouse_accounting.models.dto.TariffDto;
 import com.warehouse_accounting.models.dto.TaskDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapGroupDto;
@@ -29,7 +36,9 @@ import com.warehouse_accounting.models.dto.TypeOfContractorDto;
 import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.services.interfaces.AdjustmentService;
+import com.warehouse_accounting.services.interfaces.ApplicationService;
 import com.warehouse_accounting.services.interfaces.BankAccountService;
+import com.warehouse_accounting.services.interfaces.BonusTransactionService;
 import com.warehouse_accounting.services.interfaces.CallService;
 import com.warehouse_accounting.services.interfaces.CompanyService;
 import com.warehouse_accounting.services.interfaces.ContractService;
@@ -37,13 +46,18 @@ import com.warehouse_accounting.services.interfaces.ContractorGroupService;
 import com.warehouse_accounting.services.interfaces.ContractorService;
 import com.warehouse_accounting.services.interfaces.DepartmentService;
 import com.warehouse_accounting.services.interfaces.EmployeeService;
+import com.warehouse_accounting.services.interfaces.FeedService;
 import com.warehouse_accounting.services.interfaces.ImageService;
 import com.warehouse_accounting.services.interfaces.LegalDetailService;
 import com.warehouse_accounting.services.interfaces.PaymentService;
 import com.warehouse_accounting.services.interfaces.PositionService;
+import com.warehouse_accounting.services.interfaces.ProductGroupService;
 import com.warehouse_accounting.services.interfaces.ProductService;
 import com.warehouse_accounting.services.interfaces.ProjectService;
+import com.warehouse_accounting.services.interfaces.RequisitesService;
 import com.warehouse_accounting.services.interfaces.RoleService;
+import com.warehouse_accounting.services.interfaces.SubscriptionService;
+import com.warehouse_accounting.services.interfaces.TariffService;
 import com.warehouse_accounting.services.interfaces.TaskService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapGroupService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapMaterialService;
@@ -112,7 +126,8 @@ public class DataInitializer {
     private final FeedService feedService;
     private final BonusTransactionService bonusTransactionService;
 
-    public DataInitializer(ApplicationService applicationService, RoleService roleService,
+    public DataInitializer(ApplicationService applicationService,
+                           RoleService roleService,
                            UnitService unitService,
                            ProductService productService,
                            TechnologicalMapService technologicalMapService,
@@ -139,7 +154,7 @@ public class DataInitializer {
                            PaymentService paymentService,
                            TariffService tariffService,
                            RequisitesService requisitesService,
-                           SubscriptionService subscriptionService) {
+                           SubscriptionService subscriptionService,
                            ProductGroupService productGroupService,
                            FeedService feedService,
                            BonusTransactionService bonusTransactionService) {
@@ -458,7 +473,7 @@ public class DataInitializer {
                     .dateOfCreation(LocalDateTime.now())
                     .documentId(3L)
                     .build());
-            //taskDtos3.forEach(taskService::create);
+
 
             technologicalOperationService.create(
                     TechnologicalOperationDto.builder()
@@ -897,6 +912,7 @@ public class DataInitializer {
 
     private void initBonusTransaction() {
         try {
+            ContractorDto contractorDto = new ContractorDto();
             bonusTransactionService.create(BonusTransactionDto.builder()
                     .id(1L)
                     .created(LocalDateTime.now())
@@ -905,7 +921,7 @@ public class DataInitializer {
                     .transactionStatus(BonusTransaction.TransactionStatus.COMPLETED)
                     .executionDate(LocalDateTime.now())
                     .bonusProgram("Бонусная программа")
-                    .contragent("Контрагент")
+                    .contragent(contractorDto)
                     .comment("")
                     .owner(employeeService.getById(1L))
                     .build());

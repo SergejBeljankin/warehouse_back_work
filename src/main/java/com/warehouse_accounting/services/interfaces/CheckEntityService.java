@@ -86,4 +86,10 @@ public interface CheckEntityService {
     void checkExistRequisitesById(Long requisitesId);
 
     void checkExistSubscriptionById(Long subscriptionId);
+
+    void checkExistFeedById(Long feedId);
+
+    void checkExistBonusTransactionById(Long bonusTransactionId);
+
+    void checkExistApplicationById(Long id);
 }
