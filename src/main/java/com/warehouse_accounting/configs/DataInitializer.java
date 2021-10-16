@@ -1,5 +1,6 @@
 package com.warehouse_accounting.configs;
 
+import com.warehouse_accounting.models.BonusTransaction;
 import com.warehouse_accounting.models.TypeOfAdjustment;
 import com.warehouse_accounting.models.TypeOfPayment;
 import com.warehouse_accounting.models.dto.AdjustmentDto;
@@ -17,10 +18,7 @@ import com.warehouse_accounting.models.dto.PaymentDto;
 import com.warehouse_accounting.models.dto.PositionDto;
 import com.warehouse_accounting.models.dto.ProductDto;
 import com.warehouse_accounting.models.dto.ProjectDto;
-import com.warehouse_accounting.models.dto.RequisitesDto;
 import com.warehouse_accounting.models.dto.RoleDto;
-import com.warehouse_accounting.models.dto.SubscriptionDto;
-import com.warehouse_accounting.models.dto.TariffDto;
 import com.warehouse_accounting.models.dto.TaskDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapGroupDto;
@@ -45,10 +43,7 @@ import com.warehouse_accounting.services.interfaces.PaymentService;
 import com.warehouse_accounting.services.interfaces.PositionService;
 import com.warehouse_accounting.services.interfaces.ProductService;
 import com.warehouse_accounting.services.interfaces.ProjectService;
-import com.warehouse_accounting.services.interfaces.RequisitesService;
 import com.warehouse_accounting.services.interfaces.RoleService;
-import com.warehouse_accounting.services.interfaces.SubscriptionService;
-import com.warehouse_accounting.services.interfaces.TariffService;
 import com.warehouse_accounting.services.interfaces.TaskService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapGroupService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapMaterialService;
@@ -84,6 +79,7 @@ public class DataInitializer {
     @Value("${data-init.unit-data}")
     private File unit_init_file;
 
+    private final ApplicationService applicationService;
     private final RoleService roleService;
     private final UnitService unitService;
     private final ProductService productService;
@@ -112,8 +108,11 @@ public class DataInitializer {
     private final TariffService tariffService;
     private final RequisitesService requisitesService;
     private final SubscriptionService subscriptionService;
+    private final ProductGroupService productGroupService;
+    private final FeedService feedService;
+    private final BonusTransactionService bonusTransactionService;
 
-    public DataInitializer(RoleService roleService,
+    public DataInitializer(ApplicationService applicationService, RoleService roleService,
                            UnitService unitService,
                            ProductService productService,
                            TechnologicalMapService technologicalMapService,
@@ -141,6 +140,10 @@ public class DataInitializer {
                            TariffService tariffService,
                            RequisitesService requisitesService,
                            SubscriptionService subscriptionService) {
+                           ProductGroupService productGroupService,
+                           FeedService feedService,
+                           BonusTransactionService bonusTransactionService) {
+        this.applicationService = applicationService;
         this.roleService = roleService;
         this.unitService = unitService;
         this.productService = productService;
@@ -169,10 +172,14 @@ public class DataInitializer {
         this.tariffService = tariffService;
         this.requisitesService = requisitesService;
         this.subscriptionService = subscriptionService;
+        this.productGroupService = productGroupService;
+        this.feedService = feedService;
+        this.bonusTransactionService = bonusTransactionService;
     }
 
     @PostConstruct
     public void init() {
+        initApplications();
         initRoles();
         initUnits();
         initProduct();
@@ -198,6 +205,29 @@ public class DataInitializer {
         initTariff();
         initRequisites();
         initSubscription();
+        initProductGroup();
+        initFeed();
+        initBonusTransaction();
+    }
+
+    private void initApplications() {
+        applicationService.create(ApplicationDto.builder()
+                .name("Аналитика BI")
+                .description("готовый инструмент для бизнес-анализа (BI) в Yandex.Cloud " +
+                        "с использованием средств визуализации DataLens. " +
+                        "Приложение содержит готовый набор отчетов, который можно дополнять.")
+                .logoId(2L)
+                .build()
+        );
+
+        applicationService.create(ApplicationDto.builder()
+                .name("Интеграция с Treolan")
+                .description("поставщиком компьютерного оборудования. " +
+                        "Загрузка цен, остатков, описания и фото товара из каталога поставщика. " +
+                        "Установка цен закупки.")
+                .logoId(3L)
+                .build()
+        );
     }
 
     private void initRoles() {
@@ -611,7 +641,7 @@ public class DataInitializer {
         }
     }
 
-    private void initLegalDetail() {
+    private void initLegalDetail(){
         try {
             legalDetailService.create(LegalDetailDto.builder()
                     .id(1L)
@@ -686,7 +716,6 @@ public class DataInitializer {
                 .whenСhanged(LocalDateTime.now())
                 .build());
     }
-
     private void initPayment() {
         try {
             ContractorDto contractorDto = contractorService.getById(1L);
@@ -838,4 +867,51 @@ public class DataInitializer {
             log.error("Не удалось заполнить таблицу subscription", e);
         }
     }
+    private void initProductGroup(){
+        try {
+            productGroupService.create(ProductGroupDto.builder()
+                    .id(1L)
+                    .name("Parent Product")
+                    .sortNumber("42")
+                    .parentId(2L)
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу product_groups", e);
+        }
+
+    }
+
+    private void initFeed() {
+        try {
+            Date date = new Date();
+            feedService.create(FeedDto.builder()
+                    .id(1L)
+                    .feedHead("Заголовок")
+                    .feedBody("Тело новости")
+                    .feedDate(date)
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу feeds", e);
+        }
+    }
+
+    private void initBonusTransaction() {
+        try {
+            bonusTransactionService.create(BonusTransactionDto.builder()
+                    .id(1L)
+                    .created(LocalDateTime.now())
+                    .transactionType(BonusTransaction.TransactionType.EARNING)
+                    .bonusValue(500L)
+                    .transactionStatus(BonusTransaction.TransactionStatus.COMPLETED)
+                    .executionDate(LocalDateTime.now())
+                    .bonusProgram("Бонусная программа")
+                    .contragent("Контрагент")
+                    .comment("")
+                    .owner(employeeService.getById(1L))
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу BonusTransaction", e);
+        }
+    }
+
 }
