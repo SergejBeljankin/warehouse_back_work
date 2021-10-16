@@ -23,12 +23,15 @@ public class File {
     @GeneratedValue
     Long id;
 
+    @Column
+    String name;
+    @Column
+    int size;
+    @Column
+    String location;
+    @Column
+    Date createdDate;
 
-    @NonNull String name;
-    @NonNull int size;
-    @NonNull String location;
-    @NonNull Date createdDate;
-
-    @OneToMany(fetch = LAZY, mappedBy = "file")
-    @NonNull List<Employee> employee;
+    @OneToMany(fetch = LAZY)
+    List<Employee> employee;
 }
