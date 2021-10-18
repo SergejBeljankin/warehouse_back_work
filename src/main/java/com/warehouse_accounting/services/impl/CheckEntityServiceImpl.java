@@ -1,6 +1,6 @@
 package com.warehouse_accounting.services.impl;
 
-import com.warehouse_accounting.controllers.rest.PaymentRestController;
+import com.warehouse_accounting.exceptions.NotFoundEntityException;
 import com.warehouse_accounting.repositories.AdjustmentRepository;
 import com.warehouse_accounting.repositories.AttributeOfCalculationObjectRepository;
 import com.warehouse_accounting.repositories.BankAccountRepository;
@@ -27,6 +27,7 @@ import com.warehouse_accounting.repositories.ProductRepository;
 import com.warehouse_accounting.repositories.ProductionOrderRepository;
 import com.warehouse_accounting.repositories.ProjectRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
+import com.warehouse_accounting.repositories.RecycleBinRepository;
 import com.warehouse_accounting.repositories.TaskRepository;
 import com.warehouse_accounting.repositories.TaxSystemRepository;
 import com.warehouse_accounting.repositories.TechnologicalMapGroupRepository;
@@ -37,9 +38,8 @@ import com.warehouse_accounting.repositories.TechnologicalOperationRepository;
 import com.warehouse_accounting.repositories.TypeOfContractorRepository;
 import com.warehouse_accounting.repositories.TypeOfPriceRepository;
 import com.warehouse_accounting.repositories.UnitRepository;
-import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.repositories.WarehouseRepository;
-import com.warehouse_accounting.exceptions.NotFoundEntityException;
+import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,6 +70,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final ProductPriceRepository productPriceRepository;
     private final ProjectRepository projectRepository;
     private final RoleRepository roleRepository;
+    private final RecycleBinRepository recycleBinRepository;
     private final TaxSystemRepository taxSystemRepository;
     private final TypeOfContractorRepository typeOfContractorRepository;
     private final TypeOfPriceRepository typeOfPriceRepository;
@@ -91,18 +92,6 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {
             throw new NotFoundEntityException("Ед. измерения с id=" + unitId + ", не найдена");
-        }
-    }
-
-    public void checkExistAdjustmentById(Long adjustmentId) {
-        if (!adjustmentRepository.existsById(adjustmentId)) {
-            throw new NotFoundEntityException("Adjustment с id= " + adjustmentId + " , не найден.");
-        }
-    }
-
-    public void checkExistAdjustmentById(Long adjustmentId) {
-        if (!adjustmentRepository.existsById(adjustmentId)) {
-            throw new NotFoundEntityException("Adjustment с id= " + adjustmentId + " , не найден.");
         }
     }
 
@@ -343,6 +332,13 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistMemoById(Long memoId) {
         if (!memoRepository.existsById(memoId)) {
             throw new NotFoundEntityException("Заметка с id=" + memoId + " не найдена.");
+        }
+    }
+
+    @Override
+    public void checkExistRecycleBinById(Long recycleBinId) {
+        if (!recycleBinRepository.existsById(recycleBinId)) {
+            throw new NotFoundEntityException("Заметка с id=" + recycleBinId + " не найдена.");
         }
     }
 }

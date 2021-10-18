@@ -1,24 +1,30 @@
 package com.warehouse_accounting.models.dto;
 
-
-import com.warehouse_accounting.models.Document;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
-import java.util.Date;
-import java.util.List;
-
-
-@Getter
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecycleBinDto {
-    Long id;
-    String name;
-    Date createdDate;
-    List<Document> document;
+
+    private Long id;
+    private String documentType;
+    private String number;
+    private LocalDate date;
+    private BigDecimal sum;
+    private String warehouseTo;
+    private String warehouseFrom;
+    private String companyName;
+    private String contractorName;
+    private String status;
+    private String shipped;
+    private String printed;
+    private String comment;
 }

@@ -1,22 +1,13 @@
 package com.warehouse_accounting.controllers.rest;
 
-import com.warehouse_accounting.models.dto.ContractorDto;
 import com.warehouse_accounting.models.dto.RecycleBinDto;
-import com.warehouse_accounting.models.dto.RoleDto;
-import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.RecycleBinService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -45,8 +36,8 @@ public class RecycleBinRestController {
     }
     @PutMapping
     public ResponseEntity<?> update(@RequestBody RecycleBinDto recycleBinDto) {
-     recycleBinService.update(recycleBinDto);
-     return ResponseEntity.ok().build();
+        recycleBinService.update(recycleBinDto);
+        return ResponseEntity.ok().build();
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
@@ -54,5 +45,6 @@ public class RecycleBinRestController {
         return ResponseEntity.ok().build();
     }
 }
+
 
 
