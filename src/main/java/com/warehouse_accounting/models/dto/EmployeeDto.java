@@ -1,5 +1,6 @@
 package com.warehouse_accounting.models.dto;
 
+import com.warehouse_accounting.models.Tariff;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,6 +40,8 @@ public class EmployeeDto {
     private Set<RoleDto> roles;
 
     private ImageDto image = new ImageDto();
+
+    private Set<TariffDto> tariff;
 
     public EmployeeDto(Long id, String lastName, String firstName, String middleName, String sortNumber, String phone,
                        String inn, String description, String email, String password,

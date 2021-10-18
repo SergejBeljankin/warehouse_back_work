@@ -1,10 +1,10 @@
 package com.warehouse_accounting.services.impl;
 
-import com.warehouse_accounting.controllers.rest.PaymentRestController;
 import com.warehouse_accounting.repositories.AdjustmentRepository;
 import com.warehouse_accounting.repositories.ApplicationRepository;
 import com.warehouse_accounting.repositories.AttributeOfCalculationObjectRepository;
 import com.warehouse_accounting.repositories.BankAccountRepository;
+import com.warehouse_accounting.repositories.BonusTransactionRepository;
 import com.warehouse_accounting.repositories.CallRepository;
 import com.warehouse_accounting.repositories.CompanyRepository;
 import com.warehouse_accounting.repositories.ContractRepository;
@@ -28,7 +28,10 @@ import com.warehouse_accounting.repositories.ProductPriceRepository;
 import com.warehouse_accounting.repositories.ProductRepository;
 import com.warehouse_accounting.repositories.ProductionOrderRepository;
 import com.warehouse_accounting.repositories.ProjectRepository;
+import com.warehouse_accounting.repositories.RequisitesRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
+import com.warehouse_accounting.repositories.SubscriptionRepository;
+import com.warehouse_accounting.repositories.TariffRepository;
 import com.warehouse_accounting.repositories.TaskRepository;
 import com.warehouse_accounting.repositories.TaxSystemRepository;
 import com.warehouse_accounting.repositories.TechnologicalMapGroupRepository;
@@ -92,6 +95,9 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final ApplicationRepository applicationRepository;
     private final FeedRepository feedRepository;
     private final BonusTransactionRepository bonusTransactionRepository;
+    private final TariffRepository tariffRepository;
+    private final RequisitesRepository requisitesRepository;
+    private final SubscriptionRepository subscriptionRepository;
 
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {
@@ -340,6 +346,27 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     }
 
     @Override
+    public void checkExistTariffById(Long tariffId) {
+        if (!tariffRepository.existsById(tariffId)) {
+            throw new NotFoundEntityException("Тариф с id=" + tariffId + " не найден.");
+        }
+    }
+
+    @Override
+    public void checkExistRequisitesById(Long requisitesId) {
+        if (!requisitesRepository.existsById(requisitesId)) {
+            throw new NotFoundEntityException("Реквизиты с id=" + requisitesId + " не найден.");
+        }
+    }
+
+    @Override
+    public void checkExistSubscriptionById(Long subscriptionId) {
+        if (!subscriptionRepository.existsById(subscriptionId)) {
+            throw new NotFoundEntityException("Подписка с id=" + subscriptionId + " не найдена.");
+        }
+    }
+
+    @Override
     public void checkExistFeedById(Long feedId) {
         if (!feedRepository.existsById(feedId)) {
             throw new NotFoundEntityException("Новость с id=" + feedId + " не найдена.");
@@ -350,6 +377,13 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistBonusTransactionById(Long bonusTransactionId) {
         if (!bonusTransactionRepository.existsById(bonusTransactionId)) {
             throw new NotFoundEntityException("BonusTransaction с id=" + bonusTransactionId + ", не найдена");
+        }
+    }
+
+    @Override
+    public void checkExistApplicationById(Long applicationId) {
+        if (!applicationRepository.existsById(applicationId)) {
+            throw new NotFoundEntityException("BonusTransaction с id=" + applicationId + ", не найдена");
         }
     }
 }

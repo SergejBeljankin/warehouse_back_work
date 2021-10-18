@@ -23,19 +23,15 @@ public class File {
     @GeneratedValue
     Long id;
 
-    @NonNull
+    @Column
     String name;
-
-    @NonNull
+    @Column
     int size;
-
-    @NonNull
+    @Column
     String location;
-
-    @NonNull
+    @Column
     Date createdDate;
 
     @OneToMany(fetch = LAZY)
-    @NonNull
     List<Employee> employee;
 }
