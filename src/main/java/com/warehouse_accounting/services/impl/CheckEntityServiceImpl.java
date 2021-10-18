@@ -2,8 +2,10 @@ package com.warehouse_accounting.services.impl;
 
 import com.warehouse_accounting.exceptions.NotFoundEntityException;
 import com.warehouse_accounting.repositories.AdjustmentRepository;
+import com.warehouse_accounting.repositories.ApplicationRepository;
 import com.warehouse_accounting.repositories.AttributeOfCalculationObjectRepository;
 import com.warehouse_accounting.repositories.BankAccountRepository;
+import com.warehouse_accounting.repositories.BonusTransactionRepository;
 import com.warehouse_accounting.repositories.CallRepository;
 import com.warehouse_accounting.repositories.CompanyRepository;
 import com.warehouse_accounting.repositories.ContractRepository;
@@ -13,6 +15,7 @@ import com.warehouse_accounting.repositories.CountryRepository;
 import com.warehouse_accounting.repositories.CurrencyRepository;
 import com.warehouse_accounting.repositories.DepartmentRepository;
 import com.warehouse_accounting.repositories.EmployeeRepository;
+import com.warehouse_accounting.repositories.FeedRepository;
 import com.warehouse_accounting.repositories.ImageRepository;
 import com.warehouse_accounting.repositories.InvoiceProductRepository;
 import com.warehouse_accounting.repositories.InvoiceRepository;
@@ -26,6 +29,7 @@ import com.warehouse_accounting.repositories.ProductPriceRepository;
 import com.warehouse_accounting.repositories.ProductRepository;
 import com.warehouse_accounting.repositories.ProductionOrderRepository;
 import com.warehouse_accounting.repositories.ProjectRepository;
+import com.warehouse_accounting.repositories.RequisitesRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
 import com.warehouse_accounting.repositories.RecycleBinRepository;
 import com.warehouse_accounting.repositories.TaskRepository;
@@ -88,6 +92,12 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final CallRepository callRepository;
     private final TaskRepository taskRepository;
     private final MemoRepository memoRepository;
+    private final ApplicationRepository applicationRepository;
+    private final FeedRepository feedRepository;
+    private final BonusTransactionRepository bonusTransactionRepository;
+    private final TariffRepository tariffRepository;
+    private final RequisitesRepository requisitesRepository;
+    private final SubscriptionRepository subscriptionRepository;
 
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {

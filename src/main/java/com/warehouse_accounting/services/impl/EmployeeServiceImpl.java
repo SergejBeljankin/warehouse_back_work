@@ -6,6 +6,7 @@ import com.warehouse_accounting.repositories.EmployeeRepository;
 import com.warehouse_accounting.repositories.ImageRepository;
 import com.warehouse_accounting.repositories.PositionRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
+import com.warehouse_accounting.repositories.TariffRepository;
 import com.warehouse_accounting.services.interfaces.EmployeeService;
 import com.warehouse_accounting.util.ConverterDto;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static com.warehouse_accounting.util.ConverterDto.convertToDto;
+import static com.warehouse_accounting.util.ConverterDto.convertToDtoTariff;
 
 @Service
 @Transactional
@@ -24,21 +26,24 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final PositionRepository positionRepository;
     private final RoleRepository roleRepository;
     private final ImageRepository imageRepository;
+    private final TariffRepository tariffRepository;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository, PositionRepository positionRepository, RoleRepository roleRepository, ImageRepository imageRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository, PositionRepository positionRepository, RoleRepository roleRepository, ImageRepository imageRepository, TariffRepository tariffRepository) {
         this.employeeRepository = employeeRepository;
         this.departmentRepository = departmentRepository;
         this.positionRepository = positionRepository;
         this.roleRepository = roleRepository;
         this.imageRepository = imageRepository;
+        this.tariffRepository = tariffRepository;
     }
 
     @Override
     public EmployeeDto getById(Long id) {
-        EmployeeDto employeeDto =  employeeRepository.getById(id);
+        EmployeeDto employeeDto = employeeRepository.getById(id);
         employeeDto.setDepartment(departmentRepository.getById(employeeDto.getDepartment().getId()));
         employeeDto.setRoles(convertToDto(roleRepository.getRolesByEmployeeId(employeeDto.getId())));
         employeeDto.setImage(imageRepository.getById(employeeDto.getImage().getId()));
+        employeeDto.setTariff(convertToDtoTariff(tariffRepository.getTariffsByEmployeeId(employeeDto.getId())));
         return employeeDto;
     }
 
@@ -65,6 +70,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             employeeDto.setPosition((positionRepository.getById(employeeDto.getPosition().getId())));
             employeeDto.setRoles(convertToDto(roleRepository.getRolesByEmployeeId(employeeDto.getId())));
             employeeDto.setImage(imageRepository.getById(employeeDto.getImage().getId()));
+            employeeDto.setTariff(convertToDtoTariff(tariffRepository.getAllTariffById(employeeDto.getId())));
         });
         return employeeDtos;
     }
