@@ -30,7 +30,7 @@ public class SupplyServiceImpl implements SupplyService {
         List<SupplyDto> supplyDtos = supplyRepository.getAll();
         for(SupplyDto dto : supplyDtos){
             dto.setProductDtos(productRepository
-                    .getListProductById(dto.getId())
+                    .getSupplyProductById(dto.getId())
                     .stream()
                     .map(ConverterDto::convertToDto)
                     .collect(Collectors.toList()));
@@ -44,7 +44,7 @@ public class SupplyServiceImpl implements SupplyService {
         SupplyDto supplyDto = supplyRepository.getById(id);
 
         supplyDto.setProductDtos(productRepository
-                    .getListProductById(supplyDto.getId())
+                    .getSupplyProductById(supplyDto.getId())
                     .stream()
                     .map(ConverterDto::convertToDto)
                     .collect(Collectors.toList()));

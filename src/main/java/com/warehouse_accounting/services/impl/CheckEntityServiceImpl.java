@@ -52,7 +52,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final MemoRepository memoRepository;
     private final ApplicationRepository applicationRepository;
     private final FeedRepository feedRepository;
-    private final BonusTransactionRepository bonusTransactionRepository;
+//    private final BonusTransactionRepository bonusTransactionRepository;
     private final TariffRepository tariffRepository;
     private final RequisitesRepository requisitesRepository;
     private final SubscriptionRepository subscriptionRepository;
@@ -335,9 +335,9 @@ public class CheckEntityServiceImpl implements CheckEntityService {
 
     @Override
     public void checkExistBonusTransactionById(Long bonusTransactionId) {
-        if (!bonusTransactionRepository.existsById(bonusTransactionId)) {
-            throw new NotFoundEntityException("BonusTransaction с id=" + bonusTransactionId + ", не найдена");
-        }
+//        if (!bonusTransactionRepository.existsById(bonusTransactionId)) {
+//            throw new NotFoundEntityException("BonusTransaction с id=" + bonusTransactionId + ", не найдена");
+//        }
     }
 
     @Override

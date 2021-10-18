@@ -16,16 +16,16 @@ import java.util.List;
 public interface ShipmentRepository extends JpaRepository<Shipment, Long>{
     @Query("SELECT NEW com.warehouse_accounting.models.dto.ShipmentDto(" +
             "s.id," +
-            "s.dataTime," +
-            "s.warehouse.id," +
-            "s.contract.id," +
-            "s.contractor.id," +
-            "s.company.id," +
-            "s.sum," +
-            "s.paid," +
-            "s.isSent," +
-            "s.isPrinted," +
-            "s.comment," +
+            "s.movingFields.dateOfCreation," +
+            "s.movingFields.warehouse.id," +
+            "s.movingFields.contract.id," +
+            "s.movingFields.contractor.id," +
+            "s.movingFields.company.id," +
+            "s.movingFields.sum," +
+            "s.movingFields.paid," +
+            "s.movingFields.isSent," +
+            "s.movingFields.isPrinted," +
+            "s.movingFields.comment," +
             "sh.consignee.id," +
             "sh.carrier.id," +
             "sh.isPaid," +
@@ -36,16 +36,16 @@ public interface ShipmentRepository extends JpaRepository<Shipment, Long>{
 
     @Query("SELECT NEW com.warehouse_accounting.models.dto.ShipmentDto(" +
             "s.id," +
-            "s.dataTime," +
-            "s.warehouse.id," +
-            "s.contract.id," +
-            "s.contractor.id," +
-            "s.company.id," +
-            "s.sum," +
-            "s.paid," +
-            "s.isSent," +
-            "s.isPrinted," +
-            "s.comment," +
+            "s.movingFields.dateOfCreation," +
+            "s.movingFields.warehouse.id," +
+            "s.movingFields.contract.id," +
+            "s.movingFields.contractor.id," +
+            "s.movingFields.company.id," +
+            "s.movingFields.sum," +
+            "s.movingFields.paid," +
+            "s.movingFields.isSent," +
+            "s.movingFields.isPrinted," +
+            "s.movingFields.comment," +
             "sh.consignee.id," +
             "sh.carrier.id," +
             "sh.isPaid," +
