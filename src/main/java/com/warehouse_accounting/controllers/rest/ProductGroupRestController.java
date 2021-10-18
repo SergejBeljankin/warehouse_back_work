@@ -101,4 +101,17 @@ public class ProductGroupRestController {
         productGroupService.deleteById(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("parent/{id}")
+    @ApiOperation(value = "Нахолдит ProductGroupDto по parentId")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Успешное получение ProductGroupDto"),
+            @ApiResponse(code = 404, message = "Данный контроллер не найден"),
+            @ApiResponse(code = 403, message = "Операция запрещена"),
+            @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
+    public ResponseEntity<List<ProductGroupDto>> getAllByParentId(@ApiParam(name = "id", value = "id для поиска ProductGroupDto по parentId",
+            required = true)@PathVariable Long id){
+    checkEntityService.checkExistProductGroupById(id);
+    return ResponseEntity.ok(productGroupService.getAllIds(id));
+    }
 }

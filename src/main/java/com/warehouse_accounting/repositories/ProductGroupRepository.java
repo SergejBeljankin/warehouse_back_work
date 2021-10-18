@@ -17,7 +17,7 @@ public interface ProductGroupRepository extends JpaRepository<ProductGroup, Long
             "pg.id," +
             "pg.name," +
             "pg.sortNumber," +
-            "pg.parentProductGroup.id" +
+            "pg.parentId" +
             ") " +
             "FROM ProductGroup pg")
     List<ProductGroupDto> getAll();
@@ -26,9 +26,19 @@ public interface ProductGroupRepository extends JpaRepository<ProductGroup, Long
             "pg.id," +
             "pg.name," +
             "pg.sortNumber," +
-            "pg.parentProductGroup.id" +
+            "pg.parentId" +
             ") " +
             "FROM ProductGroup pg WHERE pg.id = :id")
     ProductGroupDto getById(@Param("id") Long id);
+
+
+    @Query("SELECT NEW com.warehouse_accounting.models.dto.ProductGroupDto(" +
+            "pg.id," +
+            "pg.name," +
+            "pg.sortNumber," +
+            "pg.parentId" +
+            ") " +
+            "FROM ProductGroup pg WHERE pg.parentId = :id")
+    List<ProductGroupDto> getAllIds(@Param("id") Long id);
 
 }
