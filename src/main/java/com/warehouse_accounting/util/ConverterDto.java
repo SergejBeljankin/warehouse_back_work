@@ -230,6 +230,9 @@ public class ConverterDto {
     }
 
     public static AttributeOfCalculationObjectDto convertToDto(AttributeOfCalculationObject model) {
+        if(model == null){
+            return null;
+        }
         return AttributeOfCalculationObjectDto.builder()
                 .id(model.getId())
                 .name(model.getName())
@@ -307,6 +310,9 @@ public class ConverterDto {
     }
 
     public static UnitDto convertToDto(Unit unit) {
+        if(unit == null){
+            return null;
+        }
         return UnitDto.builder()
                 .id(unit.getId())
                 .shortName(unit.getShortName())
@@ -346,6 +352,9 @@ public class ConverterDto {
     }
 
     public static TaxSystemDto convertToDto(TaxSystem taxSystem) {
+        if(taxSystem == null){
+            return null;
+        }
         return TaxSystemDto.builder()
                 .id(taxSystem.getId())
                 .name(taxSystem.getName())
@@ -522,6 +531,9 @@ public class ConverterDto {
     }
 
     public static ImageDto convertToDto(Image image) {
+        if(image == null){
+            return null;
+        }
         return ImageDto.builder()
                 .id(image.getId())
                 .imageUrl(image.getImageUrl())
@@ -530,6 +542,9 @@ public class ConverterDto {
     }
 
     public static ProductGroupDto convertToDto(ProductGroup productGroup) {
+        if(productGroup == null){
+            return null;
+        }
         return ProductGroupDto.builder()
                 .id(productGroup.getId())
                 .name(productGroup.getName())
@@ -614,6 +629,9 @@ public class ConverterDto {
     }
 
     public static ContractorDto convertToDto(Contractor contractor) {
+        if(contractor == null){
+            return null;
+        }
         return ContractorDto.builder()
                 .id(contractor.getId())
                 .name(contractor.getName())
@@ -1325,10 +1343,17 @@ public class ConverterDto {
     }
 
     public static Supply convertToModel(SupplyDto supplyDto) {
+        if(supplyDto == null){
+            return null;
+        }
         Warehouse warehouse = new Warehouse();
+        warehouse.setId(supplyDto.getWarehouseId());
         Contract contract = new Contract();
+        contract.setId(supplyDto.getContractId());
         Contractor contractor = new Contractor();
+        contractor.setId(supplyDto.getContractorId());
         Company company = new Company();
+        company.setId(supplyDto.getCompanyId());
 
         return Supply.builder()
                 .id(supplyDto.getId())
@@ -1337,7 +1362,10 @@ public class ConverterDto {
                 .contract(contract)
                 .contractor(contractor)
                 .company(company)
-                .products(new ArrayList<>())
+                .products(supplyDto.getProductDtos() != null ? supplyDto.getProductDtos()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList()) : null)
                 .sum(supplyDto.getSum())
                 .paid(supplyDto.getPaid())
                 .isSent(supplyDto.getIsSent())
@@ -1347,6 +1375,9 @@ public class ConverterDto {
     }
 
     public static SupplyDto convertToDto(Supply supply) {
+        if(supply == null){
+            return null;
+        }
         return SupplyDto.builder()
                 .id(supply.getId())
                 .dataTime(supply.getDataTime())
@@ -1354,7 +1385,10 @@ public class ConverterDto {
                 .contractId(supply.getContract().getId())
                 .contractorId(supply.getContractor().getId())
                 .companyId(supply.getCompany().getId())
-                .productDtos(new ArrayList<>())
+                .productDtos(supply.getProducts() != null ? supply.getProducts()
+                        .stream()
+                        .map(ConverterDto::convertToDto)
+                        .collect(Collectors.toList()) : null)
                 .sum(supply.getSum())
                 .paid(supply.getPaid())
                 .isSent(supply.getIsSent())
@@ -1363,33 +1397,67 @@ public class ConverterDto {
                 .build();
     }
 
-    public static Shipment convertToModel(ShipmentDto shipmentDto) {
+    public static Shipment convertToModel(ShipmentDto shipmentDto){
+        if(shipmentDto == null){
+            return null;
+        }
+        Warehouse warehouse = new Warehouse();
+        warehouse.setId(shipmentDto.getWarehouseId());
+        Contract contract = new Contract();
+        contract.setId(shipmentDto.getContractId());
         Contractor contractor = new Contractor();
+        contractor.setId(shipmentDto.getContractorId());
+        Company company = new Company();
+        company.setId(shipmentDto.getCompanyId());
+        Contractor consignee = new Contractor();
+        consignee.setId(shipmentDto.getConsigneeId());
+        Contractor carrier = new Contractor();
+        carrier.setId(shipmentDto.getCarrierId());
+
         return Shipment.builder()
                 .id(shipmentDto.getId())
-                .consignee(contractor)
-                .carrier(contractor)
+                .dataTime(shipmentDto.getDataTime())
+                .warehouse(shipmentDto.getWarehouseId() != null ? warehouse : null)
+                .contract(shipmentDto.getContractId() != null ? contract : null)
+                .contractor(shipmentDto.getContractorId() != null ? contractor : null)
+                .company(shipmentDto.getCompanyId() != null ? company : null)
+                .products(shipmentDto.getProductDtos() != null ? shipmentDto.getProductDtos()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList()) : null)
+                .sum(shipmentDto.getSum())
+                .paid(shipmentDto.getPaid())
+                .isSent(shipmentDto.getIsSent())
+                .isPrinted(shipmentDto.getIsPrinted())
+                .comment(shipmentDto.getComment())
+                .consignee(shipmentDto.getConsigneeId() != null ? consignee : null)
+                .carrier(shipmentDto.getCarrierId() != null ? carrier : null)
                 .isPaid(shipmentDto.getIsPaid())
                 .deliveryAddress(shipmentDto.getDeliveryAddress())
                 .build();
     }
-
-    public static ShipmentDto convertToDto(Shipment shipment) {
+    public static ShipmentDto convertToDto(Shipment shipment){
+        if(shipment == null){
+            return null;
+        }
         return ShipmentDto.builder()
                 .id(shipment.getId())
                 .dataTime(shipment.getDataTime())
-                .warehouseId(shipment.getWarehouse().getId())
-                .contractId(shipment.getContract().getId())
-                .contractorId(shipment.getContractor().getId())
-                .companyId(shipment.getCompany().getId())
-                .productDtos(new ArrayList<>())
+                .warehouseId(shipment.getWarehouse() != null ? shipment.getWarehouse().getId() : null)
+                .contractId(shipment.getContract() != null ? shipment.getContract().getId() : null)
+                .contractorId(shipment.getContractor() != null ? shipment.getContractor().getId() : null)
+                .companyId(shipment.getCompany() != null ? shipment.getCompany().getId() : null)
+                .productDtos(shipment.getProducts() != null ? shipment.getProducts()
+                        .stream()
+                        .map(ConverterDto::convertToDto)
+                        .collect(Collectors.toList()) : null)
                 .sum(shipment.getSum())
                 .paid(shipment.getPaid())
                 .isSent(shipment.getIsSent())
                 .isPrinted(shipment.getIsPrinted())
                 .comment(shipment.getComment())
-                .consigneeId(shipment.getConsignee().getId())
-                .carrierId(shipment.getCarrier().getId())
+                .consigneeId(shipment.getConsignee() != null ? shipment.getConsignee().getId() : null)
+                .carrierId(shipment.getCarrier() != null ? shipment.getCarrier().getId() : null)
                 .isPaid(shipment.getIsPaid())
                 .deliveryAddress(shipment.getDeliveryAddress())
                 .build();
