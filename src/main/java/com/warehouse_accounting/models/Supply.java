@@ -32,7 +32,7 @@ public class Supply {
     @Column
     LocalDateTime dataTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     Warehouse warehouse;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -44,7 +44,7 @@ public class Supply {
     @ManyToOne(fetch = FetchType.LAZY)
     Company company;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Product> products;
 
     @Column

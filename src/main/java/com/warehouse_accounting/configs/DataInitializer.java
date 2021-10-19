@@ -3,70 +3,8 @@ package com.warehouse_accounting.configs;
 import com.warehouse_accounting.models.BonusTransaction;
 import com.warehouse_accounting.models.TypeOfAdjustment;
 import com.warehouse_accounting.models.TypeOfPayment;
-import com.warehouse_accounting.models.dto.AdjustmentDto;
-import com.warehouse_accounting.models.dto.ApplicationDto;
-import com.warehouse_accounting.models.dto.BankAccountDto;
-import com.warehouse_accounting.models.dto.BonusTransactionDto;
-import com.warehouse_accounting.models.dto.CallDto;
-import com.warehouse_accounting.models.dto.CompanyDto;
-import com.warehouse_accounting.models.dto.ContractDto;
-import com.warehouse_accounting.models.dto.ContractorDto;
-import com.warehouse_accounting.models.dto.ContractorGroupDto;
-import com.warehouse_accounting.models.dto.DepartmentDto;
-import com.warehouse_accounting.models.dto.EmployeeDto;
-import com.warehouse_accounting.models.dto.FeedDto;
-import com.warehouse_accounting.models.dto.ImageDto;
-import com.warehouse_accounting.models.dto.LegalDetailDto;
-import com.warehouse_accounting.models.dto.PaymentDto;
-import com.warehouse_accounting.models.dto.PositionDto;
-import com.warehouse_accounting.models.dto.ProductDto;
-import com.warehouse_accounting.models.dto.ProductGroupDto;
-import com.warehouse_accounting.models.dto.ProjectDto;
-import com.warehouse_accounting.models.dto.RequisitesDto;
-import com.warehouse_accounting.models.dto.RoleDto;
-import com.warehouse_accounting.models.dto.SubscriptionDto;
-import com.warehouse_accounting.models.dto.TariffDto;
-import com.warehouse_accounting.models.dto.TaskDto;
-import com.warehouse_accounting.models.dto.TechnologicalMapDto;
-import com.warehouse_accounting.models.dto.TechnologicalMapGroupDto;
-import com.warehouse_accounting.models.dto.TechnologicalMapMaterialDto;
-import com.warehouse_accounting.models.dto.TechnologicalMapProductDto;
-import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
-import com.warehouse_accounting.models.dto.TypeOfContractorDto;
-import com.warehouse_accounting.models.dto.TypeOfPriceDto;
-import com.warehouse_accounting.models.dto.UnitDto;
-import com.warehouse_accounting.services.interfaces.AdjustmentService;
-import com.warehouse_accounting.services.interfaces.ApplicationService;
-import com.warehouse_accounting.services.interfaces.BankAccountService;
-import com.warehouse_accounting.services.interfaces.BonusTransactionService;
-import com.warehouse_accounting.services.interfaces.CallService;
-import com.warehouse_accounting.services.interfaces.CompanyService;
-import com.warehouse_accounting.services.interfaces.ContractService;
-import com.warehouse_accounting.services.interfaces.ContractorGroupService;
-import com.warehouse_accounting.services.interfaces.ContractorService;
-import com.warehouse_accounting.services.interfaces.DepartmentService;
-import com.warehouse_accounting.services.interfaces.EmployeeService;
-import com.warehouse_accounting.services.interfaces.FeedService;
-import com.warehouse_accounting.services.interfaces.ImageService;
-import com.warehouse_accounting.services.interfaces.LegalDetailService;
-import com.warehouse_accounting.services.interfaces.PaymentService;
-import com.warehouse_accounting.services.interfaces.PositionService;
-import com.warehouse_accounting.services.interfaces.ProductGroupService;
-import com.warehouse_accounting.services.interfaces.ProductService;
-import com.warehouse_accounting.services.interfaces.ProjectService;
-import com.warehouse_accounting.services.interfaces.RequisitesService;
-import com.warehouse_accounting.services.interfaces.RoleService;
-import com.warehouse_accounting.services.interfaces.SubscriptionService;
-import com.warehouse_accounting.services.interfaces.TariffService;
-import com.warehouse_accounting.services.interfaces.TaskService;
-import com.warehouse_accounting.services.interfaces.TechnologicalMapGroupService;
-import com.warehouse_accounting.services.interfaces.TechnologicalMapMaterialService;
-import com.warehouse_accounting.services.interfaces.TechnologicalMapProductService;
-import com.warehouse_accounting.services.interfaces.TechnologicalMapService;
-import com.warehouse_accounting.services.interfaces.TechnologicalOperationService;
-import com.warehouse_accounting.services.interfaces.TypeOfContractorService;
-import com.warehouse_accounting.services.interfaces.TypeOfPriceService;
-import com.warehouse_accounting.services.interfaces.UnitService;
+import com.warehouse_accounting.models.dto.*;
+import com.warehouse_accounting.services.interfaces.*;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.poi.ss.usermodel.Row;
@@ -125,6 +63,8 @@ public class DataInitializer {
     private final ProductGroupService productGroupService;
     private final FeedService feedService;
     private final BonusTransactionService bonusTransactionService;
+    private final SupplyService supplyService;
+    private final ShipmentService shipmentService;
 
     public DataInitializer(ApplicationService applicationService,
                            RoleService roleService,
@@ -157,7 +97,8 @@ public class DataInitializer {
                            SubscriptionService subscriptionService,
                            ProductGroupService productGroupService,
                            FeedService feedService,
-                           BonusTransactionService bonusTransactionService) {
+                           SupplyService supplyService,
+                           ShipmentService shipmentService) {
         this.applicationService = applicationService;
         this.roleService = roleService;
         this.unitService = unitService;
@@ -190,6 +131,8 @@ public class DataInitializer {
         this.productGroupService = productGroupService;
         this.feedService = feedService;
         this.bonusTransactionService = bonusTransactionService;
+        this.supplyService = supplyService;
+        this.shipmentService = shipmentService;
     }
 
     @PostConstruct
@@ -223,6 +166,8 @@ public class DataInitializer {
         initProductGroup();
         initFeed();
         initBonusTransaction();
+        initSupply();
+        initShipment();
     }
 
     private void initApplications() {
@@ -929,5 +874,46 @@ public class DataInitializer {
             log.error("Не удалось заполнить таблицу BonusTransaction", e);
         }
     }
-
+private void initSupply(){
+    try {
+        supplyService.create(SupplyDto.builder()
+                .id(1L)
+                .dataTime(LocalDateTime.now())
+                .contractorId(1L)
+                .contractId(1L)
+                .contractorId(1L)
+                .companyId(1L)
+                .productDtos(List.of(productService.getById(1L),productService.getById(2L)))
+                .sum(BigDecimal.valueOf(555))
+                .isSent(false)
+                .isPrinted(true)
+                .comment("text")
+                .build());
+    } catch (Exception e) {
+        log.error("Не удалось заполнить таблицу supply", e);
+    }
+}
+    private void  initShipment(){
+        try {
+            shipmentService.create(ShipmentDto.builder()
+                    .id(2L)
+                    .dataTime(LocalDateTime.now())
+                    .warehouseId(1L)
+                    .contractId(1L)
+                    .contractorId(1L)
+                    .companyId(1L)
+                    .productDtos(List.of(productService.getById(2L)))
+                    .sum(BigDecimal.valueOf(777))
+                    .isSent(false)
+                    .isPrinted(true)
+                    .comment("Shipment")
+                    .consigneeId(1L)
+                    .carrierId(1L)
+                    .isPaid(true)
+                    .deliveryAddress("To the moon")
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу shipment", e);
+        }
+    }
 }
