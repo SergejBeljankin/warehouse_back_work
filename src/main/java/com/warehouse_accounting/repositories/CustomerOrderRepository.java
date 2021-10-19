@@ -12,29 +12,38 @@ import java.util.List;
 @Repository
 public interface CustomerOrderRepository extends JpaRepository<CustomerOrder, Long> {
     @Query("SELECT NEW com.warehouse_accounting.models.dto.CustomerOrderDto(" +
-            "co.id," +
-            "co.date," +
-            "co.warehouse.id," +
-            "co.contract.id," +
-            "co.contractor.id," +
-            "co.company.id," +
-            "co.sum," +
-            "co.comment," +
-            "co.isPaid)" +
-            " FROM CustomerOrder co")
+            "customer_order.id," +
+            "customer_order.date," +
+            "warehouse.id," +
+            "contract.id," +
+            "company.id," +
+            "contractor.id," +
+            "customer_order.sum," +
+            "customer_order.comment," +
+            "customer_order.isPaid)" +
+            "FROM CustomerOrder customer_order " +
+            "left join Warehouse warehouse on (customer_order.warehouse.id = warehouse.id)" +
+            "left join Contract contract on (customer_order.contract.id = contract.id)" +
+            "left join Contractor contractor on (customer_order.contractor.id = contractor.id)" +
+            "left join Company company on (customer_order.company.id = company.id)")
     List<CustomerOrderDto> getAll();
 
     @Query("SELECT NEW com.warehouse_accounting.models.dto.CustomerOrderDto(" +
-            "co.id," +
-            "co.date," +
-            "co.warehouse.id," +
-            "co.contract.id," +
-            "co.contractor.id," +
-            "co.company.id," +
-            "co.sum," +
-            "co.comment," +
-            "co.isPaid)" +
-            " FROM CustomerOrder co WHERE co.id = :id")
+            "customer_order.id," +
+            "customer_order.date," +
+            "warehouse.id," +
+            "contract.id," +
+            "company.id," +
+            "contractor.id," +
+            "customer_order.sum," +
+            "customer_order.comment," +
+            "customer_order.isPaid)" +
+            "FROM CustomerOrder customer_order " +
+            "left join Warehouse warehouse on (customer_order.warehouse.id = warehouse.id)" +
+            "left join Contract contract on (customer_order.contract.id = contract.id)" +
+            "left join Contractor contractor on (customer_order.contractor.id = contractor.id)" +
+            "left join Company company on (customer_order.company.id = company.id)" +
+            "WHERE customer_order.id = :id")
     CustomerOrderDto getById(@Param("id") Long id);
 }
 

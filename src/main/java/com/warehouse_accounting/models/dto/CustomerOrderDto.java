@@ -27,17 +27,17 @@ public class CustomerOrderDto {
 
     LocalDateTime date;
 
-    Long warehouseId;
+    WarehouseDto warehouseDto = new WarehouseDto();
 
-    Long contractId;
+    ContractDto contractDto = new ContractDto();
 
-    Long contractorId;
+    CompanyDto companyDto = new CompanyDto();
 
-    Long companyId;
+    ContractorDto contractorDto = new ContractorDto();
 
-    List<Product> productDto = new ArrayList<>();
+    List<ProductDto> productDto = new ArrayList<>();
 
-    List<Task> taskDto = new ArrayList<>();
+    List<TaskDto> taskDto = new ArrayList<>();
 
     List<File> fileDto = new ArrayList<>();
 
@@ -47,14 +47,15 @@ public class CustomerOrderDto {
 
     Boolean isPaid;
 
-    public CustomerOrderDto(Long id, LocalDateTime date, Long warehouseId, Long contractId, Long contractorId,
-                            Long companyId, BigDecimal sum, String comment, Boolean isPaid) {
+    public CustomerOrderDto(Long id, LocalDateTime date, Long warehouseId,
+                            Long contractId, Long companyId, Long contractorId,
+                            BigDecimal sum, String comment, Boolean isPaid) {
         this.id = id;
         this.date = date;
-        this.warehouseId = warehouseId;
-        this.contractId = contractId;
-        this.contractorId = contractorId;
-        this.companyId = companyId;
+        this.warehouseDto.setId(warehouseId);
+        this.contractDto.setId(contractId);
+        this.companyDto.setId(companyId);
+        this.contractorDto.setId(contractorId);
         this.sum = sum;
         this.comment = comment;
         this.isPaid = isPaid;

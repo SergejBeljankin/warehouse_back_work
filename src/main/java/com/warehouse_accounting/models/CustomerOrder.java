@@ -1,6 +1,7 @@
 package com.warehouse_accounting.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -32,10 +33,10 @@ import static lombok.AccessLevel.PRIVATE;
 @Inheritance(strategy = InheritanceType.JOINED)
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
+@Builder
 @FieldDefaults(level = PRIVATE)
 @Entity
-@Table(name = "customer_order")
+@Table(name = "customer_orders")
 public class CustomerOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
