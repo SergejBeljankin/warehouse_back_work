@@ -31,7 +31,9 @@ import com.warehouse_accounting.repositories.ProductionOrderRepository;
 import com.warehouse_accounting.repositories.ProjectRepository;
 import com.warehouse_accounting.repositories.RequisitesRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
+import com.warehouse_accounting.repositories.ShipmentRepository;
 import com.warehouse_accounting.repositories.SubscriptionRepository;
+import com.warehouse_accounting.repositories.SupplyRepository;
 import com.warehouse_accounting.repositories.TariffRepository;
 import com.warehouse_accounting.repositories.TaskRepository;
 import com.warehouse_accounting.repositories.TaxSystemRepository;
@@ -100,6 +102,8 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final RequisitesRepository requisitesRepository;
     private final SubscriptionRepository subscriptionRepository;
     private final FileRepository fileRepository;
+    private final SupplyRepository supplyRepository;
+    private final ShipmentRepository shipmentRepository;
 
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {
@@ -232,42 +236,42 @@ public class CheckEntityServiceImpl implements CheckEntityService {
 
     @Override
     public void checkExistInvoiceById(Long invoiceId) {
-        if (!invoiceRepository.existsById(invoiceId)) {
+        if(!invoiceRepository.existsById(invoiceId)){
             throw new NotFoundEntityException("Invoice с id=" + invoiceId + " не найден.");
         }
     }
 
     @Override
     public void checkExistInvoiceProductById(Long invoiceProductId) {
-        if (invoiceProductRepository.existsById(invoiceProductId)) {
+        if(invoiceProductRepository.existsById(invoiceProductId)){
             throw new NotFoundEntityException("InvoiceProduct с id=" + invoiceProductId + " не найден.");
         }
     }
 
     @Override
     public void checkExistProjectById(Long projectId) {
-        if (!projectRepository.existsById(projectId)) {
+        if(!projectRepository.existsById(projectId)){
             throw new NotFoundEntityException("Project с id=" + projectId + " не найден.");
         }
     }
 
     @Override
     public void checkExistProductById(Long productId) {
-        if (!productRepository.existsById(productId)) {
+        if(!productRepository.existsById(productId)){
             throw new NotFoundEntityException("Product с id=" + productId + " не найден.");
         }
     }
 
     @Override
     public void checkExistProductPriceById(Long productPriceId) {
-        if (!productPriceRepository.existsById(productPriceId)) {
+        if(!productPriceRepository.existsById(productPriceId)){
             throw new NotFoundEntityException("ProductPrice с id=" + productPriceId + " не найден.");
         }
     }
 
     @Override
     public void checkExistTechnologicalOperationById(Long technologicalOperationId) {
-        if (!technologicalOperationRepository.existsById(technologicalOperationId)) {
+        if (!technologicalOperationRepository.existsById(technologicalOperationId)){
             throw new NotFoundEntityException("TechnologicalOperation c id=" + technologicalOperationId + "не найденю");
         }
     }
@@ -277,66 +281,65 @@ public class CheckEntityServiceImpl implements CheckEntityService {
 //            throw new NotFoundEntityException("TypeOfInvoiceId с id=" + typeOfInvoiceId + ", не найден");
 //        }
     }
-
     @Override
     public void checkExistProductionOrderById(Long productionOrderId) {
-        if (!productionOrderRepository.existsById(productionOrderId)) {
+        if(!productionOrderRepository.existsById(productionOrderId)){
             throw new NotFoundEntityException("ProductionOrder с id=" + productionOrderId + " не найден.");
         }
     }
 
     @Override
     public void checkExistCountryById(Long countryId) {
-        if (!countryRepository.existsById(countryId)) {
+        if(!countryRepository.existsById(countryId)){
             throw new NotFoundEntityException("Country с id=" + countryId + " не найден.");
         }
     }
 
     @Override
     public void checkExistTechnologicalMapById(Long id) {
-        if (!technologicalMapRepository.existsById(id)) {
+        if(!technologicalMapRepository.existsById(id)){
             throw new NotFoundEntityException("TechnologicalMap с id=" + id + " не найден.");
         }
     }
 
     @Override
     public void checkExistTechnologicalMapGroupById(Long id) {
-        if (!technologicalMapGroupRepository.existsById(id)) {
+        if(!technologicalMapGroupRepository.existsById(id)){
             throw new NotFoundEntityException("TechnologicalMapGroup с id=" + id + " не найден.");
         }
     }
 
     @Override
     public void checkExistTechnologicalMapProductById(Long id) {
-        if (!technologicalMapProductRepository.existsById(id)) {
+        if(!technologicalMapProductRepository.existsById(id)){
             throw new NotFoundEntityException("TechnologicalMapProduct с id=" + id + " не найден.");
         }
     }
 
     @Override
     public void checkExistTechnologicalMapMaterialById(Long id) {
-        if (!technologicalMapMaterialRepository.existsById(id)) {
+        if(!technologicalMapMaterialRepository.existsById(id)){
             throw new NotFoundEntityException("TechnologicalMapMaterial с id=" + id + " не найден.");
         }
     }
 
     @Override
     public void checkExistCallById(Long callId) {
-        if (!callRepository.existsById(callId)) {
+        if(!callRepository.existsById(callId)){
             throw new NotFoundEntityException("Call с id=" + callId + " не найден.");
         }
     }
 
     @Override
     public void checkExistTaskById(Long TaskId) {
-        if (!taskRepository.existsById(TaskId)) {
+        if(!taskRepository.existsById(TaskId)){
             throw new NotFoundEntityException("Call с id=" + TaskId + " не найден.");
         }
     }
 
     @Override
     public void checkExistPaymentById(Long paymentId) {
-        if (!paymentRepository.existsById(paymentId)) {
+        if(!paymentRepository.existsById(paymentId)) {
             throw new NotFoundEntityException("Payment с id=" + paymentId + " не найден.");
         }
     }
@@ -394,6 +397,20 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistFileById(Long fileId) {
         if (!fileRepository.existsById(fileId)) {
             throw new NotFoundEntityException("File с id = " + fileId + ", не найден");
+        }
+    }
+
+    @Override
+    public void checkExistSupplyId(Long supplyId) {
+        if(!supplyRepository.existsById(supplyId)) {
+            throw new NotFoundEntityException("Приемка с id=" + supplyId + " не найдена");
+        }
+    }
+
+    @Override
+    public void checkExistShipmentId(Long shipmentId) {
+        if(!shipmentRepository.existsById(shipmentId)) {
+            throw new NotFoundEntityException("Отгрузка с id=" + shipmentId + " не найдена");
         }
     }
 }
