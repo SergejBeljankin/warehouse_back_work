@@ -35,11 +35,11 @@ public class CustomerOrderDto {
 
     ContractorDto contractorDto = new ContractorDto();
 
-    List<ProductDto> productDto = new ArrayList<>();
+    List<ProductDto> productsDto = new ArrayList<>();
 
-    List<TaskDto> taskDto = new ArrayList<>();
+    List<TaskDto> tasksDto = new ArrayList<>();
 
-    List<File> fileDto = new ArrayList<>();
+    List<File> filesDto = new ArrayList<>();
 
     BigDecimal sum;
 
