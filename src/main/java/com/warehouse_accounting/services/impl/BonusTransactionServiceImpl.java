@@ -86,3 +86,4 @@ public class BonusTransactionServiceImpl implements BonusTransactionService {
         bonusTransactionRepository.deleteById(id);
     }
 }
+
