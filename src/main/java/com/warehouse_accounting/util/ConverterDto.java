@@ -12,6 +12,7 @@ import com.warehouse_accounting.models.Contractor;
 import com.warehouse_accounting.models.ContractorGroup;
 import com.warehouse_accounting.models.Country;
 import com.warehouse_accounting.models.Currency;
+import com.warehouse_accounting.models.CustomerOrder;
 import com.warehouse_accounting.models.Department;
 import com.warehouse_accounting.models.Document;
 import com.warehouse_accounting.models.Employee;
@@ -63,6 +64,7 @@ import com.warehouse_accounting.models.dto.ContractorDto;
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.models.dto.CountryDto;
 import com.warehouse_accounting.models.dto.CurrencyDto;
+import com.warehouse_accounting.models.dto.CustomerOrderDto;
 import com.warehouse_accounting.models.dto.DepartmentDto;
 import com.warehouse_accounting.models.dto.EmployeeDto;
 import com.warehouse_accounting.models.dto.FeedDto;
@@ -1529,6 +1531,58 @@ public class ConverterDto {
                 .requisites(convertToDto(subscription.getRequisites()))
                 .employee(convertToDto(subscription.getEmployee()))
                 .tariff(subscription.getTariffs().stream().map(ConverterDto::convertToDto).collect(Collectors.toSet()))
+                .build();
+    }
+
+    public static CustomerOrder convertToModel(CustomerOrderDto dto) {
+        return CustomerOrder.builder()
+                .id(dto.getId())
+                .date(dto.getDate())
+                .warehouse(convertToModel(dto.getWarehouseDto()))
+                .contract(convertToModel(dto.getContractDto()))
+                .contractor(convertToModel(dto.getContractorDto()))
+                .company(convertToModel(dto.getCompanyDto()))
+                .sum(dto.getSum())
+                .comment(dto.getComment())
+                .isPaid(dto.getIsPaid())
+                .products(dto.getProductsDto()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList()))
+                .tasks(dto.getTasksDto()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList()))
+                .files(dto.getFilesDto()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
+    public static CustomerOrderDto convertToDto(CustomerOrder customerOrder) {
+        return CustomerOrderDto.builder()
+                .id(customerOrder.getId())
+                .date(customerOrder.getDate())
+                .warehouseDto(convertToDto(customerOrder.getWarehouse()))
+                .contractDto(convertToDto(customerOrder.getContract()))
+                .contractorDto(convertToDto(customerOrder.getContractor()))
+                .companyDto(convertToDto(customerOrder.getCompany()))
+                .sum(customerOrder.getSum())
+                .comment(customerOrder.getComment())
+                .isPaid(customerOrder.getIsPaid())
+                .productsDto(customerOrder.getProducts()
+                        .stream()
+                        .map(ConverterDto::convertToDto)
+                        .collect(Collectors.toList()))
+                .tasksDto(customerOrder.getTasks()
+                        .stream()
+                        .map(ConverterDto::convertToDto)
+                        .collect(Collectors.toList()))
+                .filesDto(customerOrder.getFiles()
+                        .stream()
+                        .map(ConverterDto::convertToDto)
+                        .collect(Collectors.toList()))
                 .build();
     }
 }
