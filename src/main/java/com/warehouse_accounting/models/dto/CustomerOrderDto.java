@@ -39,7 +39,7 @@ public class CustomerOrderDto {
 
     List<TaskDto> tasksDto = new ArrayList<>();
 
-    List<File> filesDto = new ArrayList<>();
+    List<FileDto> filesDto = new ArrayList<>();
 
     BigDecimal sum;
 
