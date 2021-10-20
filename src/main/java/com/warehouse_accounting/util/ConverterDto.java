@@ -64,8 +64,8 @@ public class ConverterDto {
     }
 
 
-    public static BonusTransaction convertToModel(BonusTransactionDto bonusTransactionDto){
-        return  BonusTransaction.builder()
+    public static BonusTransaction convertToModel(BonusTransactionDto bonusTransactionDto) {
+        return BonusTransaction.builder()
                 .id(bonusTransactionDto.getId())
                 .created(bonusTransactionDto.getCreated())
                 .transactionType(bonusTransactionDto.getTransactionType())
@@ -79,7 +79,7 @@ public class ConverterDto {
                 .build();
     }
 
-    public static BonusTransactionDto convertToDto(BonusTransaction bonusTransaction){
+    public static BonusTransactionDto convertToDto(BonusTransaction bonusTransaction) {
         return BonusTransactionDto.builder()
                 .id(bonusTransaction.getId())
                 .created(bonusTransaction.getCreated())
@@ -93,7 +93,6 @@ public class ConverterDto {
                 .owner(convertToDto(bonusTransaction.getOwner()))
                 .build();
     }
-
 
     public static Role convertToModel(RoleDto roleDto) {
         return Role.builder()
@@ -1636,3 +1635,65 @@ public class ConverterDto {
                     .build();
         }
     }
+    public static SubscriptionDto convertToDto(Subscription subscription) {
+        return SubscriptionDto.builder()
+                .id(subscription.getId())
+                .subscriptionExpirationDate(subscription.getSubscriptionExpirationDate())
+                .requisites(convertToDto(subscription.getRequisites()))
+                .employee(convertToDto(subscription.getEmployee()))
+                .tariff(subscription.getTariffs().stream().map(ConverterDto::convertToDto).collect(Collectors.toSet()))
+                .build();
+    }
+
+    public static CustomerOrder convertToModel(CustomerOrderDto dto) {
+        return CustomerOrder.builder()
+                .id(dto.getId())
+                .date(dto.getDate())
+                .warehouse(convertToModel(dto.getWarehouseDto()))
+                .contract(convertToModel(dto.getContractDto()))
+                .contractor(convertToModel(dto.getContractorDto()))
+                .company(convertToModel(dto.getCompanyDto()))
+                .sum(dto.getSum())
+                .comment(dto.getComment())
+                .isPaid(dto.getIsPaid())
+                .products(dto.getProductsDto()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList()))
+                .tasks(dto.getTasksDto()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList()))
+                .files(dto.getFilesDto()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
+    public static CustomerOrderDto convertToDto(CustomerOrder customerOrder) {
+        return CustomerOrderDto.builder()
+                .id(customerOrder.getId())
+                .date(customerOrder.getDate())
+                .warehouseDto(convertToDto(customerOrder.getWarehouse()))
+                .contractDto(convertToDto(customerOrder.getContract()))
+                .contractorDto(convertToDto(customerOrder.getContractor()))
+                .companyDto(convertToDto(customerOrder.getCompany()))
+                .sum(customerOrder.getSum())
+                .comment(customerOrder.getComment())
+                .isPaid(customerOrder.getIsPaid())
+                .productsDto(customerOrder.getProducts()
+                        .stream()
+                        .map(ConverterDto::convertToDto)
+                        .collect(Collectors.toList()))
+                .tasksDto(customerOrder.getTasks()
+                        .stream()
+                        .map(ConverterDto::convertToDto)
+                        .collect(Collectors.toList()))
+                .filesDto(customerOrder.getFiles()
+                        .stream()
+                        .map(ConverterDto::convertToDto)
+                        .collect(Collectors.toList()))
+                .build();
+    }
+}
