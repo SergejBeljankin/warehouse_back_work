@@ -1,6 +1,9 @@
 package com.warehouse_accounting.models;
 
 import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
@@ -34,4 +37,11 @@ public class File {
 
     @OneToMany(fetch = LAZY)
     List<Employee> employee;
+
+
+    public File(@NonNull int size, @NonNull Date createdDate, @NonNull List<Employee> employee) {
+        this.size = size;
+        this.createdDate = createdDate;
+        this.employee = employee;
+    }
 }
