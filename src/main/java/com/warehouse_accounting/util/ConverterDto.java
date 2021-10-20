@@ -1424,7 +1424,7 @@ public class ConverterDto {
         Contractor consignee = new Contractor();
         consignee.setId(shipmentDto.getConsigneeId());
         Contractor carrier = new Contractor();
-//        carrier.setId(shipmentDto.getCarrierId());
+        carrier.setId(shipmentDto.getCarrierId());
 
         MovingFields movingFields = MovingFields.builder()
                 .dateOfCreation(shipmentDto.getDateOfCreation())
@@ -1447,7 +1447,7 @@ public class ConverterDto {
                         .map(ConverterDto::convertToModel)
                         .collect(Collectors.toList()) : null)
                 .consignee(shipmentDto.getConsigneeId() != null ? consignee : null)
-//                .carrier(shipmentDto.getCarrierId() != null ? carrier : null)
+                .carrier(shipmentDto.getCarrierId() != null ? carrier : null)
                 .isPaid(shipmentDto.getIsPaid())
                 .deliveryAddress(shipmentDto.getDeliveryAddress())
                 .build();
@@ -1474,7 +1474,7 @@ public class ConverterDto {
                 .isPrinted(shipment.getMovingFields().getIsPrinted())
                 .comment(shipment.getMovingFields().getComment())
                 .consigneeId(shipment.getConsignee() != null ? shipment.getConsignee().getId() : null)
-//                .carrierId(shipment.getCarrier() != null ? shipment.getCarrier().getId() : null)
+                .carrierId(shipment.getCarrier() != null ? shipment.getCarrier().getId() : null)
                 .isPaid(shipment.getIsPaid())
                 .deliveryAddress(shipment.getDeliveryAddress())
                 .build();
