@@ -22,15 +22,6 @@ public class ShipmentDto {
 
     Long id;
 
-    Long consigneeId;
-
-    Long carrierId;
-
-    Boolean isPaid;
-
-    String deliveryAddress;
-
-
     LocalDateTime dateOfCreation;
 
     Long warehouseId;
@@ -53,6 +44,13 @@ public class ShipmentDto {
 
     String comment;
 
+    Long consigneeId;
+
+    Long carrierId;
+
+    Boolean isPaid;
+
+    String deliveryAddress;
 
 
     public ShipmentDto(Long id,

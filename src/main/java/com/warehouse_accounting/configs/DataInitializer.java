@@ -1,5 +1,7 @@
 package com.warehouse_accounting.configs;
 
+import com.warehouse_accounting.models.BonusTransaction;
+import com.warehouse_accounting.models.MovingFields;
 import com.warehouse_accounting.models.TypeOfAdjustment;
 import com.warehouse_accounting.models.TypeOfPayment;
 import com.warehouse_accounting.models.dto.*;
@@ -61,7 +63,7 @@ public class DataInitializer {
     private final SubscriptionService subscriptionService;
     private final ProductGroupService productGroupService;
     private final FeedService feedService;
-//    private final BonusTransactionService bonusTransactionService;
+    private final BonusTransactionService bonusTransactionService;
     private final SupplyService supplyService;
     private final ShipmentService shipmentService;
 
@@ -129,7 +131,7 @@ public class DataInitializer {
         this.subscriptionService = subscriptionService;
         this.productGroupService = productGroupService;
         this.feedService = feedService;
-//        this.bonusTransactionService = bonusTransactionService;
+        this.bonusTransactionService = bonusTransactionService;
         this.supplyService = supplyService;
         this.shipmentService = shipmentService;
     }
@@ -855,23 +857,23 @@ public class DataInitializer {
     }
 
     private void initBonusTransaction() {
-//        try {
-//            ContractorDto contractorDto = new ContractorDto();
-//            bonusTransactionService.create(BonusTransactionDto.builder()
-//                    .id(1L)
-//                    .created(LocalDateTime.now())
-//                    .transactionType(BonusTransaction.TransactionType.EARNING)
-//                    .bonusValue(500L)
-//                    .transactionStatus(BonusTransaction.TransactionStatus.COMPLETED)
-//                    .executionDate(LocalDateTime.now())
-//                    .bonusProgram("Бонусная программа")
-//                    .contragent(contractorDto)
-//                    .comment("")
-//                    .owner(employeeService.getById(1L))
-//                    .build());
-//        } catch (Exception e) {
-//            log.error("Не удалось заполнить таблицу BonusTransaction", e);
-//        }
+        try {
+            ContractorDto contractorDto = new ContractorDto();
+            bonusTransactionService.create(BonusTransactionDto.builder()
+                    .id(1L)
+                    .created(LocalDateTime.now())
+                    .transactionType(BonusTransaction.TransactionType.EARNING)
+                    .bonusValue(500L)
+                    .transactionStatus(BonusTransaction.TransactionStatus.COMPLETED)
+                    .executionDate(LocalDateTime.now())
+                    .bonusProgram("Бонусная программа")
+                    .contragent(contractorDto)
+                    .comment("")
+                    .owner(employeeService.getById(1L))
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу BonusTransaction", e);
+        }
     }
 private void initSupply(){
     try {
@@ -888,41 +890,31 @@ private void initSupply(){
                 .isPrinted(true)
                 .comment("text")
                 .build());
+
     } catch (Exception e) {
         log.error("Не удалось заполнить таблицу supply", e);
     }
 }
     private void  initShipment(){
         try {
-            MovingFieldsDto dto = MovingFieldsDto.builder()
-                    .dataTime(LocalDateTime.now())
+            shipmentService.create(ShipmentDto.builder()
+                    .id(1L)
+                    .dateOfCreation(LocalDateTime.now())
                     .warehouseId(1L)
                     .contractId(1L)
                     .contractorId(1L)
                     .companyId(1L)
                     .sum(BigDecimal.valueOf(777))
-                    .isSent(false)
+                    .productDtos(List.of(productService.getById(2L)))
+                    .isSent(true)
                     .isPrinted(true)
                     .comment("Shipment")
-                    .build();
-
-            shipmentService.create(ShipmentDto.builder()
-                    .id(2L)
-                    .dateOfCreation(dto.getDataTime())
-                    .warehouseId(dto.getWarehouseId())
-                    .productDtos(List.of(productService.getById(2L)))
-                    .contractId(dto.getContractId())
-                    .contractorId(dto.getContractorId())
-                    .companyId(dto.getCompanyId())
-                    .sum(dto.getSum())
-                    .isSent(dto.getIsSent())
-                    .isPrinted(dto.getIsPrinted())
-                    .comment(dto.getComment())
                     .consigneeId(1L)
                     .carrierId(1L)
                     .isPaid(true)
                     .deliveryAddress("To the moon")
                     .build());
+
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу shipment", e);
         }

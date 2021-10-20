@@ -1,10 +1,10 @@
 package com.warehouse_accounting.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,18 +17,15 @@ import java.time.LocalDateTime;
 import static lombok.AccessLevel.PRIVATE;
 
 /*
-Универсальная модель для приемки и отгрузки
+Одинаковые поля для приемки и отгрузки
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
+@Builder
 @FieldDefaults(level = PRIVATE)
 @Embeddable
 public class MovingFields {
-
-    @Column
-    Integer documentNumber;
 
     @Column
     LocalDateTime dateOfCreation = LocalDateTime.now();
@@ -36,13 +33,13 @@ public class MovingFields {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     Warehouse warehouse;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     Contract contract;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     Contractor contractor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     Company company;
 
     @Column

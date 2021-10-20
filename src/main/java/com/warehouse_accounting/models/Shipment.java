@@ -31,7 +31,8 @@ public class Shipment{
     @Embedded
     MovingFields movingFields;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     List<Product> products;
 
     @ManyToOne(fetch = FetchType.LAZY)
