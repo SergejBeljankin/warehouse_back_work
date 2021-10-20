@@ -12,6 +12,7 @@ import com.warehouse_accounting.repositories.ContractorGroupRepository;
 import com.warehouse_accounting.repositories.ContractorRepository;
 import com.warehouse_accounting.repositories.CountryRepository;
 import com.warehouse_accounting.repositories.CurrencyRepository;
+import com.warehouse_accounting.repositories.CustomerOrderRepository;
 import com.warehouse_accounting.repositories.DepartmentRepository;
 import com.warehouse_accounting.repositories.EmployeeRepository;
 import com.warehouse_accounting.repositories.FeedRepository;
@@ -98,6 +99,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final TariffRepository tariffRepository;
     private final RequisitesRepository requisitesRepository;
     private final SubscriptionRepository subscriptionRepository;
+    private final CustomerOrderRepository customerOrderRepository;
 
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {
@@ -386,4 +388,12 @@ public class CheckEntityServiceImpl implements CheckEntityService {
             throw new NotFoundEntityException("BonusTransaction с id=" + applicationId + ", не найдена");
         }
     }
+
+    @Override
+    public void checkExistCustomerOrderById(Long id) {
+        if (customerOrderRepository.existsById(id)) {
+            throw new NotFoundEntityException("CustomerOrder с id=" + id + ", не найдена");
+        }
+    }
+
 }
