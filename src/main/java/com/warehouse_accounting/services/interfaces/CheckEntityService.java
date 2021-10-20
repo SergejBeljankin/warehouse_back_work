@@ -91,10 +91,6 @@ public interface CheckEntityService {
 
     void checkExistBonusTransactionById(Long bonusTransactionId);
 
-    void checkExistFeedById(Long feedId);
-
-    void checkExistSubscriptionById(Long subscriptionId);
-
     void checkExistCustomerOrderById(Long id);
 
     void checkExistRecycleBinById(Long recycleBinId);

@@ -371,23 +371,9 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     }
 
     @Override
-    public void checkExistSubscriptionById(Long subscriptionId) {
-        if (!subscriptionRepository.existsById(subscriptionId)) {
-            throw new NotFoundEntityException("Подписка с id=" + subscriptionId + " не найдена.");
-        }
-    }
-
-    @Override
     public void checkExistFeedById(Long feedId) {
         if (!feedRepository.existsById(feedId)) {
             throw new NotFoundEntityException("Новость с id=" + feedId + " не найдена.");
-        }
-    }
-
-    @Override
-    public void checkExistBonusTransactionById(Long bonusTransactionId) {
-        if (!bonusTransactionRepository.existsById(bonusTransactionId)) {
-            throw new NotFoundEntityException("BonusTransaction с id=" + bonusTransactionId + ", не найдена");
         }
     }
 
@@ -437,13 +423,6 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistBonusTransactionById(Long bonusTransactionId) {
         if(!bonusTransactionRepository.existsById(bonusTransactionId)) {
             throw new NotFoundEntityException("Бонусная транзакция с id=" + bonusTransactionId + " не найдена");
-        }
-    }
-
-    @Override
-    public void checkExistFeedById(Long feedId) {
-        if(!feedRepository.existsById(feedId)) {
-            throw new NotFoundEntityException("Новость с id=" + feedId + " не найдена");
         }
     }
 
