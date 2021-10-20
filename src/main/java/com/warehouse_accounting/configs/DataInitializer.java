@@ -98,7 +98,8 @@ public class DataInitializer {
                            ProductGroupService productGroupService,
                            FeedService feedService,
                            SupplyService supplyService,
-                           ShipmentService shipmentService) {
+                           ShipmentService shipmentService,
+                           BonusTransactionService bonusTransactionService) {
         this.applicationService = applicationService;
         this.roleService = roleService;
         this.unitService = unitService;
@@ -857,7 +858,6 @@ public class DataInitializer {
 
     private void initBonusTransaction() {
         try {
-            ContractorDto contractorDto = new ContractorDto();
             bonusTransactionService.create(BonusTransactionDto.builder()
                     .id(1L)
                     .created(LocalDateTime.now())
@@ -866,13 +866,14 @@ public class DataInitializer {
                     .transactionStatus(BonusTransaction.TransactionStatus.COMPLETED)
                     .executionDate(LocalDateTime.now())
                     .bonusProgram("Бонусная программа")
-                    .contragent(contractorDto)
-                    .comment("")
+                    .contragent(contractorService.getById(1L))
+                    .comment("комментарий")
                     .owner(employeeService.getById(1L))
                     .build());
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу BonusTransaction", e);
         }
+
     }
 private void initSupply(){
     try {

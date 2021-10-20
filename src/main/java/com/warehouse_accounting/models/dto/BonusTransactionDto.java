@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class BonusTransactionDto {
 
     private Long id;
@@ -38,5 +38,25 @@ public class BonusTransactionDto {
 
     private EmployeeDto owner = new EmployeeDto();
 
-
+    public BonusTransactionDto(Long id,
+                               LocalDateTime created,
+                               BonusTransaction.TransactionType transactionType,
+                               Long bonusValue, BonusTransaction.TransactionStatus transactionStatus,
+                               LocalDateTime executionDate,
+                               String bonusProgram,
+                               Long contragentId,
+                               String comment,
+                               Long ownerId) {
+        this.id = id;
+        this.created = created;
+        this.transactionType = transactionType;
+        this.bonusValue = bonusValue;
+        this.transactionStatus = transactionStatus;
+        this.executionDate = executionDate;
+        this.bonusProgram = bonusProgram;
+        this.contragent.setId(contragentId);
+        this.comment = comment;
+        this.owner.setId(ownerId);
+    }
 }
+

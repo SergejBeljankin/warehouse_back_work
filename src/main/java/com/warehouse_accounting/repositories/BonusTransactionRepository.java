@@ -17,9 +17,10 @@ public interface BonusTransactionRepository extends JpaRepository<BonusTransacti
             "bt.transactionStatus, " +
             "bt.executionDate, " +
             "bt.bonusProgram, " +
-            "bt.contragent, " +
+            "bt.contragent.id, " +
             "bt.comment, " +
-            "bt.owner.id) FROM BonusTransaction bt JOIN Employee empl ON (bt.owner.id = empl.id) ")
+            "bt.owner.id) FROM BonusTransaction bt JOIN Employee empl ON (bt.owner.id = empl.id) " +
+            "JOIN Contractor cntr ON (bt.contragent.id = cntr.id) ")
     List<BonusTransactionDto> getAll();
 
     @Query("SELECT new com.warehouse_accounting.models.dto.BonusTransactionDto(" +
@@ -30,8 +31,9 @@ public interface BonusTransactionRepository extends JpaRepository<BonusTransacti
             "bt.transactionStatus, " +
             "bt.executionDate, " +
             "bt.bonusProgram, " +
-            "bt.contragent, " +
+            "bt.contragent.id, " +
             "bt.comment, " +
             "bt.owner.id) FROM BonusTransaction bt where bt.id=:id")
     BonusTransactionDto getById(@Param("id") Long id);
 }
+
