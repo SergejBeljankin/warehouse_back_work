@@ -91,6 +91,8 @@ public interface CheckEntityService {
 
     void checkExistBonusTransactionById(Long bonusTransactionId);
 
+    void checkExistFileById(Long fileId);
+
     void checkExistApplicationById(Long id);
 
     void checkExistSupplyId(Long supplyId);
