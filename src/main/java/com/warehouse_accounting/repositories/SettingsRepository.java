@@ -49,5 +49,24 @@ public interface SettingsRepository extends JpaRepository<Settings, Long> {
             "FROM Settings s WHERE s.id = :id")
     SettingsDto getById(@Param("id") Long id);
 
+    @Query("SELECT NEW com.warehouse_accounting.models.dto.SettingsDto(" +
+            "s.id, " +
+            "s.employee.id, " +
+            "s.company.id, " +
+            "s.warehouse.id, " +
+            "s.customer.id, " +
+            "s.producer.id, " +
+            "s.project.id, " +
+            "s.language.id, " +
+            "s.printingDocuments.id, " +
+            "s.numberOfAdditionalFieldsPerLine, " +
+            "s.startScreen.id, " +
+            "s.refreshReportsAuto, " +
+            "s.signatureInLetters, " +
+            "s.notifications.id " +
+            ")" +
+            "FROM Settings s WHERE s.employee.id = :id")
+    SettingsDto getByIdEmployee(@Param("id") Long id);
+
 
 }

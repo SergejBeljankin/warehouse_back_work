@@ -1,12 +1,10 @@
 package com.warehouse_accounting.configs;
 
-import com.warehouse_accounting.models.BonusTransaction;
 import com.warehouse_accounting.models.TypeOfAdjustment;
 import com.warehouse_accounting.models.TypeOfPayment;
 import com.warehouse_accounting.models.dto.AdjustmentDto;
 import com.warehouse_accounting.models.dto.ApplicationDto;
 import com.warehouse_accounting.models.dto.BankAccountDto;
-import com.warehouse_accounting.models.dto.BonusTransactionDto;
 import com.warehouse_accounting.models.dto.CallDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.ContractDto;
@@ -38,7 +36,6 @@ import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.services.interfaces.AdjustmentService;
 import com.warehouse_accounting.services.interfaces.ApplicationService;
 import com.warehouse_accounting.services.interfaces.BankAccountService;
-import com.warehouse_accounting.services.interfaces.BonusTransactionService;
 import com.warehouse_accounting.services.interfaces.CallService;
 import com.warehouse_accounting.services.interfaces.CompanyService;
 import com.warehouse_accounting.services.interfaces.ContractService;
@@ -124,7 +121,7 @@ public class DataInitializer {
     private final SubscriptionService subscriptionService;
     private final ProductGroupService productGroupService;
     private final FeedService feedService;
-    private final BonusTransactionService bonusTransactionService;
+
 
     public DataInitializer(ApplicationService applicationService,
                            RoleService roleService,
@@ -156,8 +153,8 @@ public class DataInitializer {
                            RequisitesService requisitesService,
                            SubscriptionService subscriptionService,
                            ProductGroupService productGroupService,
-                           FeedService feedService,
-                           BonusTransactionService bonusTransactionService) {
+                           FeedService feedService
+                          ) {
         this.applicationService = applicationService;
         this.roleService = roleService;
         this.unitService = unitService;
@@ -189,7 +186,6 @@ public class DataInitializer {
         this.subscriptionService = subscriptionService;
         this.productGroupService = productGroupService;
         this.feedService = feedService;
-        this.bonusTransactionService = bonusTransactionService;
     }
 
     @PostConstruct
@@ -222,7 +218,6 @@ public class DataInitializer {
         initSubscription();
         initProductGroup();
         initFeed();
-        initBonusTransaction();
     }
 
     private void initApplications() {
@@ -910,24 +905,5 @@ public class DataInitializer {
         }
     }
 
-    private void initBonusTransaction() {
-        try {
-            ContractorDto contractorDto = new ContractorDto();
-            bonusTransactionService.create(BonusTransactionDto.builder()
-                    .id(1L)
-                    .created(LocalDateTime.now())
-                    .transactionType(BonusTransaction.TransactionType.EARNING)
-                    .bonusValue(500L)
-                    .transactionStatus(BonusTransaction.TransactionStatus.COMPLETED)
-                    .executionDate(LocalDateTime.now())
-                    .bonusProgram("Бонусная программа")
-                    .contragent(contractorDto)
-                    .comment("")
-                    .owner(employeeService.getById(1L))
-                    .build());
-        } catch (Exception e) {
-            log.error("Не удалось заполнить таблицу BonusTransaction", e);
-        }
-    }
 
 }

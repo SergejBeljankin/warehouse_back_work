@@ -4,7 +4,6 @@ import com.warehouse_accounting.models.Adjustment;
 import com.warehouse_accounting.models.Application;
 import com.warehouse_accounting.models.AttributeOfCalculationObject;
 import com.warehouse_accounting.models.BankAccount;
-import com.warehouse_accounting.models.BonusTransaction;
 import com.warehouse_accounting.models.Call;
 import com.warehouse_accounting.models.Company;
 import com.warehouse_accounting.models.Contract;
@@ -55,7 +54,6 @@ import com.warehouse_accounting.models.dto.AdjustmentDto;
 import com.warehouse_accounting.models.dto.ApplicationDto;
 import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
 import com.warehouse_accounting.models.dto.BankAccountDto;
-import com.warehouse_accounting.models.dto.BonusTransactionDto;
 import com.warehouse_accounting.models.dto.CallDto;
 import com.warehouse_accounting.models.dto.CompanyDto;
 import com.warehouse_accounting.models.dto.ContractDto;
@@ -100,7 +98,6 @@ import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.models.dto.WarehouseDto;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -159,30 +156,6 @@ public class ConverterDto {
                 .build();
     }
 
-
-    public static BonusTransaction convertToModel(BonusTransactionDto bonusTransactionDto) {
-        return BonusTransaction.builder()
-                .id(bonusTransactionDto.getId())
-                .transactionType(bonusTransactionDto.getTransactionType())
-                .bonusValue(bonusTransactionDto.getBonusValue())
-                .transactionStatus(bonusTransactionDto.getTransactionStatus())
-                .executionDate(bonusTransactionDto.getExecutionDate())
-                .bonusProgram(bonusTransactionDto.getBonusProgram())
-                .comment(bonusTransactionDto.getComment())
-                .build();
-    }
-
-    public static BonusTransactionDto convertToDto(BonusTransaction bonusTransaction) {
-        return BonusTransactionDto.builder()
-                .id(bonusTransaction.getId())
-                .transactionType(bonusTransaction.getTransactionType())
-                .bonusValue(bonusTransaction.getBonusValue())
-                .transactionStatus(bonusTransaction.getTransactionStatus())
-                .executionDate(bonusTransaction.getExecutionDate())
-                .bonusProgram(bonusTransaction.getBonusProgram())
-                .comment(bonusTransaction.getComment())
-                .build();
-    }
 
     public static Role convertToModel(RoleDto roleDto) {
         return Role.builder()
