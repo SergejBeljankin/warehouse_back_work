@@ -92,4 +92,6 @@ public interface CheckEntityService {
     void checkExistBonusTransactionById(Long bonusTransactionId);
 
     void checkExistApplicationById(Long id);
+
+    void checkExistCustomerOrderById(Long id);
 }
