@@ -824,16 +824,35 @@ public class ConverterDto {
     public static RecycleBinDto convertToDto(RecycleBin recycleBin) {
         return RecycleBinDto.builder()
                 .id(recycleBin.getId())
-                .name(recycleBin.getName())
-                .createdDate(recycleBin.getCreatedDate())
-                .document(recycleBin.getDocument())
+                .documentType(recycleBin.getDocumentType())
+                .number(recycleBin.getNumber())
+                .date(recycleBin.getDate())
+                .sum(recycleBin.getSum())
+                .warehouseTo(recycleBin.getWarehouseTo())
+                .warehouseFrom(recycleBin.getWarehouseFrom())
+                .companyName(recycleBin.getCompanyName())
+                .contractorName(recycleBin.getContractorName())
+                .status(recycleBin.getStatus())
+                .shipped(recycleBin.getShipped())
+                .printed(recycleBin.getPrinted())
+                .comment(recycleBin.getComment())
                 .build();
     }
 
     public static RecycleBin convertToModel(RecycleBinDto dto) {
-        return new RecycleBin(dto.getName(),
-                dto.getCreatedDate(),
-                dto.getDocument()
+        return new RecycleBin(dto.getId(),
+                dto.getDocumentType(),
+                dto.getNumber(),
+                dto.getDate(),
+                dto.getSum(),
+                dto.getWarehouseTo(),
+                dto.getWarehouseFrom(),
+                dto.getCompanyName(),
+                dto.getContractorName(),
+                dto.getStatus(),
+                dto.getShipped(),
+                dto.getPrinted(),
+                dto.getComment()
         );
     }
 
