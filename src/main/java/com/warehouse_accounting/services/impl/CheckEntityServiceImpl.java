@@ -82,7 +82,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final WarehouseRepository warehouseRepository;
     private final MovementRepository movementRepository;
     private final ProductionOrderRepository productionOrderRepository;
-    //private final TypeOfInvoiceRepository typeOfInvoiceRepository;
+//    private final TypeOfInvoiceRepository typeOfInvoiceRepository;
     private final TechnologicalMapRepository technologicalMapRepository;
     private final TechnologicalMapGroupRepository technologicalMapGroupRepository;
     private final TechnologicalMapMaterialRepository technologicalMapMaterialRepository;
@@ -98,6 +98,8 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final TariffRepository tariffRepository;
     private final RequisitesRepository requisitesRepository;
     private final SubscriptionRepository subscriptionRepository;
+    private final SupplyRepository supplyRepository;
+    private final ShipmentRepository shipmentRepository;
 
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {
@@ -349,6 +351,20 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistRecycleBinById(Long recycleBinId) {
         if (!recycleBinRepository.existsById(recycleBinId)) {
             throw new NotFoundEntityException("Заметка с id=" + recycleBinId + " не найдена.");
+        }
+    }
+
+    @Override
+    public void checkExistSupplyId(Long supplyId) {
+        if(!supplyRepository.existsById(supplyId)) {
+            throw new NotFoundEntityException("Приемка с id=" + supplyId + " не найдена");
+        }
+    }
+
+    @Override
+    public void checkExistShipmentId(Long shipmentId) {
+        if(!shipmentRepository.existsById(shipmentId)) {
+            throw new NotFoundEntityException("Отгрузка с id=" + shipmentId + " не найдена");
         }
     }
 }
