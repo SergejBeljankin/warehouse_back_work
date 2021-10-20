@@ -82,7 +82,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final WarehouseRepository warehouseRepository;
     private final MovementRepository movementRepository;
     private final ProductionOrderRepository productionOrderRepository;
-//    private final TypeOfInvoiceRepository typeOfInvoiceRepository;
+    //private final TypeOfInvoiceRepository typeOfInvoiceRepository;
     private final TechnologicalMapRepository technologicalMapRepository;
     private final TechnologicalMapGroupRepository technologicalMapGroupRepository;
     private final TechnologicalMapMaterialRepository technologicalMapMaterialRepository;
@@ -98,6 +98,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final TariffRepository tariffRepository;
     private final RequisitesRepository requisitesRepository;
     private final SubscriptionRepository subscriptionRepository;
+    private final FileRepository fileRepository;
     private final SupplyRepository supplyRepository;
     private final ShipmentRepository shipmentRepository;
 
@@ -351,6 +352,13 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistRecycleBinById(Long recycleBinId) {
         if (!recycleBinRepository.existsById(recycleBinId)) {
             throw new NotFoundEntityException("Заметка с id=" + recycleBinId + " не найдена.");
+        }
+    }
+
+    @Override
+    public void checkExistFileById(Long fileId) {
+        if (!fileRepository.existsById(fileId)) {
+            throw new NotFoundEntityException("File с id = " + fileId + ", не найден");
         }
     }
 
