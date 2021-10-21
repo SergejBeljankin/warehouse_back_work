@@ -4,33 +4,29 @@ import com.warehouse_accounting.models.dto.RecycleBinDto;
 import com.warehouse_accounting.repositories.RecycleBinRepository;
 import com.warehouse_accounting.services.interfaces.RecycleBinService;
 import com.warehouse_accounting.util.ConverterDto;
-import lombok.AllArgsConstructor;
-import lombok.experimental.Delegate;
-import org.springframework.stereotype.Service;
 
+import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 @Transactional
 public class RecycleBinServiceImpl implements RecycleBinService {
-    @Delegate
-    RecycleBinRepository recycleBinRepository;
+
+    private final RecycleBinRepository recycleBinRepository;
+
+    public RecycleBinServiceImpl(RecycleBinRepository recycleBinRepository) {
+        this.recycleBinRepository = recycleBinRepository;
+    }
 
     @Override
     public List<RecycleBinDto> getAll() {
-        return recycleBinRepository.findAll().stream()
-                .map(ConverterDto::convertToDto)
-                .collect(Collectors.toList());
+        return recycleBinRepository.getAll();
     }
 
     @Override
     public RecycleBinDto getById(Long id) {
-        return recycleBinRepository.findById(id)
-                .map(ConverterDto::convertToDto)
-                .orElseThrow();
+        return recycleBinRepository.getById(id);
     }
 
     @Override
@@ -40,8 +36,11 @@ public class RecycleBinServiceImpl implements RecycleBinService {
 
     @Override
     public void update(RecycleBinDto recycleBinDto) {
-        var recycleBin = ConverterDto.convertToModel(recycleBinDto);
-        recycleBin.setId(recycleBinDto.getId());
-        recycleBinRepository.save(recycleBin);
+        recycleBinRepository.save(ConverterDto.convertToModel(recycleBinDto));
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        recycleBinRepository.deleteById(id);
     }
 }

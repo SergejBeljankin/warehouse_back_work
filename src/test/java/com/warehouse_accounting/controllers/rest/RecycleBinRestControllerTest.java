@@ -16,8 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Collections;
-import java.util.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -44,7 +44,7 @@ class RecycleBinRestControllerTest {
 
     @BeforeEach
     void setUp() {
-        recycleBin = new RecycleBin("document", new Date(), Collections.emptyList());
+        recycleBin = new RecycleBin(1L,"document","13",LocalDate.ofEpochDay(22), BigDecimal.valueOf(112) , "12","12","w" , "s" , "sa","w","g","wq");
         id = recycleBinRepository
                 .save(recycleBin)
                 .getId();
@@ -82,8 +82,8 @@ class RecycleBinRestControllerTest {
     @SneakyThrows
     void update() {
         mockMvc.perform(put("/api/recycle-bin")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(recycleBin)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(recycleBin)))
                 .andExpect(status().isOk());
     }
 
@@ -98,3 +98,4 @@ class RecycleBinRestControllerTest {
                 .andExpect(status().isNotFound());
     }
 }
+

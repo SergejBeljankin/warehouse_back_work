@@ -1,34 +1,65 @@
 package com.warehouse_accounting.models;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import java.util.Date;
-import java.util.List;
-
-import static javax.persistence.FetchType.LAZY;
+import javax.persistence.Table;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
+@Builder
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Entity
+@Table(name = "recycleBin")
 public class RecycleBin {
     @Id
     @GeneratedValue
-    Long id;
+    private Long id;
 
-    @NonNull private String name;
+    @Column
+    private String documentType;
 
-    @NonNull private Date createdDate;
+    @Column
+    private String number;  // номер документа
 
-    @OneToMany(fetch = LAZY, mappedBy = "recycleBin", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @NonNull private List<Document> document;
+    @Column
+    private LocalDate date; // дата создания документа
+
+    @Column
+    private BigDecimal sum; // сумма с документа
+
+    @Column
+    private String warehouseTo; // со склада  склад
+
+    @Column
+    private String warehouseFrom;  //  на склад склад
+
+    @Column
+    private String companyName; // организация  имя
+
+    @Column
+    private String contractorName; // Контрагент имя
+
+    @Column
+    private String status; // статус ?
+
+    @Column
+    private String shipped;  // отправлено ?
+
+    @Column
+    private String printed; // напечатано ?
+
+    @Column
+    private String comment; // коментарий ?
+
+
 }

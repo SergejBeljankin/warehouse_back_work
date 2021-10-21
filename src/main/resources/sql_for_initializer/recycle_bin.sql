@@ -1,0 +1,1 @@
+INSERT INTO recycle_bin (id ,document_type ,number ,date ,sum ,warehouse_to ,warehouse_from ,company_name ,contractor_name ,status ,shipped, printed, comment) VALUES (1 ,'Входящий платеж', '111', '15.10.2021 12:34', '1110', 'Со склада', 'На склад', 'ООО Райтер', 'ООО"Покупатель"', '111c', 'Отправлено', 'Напечатано', 'Комент');

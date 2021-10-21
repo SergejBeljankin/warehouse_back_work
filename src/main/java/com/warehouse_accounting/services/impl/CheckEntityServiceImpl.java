@@ -3,6 +3,49 @@ package com.warehouse_accounting.services.impl;
 import com.warehouse_accounting.repositories.*;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.exceptions.NotFoundEntityException;
+import com.warehouse_accounting.repositories.AdjustmentRepository;
+import com.warehouse_accounting.repositories.ApplicationRepository;
+import com.warehouse_accounting.repositories.AttributeOfCalculationObjectRepository;
+import com.warehouse_accounting.repositories.BankAccountRepository;
+import com.warehouse_accounting.repositories.BonusTransactionRepository;
+import com.warehouse_accounting.repositories.CallRepository;
+import com.warehouse_accounting.repositories.CompanyRepository;
+import com.warehouse_accounting.repositories.ContractRepository;
+import com.warehouse_accounting.repositories.ContractorGroupRepository;
+import com.warehouse_accounting.repositories.ContractorRepository;
+import com.warehouse_accounting.repositories.CountryRepository;
+import com.warehouse_accounting.repositories.CurrencyRepository;
+import com.warehouse_accounting.repositories.DepartmentRepository;
+import com.warehouse_accounting.repositories.EmployeeRepository;
+import com.warehouse_accounting.repositories.FeedRepository;
+import com.warehouse_accounting.repositories.ImageRepository;
+import com.warehouse_accounting.repositories.InvoiceProductRepository;
+import com.warehouse_accounting.repositories.InvoiceRepository;
+import com.warehouse_accounting.repositories.LegalDetailRepository;
+import com.warehouse_accounting.repositories.MemoRepository;
+import com.warehouse_accounting.repositories.MovementRepository;
+import com.warehouse_accounting.repositories.PaymentRepository;
+import com.warehouse_accounting.repositories.PositionRepository;
+import com.warehouse_accounting.repositories.ProductGroupRepository;
+import com.warehouse_accounting.repositories.ProductPriceRepository;
+import com.warehouse_accounting.repositories.ProductRepository;
+import com.warehouse_accounting.repositories.ProductionOrderRepository;
+import com.warehouse_accounting.repositories.ProjectRepository;
+import com.warehouse_accounting.repositories.RequisitesRepository;
+import com.warehouse_accounting.repositories.RoleRepository;
+import com.warehouse_accounting.repositories.RecycleBinRepository;
+import com.warehouse_accounting.repositories.TaskRepository;
+import com.warehouse_accounting.repositories.TaxSystemRepository;
+import com.warehouse_accounting.repositories.TechnologicalMapGroupRepository;
+import com.warehouse_accounting.repositories.TechnologicalMapMaterialRepository;
+import com.warehouse_accounting.repositories.TechnologicalMapProductRepository;
+import com.warehouse_accounting.repositories.TechnologicalMapRepository;
+import com.warehouse_accounting.repositories.TechnologicalOperationRepository;
+import com.warehouse_accounting.repositories.TypeOfContractorRepository;
+import com.warehouse_accounting.repositories.TypeOfPriceRepository;
+import com.warehouse_accounting.repositories.UnitRepository;
+import com.warehouse_accounting.repositories.WarehouseRepository;
+import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +76,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final ProductPriceRepository productPriceRepository;
     private final ProjectRepository projectRepository;
     private final RoleRepository roleRepository;
+    private final RecycleBinRepository recycleBinRepository;
     private final TaxSystemRepository taxSystemRepository;
     private final TypeOfContractorRepository typeOfContractorRepository;
     private final TypeOfPriceRepository typeOfPriceRepository;
@@ -40,7 +84,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final WarehouseRepository warehouseRepository;
     private final MovementRepository movementRepository;
     private final ProductionOrderRepository productionOrderRepository;
-//    private final TypeOfInvoiceRepository typeOfInvoiceRepository;
+    //private final TypeOfInvoiceRepository typeOfInvoiceRepository;
     private final TechnologicalMapRepository technologicalMapRepository;
     private final TechnologicalMapGroupRepository technologicalMapGroupRepository;
     private final TechnologicalMapMaterialRepository technologicalMapMaterialRepository;
@@ -52,10 +96,11 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final MemoRepository memoRepository;
     private final ApplicationRepository applicationRepository;
     private final FeedRepository feedRepository;
-//    private final BonusTransactionRepository bonusTransactionRepository;
+    private final BonusTransactionRepository bonusTransactionRepository;
     private final TariffRepository tariffRepository;
     private final RequisitesRepository requisitesRepository;
     private final SubscriptionRepository subscriptionRepository;
+    private final FileRepository fileRepository;
     private final SupplyRepository supplyRepository;
     private final ShipmentRepository shipmentRepository;
 
@@ -335,9 +380,9 @@ public class CheckEntityServiceImpl implements CheckEntityService {
 
     @Override
     public void checkExistBonusTransactionById(Long bonusTransactionId) {
-//        if (!bonusTransactionRepository.existsById(bonusTransactionId)) {
-//            throw new NotFoundEntityException("BonusTransaction с id=" + bonusTransactionId + ", не найдена");
-//        }
+        if (!bonusTransactionRepository.existsById(bonusTransactionId)) {
+            throw new NotFoundEntityException("BonusTransaction с id=" + bonusTransactionId + ", не найдена");
+        }
     }
 
     @Override
@@ -358,6 +403,18 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistShipmentId(Long shipmentId) {
         if(!shipmentRepository.existsById(shipmentId)) {
             throw new NotFoundEntityException("Отгрузка с id=" + shipmentId + " не найдена");
+        }
+    }
+    @Override
+    public void checkExistRecycleBinById(Long recycleBinId) {
+        if (!recycleBinRepository.existsById(recycleBinId)) {
+            throw new NotFoundEntityException("Заметка с id=" + recycleBinId + " не найдена.");
+        }
+    }
+    @Override
+    public void checkExistFileById(Long fileId) {
+        if (!fileRepository.existsById(fileId)) {
+            throw new NotFoundEntityException("File с id = " + fileId + ", не найден");
         }
     }
 }
