@@ -82,4 +82,18 @@ public interface CheckEntityService {
     void checkExistMemoById(Long memoId);
 
     void checkExistRecycleBinById(Long recycleBinId);
+
+    void checkExistApplicationById(Long applicationId);
+
+    void checkExistFileById(Long fileId);
+
+    void checkExistSupplyId(Long supplyId);
+
+    void checkExistShipmentId(Long shipmentId);
+
+    void checkExistBonusTransactionById(Long bonusTransactionId);
+
+    void checkExistFeedById(Long feedId);
+
+    void checkExistSubscriptionById(Long subscriptionId);
 }
