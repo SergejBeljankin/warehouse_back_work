@@ -13,6 +13,7 @@ import com.warehouse_accounting.repositories.ContractorGroupRepository;
 import com.warehouse_accounting.repositories.ContractorRepository;
 import com.warehouse_accounting.repositories.CountryRepository;
 import com.warehouse_accounting.repositories.CurrencyRepository;
+import com.warehouse_accounting.repositories.CustomerOrderRepository;
 import com.warehouse_accounting.repositories.DepartmentRepository;
 import com.warehouse_accounting.repositories.EmployeeRepository;
 import com.warehouse_accounting.repositories.FeedRepository;
@@ -47,8 +48,9 @@ import com.warehouse_accounting.repositories.TechnologicalOperationRepository;
 import com.warehouse_accounting.repositories.TypeOfContractorRepository;
 import com.warehouse_accounting.repositories.TypeOfPriceRepository;
 import com.warehouse_accounting.repositories.UnitRepository;
-import com.warehouse_accounting.repositories.WarehouseRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
+import com.warehouse_accounting.repositories.WarehouseRepository;
+import com.warehouse_accounting.exceptions.NotFoundEntityException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -106,6 +108,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final FileRepository fileRepository;
     private final SupplyRepository supplyRepository;
     private final ShipmentRepository shipmentRepository;
+    private final CustomerOrderRepository customerOrderRepository;
 
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {
@@ -354,6 +357,41 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     }
 
     @Override
+    public void checkExistTariffById(Long tariffId) {
+        if (!tariffRepository.existsById(tariffId)) {
+            throw new NotFoundEntityException("Тариф с id=" + tariffId + " не найден.");
+        }
+    }
+
+    @Override
+    public void checkExistRequisitesById(Long requisitesId) {
+        if (!requisitesRepository.existsById(requisitesId)) {
+            throw new NotFoundEntityException("Реквизиты с id=" + requisitesId + " не найден.");
+        }
+    }
+
+    @Override
+    public void checkExistFeedById(Long feedId) {
+        if (!feedRepository.existsById(feedId)) {
+            throw new NotFoundEntityException("Новость с id=" + feedId + " не найдена.");
+        }
+    }
+
+    @Override
+    public void checkExistApplicationById(Long applicationId) {
+        if (!applicationRepository.existsById(applicationId)) {
+            throw new NotFoundEntityException("BonusTransaction с id=" + applicationId + ", не найдена");
+        }
+    }
+
+    @Override
+    public void checkExistCustomerOrderById(Long id) {
+        if (customerOrderRepository.existsById(id)) {
+            throw new NotFoundEntityException("CustomerOrder с id=" + id + ", не найдена");
+        }
+    }
+
+    @Override
     public void checkExistRecycleBinById(Long recycleBinId) {
         if (!recycleBinRepository.existsById(recycleBinId)) {
             throw new NotFoundEntityException("Заметка с id=" + recycleBinId + " не найдена.");
@@ -389,23 +427,10 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     }
 
     @Override
-    public void checkExistFeedById(Long feedId) {
-        if(!feedRepository.existsById(feedId)) {
-            throw new NotFoundEntityException("Новость с id=" + feedId + " не найдена");
-        }
-    }
-
-    @Override
     public void checkExistSubscriptionById(Long subscriptionId) {
         if(!subscriptionRepository.existsById(subscriptionId)) {
             throw new NotFoundEntityException("Subscription с id=" + subscriptionId + " не найдена");
         }
     }
 
-    @Override
-    public void checkExistApplicationById(Long applicationId) {
-        if(!applicationRepository.existsById(applicationId)) {
-            throw new NotFoundEntityException("Application с id=" + applicationId + " не найден");
-        }
-    }
 }
