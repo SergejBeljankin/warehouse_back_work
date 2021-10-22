@@ -30,7 +30,7 @@ public class ShipmentServiceImpl implements ShipmentService {
         List<ShipmentDto> shipmentDtos = shipmentRepository.getAll();
         for (ShipmentDto dto : shipmentDtos) {
             dto.setProductDtos(productRepository
-                    .getListProductById(dto.getId())
+                    .getShipmentProductById(dto.getId())
                     .stream()
                     .map(ConverterDto::convertToDto)
                     .collect(Collectors.toList()));
@@ -43,7 +43,7 @@ public class ShipmentServiceImpl implements ShipmentService {
         ShipmentDto shipmentDto = shipmentRepository.getById(id);
 
         shipmentDto.setProductDtos(productRepository
-                .getListProductById(shipmentDto.getId())
+                .getShipmentProductById(shipmentDto.getId())
                 .stream()
                 .map(ConverterDto::convertToDto)
                 .collect(Collectors.toList()));

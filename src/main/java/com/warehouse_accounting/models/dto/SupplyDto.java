@@ -21,7 +21,7 @@ import static lombok.AccessLevel.PRIVATE;
 public class SupplyDto {
     Long id;
 
-    LocalDateTime dataTime;
+    LocalDateTime dateOfCreation;
 
     Long warehouseId;
 
@@ -44,7 +44,7 @@ public class SupplyDto {
     String comment;
 
     public SupplyDto(Long id,
-                     LocalDateTime dataTime,
+                     LocalDateTime dateOfCreation,
                      Long warehouseId,
                      Long contractId,
                      Long contractorId,
@@ -55,7 +55,7 @@ public class SupplyDto {
                      Boolean isPrinted,
                      String comment) {
         this.id = id;
-        this.dataTime = dataTime;
+        this.dateOfCreation = dateOfCreation;
         this.warehouseId = warehouseId;
         this.contractId = contractId;
         this.contractorId = contractorId;

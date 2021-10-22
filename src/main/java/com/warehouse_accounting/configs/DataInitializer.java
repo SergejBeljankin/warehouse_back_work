@@ -1,6 +1,7 @@
 package com.warehouse_accounting.configs;
 
 import com.warehouse_accounting.models.BonusTransaction;
+import com.warehouse_accounting.models.MovingFields;
 import com.warehouse_accounting.models.TypeOfAdjustment;
 import com.warehouse_accounting.models.TypeOfPayment;
 import com.warehouse_accounting.models.dto.*;
@@ -879,7 +880,7 @@ private void initSupply(){
     try {
         supplyService.create(SupplyDto.builder()
                 .id(1L)
-                .dataTime(LocalDateTime.now())
+                .dateOfCreation(LocalDateTime.now())
                 .contractorId(1L)
                 .contractId(1L)
                 .contractorId(1L)
@@ -890,6 +891,7 @@ private void initSupply(){
                 .isPrinted(true)
                 .comment("text")
                 .build());
+
     } catch (Exception e) {
         log.error("Не удалось заполнить таблицу supply", e);
     }
@@ -897,15 +899,15 @@ private void initSupply(){
     private void  initShipment(){
         try {
             shipmentService.create(ShipmentDto.builder()
-                    .id(2L)
-                    .dataTime(LocalDateTime.now())
+                    .id(1L)
+                    .dateOfCreation(LocalDateTime.now())
                     .warehouseId(1L)
                     .contractId(1L)
                     .contractorId(1L)
                     .companyId(1L)
-                    .productDtos(List.of(productService.getById(2L)))
                     .sum(BigDecimal.valueOf(777))
-                    .isSent(false)
+                    .productDtos(List.of(productService.getById(2L)))
+                    .isSent(true)
                     .isPrinted(true)
                     .comment("Shipment")
                     .consigneeId(1L)
@@ -913,6 +915,7 @@ private void initSupply(){
                     .isPaid(true)
                     .deliveryAddress("To the moon")
                     .build());
+
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу shipment", e);
         }

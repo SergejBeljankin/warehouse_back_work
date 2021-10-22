@@ -45,7 +45,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "FROM Product p WHERE p.id = :id")
     ProductDto getById(@Param("id") Long id);
 
+    @Query("SELECT sh.products FROM Shipment sh WHERE sh.id = :id")
+    List<Product> getShipmentProductById(@Param("id") Long id);
+
     @Query("SELECT s.products FROM Supply s WHERE s.id = :id")
-    List<Product> getListProductById(@Param("id") Long id);
+    List<Product> getSupplyProductById(@Param("id") Long id);
 
 }
