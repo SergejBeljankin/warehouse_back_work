@@ -96,4 +96,6 @@ public interface CheckEntityService {
     void checkExistFeedById(Long feedId);
 
     void checkExistSubscriptionById(Long subscriptionId);
+
+    void checkExistReturnById(Long returnId);
 }
