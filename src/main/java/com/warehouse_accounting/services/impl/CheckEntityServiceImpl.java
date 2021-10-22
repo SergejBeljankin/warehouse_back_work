@@ -1,7 +1,5 @@
 package com.warehouse_accounting.services.impl;
 
-import com.warehouse_accounting.repositories.*;
-import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.exceptions.NotFoundEntityException;
 import com.warehouse_accounting.repositories.AdjustmentRepository;
 import com.warehouse_accounting.repositories.ApplicationRepository;
@@ -18,6 +16,7 @@ import com.warehouse_accounting.repositories.CurrencyRepository;
 import com.warehouse_accounting.repositories.DepartmentRepository;
 import com.warehouse_accounting.repositories.EmployeeRepository;
 import com.warehouse_accounting.repositories.FeedRepository;
+import com.warehouse_accounting.repositories.FileRepository;
 import com.warehouse_accounting.repositories.ImageRepository;
 import com.warehouse_accounting.repositories.InvoiceProductRepository;
 import com.warehouse_accounting.repositories.InvoiceRepository;
@@ -34,6 +33,10 @@ import com.warehouse_accounting.repositories.ProjectRepository;
 import com.warehouse_accounting.repositories.RequisitesRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
 import com.warehouse_accounting.repositories.RecycleBinRepository;
+import com.warehouse_accounting.repositories.ShipmentRepository;
+import com.warehouse_accounting.repositories.SubscriptionRepository;
+import com.warehouse_accounting.repositories.SupplyRepository;
+import com.warehouse_accounting.repositories.TariffRepository;
 import com.warehouse_accounting.repositories.TaskRepository;
 import com.warehouse_accounting.repositories.TaxSystemRepository;
 import com.warehouse_accounting.repositories.TechnologicalMapGroupRepository;
@@ -351,16 +354,70 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     }
 
     @Override
-    public void checkExistTariffById(Long tariffId) {
-        if (!tariffRepository.existsById(tariffId)) {
-            throw new NotFoundEntityException("Тариф с id=" + tariffId + " не найден.");
+    public void checkExistRecycleBinById(Long recycleBinId) {
+        if (!recycleBinRepository.existsById(recycleBinId)) {
+            throw new NotFoundEntityException("Заметка с id=" + recycleBinId + " не найдена.");
         }
     }
 
     @Override
-    public void checkExistRequisitesById(Long requisitesId) {
-        if (!requisitesRepository.existsById(requisitesId)) {
-            throw new NotFoundEntityException("Реквизиты с id=" + requisitesId + " не найден.");
+    public void checkExistFileById(Long fileId) {
+        if (!fileRepository.existsById(fileId)) {
+            throw new NotFoundEntityException("File с id = " + fileId + ", не найден");
+        }
+    }
+
+    @Override
+    public void checkExistSupplyId(Long supplyId) {
+        if(!supplyRepository.existsById(supplyId)) {
+            throw new NotFoundEntityException("Приемка с id=" + supplyId + " не найдена");
+        }
+    }
+
+    @Override
+    public void checkExistShipmentId(Long shipmentId) {
+        if(!shipmentRepository.existsById(shipmentId)) {
+            throw new NotFoundEntityException("Отгрузка с id=" + shipmentId + " не найдена");
+        }
+    }
+
+    @Override
+    public void checkExistBonusTransactionById(Long bonusTransactionId) {
+        if(!bonusTransactionRepository.existsById(bonusTransactionId)) {
+            throw new NotFoundEntityException("Бонусная транзакция с id=" + bonusTransactionId + " не найдена");
+        }
+    }
+
+    @Override
+    public void checkExistFeedById(Long feedId) {
+        if(!feedRepository.existsById(feedId)) {
+            throw new NotFoundEntityException("Новость с id=" + feedId + " не найдена");
+        }
+    }
+
+    @Override
+    public void checkExistSubscriptionById(Long subscriptionId) {
+        if(!subscriptionRepository.existsById(subscriptionId)) {
+            throw new NotFoundEntityException("Subscription с id=" + subscriptionId + " не найдена");
+        }
+    }
+
+    @Override
+    public void checkExistApplicationById(Long applicationId) {
+        if(!applicationRepository.existsById(applicationId)) {
+            throw new NotFoundEntityException("Application с id=" + applicationId + " не найден");
+        }
+    }
+    @Override
+    public void checkExistRecycleBinById(Long recycleBinId) {
+        if (!recycleBinRepository.existsById(recycleBinId)) {
+            throw new NotFoundEntityException("Заметка с id=" + recycleBinId + " не найдена.");
+        }
+    }
+    @Override
+    public void checkExistFileById(Long fileId) {
+        if (!fileRepository.existsById(fileId)) {
+            throw new NotFoundEntityException("File с id = " + fileId + ", не найден");
         }
     }
 
@@ -391,30 +448,17 @@ public class CheckEntityServiceImpl implements CheckEntityService {
             throw new NotFoundEntityException("BonusTransaction с id=" + applicationId + ", не найдена");
         }
     }
-
     @Override
-    public void checkExistSupplyId(Long supplyId) {
-        if(!supplyRepository.existsById(supplyId)) {
-            throw new NotFoundEntityException("Приемка с id=" + supplyId + " не найдена");
+    public void checkExistTariffById(Long tariffId) {
+        if (!tariffRepository.existsById(tariffId)) {
+            throw new NotFoundEntityException("Тариф с id=" + tariffId + " не найден.");
         }
     }
 
     @Override
-    public void checkExistShipmentId(Long shipmentId) {
-        if(!shipmentRepository.existsById(shipmentId)) {
-            throw new NotFoundEntityException("Отгрузка с id=" + shipmentId + " не найдена");
-        }
-    }
-    @Override
-    public void checkExistRecycleBinById(Long recycleBinId) {
-        if (!recycleBinRepository.existsById(recycleBinId)) {
-            throw new NotFoundEntityException("Заметка с id=" + recycleBinId + " не найдена.");
-        }
-    }
-    @Override
-    public void checkExistFileById(Long fileId) {
-        if (!fileRepository.existsById(fileId)) {
-            throw new NotFoundEntityException("File с id = " + fileId + ", не найден");
+    public void checkExistRequisitesById(Long requisitesId) {
+        if (!requisitesRepository.existsById(requisitesId)) {
+            throw new NotFoundEntityException("Реквизиты с id=" + requisitesId + " не найден.");
         }
     }
 }
