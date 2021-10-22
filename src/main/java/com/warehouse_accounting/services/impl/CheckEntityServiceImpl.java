@@ -16,6 +16,7 @@ import com.warehouse_accounting.repositories.CurrencyRepository;
 import com.warehouse_accounting.repositories.DepartmentRepository;
 import com.warehouse_accounting.repositories.EmployeeRepository;
 import com.warehouse_accounting.repositories.FeedRepository;
+import com.warehouse_accounting.repositories.FileRepository;
 import com.warehouse_accounting.repositories.ImageRepository;
 import com.warehouse_accounting.repositories.InvoiceProductRepository;
 import com.warehouse_accounting.repositories.InvoiceRepository;
@@ -32,6 +33,10 @@ import com.warehouse_accounting.repositories.ProjectRepository;
 import com.warehouse_accounting.repositories.RequisitesRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
 import com.warehouse_accounting.repositories.RecycleBinRepository;
+import com.warehouse_accounting.repositories.ShipmentRepository;
+import com.warehouse_accounting.repositories.SubscriptionRepository;
+import com.warehouse_accounting.repositories.SupplyRepository;
+import com.warehouse_accounting.repositories.TariffRepository;
 import com.warehouse_accounting.repositories.TaskRepository;
 import com.warehouse_accounting.repositories.TaxSystemRepository;
 import com.warehouse_accounting.repositories.TechnologicalMapGroupRepository;
@@ -373,6 +378,34 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistShipmentId(Long shipmentId) {
         if(!shipmentRepository.existsById(shipmentId)) {
             throw new NotFoundEntityException("Отгрузка с id=" + shipmentId + " не найдена");
+        }
+    }
+
+    @Override
+    public void checkExistBonusTransactionById(Long bonusTransactionId) {
+        if(!bonusTransactionRepository.existsById(bonusTransactionId)) {
+            throw new NotFoundEntityException("Бонусная транзакция с id=" + bonusTransactionId + " не найдена");
+        }
+    }
+
+    @Override
+    public void checkExistFeedById(Long feedId) {
+        if(!feedRepository.existsById(feedId)) {
+            throw new NotFoundEntityException("Новость с id=" + feedId + " не найдена");
+        }
+    }
+
+    @Override
+    public void checkExistSubscriptionById(Long subscriptionId) {
+        if(!subscriptionRepository.existsById(subscriptionId)) {
+            throw new NotFoundEntityException("Subscription с id=" + subscriptionId + " не найдена");
+        }
+    }
+
+    @Override
+    public void checkExistApplicationById(Long applicationId) {
+        if(!applicationRepository.existsById(applicationId)) {
+            throw new NotFoundEntityException("Application с id=" + applicationId + " не найден");
         }
     }
 }
