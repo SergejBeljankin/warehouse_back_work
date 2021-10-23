@@ -2,6 +2,7 @@ package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.PaymentDto;
 import com.warehouse_accounting.models.dto.SubscriptionDto;
+import com.warehouse_accounting.repositories.SubscriptionRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.SubscriptionService;
 import io.swagger.annotations.Api;
@@ -31,12 +32,12 @@ public class SubscriptionRestController {
 
     private final SubscriptionService subscriptionService;
     private final CheckEntityService checkEntityService;
+    private final SubscriptionRepository repository;
 
-    @Autowired
-    public SubscriptionRestController(SubscriptionService subscriptionService,
-                                      CheckEntityService checkEntityService) {
+    public SubscriptionRestController(SubscriptionService subscriptionService, CheckEntityService checkEntityService, SubscriptionRepository repository) {
         this.subscriptionService = subscriptionService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -62,7 +63,7 @@ public class SubscriptionRestController {
             @ApiResponse(code = 402, message = "Нет доступа к данной операции")})
     public ResponseEntity<SubscriptionDto> getById(@ApiParam(name = "id", value = "Id нужного SubscriptionDto", required = true)
                                               @PathVariable("id") Long id) {
-        checkEntityService.checkExistSubscriptionById(id);
+        checkEntityService.checkExist(id, repository, "Subscription");
         return ResponseEntity.ok(subscriptionService.getById(id));
     }
 
@@ -89,6 +90,7 @@ public class SubscriptionRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "SubscriptionDto", value = "Объект SubscriptionDto для обновления",
             required = true) @RequestBody SubscriptionDto subscriptionDto) {
+        checkEntityService.checkExist(subscriptionDto.getId(), repository, "Subscription");
         subscriptionService.update(subscriptionDto);
         return ResponseEntity.ok().build();
     }
@@ -102,7 +104,7 @@ public class SubscriptionRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "Id SubscriptionDto для удаления", required = true)
                                         @PathVariable Long id) {
-        checkEntityService.checkExistSubscriptionById(id);
+        checkEntityService.checkExist(id, repository, "Subscription");
         subscriptionService.deleteById(id);
         return ResponseEntity.ok().build();
     }

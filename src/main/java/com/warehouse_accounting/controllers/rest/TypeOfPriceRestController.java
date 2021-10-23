@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.TypeOfPriceDto;
+import com.warehouse_accounting.repositories.TypeOfPriceRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.TypeOfPriceService;
 import io.swagger.annotations.Api;
@@ -29,10 +30,12 @@ public class TypeOfPriceRestController {
 
     private final TypeOfPriceService typeOfPriceService;
     private final CheckEntityService checkEntityService;
+    private final TypeOfPriceRepository repository;
 
-    public TypeOfPriceRestController(TypeOfPriceService service, CheckEntityService checkEntityService) {
-        this.typeOfPriceService = service;
+    public TypeOfPriceRestController(TypeOfPriceService typeOfPriceService, CheckEntityService checkEntityService, TypeOfPriceRepository repository) {
+        this.typeOfPriceService = typeOfPriceService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -55,7 +58,7 @@ public class TypeOfPriceRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<TypeOfPriceDto> getById(@ApiParam(name = "id", value = "id для получения TypeOfPriceDto",
             required = true) @PathVariable("id") Long id) {
-        checkEntityService.checkExistTypeOfPriceById(id);
+        checkEntityService.checkExist(id, repository, "TypeOfPrice");
         return ResponseEntity.ok(typeOfPriceService.getById(id));
     }
 
@@ -81,7 +84,7 @@ public class TypeOfPriceRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "TypeOfPriceDto", value = "объект TypeOfPriceDto для обновления",
             required = true) @RequestBody TypeOfPriceDto typeOfPriceDto) {
-        checkEntityService.checkExistTypeOfPriceById(typeOfPriceDto.getId());
+        checkEntityService.checkExist(typeOfPriceDto.getId(), repository, "TypeOfPrice");
         typeOfPriceService.update(typeOfPriceDto);
         return ResponseEntity.ok().build();
     }
@@ -95,7 +98,7 @@ public class TypeOfPriceRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "id для удаления TypeOfPriceDto",
             required = true) @PathVariable("id") Long id) {
-        checkEntityService.checkExistTypeOfPriceById(id);
+        checkEntityService.checkExist(id, repository, "TypeOfPrice");
         typeOfPriceService.deleteById(id);
         return ResponseEntity.ok().build();
     }

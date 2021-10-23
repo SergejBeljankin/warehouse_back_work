@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.MovementDto;
+import com.warehouse_accounting.repositories.MovementRepository;
 import com.warehouse_accounting.services.utilServices.ExportXlsxSpreadsheetService;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.MovementService;
@@ -34,13 +35,14 @@ public class MovementRestController {
     private final MovementService service;
     private final CheckEntityService checkEntityService;
     private final ExportXlsxSpreadsheetService exportXlsxFileService;
+    private final MovementRepository repository;
 
-    public MovementRestController(MovementService service,
-                                  CheckEntityService checkEntityService,
-                                  ExportXlsxSpreadsheetService exportXlsxFileService) {
+    public MovementRestController(MovementService service, CheckEntityService checkEntityService,
+                                  ExportXlsxSpreadsheetService exportXlsxFileService, MovementRepository repository) {
         this.service = service;
         this.checkEntityService = checkEntityService;
         this.exportXlsxFileService = exportXlsxFileService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -63,7 +65,7 @@ public class MovementRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<MovementDto> getById(@ApiParam(name = "id", value = "id для получения MovementDto",
             required = true) @PathVariable("id") Long id) {
-        checkEntityService.checkExistMovementById(id);
+        checkEntityService.checkExist(id, repository, "Movement");
         return ResponseEntity.ok(service.getById(id));
     }
 
@@ -89,7 +91,7 @@ public class MovementRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "MovementDto", value = "объект MovementDto для обновления",
             required = true) @RequestBody MovementDto movementDto) {
-        checkEntityService.checkExistMovementById(movementDto.getId());
+        checkEntityService.checkExist(movementDto.getId(), repository, "Movement");
         service.update(movementDto);
         return ResponseEntity.ok().build();
     }
@@ -103,7 +105,7 @@ public class MovementRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "id для удаления Movement",
             required = true) @PathVariable("id") Long id) {
-        checkEntityService.checkExistMovementById(id);
+        checkEntityService.checkExist(id, repository, "Movement");
         service.deleteById(id);
         return ResponseEntity.ok().build();
     }

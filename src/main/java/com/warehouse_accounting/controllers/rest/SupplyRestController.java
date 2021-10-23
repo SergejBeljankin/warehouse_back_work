@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.SupplyDto;
+import com.warehouse_accounting.repositories.SupplyRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.SupplyService;
 import io.swagger.annotations.Api;
@@ -28,11 +29,14 @@ import java.util.List;
 public class SupplyRestController {
     private final SupplyService supplyService;
     private final CheckEntityService checkEntityService;
+    private final SupplyRepository repository;
 
-    public SupplyRestController(SupplyService supplyService, CheckEntityService checkEntityService) {
+    public SupplyRestController(SupplyService supplyService, CheckEntityService checkEntityService, SupplyRepository repository) {
         this.supplyService = supplyService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
+
     @GetMapping
     @ApiOperation(
             value = "getAll",
@@ -65,7 +69,7 @@ public class SupplyRestController {
     )
     public ResponseEntity<SupplyDto> getById(@ApiParam(name = "id", value = "id для получения приемки", required = true)
                                                    @PathVariable("id") Long id){
-        checkEntityService.checkExistSupplyId(id);
+        checkEntityService.checkExist(id, repository, "Supply");
         return ResponseEntity.ok(supplyService.getById(id));
     }
 
@@ -93,7 +97,7 @@ public class SupplyRestController {
     )
     public ResponseEntity<? extends SupplyDto> update(@ApiParam(name = "SupplyDto", value = "SupplyDto для редактирования Supply", required = true)
                                                       @RequestBody SupplyDto supplyDto) {
-        checkEntityService.checkExistSupplyId(supplyDto.getId());
+        checkEntityService.checkExist(supplyDto.getId(), repository, "Supply");
         supplyService.update(supplyDto);
         return ResponseEntity.ok().build();
     }
@@ -109,7 +113,7 @@ public class SupplyRestController {
     )
     public ResponseEntity<? extends SupplyDto> delete(@ApiParam(name = "id", value = "id приемки")
                                     @PathVariable("id") Long id){
-        checkEntityService.checkExistSupplyId(id);
+        checkEntityService.checkExist(id, repository, "Supply");
         supplyService.deleteById(id);
         return ResponseEntity.ok().build();
     }

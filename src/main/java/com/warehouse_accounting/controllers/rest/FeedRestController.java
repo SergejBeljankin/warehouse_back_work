@@ -2,6 +2,7 @@ package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.FeedDto;
 import com.warehouse_accounting.models.dto.ImageDto;
+import com.warehouse_accounting.repositories.FeedRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.FeedService;
 import io.swagger.annotations.Api;
@@ -29,10 +30,12 @@ import java.util.List;
 public class FeedRestController {
     private final FeedService feedService;
     private final CheckEntityService checkEntityService;
+    private final FeedRepository repository;
 
-    public FeedRestController(FeedService feedService, CheckEntityService checkEntityService) {
+    public FeedRestController(FeedService feedService, CheckEntityService checkEntityService, FeedRepository repository) {
         this.feedService = feedService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -57,7 +60,7 @@ public class FeedRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<FeedDto> getById(@ApiParam(name = "id", value = "Id нужного FeedDto", required = true)
                                            @PathVariable("id") Long id) {
-        checkEntityService.checkExistFeedById(id);
+        checkEntityService.checkExist(id, repository, "Feed");
         return ResponseEntity.ok(feedService.getById(id));
     }
 
@@ -70,7 +73,7 @@ public class FeedRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "FeedDto", value = "Объект FeedDto для обновления",
             required = true) @RequestBody FeedDto feedDto) {
-        checkEntityService.checkExistFeedById(feedDto.getId());
+        checkEntityService.checkExist(feedDto.getId(), repository, "Feed");
         feedService.update(feedDto);
         return ResponseEntity.ok().build();
     }
@@ -98,7 +101,7 @@ public class FeedRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "Id FeedDto для удаления", required = true)
                                         @PathVariable("id") Long id) {
-        checkEntityService.checkExistFeedById(id);
+        checkEntityService.checkExist(id, repository, "Feed");
         feedService.deleteById(id);
         return ResponseEntity.ok().build();
     }

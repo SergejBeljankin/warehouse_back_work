@@ -2,6 +2,7 @@ package com.warehouse_accounting.controllers.rest;
 
 
 import com.warehouse_accounting.models.dto.CallDto;
+import com.warehouse_accounting.repositories.CallRepository;
 import com.warehouse_accounting.services.interfaces.CallService;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import io.swagger.annotations.Api;
@@ -30,11 +31,12 @@ import java.util.List;
 public class CallRestController {
     private final CallService callService;
     private final CheckEntityService checkEntityService;
+    private final CallRepository repository;
 
-    @Autowired
-    public CallRestController(CallService callService, CheckEntityService checkEntityService) {
+    public CallRestController(CallService callService, CheckEntityService checkEntityService, CallRepository repository) {
         this.callService = callService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -59,7 +61,7 @@ public class CallRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<CallDto> getById(@ApiParam(name = "id", value = "Id нужного CallDto", required = true)
                                                  @PathVariable("id") Long id) {
-        checkEntityService.checkExistCallById(id);
+        checkEntityService.checkExist(id, repository, "Call");
         return ResponseEntity.ok(callService.getById(id));
     }
 
@@ -86,7 +88,7 @@ public class CallRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "CallDto", value = "Объект CallDto для обновления",
             required = true) @RequestBody CallDto callDto) {
-        checkEntityService.checkExistCallById(callDto.getId());
+        checkEntityService.checkExist(callDto.getId(), repository, "Call");
         callService.update(callDto);
         return ResponseEntity.ok().build();
     }
@@ -100,7 +102,7 @@ public class CallRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "Id CallDto для удаления", required = true)
                                         @PathVariable("id") Long id) {
-        checkEntityService.checkExistCallById(id);
+        checkEntityService.checkExist(id, repository, "Call");
         callService.deleteById(id);
         return ResponseEntity.ok().build();
     }

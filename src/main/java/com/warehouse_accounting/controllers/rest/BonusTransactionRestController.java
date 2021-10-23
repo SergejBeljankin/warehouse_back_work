@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.BonusTransactionDto;
+import com.warehouse_accounting.repositories.BonusTransactionRepository;
 import com.warehouse_accounting.services.impl.BonusTransactionServiceImpl;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import io.swagger.annotations.ApiOperation;
@@ -24,11 +25,13 @@ public class BonusTransactionRestController {
 
     private final CheckEntityService checkEntityService;
     private final BonusTransactionServiceImpl bonusTransactionService;
+    private final BonusTransactionRepository repository;
 
     public BonusTransactionRestController(CheckEntityService checkEntityService,
-                                          BonusTransactionServiceImpl bonusTransactionService) {
+                                          BonusTransactionServiceImpl bonusTransactionService, BonusTransactionRepository repository) {
         this.checkEntityService = checkEntityService;
         this.bonusTransactionService = bonusTransactionService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -54,7 +57,7 @@ public class BonusTransactionRestController {
     public ResponseEntity<BonusTransactionDto> getById(@ApiParam(name =
             "id", value = "Id нужного BonusTransactionDto", required = true)
                                            @PathVariable("id") Long id) {
-        checkEntityService.checkExistBonusTransactionById(id);
+        checkEntityService.checkExist(id, repository, "BonusTransaction");
         return ResponseEntity.ok(bonusTransactionService.getById(id));
     }
 
@@ -82,7 +85,7 @@ public class BonusTransactionRestController {
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "BonusTransactionDto", value = "Объект BonusTransactionDto для обновления",
             required = true) @RequestBody BonusTransactionDto bonusTransactionDto) {
-        checkEntityService.checkExistBonusTransactionById(bonusTransactionDto.getId());
+        checkEntityService.checkExist(bonusTransactionDto.getId(), repository, "BonusTransaction");
         bonusTransactionService.update(bonusTransactionDto);
         return ResponseEntity.ok().build();
     }
@@ -98,7 +101,7 @@ public class BonusTransactionRestController {
     public ResponseEntity<?> deleteById(@ApiParam(name =
             "id", value = "Id BonusTransactionDto для удаления", required = true)
                                         @PathVariable("id") Long id) {
-        checkEntityService.checkExistBonusTransactionById(id);
+        checkEntityService.checkExist(id, repository, "BonusTransaction");
         bonusTransactionService.deleteById(id);
         return ResponseEntity.ok().build();
     }

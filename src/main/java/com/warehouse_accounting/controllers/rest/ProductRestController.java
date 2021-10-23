@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.ProductDto;
+import com.warehouse_accounting.repositories.ProductRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.ProductService;
 import io.swagger.annotations.Api;
@@ -29,11 +30,12 @@ public class ProductRestController {
 
     private final ProductService productService;
     private final CheckEntityService checkEntityService;
+    private final ProductRepository repository;
 
-    public ProductRestController(ProductService productService, 
-                                 CheckEntityService checkEntityService) {
+    public ProductRestController(ProductService productService, CheckEntityService checkEntityService, ProductRepository repository) {
         this.productService = productService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -63,7 +65,7 @@ public class ProductRestController {
     )
     public ResponseEntity<ProductDto> getById(@ApiParam(name = "id", value = "id для получения Product", required = true)
                                               @PathVariable("id") Long id) {
-        checkEntityService.checkExistProductById(id);
+        checkEntityService.checkExist(id, repository, "Product");
         return ResponseEntity.ok(productService.getById(id));
     }
 
@@ -91,7 +93,7 @@ public class ProductRestController {
     )
     public ResponseEntity<?> update(@ApiParam(name = "ProductDto", value = "ProjectDto для обновления Product", required = true)
                                     @RequestBody ProductDto productDto) {
-        checkEntityService.checkExistProductById(productDto.getId());
+        checkEntityService.checkExist(productDto.getId(), repository, "Product");
         productService.update(productDto);
         return ResponseEntity.ok().build();
     }
@@ -106,7 +108,7 @@ public class ProductRestController {
     )
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "id удаляемого Product", required = true)
                                         @PathVariable("id") Long id) {
-        checkEntityService.checkExistProductById(id);
+        checkEntityService.checkExist(id, repository, "Product");
         productService.deleteById(id);
         return ResponseEntity.ok().build();
     }
