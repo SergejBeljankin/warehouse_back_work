@@ -35,12 +35,7 @@ public class CommissionReportsServiceImpl implements CommissionReportsService {
 
     @Override
     public List<CommissionReportsDto> getAll() {
-        List<CommissionReportsDto> all = commissionReportsRepository.getAll();
-        for (CommissionReportsDto dto : all){
-
-        }
-
-        return all;
+        return commissionReportsRepository.getAll();
     }
 
     @Override

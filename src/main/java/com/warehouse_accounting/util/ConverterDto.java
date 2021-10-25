@@ -1563,4 +1563,63 @@ public class ConverterDto {
                     .tariff(subscription.getTariffs().stream().map(ConverterDto::convertToDto).collect(Collectors.toSet()))
                     .build();
         }
+
+    public static CommissionReports convertToModel(CommissionReportsDto commissionReportsDto) {
+        if(commissionReportsDto == null){
+            return null;
+        }
+
+        Contract contract = new Contract();
+        contract.setId(commissionReportsDto.getContractId());
+        Contractor contractor = new Contractor();
+        contractor.setId(commissionReportsDto.getContractorId());
+        Company company = new Company();
+        company.setId(commissionReportsDto.getCompanyId());
+        Project project = new Project();
+        project.setId(commissionReportsDto.getProjectId());
+
+        return CommissionReports.builder()
+                .id(commissionReportsDto.getId())
+                .dateOfCreation(commissionReportsDto.getDateOfCreation())
+                .contract(contract)
+                .contractor(contractor)
+                .company(company)
+                .project(project)
+                .sum(commissionReportsDto.getSum())
+                .paid(commissionReportsDto.getPaid())
+                .isSent(commissionReportsDto.getIsSent())
+                .isPrinted(commissionReportsDto.getIsPrinted())
+                .comment(commissionReportsDto.getComment())
+                .periodStart(commissionReportsDto.getPeriodStart())
+                .periodEnd(commissionReportsDto.getPeriodEnd())
+                .reward(commissionReportsDto.getReward())
+                .build();
     }
+
+    public static CommissionReportsDto convertToDto(CommissionReports commissionReports) {
+        if(commissionReports == null){
+            return null;
+        }
+        return CommissionReportsDto.builder()
+                .id(commissionReports.getId())
+                .dateOfCreation(commissionReports.getDateOfCreation())
+                .contractId(commissionReports.getContract().getId())
+                .contractNumber(commissionReports.getContract().getNumber())
+                .contractorId(commissionReports.getContractor().getId())
+                .contractorName(commissionReports.getContractor().getName())
+                .companyId(commissionReports.getCompany().getId())
+                .companyName(commissionReports.getCompany().getName())
+                .projectId(commissionReports.getProject().getId())
+                .projectName(commissionReports.getProject().getName())
+                .sum(commissionReports.getSum())
+                .paid(commissionReports.getPaid())
+                .isSent(commissionReports.getIsSent())
+                .isPrinted(commissionReports.getIsPrinted())
+                .comment(commissionReports.getComment())
+                .periodStart(commissionReports.getPeriodStart())
+                .periodEnd(commissionReports.getPeriodEnd())
+                .reward(commissionReports.getReward())
+                .build();
+    }
+
+}
