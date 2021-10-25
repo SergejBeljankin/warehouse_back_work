@@ -651,7 +651,7 @@ public class ConverterDto {
     public static Movement convertToModel(MovementDto dto) {
         return Movement.builder()
                 .id(dto.getId())
-                .dateTime(dto.getDateTime())
+                .dateTime(dto.getDateOfCreation())
                 .warehouseFrom(convertToModel(dto.getWarehouseFrom()))
                 .warehouseTo(convertToModel(dto.getWarehouseTo()))
                 .company(convertToModel(dto.getCompany()))

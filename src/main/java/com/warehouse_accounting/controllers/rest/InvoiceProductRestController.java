@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.InvoiceProductDto;
+import com.warehouse_accounting.repositories.InvoiceProductRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.InvoiceProductService;
 import io.swagger.annotations.Api;
@@ -30,12 +31,14 @@ public class InvoiceProductRestController {
 
     private final InvoiceProductService invoiceProductService;
     private final CheckEntityService checkEntityService;
+    private final InvoiceProductRepository repository;
 
-    public InvoiceProductRestController(InvoiceProductService invoiceProductService, 
-                                        CheckEntityService checkEntityService) {
+    public InvoiceProductRestController(InvoiceProductService invoiceProductService, CheckEntityService checkEntityService, InvoiceProductRepository repository) {
         this.invoiceProductService = invoiceProductService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
+
     @GetMapping
     @ApiOperation(
             value = "getAll",
@@ -69,7 +72,7 @@ public class InvoiceProductRestController {
     )
     public ResponseEntity<InvoiceProductDto> getById(@ApiParam(name = "id", value = "id для получения InvoiceProduct",
             required = true) @PathVariable("id") Long id) {
-        checkEntityService.checkExistInvoiceProductById(id);
+        checkEntityService.checkExist(id, repository, "InvoiceProduct");
         return ResponseEntity.ok(invoiceProductService.getById(id));
     }
 
@@ -97,7 +100,7 @@ public class InvoiceProductRestController {
     )
     public ResponseEntity<?> update(@ApiParam(name = "InvoiceProductDto", value = "InvoiceProductDto для обновления InvoiceProduct",
             required = true)@RequestBody InvoiceProductDto invoiceProductDto) {
-        checkEntityService.checkExistInvoiceProductById(invoiceProductDto.getId());
+        checkEntityService.checkExist(invoiceProductDto.getId(), repository, "InvoiceProduct");
         invoiceProductService.update(invoiceProductDto);
         return ResponseEntity.ok().build();
     }
@@ -112,7 +115,7 @@ public class InvoiceProductRestController {
     )
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "id удаляемого InvoiceProduct",
             required = true)@PathVariable("id") Long id) {
-        checkEntityService.checkExistInvoiceProductById(id);
+        checkEntityService.checkExist(id, repository, "InvoiceProduct");
         invoiceProductService.deleteById(id);
         return ResponseEntity.ok().build();
     }

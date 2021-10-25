@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.BankAccountDto;
+import com.warehouse_accounting.repositories.BankAccountRepository;
 import com.warehouse_accounting.services.interfaces.BankAccountService;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import io.swagger.annotations.Api;
@@ -30,11 +31,12 @@ public class BankAccountRestController {
     private final BankAccountService bankAccountService;
 
     private final CheckEntityService checkEntityService;
+    private final BankAccountRepository repository;
 
-    public BankAccountRestController(BankAccountService bankAccountService,
-                                     CheckEntityService checkEntityService) {
+    public BankAccountRestController(BankAccountService bankAccountService, CheckEntityService checkEntityService, BankAccountRepository repository) {
         this.bankAccountService = bankAccountService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping()
@@ -61,7 +63,7 @@ public class BankAccountRestController {
     public ResponseEntity<BankAccountDto> getById(
             @ApiParam(name = "id", value = "Значение поля Id объекта которого хотим получить", example = "1", required = true)
             @PathVariable("id") long id) {
-        checkEntityService.checkExistBankAccountById(id);
+        checkEntityService.checkExist(id, repository, "BankAccount");
         return ResponseEntity.ok(bankAccountService.getById(id));
 
     }
@@ -96,7 +98,7 @@ public class BankAccountRestController {
     public ResponseEntity<?> update(
             @ApiParam(name = "BankAccountDto", value = "Объект BankAccountDto который нужно обновить в программе")
             @RequestBody BankAccountDto bankAccountDto) {
-        checkEntityService.checkExistBankAccountById(bankAccountDto.getId());
+        checkEntityService.checkExist(bankAccountDto.getId(), repository, "BankAccount");
         bankAccountService.update(bankAccountDto);
         return ResponseEntity.ok().build();
     }
@@ -114,7 +116,7 @@ public class BankAccountRestController {
     public ResponseEntity<?> delete(
             @ApiParam(name = "id", value = "Значение поля Id объекта которого хотим удалить", example = "1", required = true)
             @PathVariable("id") long id) {
-        checkEntityService.checkExistBankAccountById(id);
+        checkEntityService.checkExist(id, repository, "BankAccount");
         bankAccountService.deleteById(id);
         return ResponseEntity.ok().build();
     }

@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.ProductionOrderDto;
+import com.warehouse_accounting.repositories.ProductionOrderRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.ProductionOrderService;
 import io.swagger.annotations.Api;
@@ -29,11 +30,13 @@ public class ProductionOrderController {
 
     private final ProductionOrderService productionOrderService;
     private final CheckEntityService checkEntityService;
+    private final ProductionOrderRepository repository;
 
     public ProductionOrderController(ProductionOrderService productionOrderService,
-                                     CheckEntityService checkEntityService) {
+                                     CheckEntityService checkEntityService, ProductionOrderRepository repository) {
         this.productionOrderService = productionOrderService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -68,7 +71,7 @@ public class ProductionOrderController {
     )
     public ResponseEntity<ProductionOrderDto> getById(@ApiParam(name = "id", value = "id для получения ProductionOrder",
             required = true) @PathVariable("id") Long id) {
-        checkEntityService.checkExistProductionOrderById(id);
+        checkEntityService.checkExist(id, repository, "ProductionOrder");
         return ResponseEntity.ok(productionOrderService.getById(id));
     }
 
@@ -96,7 +99,7 @@ public class ProductionOrderController {
     )
     public ResponseEntity<?> update(@ApiParam(name = "ProductionOrderDto", value = "InvoiceProductDto для обновления ProductionOrder",
             required = true)@RequestBody ProductionOrderDto productionOrderDto) {
-        checkEntityService.checkExistProductionOrderById(productionOrderDto.getId());
+        checkEntityService.checkExist(productionOrderDto.getId(), repository, "ProductionOrder");
         productionOrderService.update(productionOrderDto);
         return ResponseEntity.ok().build();
     }
@@ -111,7 +114,7 @@ public class ProductionOrderController {
     )
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "id удаляемого ProductionOrder",
             required = true)@PathVariable("id") Long id) {
-        checkEntityService.checkExistProductionOrderById(id);
+        checkEntityService.checkExist(id, repository, "ProductionOrder");
         productionOrderService.delete(id);
         return ResponseEntity.ok().build();
     }

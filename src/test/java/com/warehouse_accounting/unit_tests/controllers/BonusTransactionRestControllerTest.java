@@ -41,6 +41,8 @@ public class BonusTransactionRestControllerTest {
     @Mock
     CheckEntityService checkEntityService;
 
+    @Mock
+    BonusTransactionRepository repository;
 
 
     @BeforeAll
@@ -91,7 +93,7 @@ public class BonusTransactionRestControllerTest {
         assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
         assertEquals(responseEntity.getBody(), bonusDto1);
         verify(checkEntityService, times(1))
-                .checkExistBonusTransactionById(ArgumentMatchers.eq(1L));
+                .checkExist(ArgumentMatchers.eq(1L), repository, "BonusTransaction");
         verify(bonusTransactionService, times(1))
                 .getById(ArgumentMatchers.eq(1L));
     }

@@ -2,6 +2,7 @@ package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
+import com.warehouse_accounting.repositories.LegalDetailRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.LegalDetailService;
 import io.swagger.annotations.Api;
@@ -37,11 +38,12 @@ import java.util.List;
 public class LegalDetailRestController {
     private final LegalDetailService legalDetailService;
     private final CheckEntityService checkEntityService;
+    private final LegalDetailRepository repository;
 
-    public LegalDetailRestController(LegalDetailService legalDetailService,
-                                     CheckEntityService checkEntityService) {
+    public LegalDetailRestController(LegalDetailService legalDetailService, CheckEntityService checkEntityService, LegalDetailRepository repository) {
         this.legalDetailService = legalDetailService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -67,7 +69,7 @@ public class LegalDetailRestController {
     public ResponseEntity<LegalDetailDto> getById(
             @ApiParam(name = "id", value = "Значение поля Id объекта которого хотим получить", example = "1", required = true)
             @PathVariable("id") Long id) {
-        checkEntityService.checkExistLegalDetailById(id);
+        checkEntityService.checkExist(id, repository, "LegalDetail");
         return ResponseEntity.ok(legalDetailService.getById(id));
     }
 
@@ -97,7 +99,7 @@ public class LegalDetailRestController {
     public ResponseEntity<?> update(
             @ApiParam(name = "LegalDetailDto", value = "Объект LegalDetailDto который нужно сохранить в программе")
             @RequestBody LegalDetailDto legalDetailDto) {
-        checkEntityService.checkExistLegalDetailById(legalDetailDto.getId());
+        checkEntityService.checkExist(legalDetailDto.getId(), repository, "LegalDetail");
         legalDetailService.update(legalDetailDto);
         return ResponseEntity.ok().build();
     }
@@ -113,7 +115,7 @@ public class LegalDetailRestController {
     public ResponseEntity<?> deleteById(
             @ApiParam(name = "id", value = "Значение поля Id объекта который хотим удалить", example = "1", required = true)
             @PathVariable("id") long id) {
-        checkEntityService.checkExistLegalDetailById(id);
+        checkEntityService.checkExist(id, repository, "LegalDetail");
         legalDetailService.deleteById(id);
         return ResponseEntity.ok().build();
     }
