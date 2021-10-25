@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.CompanyDto;
+import com.warehouse_accounting.repositories.CompanyRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.CompanyService;
 import io.swagger.annotations.Api;
@@ -28,10 +29,12 @@ import java.util.List;
 public class CompanyRestController {
     private final CheckEntityService checkEntityService;
     private final CompanyService companyService;
+    private final CompanyRepository repository;
 
-    public CompanyRestController(CompanyService companyService, CheckEntityService checkEntityService) {
-        this.companyService = companyService;
+    public CompanyRestController(CheckEntityService checkEntityService, CompanyService companyService, CompanyRepository repository) {
         this.checkEntityService = checkEntityService;
+        this.companyService = companyService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -53,7 +56,7 @@ public class CompanyRestController {
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
     public ResponseEntity<CompanyDto> getById(@PathVariable("id") long id) {
-        checkEntityService.checkExistCompanyById(id);
+        checkEntityService.checkExist(id, repository, "Company");
         return ResponseEntity.ok(companyService.getById(id));
     }
 
@@ -79,7 +82,7 @@ public class CompanyRestController {
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
     public ResponseEntity<?> update(@RequestBody CompanyDto companyDto) {
-        checkEntityService.checkExistCompanyById(companyDto.getId());
+        checkEntityService.checkExist(companyDto.getId(), repository, "Company");
         companyService.update(companyDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -93,7 +96,7 @@ public class CompanyRestController {
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
     public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
-        checkEntityService.checkExistCompanyById(id);
+        checkEntityService.checkExist(id, repository, "Company");
         companyService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

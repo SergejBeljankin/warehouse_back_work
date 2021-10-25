@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.ShipmentDto;
+import com.warehouse_accounting.repositories.ShipmentRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.ShipmentService;
 import io.swagger.annotations.Api;
@@ -28,12 +29,13 @@ import java.util.List;
 public class ShipmentRestController {
     private final ShipmentService shipmentService;
     private final CheckEntityService checkEntityService;
+    private final ShipmentRepository repository;
 
-    public ShipmentRestController(ShipmentService shipmentService, CheckEntityService checkEntityService) {
+    public ShipmentRestController(ShipmentService shipmentService, CheckEntityService checkEntityService, ShipmentRepository repository) {
         this.shipmentService = shipmentService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
-
 
     @GetMapping
     @ApiOperation(
@@ -67,7 +69,7 @@ public class ShipmentRestController {
     )
     public ResponseEntity<ShipmentDto> getById(@ApiParam(name = "id", value = "id для получения отгрузки", required = true)
                                              @PathVariable("id") Long id){
-        checkEntityService.checkExistShipmentId(id);
+        checkEntityService.checkExist(id, repository, "Shipment");
         return ResponseEntity.ok(shipmentService.getById(id));
     }
 
@@ -95,7 +97,7 @@ public class ShipmentRestController {
     )
     public ResponseEntity<? extends ShipmentDto> update(@ApiParam(name = "ShipmentDto", value = "ShipmentDto для редактирования отгрузки", required = true)
                                                       @RequestBody ShipmentDto shipmentDto) {
-        checkEntityService.checkExistShipmentId(shipmentDto.getId());
+        checkEntityService.checkExist(shipmentDto.getId(), repository, "Shipment");
         shipmentService.update(shipmentDto);
         return ResponseEntity.ok().build();
     }
@@ -111,7 +113,7 @@ public class ShipmentRestController {
     )
     public ResponseEntity<? extends ShipmentDto> delete(@ApiParam(name = "id", value = "id отгрузки")
                                                       @PathVariable("id") Long id){
-        checkEntityService.checkExistShipmentId(id);
+        checkEntityService.checkExist(id, repository, "Shipment");
         shipmentService.deleteById(id);
         return ResponseEntity.ok().build();
     }

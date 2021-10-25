@@ -1,6 +1,8 @@
 package com.warehouse_accounting.controllers.rest;
 
+import com.warehouse_accounting.models.TechnologicalMapProduct;
 import com.warehouse_accounting.models.dto.TechnologicalMapProductDto;
+import com.warehouse_accounting.repositories.TechnologicalMapProductRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.TechnologicalMapProductService;
 import io.swagger.annotations.Api;
@@ -35,11 +37,13 @@ import java.util.List;
 public class TechnologicalMapProductRestController {
     private final TechnologicalMapProductService technologicalMapProductService;
     private final CheckEntityService checkEntityService;
+    private final TechnologicalMapProductRepository repository;
 
     public TechnologicalMapProductRestController(TechnologicalMapProductService technologicalMapProductService,
-                                                 CheckEntityService checkEntityService) {
+                                                 CheckEntityService checkEntityService, TechnologicalMapProductRepository repository) {
         this.technologicalMapProductService = technologicalMapProductService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -72,7 +76,7 @@ public class TechnologicalMapProductRestController {
     public ResponseEntity<TechnologicalMapProductDto> getById(
             @ApiParam(name = "id", value = "id для получения TechnologicalMapProductDto", required = true)
             @PathVariable("id") Long id) {
-        checkEntityService.checkExistTechnologicalMapProductById(id);
+        checkEntityService.checkExist(id, repository, "TechnologicalMapProduct");
         return ResponseEntity.ok(technologicalMapProductService.getById(id));
     }
 
@@ -106,7 +110,7 @@ public class TechnologicalMapProductRestController {
     public ResponseEntity<?> update(
             @ApiParam(name = "TechnologicalMapProductDto", value = "TechnologicalMapProductDto for update TechnologicalMapProduct", required = true)
             @RequestBody TechnologicalMapProductDto technologicalMapProductDto) {
-        checkEntityService.checkExistTechnologicalMapProductById(technologicalMapProductDto.getId());
+        checkEntityService.checkExist(technologicalMapProductDto.getId(), repository, "TechnologicalMapProduct");
         technologicalMapProductService.update(technologicalMapProductDto);
         return ResponseEntity.ok().build();
     }
@@ -124,7 +128,7 @@ public class TechnologicalMapProductRestController {
     public ResponseEntity<?> delById(
             @ApiParam(name = "id", value = "id удаляемого TechnologicalMapProduct", required = true)
             @PathVariable("id") Long id) {
-        checkEntityService.checkExistTechnologicalMapProductById(id);
+        checkEntityService.checkExist(id, repository, "TechnologicalMapProduct");
         technologicalMapProductService.deleteById(id);
         return ResponseEntity.ok().build();
     }

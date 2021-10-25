@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.CountryDto;
+import com.warehouse_accounting.repositories.CountryRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.CountryService;
 import io.swagger.annotations.Api;
@@ -30,10 +31,12 @@ public class CountryRestController {
     private final CountryService countryService;
 
     private final CheckEntityService checkEntityService;
+    private final CountryRepository repository;
 
-    public CountryRestController(CountryService countryService, CheckEntityService checkEntityService) {
+    public CountryRestController(CountryService countryService, CheckEntityService checkEntityService, CountryRepository repository) {
         this.countryService = countryService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -63,7 +66,7 @@ public class CountryRestController {
     )
     public ResponseEntity<CountryDto> getById(@ApiParam(name = "id", value = "id для получения Country", required = true)
                                               @PathVariable("id") Long id) {
-        checkEntityService.checkExistCountryById(id);
+        checkEntityService.checkExist(id, repository, "Country");
         return ResponseEntity.ok(countryService.getById(id));
     }
 
@@ -91,7 +94,7 @@ public class CountryRestController {
     )
     public ResponseEntity<?> update(@ApiParam(name = "CountryDto", value = "CountryDto для обновления Country", required = true)
                                     @RequestBody CountryDto countryDto) {
-        checkEntityService.checkExistCountryById(countryDto.getId());
+        checkEntityService.checkExist(countryDto.getId(), repository, "Country");
         countryService.update(countryDto);
         return ResponseEntity.ok().build();
     }
@@ -106,7 +109,7 @@ public class CountryRestController {
     )
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "id удаляемого Country", required = true)
                                         @PathVariable("id") Long id) {
-        checkEntityService.checkExistCountryById(id);
+        checkEntityService.checkExist(id, repository, "Country");
         countryService.deleteById(id);
         return ResponseEntity.ok().build();
     }

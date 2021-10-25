@@ -2,6 +2,7 @@ package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.TaskDto;
 import com.warehouse_accounting.models.dto.TechnologicalMapDto;
+import com.warehouse_accounting.repositories.TaskRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.TaskService;
 import io.swagger.annotations.Api;
@@ -36,10 +37,12 @@ import java.util.List;
 public class TaskRestController {
     private final TaskService taskService;
     private final CheckEntityService checkEntityService;
+    private final TaskRepository repository;
 
-    public TaskRestController(TaskService taskService, CheckEntityService checkEntityService) {
+    public TaskRestController(TaskService taskService, CheckEntityService checkEntityService, TaskRepository repository) {
         this.taskService = taskService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -72,7 +75,7 @@ public class TaskRestController {
     public ResponseEntity<TaskDto> getById(
             @ApiParam(name = "id", value = "id для получения Task", required = true)
             @PathVariable("id") Long id) {
-        checkEntityService.checkExistTaskById(id);
+        checkEntityService.checkExist(id, repository, "Task");
         return ResponseEntity.ok(taskService.getById(id));
     }
 
@@ -106,7 +109,7 @@ public class TaskRestController {
     public ResponseEntity<?> update(
             @ApiParam(name = "TaskDto", value = "TaskDto for update Task", required = true)
             @RequestBody TaskDto taskDto) {
-        checkEntityService.checkExistTaskById(taskDto.getId());
+        checkEntityService.checkExist(taskDto.getId(), repository, "Task");
         taskService.update(taskDto);
         return ResponseEntity.ok().build();
     }
@@ -124,7 +127,7 @@ public class TaskRestController {
     public ResponseEntity<?> deleteById(
             @ApiParam(name = "id", value = "id удаляемого Task", required = true)
             @PathVariable("id") Long id) {
-        checkEntityService.checkExistTaskById(id);
+        checkEntityService.checkExist(id, repository, "Task");
         taskService.deleteById(id);
         return ResponseEntity.ok().build();
     }

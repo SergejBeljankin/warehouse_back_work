@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.WarehouseDto;
+import com.warehouse_accounting.repositories.WarehouseRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.WarehouseService;
 import io.swagger.annotations.Api;
@@ -30,13 +31,13 @@ public class WarehouseRestController{
 
     private final WarehouseService warehouseService;
     private final CheckEntityService checkEntityService;
+    private final WarehouseRepository repository;
 
-    public WarehouseRestController(WarehouseService warehouseService, 
-                                   CheckEntityService checkEntityService) {
+    public WarehouseRestController(WarehouseService warehouseService, CheckEntityService checkEntityService, WarehouseRepository repository) {
         this.warehouseService = warehouseService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
-
 
     @GetMapping()
     @ApiOperation(value = "Возвращает список объектов WarehouseDto", notes = "Возвращает List WarehouseDto", response = WarehouseDto.class)
@@ -62,7 +63,7 @@ public class WarehouseRestController{
     public ResponseEntity<WarehouseDto> getById(
             @ApiParam(name = "id", value = "Значение поля Id объекта которого хотим получить", example = "1", required = true)
             @PathVariable("id") long id) {
-        checkEntityService.checkExistWarehouseById(id);
+        checkEntityService.checkExist(id, repository, "Warehouse");
         return ResponseEntity.ok(warehouseService.getById(id));
     }
 
@@ -96,7 +97,7 @@ public class WarehouseRestController{
     public ResponseEntity<?> update(
             @ApiParam(name = "WarehouseDto", value = "Объект WarehouseDto который нужно обновить в программе")
             @RequestBody WarehouseDto warehouseDto) {
-        checkEntityService.checkExistWarehouseById(warehouseDto.getId());
+        checkEntityService.checkExist(warehouseDto.getId(), repository, "Warehouse");
         warehouseService.update(warehouseDto);
         return ResponseEntity.ok().build();
     }
@@ -114,7 +115,7 @@ public class WarehouseRestController{
     public ResponseEntity<?> delete(
             @ApiParam(name = "id", value = "Значение поля Id объекта которого хотим удалить", example = "1", required = true)
             @PathVariable("id") long id) {
-        checkEntityService.checkExistWarehouseById(id);
+        checkEntityService.checkExist(id, repository, "Warehouse");
         warehouseService.deleteById(id);
         return ResponseEntity.ok().build();
     }

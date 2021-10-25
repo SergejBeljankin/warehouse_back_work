@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.FileDto;
+import com.warehouse_accounting.repositories.FileRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.FileService;
 import io.swagger.annotations.Api;
@@ -29,12 +30,12 @@ import java.util.List;
 public class FileRestController {
     private final FileService fileService;
     private final CheckEntityService checkEntityService;
+    private final FileRepository repository;
 
-    @Autowired
-    public FileRestController(FileService fileService,
-                              CheckEntityService checkEntityService) {
+    public FileRestController(FileService fileService, CheckEntityService checkEntityService, FileRepository repository) {
         this.fileService = fileService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -59,7 +60,7 @@ public class FileRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<FileDto> getById(@ApiParam(name = "id", value = "Id нужного FileDto", required = true)
                                            @PathVariable("id") Long id) {
-        checkEntityService.checkExistFileById(id);
+        checkEntityService.checkExist(id, repository, "File");
         return ResponseEntity.ok(fileService.getById(id));
     }
 
@@ -72,7 +73,7 @@ public class FileRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "FileDto", value = "Объект FileDto для обновления",
             required = true) @RequestBody FileDto fileDto) {
-        checkEntityService.checkExistFeedById(fileDto.getId());
+        checkEntityService.checkExist(fileDto.getId(), repository, "File");
         fileService.update(fileDto);
         return ResponseEntity.ok().build();
     }
@@ -100,7 +101,7 @@ public class FileRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "Id FileDto для удаления", required = true)
                                         @PathVariable("id") Long id) {
-        checkEntityService.checkExistFileById(id);
+        checkEntityService.checkExist(id, repository, "File");
         fileService.delete(id);
         return ResponseEntity.ok().build();
     }

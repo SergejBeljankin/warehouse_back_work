@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.PositionDto;
+import com.warehouse_accounting.repositories.PositionRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.PositionService;
 import io.swagger.annotations.Api;
@@ -29,11 +30,12 @@ public class PositionRestController {
 
     private final PositionService service;
     private final CheckEntityService checkEntityService;
+    private final PositionRepository repository;
 
-    public PositionRestController(PositionService service,
-                                  CheckEntityService checkEntityService) {
+    public PositionRestController(PositionService service, CheckEntityService checkEntityService, PositionRepository repository) {
         this.service = service;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -56,7 +58,7 @@ public class PositionRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<PositionDto> getById(@ApiParam(name = "id", value = "id для получения PositionDto",
             required = true) @PathVariable("id") Long id) {
-        checkEntityService.checkExistPositionById(id);
+        checkEntityService.checkExist(id, repository, "Position");
         return ResponseEntity.ok(service.getById(id));
     }
 
@@ -82,7 +84,7 @@ public class PositionRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "PositionDto", value = "объект PositionDto для обновления",
             required = true) @RequestBody PositionDto positionDto) {
-        checkEntityService.checkExistPositionById(positionDto.getId());
+        checkEntityService.checkExist(positionDto.getId(), repository, "Position");
         service.update(positionDto);
         return ResponseEntity.ok().build();
     }
@@ -96,7 +98,7 @@ public class PositionRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "id для удаления PositionDto",
             required = true) @PathVariable("id") Long id) {
-        checkEntityService.checkExistPositionById(id);
+        checkEntityService.checkExist(id, repository, "Position");
         service.deleteById(id);
         return ResponseEntity.ok().build();
     }

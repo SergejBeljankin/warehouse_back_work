@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.MemoDto;
+import com.warehouse_accounting.repositories.MemoRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.MemoService;
 import io.swagger.annotations.Api;
@@ -30,11 +31,12 @@ public class MemoRestController {
 
     private final MemoService memoService;
     private final CheckEntityService checkEntityService;
+    private final MemoRepository repository;
 
-    @Autowired
-    public MemoRestController(MemoService memoService, CheckEntityService checkEntityService) {
+    public MemoRestController(MemoService memoService, CheckEntityService checkEntityService, MemoRepository repository) {
         this.memoService = memoService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -65,7 +67,7 @@ public class MemoRestController {
     public ResponseEntity<MemoDto> getById(
                     @ApiParam(name = "id", value = "id для получения нужной Memo", required = true)
                     @PathVariable("id") Long id){
-        checkEntityService.checkExistMemoById(id);
+        checkEntityService.checkExist(id, repository, "Memo");
         return ResponseEntity.ok(memoService.getById(id));
     }
     
@@ -97,7 +99,7 @@ public class MemoRestController {
     public ResponseEntity<?> update(
                     @ApiParam(name = "MemoDto", value = "Объект MemoDto для редактирования Memo", required = true)
                     @RequestBody MemoDto memoDto){
-        checkEntityService.checkExistMemoById(memoDto.getId());
+        checkEntityService.checkExist(memoDto.getId(), repository, "Memo");
         memoService.update(memoDto);
         return ResponseEntity.ok().build();
     }
@@ -114,7 +116,7 @@ public class MemoRestController {
     public ResponseEntity<?> deleteById(
                     @ApiParam(name = "id", value = "id для удаления Memo", required = true)
                     @PathVariable("id") Long id){
-        checkEntityService.checkExistMemoById(id);
+        checkEntityService.checkExist(id, repository, "Memo");
         memoService.deleteById(id);
         return ResponseEntity.ok().build();
     }
