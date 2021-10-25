@@ -1,13 +1,14 @@
 package com.warehouse_accounting.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+
+import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -17,12 +18,22 @@ import static lombok.AccessLevel.PRIVATE;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
+@Builder
 @FieldDefaults(level = PRIVATE)
 @Entity
-@Table(name = "shipment")
-@EqualsAndHashCode(callSuper = true)
-public class Shipment extends Supply{
+@Table(name = "shipments")
+public class Shipment{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
+    @Embedded
+    MovingFields movingFields;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    List<Product> products;
 
     @ManyToOne(fetch = FetchType.LAZY)
     Contractor consignee;

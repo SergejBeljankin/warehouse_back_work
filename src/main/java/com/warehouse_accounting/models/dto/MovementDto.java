@@ -16,7 +16,7 @@ public class MovementDto {
 
     private Long id;
 
-    private LocalDateTime dateTime;
+    private LocalDateTime dateOfCreation;
 
     private WarehouseDto warehouseFrom = new WarehouseDto();
 
@@ -33,7 +33,7 @@ public class MovementDto {
     private String comment;
 
     public MovementDto(Long id,
-                       LocalDateTime dateTime,
+                       LocalDateTime dateOfCreation,
                        Long warehouseFromId,
                        Long warehouseToId,
                        Long companyId,
@@ -42,7 +42,7 @@ public class MovementDto {
                        boolean printed,
                        String comment) {
         this.id = id;
-        this.dateTime = dateTime;
+        this.dateOfCreation = dateOfCreation;
         this.warehouseFrom.setId(warehouseFromId);
         this.warehouseTo.setId(warehouseToId);
         this.company.setId(companyId);

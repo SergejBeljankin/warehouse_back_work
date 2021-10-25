@@ -18,11 +18,10 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = PRIVATE)
-public class ShipmentDto {
+public class MovingFieldsDto {
 
-    Long id;
 
-    LocalDateTime dateOfCreation;
+    LocalDateTime dataTime;
 
     Long warehouseId;
 
@@ -44,32 +43,18 @@ public class ShipmentDto {
 
     String comment;
 
-    Long consigneeId;
-
-    Long carrierId;
-
-    Boolean isPaid;
-
-    String deliveryAddress;
-
-
-    public ShipmentDto(Long id,
-                       LocalDateTime dateOfCreation,
-                       Long warehouseId,
-                       Long contractId,
-                       Long contractorId,
-                       Long companyId,
-                       BigDecimal sum,
-                       BigDecimal paid,
-                       Boolean isSent,
-                       Boolean isPrinted,
-                       String comment,
-                       Long consigneeId,
-                       Long carrierId,
-                       Boolean isPaid,
-                       String deliveryAddress) {
-        this.id = id;
-        this.dateOfCreation = dateOfCreation;
+    public MovingFieldsDto(
+            LocalDateTime dataTime,
+            Long warehouseId,
+            Long contractId,
+            Long contractorId,
+            Long companyId,
+            BigDecimal sum,
+            BigDecimal paid,
+            Boolean isSent,
+            Boolean isPrinted,
+            String comment) {
+        this.dataTime = dataTime;
         this.warehouseId = warehouseId;
         this.contractId = contractId;
         this.contractorId = contractorId;
@@ -79,9 +64,5 @@ public class ShipmentDto {
         this.isSent = isSent;
         this.isPrinted = isPrinted;
         this.comment = comment;
-        this.consigneeId = consigneeId;
-        this.carrierId = carrierId;
-        this.isPaid = isPaid;
-        this.deliveryAddress = deliveryAddress;
     }
 }
