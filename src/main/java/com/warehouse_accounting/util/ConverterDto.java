@@ -1548,4 +1548,24 @@ public class ConverterDto {
                     .tariff(subscription.getTariffs().stream().map(ConverterDto::convertToDto).collect(Collectors.toSet()))
                     .build();
         }
+
+    public static UnitsOfMeasure convertToModel(UnitsOfMeasureDto unitsOfMeasureDto) {
+        return UnitsOfMeasure.builder()
+                .id(unitsOfMeasureDto.getId())
+                .type(unitsOfMeasureDto.getType())
+                .name(unitsOfMeasureDto.getName())
+                .fullName(unitsOfMeasureDto.getFullName())
+                .code(unitsOfMeasureDto.getCode())
+                .build();
+    }
+
+    public static UnitsOfMeasureDto convertToDto(UnitsOfMeasure unitsOfMeasure){
+        return UnitsOfMeasureDto.builder()
+                .id(unitsOfMeasure.getId())
+                .type(unitsOfMeasure.getType())
+                .name(unitsOfMeasure.getName())
+                .fullName(unitsOfMeasure.getFullName())
+                .code(unitsOfMeasure.getCode())
+                .build();
+    }
     }
