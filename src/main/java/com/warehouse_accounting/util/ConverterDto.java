@@ -651,7 +651,7 @@ public class ConverterDto {
     public static Movement convertToModel(MovementDto dto) {
         return Movement.builder()
                 .id(dto.getId())
-                .dateTime(dto.getDateTime())
+                .dateTime(dto.getDateOfCreation())
                 .warehouseFrom(convertToModel(dto.getWarehouseFrom()))
                 .warehouseTo(convertToModel(dto.getWarehouseTo()))
                 .company(convertToModel(dto.getCompany()))
@@ -1279,6 +1279,29 @@ public class ConverterDto {
                 .contractor(contractor)
                 .build();
     }
+//    public static MovingFields convertToModel(MovingFieldsDto movingFieldsDto){
+//        if(movingFieldsDto == null){
+//            return null;
+//        }
+//        Contract contract = new Contract();
+//        contract.setId(movingFieldsDto.getContractId());
+//        Contractor contractor = new Contractor();
+//        contractor.setId(movingFieldsDto.getContractorId());
+//        Company company = new Company();
+//        company.setId(movingFieldsDto.getCompanyId());
+//
+//        return MovingFields.builder()
+//                .dateOfCreation(movingFieldsDto.getDateOfCreation())
+//                .contract(contract)
+//                .contractor(contractor)
+//                .company(company)
+//                .sum(movingFieldsDto.getSum())
+//                .paid(movingFieldsDto.getPaid())
+//                .isSent(movingFieldsDto.getIsSent())
+//                .isPrinted(movingFieldsDto.getIsPrinted())
+//                .comment(movingFieldsDto.getComment())
+//                .build();
+//    }
 
     public static Supply convertToModel(SupplyDto supplyDto) {
         if(supplyDto == null){
@@ -1293,9 +1316,9 @@ public class ConverterDto {
         Company company = new Company();
         company.setId(supplyDto.getCompanyId());
 
-        MovingFields movingFields = MovingFields.builder()
+        return Supply.builder()
+                .id(supplyDto.getId())
                 .dateOfCreation(supplyDto.getDateOfCreation())
-                .warehouse(warehouse)
                 .contract(contract)
                 .contractor(contractor)
                 .company(company)
@@ -1304,11 +1327,7 @@ public class ConverterDto {
                 .isSent(supplyDto.getIsSent())
                 .isPrinted(supplyDto.getIsPrinted())
                 .comment(supplyDto.getComment())
-                .build();
-
-        return Supply.builder()
-                .id(supplyDto.getId())
-                .movingFields(movingFields)
+                .warehouse(warehouse)
                 .products(supplyDto.getProductDtos() != null ? supplyDto.getProductDtos()
                         .stream()
                         .map(ConverterDto::convertToModel)
@@ -1322,20 +1341,20 @@ public class ConverterDto {
         }
         return SupplyDto.builder()
                 .id(supply.getId())
-                .dateOfCreation(supply.getMovingFields().getDateOfCreation())
-                .warehouseId(supply.getMovingFields().getWarehouse().getId())
-                .contractId(supply.getMovingFields().getContract().getId())
-                .contractorId(supply.getMovingFields().getContractor().getId())
-                .companyId(supply.getMovingFields().getCompany().getId())
+                .dateOfCreation(supply.getDateOfCreation())
+                .warehouseId(supply.getWarehouse().getId())
+                .contractId(supply.getContract().getId())
+                .contractorId(supply.getContractor().getId())
+                .companyId(supply.getCompany().getId())
                 .productDtos(supply.getProducts() != null ? supply.getProducts()
                         .stream()
                         .map(ConverterDto::convertToDto)
                         .collect(Collectors.toList()) : null)
-                .sum(supply.getMovingFields().getSum())
-                .paid(supply.getMovingFields().getPaid())
-                .isSent(supply.getMovingFields().getIsSent())
-                .isPrinted(supply.getMovingFields().getIsPrinted())
-                .comment(supply.getMovingFields().getComment())
+                .sum(supply.getSum())
+                .paid(supply.getPaid())
+                .isSent(supply.getIsSent())
+                .isPrinted(supply.getIsPrinted())
+                .comment(supply.getComment())
                 .build();
     }
 
@@ -1356,9 +1375,9 @@ public class ConverterDto {
         Contractor carrier = new Contractor();
         carrier.setId(shipmentDto.getCarrierId());
 
-        MovingFields movingFields = MovingFields.builder()
+        return Shipment.builder()
+                .id(shipmentDto.getId())
                 .dateOfCreation(shipmentDto.getDateOfCreation())
-                .warehouse(shipmentDto.getWarehouseId() != null ? warehouse : null)
                 .contract(shipmentDto.getContractId() != null ? contract : null)
                 .contractor(shipmentDto.getContractorId() != null ? contractor : null)
                 .company(shipmentDto.getCompanyId() != null ? company : null)
@@ -1367,11 +1386,7 @@ public class ConverterDto {
                 .isSent(shipmentDto.getIsSent())
                 .isPrinted(shipmentDto.getIsPrinted())
                 .comment(shipmentDto.getComment())
-                .build();
-
-        return Shipment.builder()
-                .id(shipmentDto.getId())
-                .movingFields(movingFields)
+                .warehouse(shipmentDto.getWarehouseId() != null ? warehouse : null)
                 .products(shipmentDto.getProductDtos() != null ? shipmentDto.getProductDtos()
                         .stream()
                         .map(ConverterDto::convertToModel)
@@ -1389,20 +1404,20 @@ public class ConverterDto {
 
         return ShipmentDto.builder()
                 .id(shipment.getId())
-                .dateOfCreation(shipment.getMovingFields().getDateOfCreation())
-                .warehouseId(shipment.getMovingFields().getWarehouse() != null ? shipment.getMovingFields().getWarehouse().getId() : null)
-                .contractId(shipment.getMovingFields().getContract() != null ? shipment.getMovingFields().getContract().getId() : null)
-                .contractorId(shipment.getMovingFields().getContractor() != null ? shipment.getMovingFields().getContractor().getId() : null)
-                .companyId(shipment.getMovingFields().getCompany() != null ? shipment.getMovingFields().getCompany().getId() : null)
+                .dateOfCreation(shipment.getDateOfCreation())
+                .warehouseId(shipment.getWarehouse() != null ? shipment.getWarehouse().getId() : null)
+                .contractId(shipment.getContract() != null ? shipment.getContract().getId() : null)
+                .contractorId(shipment.getContractor() != null ? shipment.getContractor().getId() : null)
+                .companyId(shipment.getCompany() != null ? shipment.getCompany().getId() : null)
                 .productDtos(shipment.getProducts() != null ? shipment.getProducts()
                         .stream()
                         .map(ConverterDto::convertToDto)
                         .collect(Collectors.toList()) : null)
-                .sum(shipment.getMovingFields().getSum())
-                .paid(shipment.getMovingFields().getPaid())
-                .isSent(shipment.getMovingFields().getIsSent())
-                .isPrinted(shipment.getMovingFields().getIsPrinted())
-                .comment(shipment.getMovingFields().getComment())
+                .sum(shipment.getSum())
+                .paid(shipment.getPaid())
+                .isSent(shipment.getIsSent())
+                .isPrinted(shipment.getIsPrinted())
+                .comment(shipment.getComment())
                 .consigneeId(shipment.getConsignee() != null ? shipment.getConsignee().getId() : null)
                 .carrierId(shipment.getCarrier() != null ? shipment.getCarrier().getId() : null)
                 .isPaid(shipment.getIsPaid())

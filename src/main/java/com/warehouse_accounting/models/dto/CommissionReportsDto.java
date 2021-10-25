@@ -18,16 +18,22 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = PRIVATE)
-public class MovingFieldsDto {
-
+public class CommissionReportsDto {
+    Long id;
 
     LocalDateTime dateOfCreation;
 
     Long contractId;
+    String contractNumber;
 
     Long contractorId;
+    String contractorName;
 
     Long companyId;
+    String companyName;
+
+    Long projectId;
+    String projectName;
 
     List<ProductDto> productDtos = new ArrayList<>();
 
@@ -41,24 +47,48 @@ public class MovingFieldsDto {
 
     String comment;
 
-    public MovingFieldsDto(
+    LocalDateTime periodStart;
+
+    LocalDateTime periodEnd;
+
+    BigDecimal reward = BigDecimal.valueOf(0);
+
+    public CommissionReportsDto(
+            Long id,
             LocalDateTime dateOfCreation,
             Long contractId,
+            String contractNumber,
             Long contractorId,
+            String contractorName,
             Long companyId,
+            String companyName,
+            Long projectId,
+            String projectName,
             BigDecimal sum,
             BigDecimal paid,
             Boolean isSent,
             Boolean isPrinted,
-            String comment) {
+            String comment,
+            LocalDateTime periodStart,
+            LocalDateTime periodEnd,
+            BigDecimal reward) {
+        this.id = id;
         this.dateOfCreation = dateOfCreation;
         this.contractId = contractId;
+        this.contractNumber = contractNumber;
         this.contractorId = contractorId;
+        this.contractorName = contractorName;
         this.companyId = companyId;
+        this.companyName = companyName;
+        this.projectId = projectId;
+        this.projectName = projectName;
         this.sum = sum;
         this.paid = paid;
         this.isSent = isSent;
         this.isPrinted = isPrinted;
         this.comment = comment;
+        this.periodStart = periodStart;
+        this.periodEnd = periodEnd;
+        this.reward = reward;
     }
 }
