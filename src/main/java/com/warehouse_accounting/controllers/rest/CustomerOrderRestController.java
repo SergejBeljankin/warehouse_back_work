@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.CustomerOrderDto;
+import com.warehouse_accounting.repositories.CustomerOrderRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.CustomerOrderService;
 import io.swagger.annotations.Api;
@@ -30,12 +31,15 @@ public class CustomerOrderRestController {
 
     private final CustomerOrderService customerOrderService;
     private final CheckEntityService checkEntityService;
+    private final CustomerOrderRepository repository;
 
     @Autowired
     public CustomerOrderRestController(CustomerOrderService customerOrderService,
-                                       CheckEntityService checkEntityService) {
+                                       CheckEntityService checkEntityService,
+                                       CustomerOrderRepository repository) {
         this.customerOrderService = customerOrderService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -62,7 +66,7 @@ public class CustomerOrderRestController {
             @ApiResponse(code = 402, message = "Нет доступа к данной операции")})
     public ResponseEntity<CustomerOrderDto> getById(@ApiParam(name = "id", value = "Id нужного CustomerOrderDto", required = true)
                                               @PathVariable("id") Long id) {
-        checkEntityService.checkExistCustomerOrderById(id);
+        checkEntityService.checkExist(id, repository, "CustomerOrder");
         return ResponseEntity.ok(customerOrderService.getById(id));
     }
 
@@ -102,7 +106,7 @@ public class CustomerOrderRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "Id CustomerOrderDto для удаления", required = true)
                                         @PathVariable Long id) {
-        checkEntityService.checkExistCustomerOrderById(id);
+        checkEntityService.checkExist(id, repository, "CustomerOrder");
         customerOrderService.deleteById(id);
         return ResponseEntity.ok().build();
     }
