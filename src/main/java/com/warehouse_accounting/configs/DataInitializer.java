@@ -66,6 +66,7 @@ public class DataInitializer {
     private final BonusTransactionService bonusTransactionService;
     private final SupplyService supplyService;
     private final ShipmentService shipmentService;
+    private final CommissionReportsService commissionReportsService;
 
     public DataInitializer(ApplicationService applicationService,
                            RoleService roleService,
@@ -100,7 +101,8 @@ public class DataInitializer {
                            FeedService feedService,
                            SupplyService supplyService,
                            ShipmentService shipmentService,
-                           BonusTransactionService bonusTransactionService) {
+                           BonusTransactionService bonusTransactionService,
+                           CommissionReportsService commissionReportsService) {
         this.applicationService = applicationService;
         this.roleService = roleService;
         this.unitService = unitService;
@@ -135,6 +137,7 @@ public class DataInitializer {
         this.bonusTransactionService = bonusTransactionService;
         this.supplyService = supplyService;
         this.shipmentService = shipmentService;
+        this.commissionReportsService = commissionReportsService;
     }
 
     @PostConstruct
@@ -170,6 +173,7 @@ public class DataInitializer {
         initBonusTransaction();
         initSupply();
         initShipment();
+        initCommissionReports();
     }
 
     private void initApplications() {
@@ -883,7 +887,6 @@ private void initSupply(){
                 .dateOfCreation(LocalDateTime.now())
                 .contractorId(1L)
                 .contractId(1L)
-                .contractorId(1L)
                 .companyId(1L)
                 .productDtos(List.of(productService.getById(1L),productService.getById(2L)))
                 .sum(BigDecimal.valueOf(555))
@@ -918,6 +921,32 @@ private void initSupply(){
 
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу shipment", e);
+        }
+    }
+    private void initCommissionReports(){
+        try {
+            commissionReportsService.create(CommissionReportsDto.builder()
+                    .id(1L)
+                    .dateOfCreation(LocalDateTime.now())
+                    .contractId(1L)
+                    .contractNumber("123")
+                    .contractorId(1L)
+                    .contractorName("abc")
+                    .companyId(1L)
+                    .companyName("www")
+                    .projectId(1L)
+                    .projectName("proj")
+                    .sum(BigDecimal.valueOf(555))
+                    .paid(BigDecimal.valueOf(333))
+                    .isSent(false)
+                    .isPrinted(true)
+                    .comment("commission")
+                    .periodStart(LocalDateTime.now())
+                    .reward(BigDecimal.valueOf(132))
+                    .build());
+
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу commissionReports", e);
         }
     }
 }
