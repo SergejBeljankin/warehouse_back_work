@@ -13,31 +13,31 @@ import java.util.List;
 public interface SupplyRepository extends JpaRepository<Supply, Long> {
     @Query("SELECT NEW com.warehouse_accounting.models.dto.SupplyDto(" +
             "s.id," +
-            "s.movingFields.dateOfCreation," +
-            "s.movingFields.warehouse.id," +
-            "s.movingFields.contract.id," +
-            "s.movingFields.contractor.id," +
-            "s.movingFields.company.id," +
-            "s.movingFields.sum," +
-            "s.movingFields.paid," +
-            "s.movingFields.isSent," +
-            "s.movingFields.isPrinted," +
-            "s.movingFields.comment)" +
+            "s.dateOfCreation," +
+            "s.warehouse.id," +
+            "s.contract.id," +
+            "s.contractor.id," +
+            "s.company.id," +
+            "s.sum," +
+            "s.paid," +
+            "s.isSent," +
+            "s.isPrinted," +
+            "s.comment)" +
             " FROM Supply s")
     List<SupplyDto> getAll();
 
     @Query("SELECT NEW com.warehouse_accounting.models.dto.SupplyDto(" +
             "s.id," +
-            "s.movingFields.dateOfCreation," +
-            "s.movingFields.warehouse.id," +
-            "s.movingFields.contract.id," +
-            "s.movingFields.contractor.id," +
-            "s.movingFields.company.id," +
-            "s.movingFields.sum," +
-            "s.movingFields.paid," +
-            "s.movingFields.isSent," +
-            "s.movingFields.isPrinted," +
-            "s.movingFields.comment)" +
+            "s.dateOfCreation," +
+            "s.warehouse.id," +
+            "s.contract.id," +
+            "s.contractor.id," +
+            "s.company.id," +
+            "s.sum," +
+            "s.paid," +
+            "s.isSent," +
+            "s.isPrinted," +
+            "s.comment)" +
             " FROM Supply s WHERE s.id = :id")
     SupplyDto getById(@Param("id") Long id);
 

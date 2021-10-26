@@ -21,9 +21,7 @@ import static lombok.AccessLevel.PRIVATE;
 public class MovingFieldsDto {
 
 
-    LocalDateTime dataTime;
-
-    Long warehouseId;
+    LocalDateTime dateOfCreation;
 
     Long contractId;
 
@@ -44,8 +42,7 @@ public class MovingFieldsDto {
     String comment;
 
     public MovingFieldsDto(
-            LocalDateTime dataTime,
-            Long warehouseId,
+            LocalDateTime dateOfCreation,
             Long contractId,
             Long contractorId,
             Long companyId,
@@ -54,8 +51,7 @@ public class MovingFieldsDto {
             Boolean isSent,
             Boolean isPrinted,
             String comment) {
-        this.dataTime = dataTime;
-        this.warehouseId = warehouseId;
+        this.dateOfCreation = dateOfCreation;
         this.contractId = contractId;
         this.contractorId = contractorId;
         this.companyId = companyId;
