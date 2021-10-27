@@ -924,18 +924,16 @@ private void initSupply(){
         }
     }
     private void initCommissionReports(){
+        ContractDto contractDto = contractService.getById(1L);
+        ContractorDto contractorDto = contractorService.getById(1L);
+        CompanyDto companyDto = companyService.getById(1L);
         try {
             commissionReportsService.create(CommissionReportsDto.builder()
                     .id(1L)
                     .dateOfCreation(LocalDateTime.now())
-                    .contractId(1L)
-                    .contractNumber("123")
-                    .contractorId(1L)
-                    .contractorName("abc")
-                    .companyId(1L)
-                    .companyName("www")
-                    .projectId(1L)
-                    .projectName("proj")
+                    .contractDto(contractDto)
+                    .contractorDto(contractorDto)
+                    .companyDto(companyDto)
                     .sum(BigDecimal.valueOf(555))
                     .paid(BigDecimal.valueOf(333))
                     .isSent(false)

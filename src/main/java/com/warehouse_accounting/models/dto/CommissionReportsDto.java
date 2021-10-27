@@ -8,8 +8,6 @@ import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -23,19 +21,13 @@ public class CommissionReportsDto {
 
     LocalDateTime dateOfCreation;
 
-    Long contractId;
-    String contractNumber;
+    ContractDto contractDto = new ContractDto();
 
-    Long contractorId;
-    String contractorName;
+    ContractorDto contractorDto = new ContractorDto();
 
-    Long companyId;
-    String companyName;
+    CompanyDto companyDto = new CompanyDto();
 
-    Long projectId;
-    String projectName;
-
-//    List<ProductDto> productDtos = new ArrayList<>();
+    ProjectDto projectDto = new ProjectDto();
 
     BigDecimal sum = BigDecimal.valueOf(0);
 
@@ -53,42 +45,34 @@ public class CommissionReportsDto {
 
     BigDecimal reward = BigDecimal.valueOf(0);
 
-//    public CommissionReportsDto(
-//            Long id,
-//            LocalDateTime dateOfCreation,
-//            Long contractId,
-//            String contractNumber,
-//            Long contractorId,
-//            String contractorName,
-//            Long companyId,
-//            String companyName,
-//            Long projectId,
-//            String projectName,
-//            BigDecimal sum,
-//            BigDecimal paid,
-//            Boolean isSent,
-//            Boolean isPrinted,
-//            String comment,
-//            LocalDateTime periodStart,
-//            LocalDateTime periodEnd,
-//            BigDecimal reward) {
-//        this.id = id;
-//        this.dateOfCreation = dateOfCreation;
-//        this.contractId = contractId;
-//        this.contractNumber = contractNumber;
-//        this.contractorId = contractorId;
-//        this.contractorName = contractorName;
-//        this.companyId = companyId;
-//        this.companyName = companyName;
-//        this.projectId = projectId;
-//        this.projectName = projectName;
-//        this.sum = sum;
-//        this.paid = paid;
-//        this.isSent = isSent;
-//        this.isPrinted = isPrinted;
-//        this.comment = comment;
-//        this.periodStart = periodStart;
-//        this.periodEnd = periodEnd;
-//        this.reward = reward;
-//    }
+    public CommissionReportsDto(
+            Long id,
+            LocalDateTime dateOfCreation,
+            Long contractId,
+            Long contractorId,
+            Long companyId,
+            Long projectId,
+            BigDecimal sum,
+            BigDecimal paid,
+            Boolean isSent,
+            Boolean isPrinted,
+            String comment,
+            LocalDateTime periodStart,
+            LocalDateTime periodEnd,
+            BigDecimal reward) {
+        this.id = id;
+        this.dateOfCreation = dateOfCreation;
+        this.contractDto.setId(contractId);
+        this.contractorDto.setId(contractorId);
+        this.companyDto.setId(companyId);
+        this.projectDto.setId(projectId);
+        this.sum = sum;
+        this.paid = paid;
+        this.isSent = isSent;
+        this.isPrinted = isPrinted;
+        this.comment = comment;
+        this.periodStart = periodStart;
+        this.periodEnd = periodEnd;
+        this.reward = reward;
+    }
 }

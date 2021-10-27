@@ -28,7 +28,7 @@ import static lombok.AccessLevel.PRIVATE;
 @SuperBuilder
 @FieldDefaults(level = PRIVATE)
 @MappedSuperclass
-public class MovingFields {
+public abstract class MovingFields {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

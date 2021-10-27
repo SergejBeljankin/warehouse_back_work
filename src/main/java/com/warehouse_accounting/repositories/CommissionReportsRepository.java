@@ -16,13 +16,9 @@ public interface CommissionReportsRepository extends JpaRepository<CommissionRep
             "cr.id, " +
             "cr.dateOfCreation," +
             "con.id, " +
-            "con.number, " +
             "contr.id," +
-            "contr.name," +
             "org.id," +
-            "org.name," +
             "p.id," +
-            "p.name," +
             "cr.sum," +
             "cr.paid," +
             "cr.isSent," +
@@ -42,13 +38,9 @@ public interface CommissionReportsRepository extends JpaRepository<CommissionRep
             "cr.id, " +
             "cr.dateOfCreation," +
             "con.id, " +
-            "con.number, " +
             "contr.id," +
-            "contr.name," +
             "org.id," +
-            "org.name," +
             "p.id," +
-            "p.name," +
             "cr.sum," +
             "cr.paid," +
             "cr.isSent," +

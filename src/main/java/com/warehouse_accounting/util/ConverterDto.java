@@ -273,6 +273,9 @@ public class ConverterDto {
     }
 
     public static Company convertToModel(CompanyDto dto) {
+        if(dto==null){
+            return null;
+        }
         return Company.builder()
                 .address(dto.getAddress())
                 .chiefAccountant(dto.getChiefAccountant())
@@ -295,6 +298,9 @@ public class ConverterDto {
     }
 
     public static CompanyDto convertToDto(Company company) {
+        if(company == null){
+            return null;
+        }
         return CompanyDto.builder()
                 .address(company.getAddress())
                 .chiefAccountant(company.getChiefAccountant())
@@ -402,7 +408,9 @@ public class ConverterDto {
     }
 
     public static ContractDto convertToDto(Contract contract) {
-
+        if (contract == null){
+            return null;
+        }
         return ContractDto.builder()
                 .id(contract.getId())
                 .number(contract.getNumber())
@@ -418,6 +426,9 @@ public class ConverterDto {
     }
 
     public static Contract convertToModel(ContractDto contractDto) {
+        if(contractDto == null){
+            return null;
+        }
         return Contract.builder()
                 .id(contractDto.getId())
                 .number(contractDto.getNumber())
@@ -568,6 +579,9 @@ public class ConverterDto {
     }
 
     public static Contractor convertToModel(ContractorDto contractorDto) {
+        if(contractorDto == null){
+            return null;
+        }
         ContractorGroup contractorGroup = new ContractorGroup();
         contractorGroup.setId(contractorDto.getContractorGroupId());
         TypeOfPrice typeOfPrice = new TypeOfPrice();
@@ -742,6 +756,9 @@ public class ConverterDto {
     }
 
     public static Project convertToModel(ProjectDto projectDto) {
+        if(projectDto == null){
+            return null;
+        }
         return Project.builder()
                 .id(projectDto.getId())
                 .name(projectDto.getName())
@@ -751,6 +768,9 @@ public class ConverterDto {
     }
 
     public static ProjectDto convertToDto(Project project) {
+        if(project == null){
+            return null;
+        }
         return ProjectDto.builder()
                 .id(project.getId())
                 .name(project.getName())
@@ -1279,29 +1299,7 @@ public class ConverterDto {
                 .contractor(contractor)
                 .build();
     }
-//    public static MovingFields convertToModel(MovingFieldsDto movingFieldsDto){
-//        if(movingFieldsDto == null){
-//            return null;
-//        }
-//        Contract contract = new Contract();
-//        contract.setId(movingFieldsDto.getContractId());
-//        Contractor contractor = new Contractor();
-//        contractor.setId(movingFieldsDto.getContractorId());
-//        Company company = new Company();
-//        company.setId(movingFieldsDto.getCompanyId());
-//
-//        return MovingFields.builder()
-//                .dateOfCreation(movingFieldsDto.getDateOfCreation())
-//                .contract(contract)
-//                .contractor(contractor)
-//                .company(company)
-//                .sum(movingFieldsDto.getSum())
-//                .paid(movingFieldsDto.getPaid())
-//                .isSent(movingFieldsDto.getIsSent())
-//                .isPrinted(movingFieldsDto.getIsPrinted())
-//                .comment(movingFieldsDto.getComment())
-//                .build();
-//    }
+
 
     public static Supply convertToModel(SupplyDto supplyDto) {
         if(supplyDto == null){
@@ -1568,23 +1566,13 @@ public class ConverterDto {
         if(commissionReportsDto == null){
             return null;
         }
-
-        Contract contract = new Contract();
-        contract.setId(commissionReportsDto.getContractId());
-        Contractor contractor = new Contractor();
-        contractor.setId(commissionReportsDto.getContractorId());
-        Company company = new Company();
-        company.setId(commissionReportsDto.getCompanyId());
-        Project project = new Project();
-        project.setId(commissionReportsDto.getProjectId());
-
         return CommissionReports.builder()
                 .id(commissionReportsDto.getId())
                 .dateOfCreation(commissionReportsDto.getDateOfCreation())
-                .contract(contract)
-                .contractor(contractor)
-                .company(company)
-                .project(project)
+                .contract(ConverterDto.convertToModel(commissionReportsDto.getContractDto()))
+                .contractor(ConverterDto.convertToModel(commissionReportsDto.getContractorDto()))
+                .company(ConverterDto.convertToModel(commissionReportsDto.getCompanyDto()))
+                .project(ConverterDto.convertToModel(commissionReportsDto.getProjectDto()))
                 .sum(commissionReportsDto.getSum())
                 .paid(commissionReportsDto.getPaid())
                 .isSent(commissionReportsDto.getIsSent())
@@ -1603,14 +1591,10 @@ public class ConverterDto {
         return CommissionReportsDto.builder()
                 .id(commissionReports.getId())
                 .dateOfCreation(commissionReports.getDateOfCreation())
-                .contractId(commissionReports.getContract().getId())
-                .contractNumber(commissionReports.getContract().getNumber())
-                .contractorId(commissionReports.getContractor().getId())
-                .contractorName(commissionReports.getContractor().getName())
-                .companyId(commissionReports.getCompany().getId())
-                .companyName(commissionReports.getCompany().getName())
-                .projectId(commissionReports.getProject().getId())
-                .projectName(commissionReports.getProject().getName())
+                .contractDto(commissionReports.getContract() != null ? ConverterDto.convertToDto(commissionReports.getContract()) : null)
+                .contractorDto(ConverterDto.convertToDto(commissionReports.getContractor()))
+                .companyDto(ConverterDto.convertToDto(commissionReports.getCompany()))
+                .projectDto(ConverterDto.convertToDto(commissionReports.getProject()))
                 .sum(commissionReports.getSum())
                 .paid(commissionReports.getPaid())
                 .isSent(commissionReports.getIsSent())
