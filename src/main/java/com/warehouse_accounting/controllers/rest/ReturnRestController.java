@@ -2,6 +2,7 @@ package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.ReturnDto;
 import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
+import com.warehouse_accounting.repositories.ReturnRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.ReturnService;
 import io.swagger.annotations.*;
@@ -17,10 +18,14 @@ import java.util.List;
 public class ReturnRestController {
     private final ReturnService returnService;
     private final CheckEntityService checkEntityService;
+    private final ReturnRepository repository;
 
-    public ReturnRestController(ReturnService returnService, CheckEntityService checkEntityService) {
+    public ReturnRestController(ReturnService returnService,
+                                CheckEntityService checkEntityService,
+                                ReturnRepository repository) {
         this.returnService = returnService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -54,7 +59,7 @@ public class ReturnRestController {
     )
     public ResponseEntity<ReturnDto> getById(@ApiParam(name = "id", value = "id для получения возврата", required = true)
                                              @PathVariable("id") Long id){
-        checkEntityService.checkExistReturnById(id);
+        checkEntityService.checkExist(id, repository, "Return");
         return ResponseEntity.ok(returnService.getById(id));
     }
 
@@ -82,7 +87,7 @@ public class ReturnRestController {
     )
     public ResponseEntity<? extends ReturnDto> update(@ApiParam(name = "ReturnDto", value = "ReturnDto для редактирования Return", required = true)
                                                       @RequestBody ReturnDto returnDto) {
-        checkEntityService.checkExistReturnById(returnDto.getId());
+        checkEntityService.checkExist(returnDto.getId(), repository, "Return");
         returnService.update(returnDto);
         return ResponseEntity.ok().build();
     }
@@ -97,7 +102,7 @@ public class ReturnRestController {
     )
     public ResponseEntity<? extends ReturnDto> delete(@ApiParam(name = "id", value = "id возврата")
                                                       @PathVariable("id") Long id){
-        checkEntityService.checkExistReturnById(id);
+        checkEntityService.checkExist(id, repository, "Return");
         returnService.deleteById(id);
         return ResponseEntity.ok().build();
     }
