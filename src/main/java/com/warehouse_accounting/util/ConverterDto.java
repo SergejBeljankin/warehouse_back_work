@@ -20,12 +20,15 @@ import com.warehouse_accounting.models.Image;
 import com.warehouse_accounting.models.Invoice;
 import com.warehouse_accounting.models.InvoiceEdit;
 import com.warehouse_accounting.models.InvoiceProduct;
+import com.warehouse_accounting.models.Language;
 import com.warehouse_accounting.models.LegalDetail;
 import com.warehouse_accounting.models.Memo;
 import com.warehouse_accounting.models.Movement;
+import com.warehouse_accounting.models.Notifications;
 import com.warehouse_accounting.models.Payment;
 import com.warehouse_accounting.models.PaymentExpenditure;
 import com.warehouse_accounting.models.Position;
+import com.warehouse_accounting.models.PrintingDocuments;
 import com.warehouse_accounting.models.Product;
 import com.warehouse_accounting.models.ProductGroup;
 import com.warehouse_accounting.models.ProductPrice;
@@ -34,7 +37,10 @@ import com.warehouse_accounting.models.Project;
 import com.warehouse_accounting.models.RecycleBin;
 import com.warehouse_accounting.models.Requisites;
 import com.warehouse_accounting.models.Role;
+import com.warehouse_accounting.models.Selector;
+import com.warehouse_accounting.models.Settings;
 import com.warehouse_accounting.models.Shipment;
+import com.warehouse_accounting.models.StartScreen;
 import com.warehouse_accounting.models.Subscription;
 import com.warehouse_accounting.models.Supply;
 import com.warehouse_accounting.models.Tariff;
@@ -69,11 +75,14 @@ import com.warehouse_accounting.models.dto.ImageDto;
 import com.warehouse_accounting.models.dto.InvoiceDto;
 import com.warehouse_accounting.models.dto.InvoiceEditDto;
 import com.warehouse_accounting.models.dto.InvoiceProductDto;
+import com.warehouse_accounting.models.dto.LanguageDto;
 import com.warehouse_accounting.models.dto.LegalDetailDto;
 import com.warehouse_accounting.models.dto.MemoDto;
 import com.warehouse_accounting.models.dto.MovementDto;
+import com.warehouse_accounting.models.dto.NotificationsDto;
 import com.warehouse_accounting.models.dto.PaymentDto;
 import com.warehouse_accounting.models.dto.PositionDto;
+import com.warehouse_accounting.models.dto.PrintingDocumentsDto;
 import com.warehouse_accounting.models.dto.ProductDto;
 import com.warehouse_accounting.models.dto.ProductGroupDto;
 import com.warehouse_accounting.models.dto.ProductPriceDto;
@@ -82,7 +91,10 @@ import com.warehouse_accounting.models.dto.ProjectDto;
 import com.warehouse_accounting.models.dto.RecycleBinDto;
 import com.warehouse_accounting.models.dto.RequisitesDto;
 import com.warehouse_accounting.models.dto.RoleDto;
+import com.warehouse_accounting.models.dto.SelectorDto;
+import com.warehouse_accounting.models.dto.SettingsDto;
 import com.warehouse_accounting.models.dto.ShipmentDto;
+import com.warehouse_accounting.models.dto.StartScreenDto;
 import com.warehouse_accounting.models.dto.SubscriptionDto;
 import com.warehouse_accounting.models.dto.SupplyDto;
 import com.warehouse_accounting.models.dto.TariffDto;
@@ -98,6 +110,17 @@ import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.models.dto.WarehouseDto;
 
+import com.warehouse_accounting.repositories.CompanyRepository;
+import com.warehouse_accounting.repositories.ContractorRepository;
+import com.warehouse_accounting.repositories.EmployeeRepository;
+import com.warehouse_accounting.repositories.LanguageRepository;
+import com.warehouse_accounting.repositories.NotificationsRepository;
+import com.warehouse_accounting.repositories.PrintingDocumentsRepository;
+import com.warehouse_accounting.repositories.ProjectRepository;
+import com.warehouse_accounting.repositories.SelectorRepository;
+import com.warehouse_accounting.repositories.SettingsRepository;
+import com.warehouse_accounting.repositories.StartScreenRepository;
+import com.warehouse_accounting.repositories.WarehouseRepository;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -1502,6 +1525,137 @@ public class ConverterDto {
                 .requisites(convertToDto(subscription.getRequisites()))
                 .employee(convertToDto(subscription.getEmployee()))
                 .tariff(subscription.getTariffs().stream().map(ConverterDto::convertToDto).collect(Collectors.toSet()))
+                .build();
+    }
+    // Settings (Настройки пользователя)
+    public static Settings convertToModel(SettingsDto settingsDto) {
+
+        return Settings.builder()
+                .id(settingsDto.getId())
+                .employee(convertToModel(settingsDto.getEmployeeDto()))
+                .company(convertToModel(settingsDto.getCompanyDto()))
+                .warehouse(convertToModel(settingsDto.getWarehouseDto()))
+                .customer(convertToModel(settingsDto.getCustomerDto()))
+                .producer(convertToModel(settingsDto.getProducerDto()))
+                .project(convertToModel(settingsDto.getProjectDto()))
+                .language(convertToModel(settingsDto.getLanguageDto()))
+                .printingDocuments(convertToModel(settingsDto.getPrintingDocumentsDto()))
+                .startScreen(convertToModel(settingsDto.getStartScreenDto()))
+                .notifications(convertToModel(settingsDto.getNotificationsDto()))
+                .signatureInLetters(settingsDto.isSignatureInLetters())
+                .refreshReportsAuto(settingsDto.isRefreshReportsAuto())
+                .numberOfAdditionalFieldsPerLine(settingsDto.getNumberOfAdditionalFieldsPerLine())
+                .build();
+    }
+
+public static SettingsDto convertToDto(Settings settings) {
+
+    return SettingsDto.builder()
+            .id(settings.getId())
+            .employeeDto(convertToDto(settings.getEmployee()))
+            .companyDto(convertToDto(settings.getCompany()))
+            .warehouseDto(convertToDto(settings.getWarehouse()))
+            .customerDto(convertToDto(settings.getCustomer()))
+            .producerDto(convertToDto(settings.getProducer()))
+            .projectDto(convertToDto(settings.getProject()))
+            .languageDto(convertToDto(settings.getLanguage()))
+            .printingDocumentsDto(convertToDto(settings.getPrintingDocuments()))
+            .startScreenDto(convertToDto(settings.getStartScreen()))
+            .notificationsDto(convertToDto(settings.getNotifications()))
+            .signatureInLetters(settings.isSignatureInLetters())
+            .refreshReportsAuto(settings.isRefreshReportsAuto())
+            .numberOfAdditionalFieldsPerLine(settings.getNumberOfAdditionalFieldsPerLine())
+            .build();
+}
+
+    // Language
+    public static Language convertToModel(LanguageDto languageDto) {
+        return Language.builder()
+                .id(languageDto.getId())
+                .language(languageDto.getLanguage())
+                .build();
+    }
+    public static LanguageDto convertToDto (Language language) {
+        return LanguageDto.builder()
+                .id(language.getId())
+                .language(language.getLanguage())
+                .build();
+    }
+
+    // printingDocuments
+    public static PrintingDocuments convertToModel(PrintingDocumentsDto printingDocumentsDto) {
+        return PrintingDocuments.builder()
+                .id(printingDocumentsDto.getId())
+                .printDoc(printingDocumentsDto.getPrintDoc())
+                .build();
+    }
+    public static PrintingDocumentsDto convertToDto (PrintingDocuments printingDocuments) {
+        return PrintingDocumentsDto.builder()
+                .id(printingDocuments.getId())
+                .printDoc(printingDocuments.getPrintDoc())
+                .build();
+    }
+
+    // startScreen
+    public static StartScreen convertToModel(StartScreenDto startScreenDto) {
+        return StartScreen.builder()
+                .id(startScreenDto.getId())
+                .startScreen(startScreenDto.getStartScreen())
+                .build();
+    }
+
+    public static StartScreenDto convertToDto (StartScreen startScreen) {
+        return StartScreenDto.builder()
+                .id(startScreen.getId())
+                .startScreen(startScreen.getStartScreen())
+                .build();
+    }
+
+    // notification
+    public static Notifications convertToModel(NotificationsDto notificationsDto) {
+        return Notifications.builder()
+                .id(notificationsDto.getId())
+                .buyerOrders(convertToModel(notificationsDto.getBuyerOrders()))
+                .buyersInvoices(convertToModel(notificationsDto.getBuyersInvoices()))
+                .dataExchange(convertToModel(notificationsDto.getDataExchange()))
+                .onlineStores(convertToModel(notificationsDto.getOnlineStores()))
+                .remainder(convertToModel(notificationsDto.getRemainder()))
+                .tasks(convertToModel(notificationsDto.getTasks()))
+                .retail(convertToModel(notificationsDto.getRetail()))
+                .scripts(convertToModel(notificationsDto.getScripts()))
+                .build();
+    }
+
+    public static NotificationsDto convertToDto(Notifications notifications) {
+        return NotificationsDto.builder()
+                .id(notifications.getId())
+                .buyerOrders(convertToDto(notifications.getBuyerOrders()))
+                .buyersInvoices(convertToDto(notifications.getBuyersInvoices()))
+                .dataExchange(convertToDto(notifications.getDataExchange()))
+                .onlineStores(convertToDto(notifications.getOnlineStores()))
+                .remainder(convertToDto(notifications.getRemainder()))
+                .tasks(convertToDto(notifications.getTasks()))
+                .retail(convertToDto(notifications.getRetail()))
+                .scripts(convertToDto(notifications.getScripts()))
+                .build();
+    }
+
+    // selector
+    public static Selector convertToModel(SelectorDto selectorDto) {
+        return Selector.builder()
+                .id(selectorDto.getId())
+                .activate(selectorDto.isActivate())
+                .phone(selectorDto.isPhone())
+                .post(selectorDto.isPost())
+                .build();
+    }
+
+    public static SelectorDto convertToDto(Selector selector) {
+        return SelectorDto.builder()
+                .id(selector.getId())
+                .activate(selector.isActivate())
+                .phone(selector.isPhone())
+                .post(selector.isPost())
                 .build();
     }
 }

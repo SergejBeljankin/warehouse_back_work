@@ -29,7 +29,7 @@ public interface SettingsRepository extends JpaRepository<Settings, Long> {
             ")" +
             "FROM Settings s")
     List<SettingsDto> getAll();
-/*
+
     @Query("SELECT NEW com.warehouse_accounting.models.dto.SettingsDto(" +
             "s.id, " +
             "s.employee.id, " +
@@ -48,7 +48,7 @@ public interface SettingsRepository extends JpaRepository<Settings, Long> {
             ")" +
             "FROM Settings s WHERE s.id = :id")
     SettingsDto getById(@Param("id") Long id);
-*/
+
     @Query("SELECT NEW com.warehouse_accounting.models.dto.SettingsDto(" +
             "s.id, " +
             "s.employee.id, " +

@@ -1,12 +1,14 @@
 package com.warehouse_accounting.repositories;
 
+import com.warehouse_accounting.models.Notifications;
 import com.warehouse_accounting.models.dto.NotificationsDto;
 import com.warehouse_accounting.models.dto.SettingsDto;
 import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface NotificationsRepository {
+public interface NotificationsRepository extends JpaRepository<Notifications, Long> {
     @Query("SELECT NEW com.warehouse_accounting.models.dto.NotificationsDto(" +
             "n.id, " +
             "n.buyerOrders.id, " +

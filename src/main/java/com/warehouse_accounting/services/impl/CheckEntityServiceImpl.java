@@ -29,6 +29,7 @@ import com.warehouse_accounting.repositories.ProductionOrderRepository;
 import com.warehouse_accounting.repositories.ProjectRepository;
 import com.warehouse_accounting.repositories.RequisitesRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
+import com.warehouse_accounting.repositories.SettingsRepository;
 import com.warehouse_accounting.repositories.SubscriptionRepository;
 import com.warehouse_accounting.repositories.TariffRepository;
 import com.warehouse_accounting.repositories.TaskRepository;
@@ -96,6 +97,7 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final TariffRepository tariffRepository;
     private final RequisitesRepository requisitesRepository;
     private final SubscriptionRepository subscriptionRepository;
+    private final SettingsRepository settingsRepository;
 
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {
@@ -380,6 +382,12 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     public void checkExistApplicationById(Long applicationId) {
         if (!applicationRepository.existsById(applicationId)) {
             throw new NotFoundEntityException("BonusTransaction с id=" + applicationId + ", не найдена");
+        }
+    }
+
+    public void checkExistSettingsById(Long settingsId) {
+        if (!settingsRepository.existsById(settingsId)) {
+            throw new NotFoundEntityException("Настройки пользователя с id=" + settingsId + ", не найдены");
         }
     }
 }
