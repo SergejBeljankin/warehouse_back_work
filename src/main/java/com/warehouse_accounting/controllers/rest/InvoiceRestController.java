@@ -1,6 +1,8 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.InvoiceDto;
+import com.warehouse_accounting.repositories.InvoiceProductRepository;
+import com.warehouse_accounting.repositories.InvoiceRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.InvoiceService;
 
@@ -30,10 +32,12 @@ public class InvoiceRestController {
 
     private final InvoiceService invoiceService;
     private final CheckEntityService checkEntityService;
+    private final InvoiceRepository repository;
 
-    public InvoiceRestController(InvoiceService invoiceService, CheckEntityService checkEntityService) {
+    public InvoiceRestController(InvoiceService invoiceService, CheckEntityService checkEntityService, InvoiceRepository repository) {
         this.invoiceService = invoiceService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -58,7 +62,7 @@ public class InvoiceRestController {
     public ResponseEntity<InvoiceDto> getById(
             @ApiParam(name = "id", value = "Значение поля id объекта, который требуется получить", example = "1", required = true)
             @PathVariable Long id) {
-        checkEntityService.checkExistInvoiceById(id);
+        checkEntityService.checkExist(id, repository, "Invoice");
         return ResponseEntity.ok(invoiceService.getById(id));
     }
 
@@ -86,7 +90,7 @@ public class InvoiceRestController {
     public ResponseEntity<?> update(
             @ApiParam(name = "invoiceDto", value = "Накладная (Объект InvoiceDto), которую требуется обновить в базе данных.")
             @RequestBody InvoiceDto invoiceDto){
-        checkEntityService.checkExistInvoiceById(invoiceDto.getId());
+        checkEntityService.checkExist(invoiceDto.getId(), repository, "Invoice");
         invoiceService.create(invoiceDto);
         return ResponseEntity.ok().build();
     }
@@ -101,7 +105,7 @@ public class InvoiceRestController {
     public ResponseEntity<?> delete(
             @ApiParam(name = "id", value = "Значение поля id объекта, который требуется удалить", example = "1", required = true)
             @PathVariable Long id){
-        checkEntityService.checkExistInvoiceById(id);
+        checkEntityService.checkExist(id, repository, "Invoice");
         invoiceService.deleteById(id);
         return ResponseEntity.ok().build();
     }

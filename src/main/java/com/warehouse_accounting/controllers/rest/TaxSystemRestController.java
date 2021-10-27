@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.TaxSystemDto;
+import com.warehouse_accounting.repositories.TaxSystemRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.TaxSystemService;
 import io.swagger.annotations.Api;
@@ -28,12 +29,13 @@ import java.util.List;
 @Tag(name = "TaxSystem Rest Controller", description = "CRUD операции с объектами")
 public class TaxSystemRestController {
     private final TaxSystemService taxSystemService;
-    private  final CheckEntityService checkEntityService;
+    private final CheckEntityService checkEntityService;
+    private final TaxSystemRepository repository;
 
-    public TaxSystemRestController(TaxSystemService taxSystemService, 
-                                   CheckEntityService checkEntityService) {
+    public TaxSystemRestController(TaxSystemService taxSystemService, CheckEntityService checkEntityService, TaxSystemRepository repository) {
         this.taxSystemService = taxSystemService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -60,7 +62,7 @@ public class TaxSystemRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<TaxSystemDto> getById(@ApiParam(name = "id", value = "Id нужного TaxSystemDto",
             required = true) @PathVariable("id") Long id) {
-        checkEntityService.checkExistTaxSystemById(id);
+        checkEntityService.checkExist(id, repository, "TaxSystem");
         return ResponseEntity.ok(taxSystemService.getById(id));
     }
 
@@ -74,7 +76,7 @@ public class TaxSystemRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "TaxSystemDto", value = "объект TaxSystemDto для обновления",
             required = true) @RequestBody TaxSystemDto taxSystemDto) {
-        checkEntityService.checkExistTaxSystemById(taxSystemDto.getId());
+        checkEntityService.checkExist(taxSystemDto.getId(), repository, "TaxSystem");
         taxSystemService.update(taxSystemDto);
         return ResponseEntity.ok().build();
     }
@@ -103,7 +105,7 @@ public class TaxSystemRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "Id TaxSystemDto для удаления", required = true)
                                         @PathVariable("id") Long id) {
-        checkEntityService.checkExistTaxSystemById(id);
+        checkEntityService.checkExist(id, repository, "TaxSystem");
         taxSystemService.deleteById(id);
         return ResponseEntity.ok().build();
     }

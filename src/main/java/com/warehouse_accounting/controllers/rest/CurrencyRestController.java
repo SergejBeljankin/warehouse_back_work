@@ -2,6 +2,7 @@ package com.warehouse_accounting.controllers.rest;
 
 
 import com.warehouse_accounting.models.dto.CurrencyDto;
+import com.warehouse_accounting.repositories.CurrencyRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.CurrencyService;
 import io.swagger.annotations.Api;
@@ -31,11 +32,12 @@ public class CurrencyRestController {
 
     private final CurrencyService currencyService;
     private final CheckEntityService checkEntityService;
+    private final CurrencyRepository repository;
 
-    public CurrencyRestController(CurrencyService currencyService, 
-                                  CheckEntityService checkEntityService) {
+    public CurrencyRestController(CurrencyService currencyService, CheckEntityService checkEntityService, CurrencyRepository repository) {
         this.currencyService = currencyService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -61,7 +63,7 @@ public class CurrencyRestController {
     public ResponseEntity<CurrencyDto> getById(@ApiParam(name =
             "id", value = "Id нужного CurrencyDto", required = true)
                                            @PathVariable("id") Long id) {
-        checkEntityService.checkExistCurrencyById(id);
+        checkEntityService.checkExist(id, repository, "Currency");
         return ResponseEntity.ok(currencyService.getById(id));
     }
 
@@ -91,7 +93,7 @@ public class CurrencyRestController {
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "CurrencyDto", value = "Объект CurrencyDto для обновления",
             required = true) @RequestBody CurrencyDto currencyDto) {
-        checkEntityService.checkExistCurrencyById(currencyDto.getId());
+        checkEntityService.checkExist(currencyDto.getId(), repository, "Currency");
         currencyService.update(currencyDto);
         return ResponseEntity.ok().build();
     }
@@ -107,7 +109,7 @@ public class CurrencyRestController {
     public ResponseEntity<?> deleteById(@ApiParam(name =
             "id", value = "Id CurrencyDto для удаления", required = true)
     @PathVariable("id") Long id) {
-        checkEntityService.checkExistCurrencyById(id);
+        checkEntityService.checkExist(id, repository, "Currency");
         currencyService.deleteById(id);
         return ResponseEntity.ok().build();
     }

@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
+import com.warehouse_accounting.repositories.TypeOfContractorRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.TypeOfContractorService;
 import io.swagger.annotations.*;
@@ -23,11 +24,13 @@ public class TypeOfContractorRestController {
 
     private final TypeOfContractorService typeOfContractorService;
     private final CheckEntityService checkEntityService;
+    private final TypeOfContractorRepository repository;
 
     public TypeOfContractorRestController(TypeOfContractorService typeOfContractorService,
-                                          CheckEntityService checkEntityService) {
+                                          CheckEntityService checkEntityService, TypeOfContractorRepository repository) {
         this.typeOfContractorService = typeOfContractorService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -56,7 +59,7 @@ public class TypeOfContractorRestController {
             @ApiParam(name = "id", required = true)
             @PathVariable("id") long id
     ) {
-        checkEntityService.checkExistTypeOfContractorById(id);
+        checkEntityService.checkExist(id, repository, "TypeOfContractor");
         typeOfContractorService.deleteById(id);
         return ResponseEntity.ok().build();
 
@@ -74,7 +77,7 @@ public class TypeOfContractorRestController {
     public ResponseEntity<TypeOfContractorDto> getById(
             @ApiParam(name = "id", required = true)
             @PathVariable("id") long id) {
-        checkEntityService.checkExistTypeOfContractorById(id);
+        checkEntityService.checkExist(id, repository, "TypeOfContractor");
         TypeOfContractorDto typeOfContractorDto = typeOfContractorService.getById(id);
         return ResponseEntity.ok(typeOfContractorDto);
     }
@@ -91,7 +94,7 @@ public class TypeOfContractorRestController {
     public ResponseEntity<TypeOfContractorDto> update(
             @ApiParam(name = "update typeofContractor")
             @RequestBody TypeOfContractorDto typeOfContractorDto) {
-        checkEntityService.checkExistTypeOfContractorById(typeOfContractorDto.getId());
+        checkEntityService.checkExist(typeOfContractorDto.getId(), repository, "TypeOfContractor");
         typeOfContractorService.update(typeOfContractorDto);
         return ResponseEntity.ok().build();
     }

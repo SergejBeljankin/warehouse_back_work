@@ -2,6 +2,7 @@ package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.ProjectDto;
 import com.warehouse_accounting.models.dto.UnitDto;
+import com.warehouse_accounting.repositories.ProjectRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.ProjectService;
 import io.swagger.annotations.Api;
@@ -30,10 +31,12 @@ public class ProjectRestController {
 
     private final ProjectService projectService;
     private final CheckEntityService checkEntityService;
+    private final ProjectRepository repository;
 
-    public ProjectRestController(ProjectService projectService, CheckEntityService checkEntityService) {
+    public ProjectRestController(ProjectService projectService, CheckEntityService checkEntityService, ProjectRepository repository) {
         this.projectService = projectService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -63,7 +66,7 @@ public class ProjectRestController {
     )
     public ResponseEntity<ProjectDto> getById(@ApiParam(name = "id", value = "id для получения Project", required = true)
                                                   @PathVariable("id") Long id) {
-        checkEntityService.checkExistProjectById(id);
+        checkEntityService.checkExist(id, repository, "Project");
         return ResponseEntity.ok(projectService.getById(id));
     }
 
@@ -91,7 +94,7 @@ public class ProjectRestController {
     )
     public ResponseEntity<?> update(@ApiParam(name = "ProjectDto", value = "ProjectDto для обновления Project", required = true)
                                         @RequestBody ProjectDto projectDto) {
-        checkEntityService.checkExistProjectById(projectDto.getId());
+        checkEntityService.checkExist(projectDto.getId(), repository, "Project");
         projectService.update(projectDto);
         return ResponseEntity.ok().build();
     }
@@ -106,7 +109,7 @@ public class ProjectRestController {
     )
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "id удаляемого Project", required = true)
                                             @PathVariable("id") Long id) {
-        checkEntityService.checkExistProjectById(id);
+        checkEntityService.checkExist(id, repository, "Project");
         projectService.deleteById(id);
         return ResponseEntity.ok().build();
     }

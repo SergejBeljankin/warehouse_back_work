@@ -1,5 +1,8 @@
 package com.warehouse_accounting.util;
 
+import com.warehouse_accounting.models.*;
+import com.warehouse_accounting.models.dto.*;
+
 import com.warehouse_accounting.models.Adjustment;
 import com.warehouse_accounting.models.Application;
 import com.warehouse_accounting.models.AttributeOfCalculationObject;
@@ -110,17 +113,7 @@ import com.warehouse_accounting.models.dto.TypeOfPriceDto;
 import com.warehouse_accounting.models.dto.UnitDto;
 import com.warehouse_accounting.models.dto.WarehouseDto;
 
-import com.warehouse_accounting.repositories.CompanyRepository;
-import com.warehouse_accounting.repositories.ContractorRepository;
-import com.warehouse_accounting.repositories.EmployeeRepository;
-import com.warehouse_accounting.repositories.LanguageRepository;
-import com.warehouse_accounting.repositories.NotificationsRepository;
-import com.warehouse_accounting.repositories.PrintingDocumentsRepository;
-import com.warehouse_accounting.repositories.ProjectRepository;
-import com.warehouse_accounting.repositories.SelectorRepository;
-import com.warehouse_accounting.repositories.SettingsRepository;
-import com.warehouse_accounting.repositories.StartScreenRepository;
-import com.warehouse_accounting.repositories.WarehouseRepository;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -180,6 +173,36 @@ public class ConverterDto {
     }
 
 
+    public static BonusTransaction convertToModel(BonusTransactionDto bonusTransactionDto){
+        return  BonusTransaction.builder()
+                .id(bonusTransactionDto.getId())
+                .created(bonusTransactionDto.getCreated())
+                .transactionType(bonusTransactionDto.getTransactionType())
+                .bonusValue(bonusTransactionDto.getBonusValue())
+                .transactionStatus(bonusTransactionDto.getTransactionStatus())
+                .executionDate(bonusTransactionDto.getExecutionDate())
+                .bonusProgram(bonusTransactionDto.getBonusProgram())
+                .comment(bonusTransactionDto.getComment())
+                .contragent(convertToModel(bonusTransactionDto.getContragent()))
+                .owner(convertToModel(bonusTransactionDto.getOwner()))
+                .build();
+    }
+
+    public static BonusTransactionDto convertToDto(BonusTransaction bonusTransaction){
+        return BonusTransactionDto.builder()
+                .id(bonusTransaction.getId())
+                .created(bonusTransaction.getCreated())
+                .transactionType(bonusTransaction.getTransactionType())
+                .bonusValue(bonusTransaction.getBonusValue())
+                .transactionStatus(bonusTransaction.getTransactionStatus())
+                .executionDate(bonusTransaction.getExecutionDate())
+                .bonusProgram(bonusTransaction.getBonusProgram())
+                .comment(bonusTransaction.getComment())
+                .contragent(convertToDto(bonusTransaction.getContragent()))
+                .owner(convertToDto(bonusTransaction.getOwner()))
+                .build();
+    }
+
     public static Role convertToModel(RoleDto roleDto) {
         return Role.builder()
                 .id(roleDto.getId())
@@ -226,6 +249,9 @@ public class ConverterDto {
     }
 
     public static AttributeOfCalculationObjectDto convertToDto(AttributeOfCalculationObject model) {
+        if(model == null){
+            return null;
+        }
         return AttributeOfCalculationObjectDto.builder()
                 .id(model.getId())
                 .name(model.getName())
@@ -342,6 +368,9 @@ public class ConverterDto {
     }
 
     public static TaxSystemDto convertToDto(TaxSystem taxSystem) {
+        if(taxSystem == null){
+            return null;
+        }
         return TaxSystemDto.builder()
                 .id(taxSystem.getId())
                 .name(taxSystem.getName())
@@ -518,6 +547,9 @@ public class ConverterDto {
     }
 
     public static ImageDto convertToDto(Image image) {
+        if(image == null){
+            return null;
+        }
         return ImageDto.builder()
                 .id(image.getId())
                 .imageUrl(image.getImageUrl())
@@ -526,6 +558,9 @@ public class ConverterDto {
     }
 
     public static ProductGroupDto convertToDto(ProductGroup productGroup) {
+        if(productGroup == null){
+            return null;
+        }
         return ProductGroupDto.builder()
                 .id(productGroup.getId())
                 .name(productGroup.getName())
@@ -610,6 +645,9 @@ public class ConverterDto {
     }
 
     public static ContractorDto convertToDto(Contractor contractor) {
+        if(contractor == null){
+            return null;
+        }
         return ContractorDto.builder()
                 .id(contractor.getId())
                 .name(contractor.getName())
@@ -719,7 +757,7 @@ public class ConverterDto {
     public static Movement convertToModel(MovementDto dto) {
         return Movement.builder()
                 .id(dto.getId())
-                .dateTime(dto.getDateTime())
+                .dateTime(dto.getDateOfCreation())
                 .warehouseFrom(convertToModel(dto.getWarehouseFrom()))
                 .warehouseTo(convertToModel(dto.getWarehouseTo()))
                 .company(convertToModel(dto.getCompany()))
@@ -850,6 +888,9 @@ public class ConverterDto {
     }
 
     public static Product convertToModel(ProductDto productDto) {
+        if(productDto == null){
+            return null;
+        }
 
         return Product.builder()
                 .id(productDto.getId())
@@ -870,6 +911,9 @@ public class ConverterDto {
     }
 
     public static ProductDto convertToDto(Product product) {
+        if(product == null){
+            return null;
+        }
         return ProductDto.builder()
                 .id(product.getId())
                 .name(product.getName())
@@ -891,16 +935,35 @@ public class ConverterDto {
     public static RecycleBinDto convertToDto(RecycleBin recycleBin) {
         return RecycleBinDto.builder()
                 .id(recycleBin.getId())
-                .name(recycleBin.getName())
-                .createdDate(recycleBin.getCreatedDate())
-                .document(recycleBin.getDocument())
+                .documentType(recycleBin.getDocumentType())
+                .number(recycleBin.getNumber())
+                .date(recycleBin.getDate())
+                .sum(recycleBin.getSum())
+                .warehouseTo(recycleBin.getWarehouseTo())
+                .warehouseFrom(recycleBin.getWarehouseFrom())
+                .companyName(recycleBin.getCompanyName())
+                .contractorName(recycleBin.getContractorName())
+                .status(recycleBin.getStatus())
+                .shipped(recycleBin.getShipped())
+                .printed(recycleBin.getPrinted())
+                .comment(recycleBin.getComment())
                 .build();
     }
 
     public static RecycleBin convertToModel(RecycleBinDto dto) {
-        return new RecycleBin(dto.getName(),
-                dto.getCreatedDate(),
-                dto.getDocument()
+        return new RecycleBin(dto.getId(),
+                dto.getDocumentType(),
+                dto.getNumber(),
+                dto.getDate(),
+                dto.getSum(),
+                dto.getWarehouseTo(),
+                dto.getWarehouseFrom(),
+                dto.getCompanyName(),
+                dto.getContractorName(),
+                dto.getStatus(),
+                dto.getShipped(),
+                dto.getPrinted(),
+                dto.getComment()
         );
     }
 
@@ -936,6 +999,9 @@ public class ConverterDto {
     }
 
     public static ProductPriceDto convertToDto(ProductPrice productPrice) {
+        if (productPrice == null){
+            return null;
+        }
         return ProductPriceDto.builder()
                 .id(productPrice.getId())
                 .productDto(convertToDto(productPrice.getProduct()))
@@ -1321,14 +1387,20 @@ public class ConverterDto {
     }
 
     public static Supply convertToModel(SupplyDto supplyDto) {
+        if(supplyDto == null){
+            return null;
+        }
         Warehouse warehouse = new Warehouse();
+        warehouse.setId(supplyDto.getWarehouseId());
         Contract contract = new Contract();
+        contract.setId(supplyDto.getContractId());
         Contractor contractor = new Contractor();
+        contractor.setId(supplyDto.getContractorId());
         Company company = new Company();
+        company.setId(supplyDto.getCompanyId());
 
-        return Supply.builder()
-                .id(supplyDto.getId())
-                .dataTime(supplyDto.getDataTime())
+        MovingFields movingFields = MovingFields.builder()
+                .dateOfCreation(supplyDto.getDateOfCreation())
                 .warehouse(warehouse)
                 .contract(contract)
                 .contractor(contractor)
@@ -1340,52 +1412,106 @@ public class ConverterDto {
                 .isPrinted(supplyDto.getIsPrinted())
                 .comment(supplyDto.getComment())
                 .build();
-    }
 
-    public static SupplyDto convertToDto(Supply supply) {
-        return SupplyDto.builder()
-                .id(supply.getId())
-                .dataTime(supply.getDataTime())
-                .warehouseId(supply.getWarehouse().getId())
-                .contractId(supply.getContract().getId())
-                .contractorId(supply.getContractor().getId())
-                .companyId(supply.getCompany().getId())
-                .productDtos(new ArrayList<>())
-                .sum(supply.getSum())
-                .paid(supply.getPaid())
-                .isSent(supply.getIsSent())
-                .isPrinted(supply.getIsPrinted())
-                .comment(supply.getComment())
+        return Supply.builder()
+                .id(supplyDto.getId())
+                .movingFields(movingFields)
+                .products(supplyDto.getProductDtos() != null ? supplyDto.getProductDtos()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList()) : null)
                 .build();
     }
 
-    public static Shipment convertToModel(ShipmentDto shipmentDto) {
+    public static SupplyDto convertToDto(Supply supply) {
+        if(supply == null){
+            return null;
+        }
+        return SupplyDto.builder()
+                .id(supply.getId())
+                .dateOfCreation(supply.getMovingFields().getDateOfCreation())
+                .warehouseId(supply.getMovingFields().getWarehouse().getId())
+                .contractId(supply.getMovingFields().getContract().getId())
+                .contractorId(supply.getMovingFields().getContractor().getId())
+                .companyId(supply.getMovingFields().getCompany().getId())
+                .productDtos(supply.getProducts() != null ? supply.getProducts()
+                        .stream()
+                        .map(ConverterDto::convertToDto)
+                        .collect(Collectors.toList()) : null)
+                .sum(supply.getMovingFields().getSum())
+                .paid(supply.getMovingFields().getPaid())
+                .isSent(supply.getMovingFields().getIsSent())
+                .isPrinted(supply.getMovingFields().getIsPrinted())
+                .comment(supply.getMovingFields().getComment())
+                .build();
+    }
+
+    public static Shipment convertToModel(ShipmentDto shipmentDto){
+        if(shipmentDto == null){
+            return null;
+        }
+        Warehouse warehouse = new Warehouse();
+        warehouse.setId(shipmentDto.getWarehouseId());
+        Contract contract = new Contract();
+        contract.setId(shipmentDto.getContractId());
         Contractor contractor = new Contractor();
+        contractor.setId(shipmentDto.getContractorId());
+        Company company = new Company();
+        company.setId(shipmentDto.getCompanyId());
+        Contractor consignee = new Contractor();
+        consignee.setId(shipmentDto.getConsigneeId());
+        Contractor carrier = new Contractor();
+        carrier.setId(shipmentDto.getCarrierId());
+
+        MovingFields movingFields = MovingFields.builder()
+                .dateOfCreation(shipmentDto.getDateOfCreation())
+                .warehouse(shipmentDto.getWarehouseId() != null ? warehouse : null)
+                .contract(shipmentDto.getContractId() != null ? contract : null)
+                .contractor(shipmentDto.getContractorId() != null ? contractor : null)
+                .company(shipmentDto.getCompanyId() != null ? company : null)
+                .sum(shipmentDto.getSum())
+                .paid(shipmentDto.getPaid())
+                .isSent(shipmentDto.getIsSent())
+                .isPrinted(shipmentDto.getIsPrinted())
+                .comment(shipmentDto.getComment())
+                .build();
+
         return Shipment.builder()
                 .id(shipmentDto.getId())
-                .consignee(contractor)
-                .carrier(contractor)
+                .movingFields(movingFields)
+                .products(shipmentDto.getProductDtos() != null ? shipmentDto.getProductDtos()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList()) : null)
+                .consignee(shipmentDto.getConsigneeId() != null ? consignee : null)
+                .carrier(shipmentDto.getCarrierId() != null ? carrier : null)
                 .isPaid(shipmentDto.getIsPaid())
                 .deliveryAddress(shipmentDto.getDeliveryAddress())
                 .build();
     }
+    public static ShipmentDto convertToDto(Shipment shipment){
+        if(shipment == null){
+            return null;
+        }
 
-    public static ShipmentDto convertToDto(Shipment shipment) {
         return ShipmentDto.builder()
                 .id(shipment.getId())
-                .dataTime(shipment.getDataTime())
-                .warehouseId(shipment.getWarehouse().getId())
-                .contractId(shipment.getContract().getId())
-                .contractorId(shipment.getContractor().getId())
-                .companyId(shipment.getCompany().getId())
-                .productDtos(new ArrayList<>())
-                .sum(shipment.getSum())
-                .paid(shipment.getPaid())
-                .isSent(shipment.getIsSent())
-                .isPrinted(shipment.getIsPrinted())
-                .comment(shipment.getComment())
-                .consigneeId(shipment.getConsignee().getId())
-                .carrierId(shipment.getCarrier().getId())
+                .dateOfCreation(shipment.getMovingFields().getDateOfCreation())
+                .warehouseId(shipment.getMovingFields().getWarehouse() != null ? shipment.getMovingFields().getWarehouse().getId() : null)
+                .contractId(shipment.getMovingFields().getContract() != null ? shipment.getMovingFields().getContract().getId() : null)
+                .contractorId(shipment.getMovingFields().getContractor() != null ? shipment.getMovingFields().getContractor().getId() : null)
+                .companyId(shipment.getMovingFields().getCompany() != null ? shipment.getMovingFields().getCompany().getId() : null)
+                .productDtos(shipment.getProducts() != null ? shipment.getProducts()
+                        .stream()
+                        .map(ConverterDto::convertToDto)
+                        .collect(Collectors.toList()) : null)
+                .sum(shipment.getMovingFields().getSum())
+                .paid(shipment.getMovingFields().getPaid())
+                .isSent(shipment.getMovingFields().getIsSent())
+                .isPrinted(shipment.getMovingFields().getIsPrinted())
+                .comment(shipment.getMovingFields().getComment())
+                .consigneeId(shipment.getConsignee() != null ? shipment.getConsignee().getId() : null)
+                .carrierId(shipment.getCarrier() != null ? shipment.getCarrier().getId() : null)
                 .isPaid(shipment.getIsPaid())
                 .deliveryAddress(shipment.getDeliveryAddress())
                 .build();
@@ -1409,114 +1535,116 @@ public class ConverterDto {
                 .build();
     }
 
-    public static TariffDto convertToDto(Tariff tariff) {
-        return TariffDto.builder()
-                .id(tariff.getId())
-                .tariffName(tariff.getTariffName())
-                .dataSpace(tariff.getDataSpace())
-                .salePointCount(tariff.getSalePointCount())
-                .onlineStoreCount(tariff.getOnlineStoreCount())
-                .paidApplicationOptionCount(tariff.getPaidApplicationOptionCount())
-                .isCRM(tariff.getIsCRM())
-                .isScripts(tariff.getIsScripts())
-                .extendedBonusProgram(tariff.getExtendedBonusProgram())
-                .paymentPeriod(tariff.getPaymentPeriod())
-                .totalPrice(tariff.getTotalPrice())
-                .dateStartSubscription(tariff.getDateStartSubscription())
-                .dateEndSubscription(tariff.getDateEndSubscription())
-                .build();
-    }
-
-    public static Tariff convertToModel(TariffDto tariffDto) {
-        return Tariff.builder()
-                .id(tariffDto.getId())
-                .tariffName(tariffDto.getTariffName())
-                .dataSpace(tariffDto.getDataSpace())
-                .salePointCount(tariffDto.getSalePointCount())
-                .onlineStoreCount(tariffDto.getOnlineStoreCount())
-                .paidApplicationOptionCount(tariffDto.getPaidApplicationOptionCount())
-                .isCRM(tariffDto.getIsCRM())
-                .isScripts(tariffDto.getIsScripts())
-                .extendedBonusProgram(tariffDto.getExtendedBonusProgram())
-                .paymentPeriod(tariffDto.getPaymentPeriod())
-                .totalPrice(tariffDto.getTotalPrice())
-                .dateStartSubscription(tariffDto.getDateStartSubscription())
-                .dateEndSubscription(tariffDto.getDateEndSubscription())
-                .build();
-    }
-
-    public static Set<Tariff> convertToModelTariff(Set<TariffDto> tariffDtoSet) {
-        return tariffDtoSet.stream().map(tariffDto -> Tariff.builder()
-                .id(tariffDto.getId())
-                .tariffName(tariffDto.getTariffName())
-                .dataSpace(tariffDto.getDataSpace())
-                .salePointCount(tariffDto.getSalePointCount())
-                .onlineStoreCount(tariffDto.getOnlineStoreCount())
-                .paidApplicationOptionCount(tariffDto.getPaidApplicationOptionCount())
-                .isCRM(tariffDto.getIsCRM())
-                .isScripts(tariffDto.getIsScripts())
-                .extendedBonusProgram(tariffDto.getExtendedBonusProgram())
-                .paymentPeriod(tariffDto.getPaymentPeriod())
-                .totalPrice(tariffDto.getTotalPrice())
-                .dateStartSubscription(tariffDto.getDateStartSubscription())
-                .dateEndSubscription(tariffDto.getDateEndSubscription())
-                .build())
-                .collect(Collectors.toSet());
-    }
-
-    public static Set<TariffDto> convertToDtoTariff(Set<Tariff> tariffSet) {
-        return tariffSet.stream().map(tariff -> TariffDto.builder()
-                .id(tariff.getId())
-                .tariffName(tariff.getTariffName())
-                .dataSpace(tariff.getDataSpace())
-                .salePointCount(tariff.getSalePointCount())
-                .onlineStoreCount(tariff.getOnlineStoreCount())
-                .paidApplicationOptionCount(tariff.getPaidApplicationOptionCount())
-                .isCRM(tariff.getIsCRM())
-                .isScripts(tariff.getIsScripts())
-                .extendedBonusProgram(tariff.getExtendedBonusProgram())
-                .paymentPeriod(tariff.getPaymentPeriod())
-                .totalPrice(tariff.getTotalPrice())
-                .dateStartSubscription(tariff.getDateStartSubscription())
-                .dateEndSubscription(tariff.getDateEndSubscription())
-                .build())
-                .collect(Collectors.toSet());
-    }
 
 
-    public static Requisites convertToModel(RequisitesDto requisitesDto) {
-        return Requisites.builder()
-                .id(requisitesDto.getId())
-                .organization(requisitesDto.getOrganization())
-                .legalAddress(requisitesDto.getLegalAddress())
-                .INN(requisitesDto.getINN())
-                .KPP(requisitesDto.getKPP())
-                .BIK(requisitesDto.getBIK())
-                .checkingAccount(requisitesDto.getCheckingAccount())
-                .build();
-    }
+        public static TariffDto convertToDto(Tariff tariff) {
+            return TariffDto.builder()
+                    .id(tariff.getId())
+                    .tariffName(tariff.getTariffName())
+                    .dataSpace(tariff.getDataSpace())
+                    .salePointCount(tariff.getSalePointCount())
+                    .onlineStoreCount(tariff.getOnlineStoreCount())
+                    .paidApplicationOptionCount(tariff.getPaidApplicationOptionCount())
+                    .isCRM(tariff.getIsCRM())
+                    .isScripts(tariff.getIsScripts())
+                    .extendedBonusProgram(tariff.getExtendedBonusProgram())
+                    .paymentPeriod(tariff.getPaymentPeriod())
+                    .totalPrice(tariff.getTotalPrice())
+                    .dateStartSubscription(tariff.getDateStartSubscription())
+                    .dateEndSubscription(tariff.getDateEndSubscription())
+                    .build();
+        }
 
-    public static RequisitesDto convertToDto(Requisites requisites) {
-        return RequisitesDto.builder()
-                .id(requisites.getId())
-                .organization(requisites.getOrganization())
-                .legalAddress(requisites.getLegalAddress())
-                .INN(requisites.getINN())
-                .KPP(requisites.getKPP())
-                .BIK(requisites.getBIK())
-                .checkingAccount(requisites.getCheckingAccount())
-                .build();
-    }
+        public static Tariff convertToModel(TariffDto tariffDto) {
+            return Tariff.builder()
+                    .id(tariffDto.getId())
+                    .tariffName(tariffDto.getTariffName())
+                    .dataSpace(tariffDto.getDataSpace())
+                    .salePointCount(tariffDto.getSalePointCount())
+                    .onlineStoreCount(tariffDto.getOnlineStoreCount())
+                    .paidApplicationOptionCount(tariffDto.getPaidApplicationOptionCount())
+                    .isCRM(tariffDto.getIsCRM())
+                    .isScripts(tariffDto.getIsScripts())
+                    .extendedBonusProgram(tariffDto.getExtendedBonusProgram())
+                    .paymentPeriod(tariffDto.getPaymentPeriod())
+                    .totalPrice(tariffDto.getTotalPrice())
+                    .dateStartSubscription(tariffDto.getDateStartSubscription())
+                    .dateEndSubscription(tariffDto.getDateEndSubscription())
+                    .build();
+        }
 
-    public static Subscription convertToModel(SubscriptionDto subscriptionDto) {
-        return Subscription.builder()
-                .id(subscriptionDto.getId())
-                .subscriptionExpirationDate(subscriptionDto.getSubscriptionExpirationDate())
-                .employee(convertToModel(subscriptionDto.getEmployee()))
-                .requisites(convertToModel(subscriptionDto.getRequisites()))
-                .tariffs(subscriptionDto.getTariff().stream().map(ConverterDto::convertToModel).collect(Collectors.toSet()))
-                .build();
-    }
+        public static Set<Tariff> convertToModelTariff(Set<TariffDto> tariffDtoSet) {
+            return tariffDtoSet.stream().map(tariffDto -> Tariff.builder()
+                            .id(tariffDto.getId())
+                            .tariffName(tariffDto.getTariffName())
+                            .dataSpace(tariffDto.getDataSpace())
+                            .salePointCount(tariffDto.getSalePointCount())
+                            .onlineStoreCount(tariffDto.getOnlineStoreCount())
+                            .paidApplicationOptionCount(tariffDto.getPaidApplicationOptionCount())
+                            .isCRM(tariffDto.getIsCRM())
+                            .isScripts(tariffDto.getIsScripts())
+                            .extendedBonusProgram(tariffDto.getExtendedBonusProgram())
+                            .paymentPeriod(tariffDto.getPaymentPeriod())
+                            .totalPrice(tariffDto.getTotalPrice())
+                            .dateStartSubscription(tariffDto.getDateStartSubscription())
+                            .dateEndSubscription(tariffDto.getDateEndSubscription())
+                            .build())
+                    .collect(Collectors.toSet());
+        }
+
+        public static Set<TariffDto> convertToDtoTariff(Set<Tariff> tariffSet) {
+            return tariffSet.stream().map(tariff -> TariffDto.builder()
+                            .id(tariff.getId())
+                            .tariffName(tariff.getTariffName())
+                            .dataSpace(tariff.getDataSpace())
+                            .salePointCount(tariff.getSalePointCount())
+                            .onlineStoreCount(tariff.getOnlineStoreCount())
+                            .paidApplicationOptionCount(tariff.getPaidApplicationOptionCount())
+                            .isCRM(tariff.getIsCRM())
+                            .isScripts(tariff.getIsScripts())
+                            .extendedBonusProgram(tariff.getExtendedBonusProgram())
+                            .paymentPeriod(tariff.getPaymentPeriod())
+                            .totalPrice(tariff.getTotalPrice())
+                            .dateStartSubscription(tariff.getDateStartSubscription())
+                            .dateEndSubscription(tariff.getDateEndSubscription())
+                            .build())
+                    .collect(Collectors.toSet());
+        }
+
+
+        public static Requisites convertToModel(RequisitesDto requisitesDto) {
+            return Requisites.builder()
+                    .id(requisitesDto.getId())
+                    .organization(requisitesDto.getOrganization())
+                    .legalAddress(requisitesDto.getLegalAddress())
+                    .INN(requisitesDto.getINN())
+                    .KPP(requisitesDto.getKPP())
+                    .BIK(requisitesDto.getBIK())
+                    .checkingAccount(requisitesDto.getCheckingAccount())
+                    .build();
+        }
+
+        public static RequisitesDto convertToDto(Requisites requisites) {
+            return RequisitesDto.builder()
+                    .id(requisites.getId())
+                    .organization(requisites.getOrganization())
+                    .legalAddress(requisites.getLegalAddress())
+                    .INN(requisites.getINN())
+                    .KPP(requisites.getKPP())
+                    .BIK(requisites.getBIK())
+                    .checkingAccount(requisites.getCheckingAccount())
+                    .build();
+        }
+
+        public static Subscription convertToModel(SubscriptionDto subscriptionDto) {
+            return Subscription.builder()
+                    .id(subscriptionDto.getId())
+                    .subscriptionExpirationDate(subscriptionDto.getSubscriptionExpirationDate())
+                    .employee(convertToModel(subscriptionDto.getEmployee()))
+                    .requisites(convertToModel(subscriptionDto.getRequisites()))
+                    .tariffs(subscriptionDto.getTariff().stream().map(ConverterDto::convertToModel).collect(Collectors.toSet()))
+                    .build();
+        }
 
     public static SubscriptionDto convertToDto(Subscription subscription) {
         return SubscriptionDto.builder()
@@ -1656,6 +1784,81 @@ public static SettingsDto convertToDto(Settings settings) {
                 .activate(selector.isActivate())
                 .phone(selector.isPhone())
                 .post(selector.isPost())
+                .build();
+    }
+
+    public static CustomerOrder convertToModel(CustomerOrderDto dto) {
+        return CustomerOrder.builder()
+                .id(dto.getId())
+                .date(dto.getDate())
+                .warehouse(convertToModel(dto.getWarehouseDto()))
+                .contract(convertToModel(dto.getContractDto()))
+                .contractor(convertToModel(dto.getContractorDto()))
+                .company(convertToModel(dto.getCompanyDto()))
+                .sum(dto.getSum())
+                .comment(dto.getComment())
+                .isPaid(dto.getIsPaid())
+                .products(dto.getProductsDto()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList()))
+                .tasks(dto.getTasksDto()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList()))
+                .files(dto.getFilesDto()
+                        .stream()
+                        .map(ConverterDto::convertToModel)
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
+
+
+    public static UnitsOfMeasure convertToModel(UnitsOfMeasureDto unitsOfMeasureDto) {
+        return UnitsOfMeasure.builder()
+                .id(unitsOfMeasureDto.getId())
+                .type(unitsOfMeasureDto.getType())
+                .name(unitsOfMeasureDto.getName())
+                .fullName(unitsOfMeasureDto.getFullName())
+                .code(unitsOfMeasureDto.getCode())
+                .build();
+    }
+
+    public static UnitsOfMeasureDto convertToDto(UnitsOfMeasure unitsOfMeasure){
+        return UnitsOfMeasureDto.builder()
+                .id(unitsOfMeasure.getId())
+                .type(unitsOfMeasure.getType())
+                .name(unitsOfMeasure.getName())
+                .fullName(unitsOfMeasure.getFullName())
+                .code(unitsOfMeasure.getCode())
+                .build();
+    }
+
+
+    public static CustomerOrderDto convertToDto(CustomerOrder customerOrder) {
+        return CustomerOrderDto.builder()
+                .id(customerOrder.getId())
+                .date(customerOrder.getDate())
+                .warehouseDto(convertToDto(customerOrder.getWarehouse()))
+                .contractDto(convertToDto(customerOrder.getContract()))
+                .contractorDto(convertToDto(customerOrder.getContractor()))
+                .companyDto(convertToDto(customerOrder.getCompany()))
+                .sum(customerOrder.getSum())
+                .comment(customerOrder.getComment())
+                .isPaid(customerOrder.getIsPaid())
+                .productsDto(customerOrder.getProducts()
+                        .stream()
+                        .map(ConverterDto::convertToDto)
+                        .collect(Collectors.toList()))
+                .tasksDto(customerOrder.getTasks()
+                        .stream()
+                        .map(ConverterDto::convertToDto)
+                        .collect(Collectors.toList()))
+                .filesDto(customerOrder.getFiles()
+                        .stream()
+                        .map(ConverterDto::convertToDto)
+                        .collect(Collectors.toList()))
                 .build();
     }
 }

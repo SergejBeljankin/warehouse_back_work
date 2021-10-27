@@ -19,9 +19,10 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @FieldDefaults(level = PRIVATE)
 public class ShipmentDto {
+
     Long id;
 
-    LocalDateTime dataTime;
+    LocalDateTime dateOfCreation;
 
     Long warehouseId;
 
@@ -43,7 +44,6 @@ public class ShipmentDto {
 
     String comment;
 
-
     Long consigneeId;
 
     Long carrierId;
@@ -52,8 +52,9 @@ public class ShipmentDto {
 
     String deliveryAddress;
 
+
     public ShipmentDto(Long id,
-                       LocalDateTime dataTime,
+                       LocalDateTime dateOfCreation,
                        Long warehouseId,
                        Long contractId,
                        Long contractorId,
@@ -68,7 +69,7 @@ public class ShipmentDto {
                        Boolean isPaid,
                        String deliveryAddress) {
         this.id = id;
-        this.dataTime = dataTime;
+        this.dateOfCreation = dateOfCreation;
         this.warehouseId = warehouseId;
         this.contractId = contractId;
         this.contractorId = contractorId;

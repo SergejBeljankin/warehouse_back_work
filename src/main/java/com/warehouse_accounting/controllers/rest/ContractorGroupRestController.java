@@ -3,6 +3,8 @@ package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.ContractorGroupDto;
 import com.warehouse_accounting.models.dto.TypeOfContractorDto;
+import com.warehouse_accounting.repositories.ContractorGroupRepository;
+import com.warehouse_accounting.repositories.ContractorRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.ContractorGroupService;
 import io.swagger.annotations.*;
@@ -19,11 +21,13 @@ public class ContractorGroupRestController {
 
     private final ContractorGroupService contractorGroupService;
     private final CheckEntityService checkEntityService;
+    private final ContractorGroupRepository repository;
 
-    public ContractorGroupRestController(ContractorGroupService contractorGroupService, 
-                                         CheckEntityService checkEntityService) {
+    public ContractorGroupRestController(ContractorGroupService contractorGroupService,
+                                         CheckEntityService checkEntityService, ContractorGroupRepository repository) {
         this.contractorGroupService = contractorGroupService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -51,7 +55,7 @@ public class ContractorGroupRestController {
     public ResponseEntity<ContractorGroupDto> delete(
             @ApiParam(name = "id", required = true)
             @PathVariable("id") long id) {
-        checkEntityService.checkExistContractorGroupById(id);
+        checkEntityService.checkExist(id, repository, "ContractorGroup");
         contractorGroupService.deleteById(id);
         return ResponseEntity.ok().build();
     }
@@ -68,7 +72,7 @@ public class ContractorGroupRestController {
     public ResponseEntity<ContractorGroupDto> getById(
             @ApiParam(name = "id", required = true)
             @PathVariable("id") long id) {
-        checkEntityService.checkExistContractorGroupById(id);
+        checkEntityService.checkExist(id, repository, "ContractorGroup");
         ContractorGroupDto contractorGroupDto = contractorGroupService.getById(id);
         return ResponseEntity.ok(contractorGroupDto);
     }
@@ -85,7 +89,7 @@ public class ContractorGroupRestController {
     public ResponseEntity<ContractorGroupDto> update(
             @ApiParam(name = "update typeofContractor")
             @RequestBody ContractorGroupDto contractorGroupDto) {
-        checkEntityService.checkExistContractorGroupById(contractorGroupDto.getId());
+        checkEntityService.checkExist(contractorGroupDto.getId(), repository, "ContractorGroup");
         contractorGroupService.update(contractorGroupDto);
         return ResponseEntity.ok().build();
     }

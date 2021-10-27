@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
+import com.warehouse_accounting.repositories.TechnologicalOperationRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.TechnologicalOperationService;
 import io.swagger.annotations.Api;
@@ -29,10 +30,13 @@ public class TechnologicalOperationRestController {
 
     private final TechnologicalOperationService technologicalOperationService;
     private final CheckEntityService checkEntityService;
+    private final TechnologicalOperationRepository repository;
 
-    public TechnologicalOperationRestController(TechnologicalOperationService technologicalOperationService, CheckEntityService checkEntityService) {
+    public TechnologicalOperationRestController(TechnologicalOperationService technologicalOperationService,
+                                                CheckEntityService checkEntityService, TechnologicalOperationRepository repository) {
         this.technologicalOperationService = technologicalOperationService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -66,7 +70,7 @@ public class TechnologicalOperationRestController {
     )
     public ResponseEntity<TechnologicalOperationDto> getById(@ApiParam(name = "id", value = "id для получения TechnologicalOperation", required = true)
                                                              @PathVariable("id") Long id) {
-        checkEntityService.checkExistTechnologicalOperationById(id);
+        checkEntityService.checkExist(id, repository, "TechnologicalOperation");
         return ResponseEntity.ok(technologicalOperationService.getById(id));
     }
 
@@ -94,7 +98,7 @@ public class TechnologicalOperationRestController {
     )
     public ResponseEntity<?> update(@ApiParam(name = "TechnologicalOperationDto", value = "TechnologicalOperationDto для редактирования TechnologicalOperation", required = true)
                                     @RequestBody TechnologicalOperationDto technologicalOperationDto) {
-        checkEntityService.checkExistTechnologicalOperationById(technologicalOperationDto.getId());
+        checkEntityService.checkExist(technologicalOperationDto.getId(), repository, "TechnologicalOperation");
         technologicalOperationService.update(technologicalOperationDto);
         return ResponseEntity.ok().build();
     }
@@ -109,7 +113,7 @@ public class TechnologicalOperationRestController {
     )
     public ResponseEntity<?> delete(@ApiParam(name = "id", value = "id удаляемого TechnologicalOperation")
                                     @PathVariable("id") Long id){
-        checkEntityService.checkExistTechnologicalOperationById(id);
+        checkEntityService.checkExist(id, repository, "TechnologicalOperation");
         technologicalOperationService.deleteById(id);
         return ResponseEntity.ok().build();
     }

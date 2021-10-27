@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.ContractorGetALLDto;
+import com.warehouse_accounting.repositories.ContractorRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.ContractorService;
 import com.warehouse_accounting.models.dto.ContractorDto;
@@ -30,10 +31,12 @@ import java.util.List;
 public class ContractorRestController {
     private final ContractorService contractorService;
     private final CheckEntityService checkEntityService;
+    private final ContractorRepository repository;
 
-    public ContractorRestController(ContractorService contractorService, CheckEntityService checkEntityService) {
+    public ContractorRestController(ContractorService contractorService, CheckEntityService checkEntityService, ContractorRepository repository) {
         this.contractorService = contractorService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -58,7 +61,7 @@ public class ContractorRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<ContractorDto> getById(@ApiParam(name = "id", value = "Id нужного ContractorDto", required = true)
                                                                    @PathVariable("id") Long id) {
-        checkEntityService.checkExistContractorById(id);
+        checkEntityService.checkExist(id, repository, "Contractor");
         return ResponseEntity.ok(contractorService.getById(id));
     }
 
@@ -85,7 +88,7 @@ public class ContractorRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "ContractorDto", value = "Объект ContractorDto для обновления",
             required = true) @RequestBody ContractorDto contractorDto) {
-        checkEntityService.checkExistContractorById(contractorDto.getId());
+        checkEntityService.checkExist(contractorDto.getId(), repository, "Contractor");
         contractorService.update(contractorDto);
         return ResponseEntity.ok().build();
     }
@@ -99,7 +102,7 @@ public class ContractorRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "Id ContractorDto для удаления", required = true)
                                         @PathVariable("id") Long id) {
-        checkEntityService.checkExistContractorById(id);
+        checkEntityService.checkExist(id, repository, "Contractor");
         contractorService.deleteById(id);
         return ResponseEntity.ok().build();
     }

@@ -1,8 +1,11 @@
 package com.warehouse_accounting.services.interfaces;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.UUID;
 
 public interface CheckEntityService {
+    void checkExist(Long id, JpaRepository repository, String objectName);
 
     void checkExistUnitById(Long unitId);
 
@@ -95,13 +98,6 @@ public interface CheckEntityService {
 
     void checkExistSettingsById(Long settingsId);
 
-    /*
-        Language+
-    PrintingDocuments+
-    StartScreen+
-    Notifications+
-    Selector+
-         */
     void checkExistLanguageById(Long settingsId);
 
     void checkExistPrintingDocumentsById(Long printingDocumentsId);
