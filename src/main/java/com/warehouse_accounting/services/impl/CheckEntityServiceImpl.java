@@ -17,11 +17,14 @@ import com.warehouse_accounting.repositories.FeedRepository;
 import com.warehouse_accounting.repositories.ImageRepository;
 import com.warehouse_accounting.repositories.InvoiceProductRepository;
 import com.warehouse_accounting.repositories.InvoiceRepository;
+import com.warehouse_accounting.repositories.LanguageRepository;
 import com.warehouse_accounting.repositories.LegalDetailRepository;
 import com.warehouse_accounting.repositories.MemoRepository;
 import com.warehouse_accounting.repositories.MovementRepository;
+import com.warehouse_accounting.repositories.NotificationsRepository;
 import com.warehouse_accounting.repositories.PaymentRepository;
 import com.warehouse_accounting.repositories.PositionRepository;
+import com.warehouse_accounting.repositories.PrintingDocumentsRepository;
 import com.warehouse_accounting.repositories.ProductGroupRepository;
 import com.warehouse_accounting.repositories.ProductPriceRepository;
 import com.warehouse_accounting.repositories.ProductRepository;
@@ -29,7 +32,9 @@ import com.warehouse_accounting.repositories.ProductionOrderRepository;
 import com.warehouse_accounting.repositories.ProjectRepository;
 import com.warehouse_accounting.repositories.RequisitesRepository;
 import com.warehouse_accounting.repositories.RoleRepository;
+import com.warehouse_accounting.repositories.SelectorRepository;
 import com.warehouse_accounting.repositories.SettingsRepository;
+import com.warehouse_accounting.repositories.StartScreenRepository;
 import com.warehouse_accounting.repositories.SubscriptionRepository;
 import com.warehouse_accounting.repositories.TariffRepository;
 import com.warehouse_accounting.repositories.TaskRepository;
@@ -98,6 +103,11 @@ public class CheckEntityServiceImpl implements CheckEntityService {
     private final RequisitesRepository requisitesRepository;
     private final SubscriptionRepository subscriptionRepository;
     private final SettingsRepository settingsRepository;
+    private final LanguageRepository languageRepository;
+    private final PrintingDocumentsRepository printingDocumentsRepository;
+    private final StartScreenRepository startScreenRepository;
+    private final NotificationsRepository notificationsRepository;
+    private final SelectorRepository selectorRepository;
 
     public void checkExistUnitById(Long unitId) {
         if (!unitRepository.existsById(unitId)) {
@@ -385,9 +395,46 @@ public class CheckEntityServiceImpl implements CheckEntityService {
         }
     }
 
+    @Override
     public void checkExistSettingsById(Long settingsId) {
         if (!settingsRepository.existsById(settingsId)) {
             throw new NotFoundEntityException("Настройки пользователя с id=" + settingsId + ", не найдены");
         }
     }
+
+    @Override
+    public void checkExistLanguageById(Long languageId) {
+        if (!languageRepository.existsById(languageId)) {
+            throw new NotFoundEntityException("Настройки языка пользователя с id=" + languageId + ", не найдены");
+        }
+    }
+
+    @Override
+    public void checkExistPrintingDocumentsById(Long printingDocumentsId) {
+        if (!printingDocumentsRepository.existsById(printingDocumentsId)) {
+            throw new NotFoundEntityException("Настройки печати документов пользователя с id=" + printingDocumentsId + ", не найдены");
+        }
+    }
+
+    @Override
+    public void checkExistStartScreenById(Long startScreenId) {
+        if (!startScreenRepository.existsById(startScreenId)) {
+            throw new NotFoundEntityException("Настройки стартовой страницы пользователя с id=" + startScreenId + ", не найдены");
+        }
+    }
+
+    @Override
+    public void checkExistNotificationsById(Long notificationsId) {
+        if (!notificationsRepository.existsById(notificationsId)) {
+            throw new NotFoundEntityException("Настройки уведомлений страницы пользователя с id=" + notificationsId + ", не найдены");
+        }
+    }
+
+    @Override
+    public void checkExistSelectorById(Long selectorId) {
+        if (!selectorRepository.existsById(selectorId)) {
+            throw new NotFoundEntityException("Настройки селектора уведомлений страницы пользователя с id=" + selectorId + ", не найдены");
+        }
+    }
+
 }

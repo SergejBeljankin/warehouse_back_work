@@ -92,4 +92,23 @@ public interface CheckEntityService {
     void checkExistBonusTransactionById(Long bonusTransactionId);
 
     void checkExistApplicationById(Long id);
+
+    void checkExistSettingsById(Long settingsId);
+
+    /*
+        Language+
+    PrintingDocuments+
+    StartScreen+
+    Notifications+
+    Selector+
+         */
+    void checkExistLanguageById(Long settingsId);
+
+    void checkExistPrintingDocumentsById(Long printingDocumentsId);
+
+    void checkExistStartScreenById(Long startScreenId);
+
+    void checkExistNotificationsById(Long notificationsId);
+
+    void checkExistSelectorById(Long selectorId);
 }
