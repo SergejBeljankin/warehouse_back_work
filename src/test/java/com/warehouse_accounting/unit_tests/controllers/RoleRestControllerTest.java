@@ -2,6 +2,7 @@ package com.warehouse_accounting.unit_tests.controllers;
 
 import com.warehouse_accounting.controllers.rest.RoleRestController;
 import com.warehouse_accounting.models.dto.RoleDto;
+import com.warehouse_accounting.repositories.RoleRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.RoleService;
 import org.junit.jupiter.api.BeforeAll;
@@ -36,6 +37,9 @@ class RoleRestControllerTest {
     @Mock
     private CheckEntityService checkEntityService;
 
+    @Mock
+    private RoleRepository repository;
+
     @BeforeAll
     static void initMethod() {
         roleDto1 = RoleDto.builder()
@@ -69,7 +73,7 @@ class RoleRestControllerTest {
         assertEquals(roleDtoResponseEntity.getStatusCode(), HttpStatus.OK);
         assertEquals(roleDtoResponseEntity.getBody(), roleDto1);
         Mockito.verify(checkEntityService, Mockito.times(1))
-                .checkExistRoleById(ArgumentMatchers.eq((long) 1));
+                .checkExist(ArgumentMatchers.eq((long) 1), repository, "Role");
         Mockito.verify(roleService, Mockito.times(1))
                 .getById(ArgumentMatchers.eq((long) 1));
     }

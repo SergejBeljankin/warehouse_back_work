@@ -62,7 +62,7 @@ public class ExportXlsxSpreadsheetService implements ExportSpreadsheetService {
         for (MovementDto movementDto : movementRepository.getAll()) {
             Row row = sheet.createRow(++rowCounter);
             row.createCell(0).setCellValue(movementDto.getId());
-            row.createCell(1).setCellValue(movementDto.getDateTime());
+            row.createCell(1).setCellValue(movementDto.getDateOfCreation());
             row.createCell(2).setCellValue(movementDto.getWarehouseFrom().getId());
             row.createCell(3).setCellValue(movementDto.getWarehouseTo().getId());
             row.createCell(4).setCellValue(movementDto.getCompany().getId());

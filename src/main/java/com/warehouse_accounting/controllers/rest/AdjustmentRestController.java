@@ -3,6 +3,7 @@ package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.AdjustmentDto;
 import com.warehouse_accounting.models.dto.CallDto;
+import com.warehouse_accounting.repositories.AdjustmentRepository;
 import com.warehouse_accounting.services.interfaces.AdjustmentService;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import io.swagger.annotations.Api;
@@ -30,10 +31,12 @@ import java.util.List;
 public class AdjustmentRestController {
     private final AdjustmentService adjustmentService;
     private final CheckEntityService checkEntityService;
+    private final AdjustmentRepository repository;
 
-    public AdjustmentRestController(AdjustmentService adjustmentService, CheckEntityService checkEntityService) {
+    public AdjustmentRestController(AdjustmentService adjustmentService, CheckEntityService checkEntityService, AdjustmentRepository repository) {
         this.adjustmentService = adjustmentService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -58,7 +61,7 @@ public class AdjustmentRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<AdjustmentDto> getById(@ApiParam(name = "id", value = "Id нужного AdjustmentDto", required = true)
                                            @PathVariable("id") Long id) {
-        checkEntityService.checkExistAdjustmentById(id);
+        checkEntityService.checkExist(id, repository, "Adjustment");
         return ResponseEntity.ok(adjustmentService.getById(id));
     }
 
@@ -85,7 +88,7 @@ public class AdjustmentRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "AdjustmentDto", value = "Объект AdjustmentDto для обновления",
             required = true) @RequestBody AdjustmentDto adjustmentDto) {
-        checkEntityService.checkExistAdjustmentById(adjustmentDto.getId());
+        checkEntityService.checkExist(adjustmentDto.getId(), repository, "Adjustment");
         adjustmentService.update(adjustmentDto);
         return ResponseEntity.ok().build();
     }
@@ -99,7 +102,7 @@ public class AdjustmentRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "Id AdjustmentDto для удаления", required = true)
                                         @PathVariable("id") Long id) {
-        checkEntityService.checkExistAdjustmentById(id);
+        checkEntityService.checkExist(id, repository, "Adjustment");
         adjustmentService.deleteById(id);
         return ResponseEntity.ok().build();
     }

@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.UnitDto;
+import com.warehouse_accounting.repositories.UnitRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.UnitService;
 import io.swagger.annotations.Api;
@@ -29,11 +30,12 @@ public class UnitRestController {
 
     private final UnitService unitService;
     private final CheckEntityService checkEntityService;
+    private final UnitRepository repository;
 
-    public UnitRestController(UnitService unitService, 
-                              CheckEntityService checkEntityService) {
+    public UnitRestController(UnitService unitService, CheckEntityService checkEntityService, UnitRepository repository) {
         this.unitService = unitService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -62,7 +64,7 @@ public class UnitRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")}
     )
     public ResponseEntity<UnitDto> getById(@ApiParam(name = "id", value = "id для получения Unit", required = true) @PathVariable("id") Long id) {
-        checkEntityService.checkExistUnitById(id);
+        checkEntityService.checkExist(id, repository, "Unit");
         return ResponseEntity.ok(unitService.getById(id));
     }
 
@@ -88,7 +90,7 @@ public class UnitRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")}
     )
     public ResponseEntity<?> update(@ApiParam(name = "UnitDto", value = "UnitDto для обновления Unit", required = true) @RequestBody UnitDto unitDto) {
-        checkEntityService.checkExistUnitById(unitDto.getId());
+        checkEntityService.checkExist(unitDto.getId(), repository, "Unit");
         unitService.update(unitDto);
         return ResponseEntity.ok().build();
     }
@@ -102,7 +104,7 @@ public class UnitRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")}
     )
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "id удаляемого Unit", required = true) @PathVariable("id") Long id) {
-        checkEntityService.checkExistUnitById(id);
+        checkEntityService.checkExist(id, repository, "Unit");
         unitService.deleteById(id);
         return ResponseEntity.ok().build();
     }

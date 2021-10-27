@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.PaymentDto;
+import com.warehouse_accounting.repositories.PaymentRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.PaymentService;
 import io.swagger.annotations.Api;
@@ -30,11 +31,12 @@ public class PaymentRestController {
 
     private final PaymentService paymentService;
     private final CheckEntityService checkEntityService;
+    private final PaymentRepository repository;
 
-    @Autowired
-    public PaymentRestController(PaymentService paymentService, CheckEntityService checkEntityService) {
+    public PaymentRestController(PaymentService paymentService, CheckEntityService checkEntityService, PaymentRepository repository) {
         this.paymentService = paymentService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -59,7 +61,7 @@ public class PaymentRestController {
             @ApiResponse(code = 402, message = "Нет доступа к данной операции")})
     public ResponseEntity<PaymentDto> getById(@ApiParam(name = "id", value = "Id нужного PaymentDto", required = true)
                                                   @PathVariable("id") Long id) {
-        checkEntityService.checkExistPaymentById(id);
+        checkEntityService.checkExist(id, repository, "Payment");
         return ResponseEntity.ok(paymentService.getById(id));
     }
 
@@ -86,6 +88,7 @@ public class PaymentRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "PaymentDto", value = "Объект PaymentDto для обновления",
                                     required = true) @RequestBody PaymentDto paymentDto) {
+        checkEntityService.checkExist(paymentDto.getId(), repository, "Payment");
         paymentService.update(paymentDto);
         return ResponseEntity.ok().build();
     }
@@ -99,7 +102,7 @@ public class PaymentRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "Id PaymentDto для удаления", required = true)
                                         @PathVariable Long id) {
-        checkEntityService.checkExistPaymentById(id);
+        checkEntityService.checkExist(id, repository, "Payment");
         paymentService.delete(id);
         return ResponseEntity.ok().build();
     }

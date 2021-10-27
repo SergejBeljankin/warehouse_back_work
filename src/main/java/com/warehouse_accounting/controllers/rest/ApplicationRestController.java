@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.ApplicationDto;
+import com.warehouse_accounting.repositories.ApplicationRepository;
 import com.warehouse_accounting.services.impl.ApplicationServiceImpl;
 import com.warehouse_accounting.services.interfaces.ApplicationService;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
@@ -30,10 +31,12 @@ import java.util.List;
 public class ApplicationRestController {
     private final CheckEntityService checkEntityService;
     private final ApplicationService applicationService;
+    private final ApplicationRepository repository;
 
-    public ApplicationRestController(CheckEntityService checkEntityService, ApplicationService applicationService) {
+    public ApplicationRestController(CheckEntityService checkEntityService, ApplicationService applicationService, ApplicationRepository repository) {
         this.checkEntityService = checkEntityService;
         this.applicationService = applicationService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -45,7 +48,6 @@ public class ApplicationRestController {
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
     public ResponseEntity<List<ApplicationDto>> getAll() {
-        System.out.println(applicationService.getAll());
         return ResponseEntity.ok(applicationService.getAll()); }
 
     @GetMapping("/{id}")
@@ -57,7 +59,7 @@ public class ApplicationRestController {
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
     public ResponseEntity<ApplicationDto> getById(@PathVariable("id") Long id) {
-        checkEntityService.checkExistApplicationById(id);
+        checkEntityService.checkExist(id, repository, "Application");
         return ResponseEntity.ok(applicationService.getById(id));
     }
 
@@ -83,7 +85,7 @@ public class ApplicationRestController {
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
     public ResponseEntity<?> update(@RequestBody ApplicationDto applicationDto) {
-        checkEntityService.checkExistApplicationById(applicationDto.getId());
+        checkEntityService.checkExist(applicationDto.getId(), repository, "Application");
         applicationService.update(applicationDto);
         return ResponseEntity.ok().build();
     }
@@ -97,7 +99,7 @@ public class ApplicationRestController {
             @ApiResponse(responseCode = "401", description = "Нет доступа к данной операции")}
     )
     public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
-        checkEntityService.checkExistApplicationById(id);
+        checkEntityService.checkExist(id, repository, "Application");
         applicationService.deleteById(id);
         return ResponseEntity.ok().build();
     }

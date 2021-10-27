@@ -1,6 +1,7 @@
 package com.warehouse_accounting.controllers.rest;
 
 import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
+import com.warehouse_accounting.repositories.AttributeOfCalculationObjectRepository;
 import com.warehouse_accounting.services.interfaces.CheckEntityService;
 import com.warehouse_accounting.services.interfaces.AttributeOfCalculationObjectService;
 import io.swagger.annotations.Api;
@@ -28,10 +29,13 @@ import java.util.List;
 public class AttributeOfCalculationObjectRestController {
     private final AttributeOfCalculationObjectService attributeOfCalculationObjectService;
     private final CheckEntityService checkEntityService;
+    private final AttributeOfCalculationObjectRepository repository;
 
-    public AttributeOfCalculationObjectRestController(AttributeOfCalculationObjectService attributeOfCalculationObjectService, CheckEntityService checkEntityService) {
+    public AttributeOfCalculationObjectRestController(AttributeOfCalculationObjectService attributeOfCalculationObjectService,
+                                                      CheckEntityService checkEntityService, AttributeOfCalculationObjectRepository repository) {
         this.attributeOfCalculationObjectService = attributeOfCalculationObjectService;
         this.checkEntityService = checkEntityService;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -56,7 +60,7 @@ public class AttributeOfCalculationObjectRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<AttributeOfCalculationObjectDto> getById(@ApiParam(name = "id", value = "Id нужного AttributeOfCalculationObjectDto", required = true)
                                             @PathVariable("id") Long id) {
-        checkEntityService.checkExistAttributeOfCalculationObjectById(id);
+        checkEntityService.checkExist(id, repository, "AttributeOfCalculationObject");
         return ResponseEntity.ok(attributeOfCalculationObjectService.getById(id));
     }
 
@@ -83,7 +87,7 @@ public class AttributeOfCalculationObjectRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> update(@ApiParam(name = "AttributeOfCalculationObjectDto", value = "Объект AttributeOfCalculationObjectDto для обновления",
             required = true) @RequestBody AttributeOfCalculationObjectDto attributeOfCalculationObjectDto) {
-        checkEntityService.checkExistAttributeOfCalculationObjectById(attributeOfCalculationObjectDto.getId());
+        checkEntityService.checkExist(attributeOfCalculationObjectDto.getId(), repository, "AttributeOfCalculationObject");
         attributeOfCalculationObjectService.update(attributeOfCalculationObjectDto);
         return ResponseEntity.ok().build();
     }
@@ -97,7 +101,7 @@ public class AttributeOfCalculationObjectRestController {
             @ApiResponse(code = 401, message = "Нет доступа к данной операции")})
     public ResponseEntity<?> deleteById(@ApiParam(name = "id", value = "Id AttributeOfCalculationObjectDto для удаления", required = true)
                                         @PathVariable("id") Long id) {
-        checkEntityService.checkExistAttributeOfCalculationObjectById(id);
+        checkEntityService.checkExist(id, repository, "AttributeOfCalculationObject");
         attributeOfCalculationObjectService.deleteById(id);
         return ResponseEntity.ok().build();
     }
