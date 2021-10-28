@@ -34,12 +34,24 @@ public class CommissionReportsServiceImpl implements CommissionReportsService {
 
     @Override
     public List<CommissionReportsDto> getAll() {
-        return commissionReportsRepository.getAll();
+        List<CommissionReportsDto> dtos = commissionReportsRepository.getAll();
+        for(CommissionReportsDto cr : dtos){
+            cr.setContractDto(contractRepository.getById(cr.getContractDto().getId()));
+            cr.setContractorDto(contractorRepository.getById(cr.getContractorDto().getId()));
+            cr.setCompanyDto(companyRepository.getById(cr.getCompanyDto().getId()));
+            cr.setProjectDto(projectRepository.getById(cr.getProjectDto().getId()));
+        }
+        return dtos;
     }
 
     @Override
     public CommissionReportsDto getById(Long id) {
-        return commissionReportsRepository.getById(id);
+        CommissionReportsDto dto = commissionReportsRepository.getById(id);
+        dto.setContractDto(contractRepository.getById(dto.getContractDto().getId()));
+        dto.setContractorDto(contractorRepository.getById(dto.getContractorDto().getId()));
+        dto.setCompanyDto(companyRepository.getById(dto.getCompanyDto().getId()));
+        dto.setProjectDto(projectRepository.getById(dto.getProjectDto().getId()));
+        return dto;
     }
 
     @Override

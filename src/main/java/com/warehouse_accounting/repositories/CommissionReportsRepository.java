@@ -15,10 +15,10 @@ public interface CommissionReportsRepository extends JpaRepository<CommissionRep
     @Query("SELECT NEW com.warehouse_accounting.models.dto.CommissionReportsDto(" +
             "cr.id, " +
             "cr.dateOfCreation," +
-            "con.id, " +
-            "contr.id," +
-            "org.id," +
-            "p.id," +
+            "cr.contract.id, " +
+            "cr.contractor.id," +
+            "cr.company.id," +
+            "cr.project.id," +
             "cr.sum," +
             "cr.paid," +
             "cr.isSent," +
@@ -27,20 +27,16 @@ public interface CommissionReportsRepository extends JpaRepository<CommissionRep
             "cr.periodStart," +
             "cr.periodEnd," +
             "cr.reward) " +
-            "FROM CommissionReports cr " +
-            "LEFT JOIN Contract con ON (cr.contract.id = con.id)" +
-            "LEFT JOIN Contractor contr ON (cr.contractor.id = contr.id)" +
-            "LEFT JOIN Company org ON (cr.company.id = org.id)" +
-            "LEFT JOIN Project p ON (cr.project.id = p.id)")
+            "FROM CommissionReports cr ")
     List<CommissionReportsDto> getAll();
 
     @Query("SELECT NEW com.warehouse_accounting.models.dto.CommissionReportsDto(" +
             "cr.id, " +
             "cr.dateOfCreation," +
-            "con.id, " +
-            "contr.id," +
-            "org.id," +
-            "p.id," +
+            "cr.contract.id, " +
+            "cr.contractor.id," +
+            "cr.company.id," +
+            "cr.project.id," +
             "cr.sum," +
             "cr.paid," +
             "cr.isSent," +
@@ -49,11 +45,7 @@ public interface CommissionReportsRepository extends JpaRepository<CommissionRep
             "cr.periodStart," +
             "cr.periodEnd," +
             "cr.reward) " +
-            "FROM CommissionReports cr " +
-            "LEFT JOIN Contract con ON (cr.contract.id = con.id)" +
-            "LEFT JOIN Contractor contr ON (cr.contractor.id = contr.id)" +
-            "LEFT JOIN Company org ON (cr.company.id = org.id)" +
-            "LEFT JOIN Project p ON (cr.project.id = p.id)" +
+            "FROM CommissionReports cr "+
             "WHERE cr.id = :id")
     CommissionReportsDto getById(@Param("id") Long id);
 }
