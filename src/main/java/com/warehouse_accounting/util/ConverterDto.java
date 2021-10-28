@@ -1678,4 +1678,62 @@ public class ConverterDto {
                 .reward(commissionReports.getReward())
                 .build();
     }
+
+
+
+    public static CustomerReturns convertToModel(CustomerReturnsDto customerReturnsDto) {
+    return CustomerReturns.builder()
+            .id(customerReturnsDto.getId())
+            .date(customerReturnsDto.getDate())
+            .sum(customerReturnsDto.getSum())
+            .isPaid(customerReturnsDto.getIsPaid())
+            .isSend(customerReturnsDto.getIsSend())
+            .comment(customerReturnsDto.getComment())
+            .warehouse(convertToModel(customerReturnsDto.getWarehouseDto()))
+            .contract(convertToModel(customerReturnsDto.getContractDto()))
+            .company(convertToModel(customerReturnsDto.getCompanyDto()))
+            .contractor(convertToModel(customerReturnsDto.getContractorDto()))
+            .products(customerReturnsDto.getProductDtos()
+                    .stream()
+                    .map(ConverterDto::convertToModel)
+                    .collect(Collectors.toList()))
+            .files(customerReturnsDto.getFileDtos()
+                    .stream()
+                    .map(ConverterDto::convertToModel)
+                    .collect(Collectors.toList()))
+            .tasks(customerReturnsDto.getTaskDtos()
+                    .stream()
+                    .map(ConverterDto::convertToModel)
+                    .collect(Collectors.toList()))
+            .build();
+    }
+
+    public static CustomerReturnsDto convertToDto(CustomerReturns customerReturns) {
+        return CustomerReturnsDto
+                .builder()
+                .id(customerReturns.getId())
+                .date(customerReturns.getDate())
+                .sum(customerReturns.getSum())
+                .isPaid(customerReturns.getIsPaid())
+                .isSend(customerReturns.getIsSend())
+                .comment(customerReturns.getComment())
+                .warehouseDto(convertToDto(customerReturns.getWarehouse()))
+                .contractDto(convertToDto(customerReturns.getContract()))
+                .companyDto(convertToDto(customerReturns.getCompany()))
+                .contractorDto(convertToDto(customerReturns.getContractor()))
+                .productDtos(customerReturns.getProducts()
+                        .stream()
+                        .map(ConverterDto::convertToDto)
+                        .collect(Collectors.toList()))
+                .fileDtos(customerReturns.getFiles()
+                        .stream()
+                        .map(ConverterDto::convertToDto)
+                        .collect(Collectors.toList()))
+                .taskDtos(customerReturns.getTasks()
+                        .stream()
+                        .map(ConverterDto::convertToDto).collect(Collectors.toList()))
+                .build();
+    }
+
+
 }
