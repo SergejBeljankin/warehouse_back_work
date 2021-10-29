@@ -68,6 +68,7 @@ public class DataInitializer {
     private final BonusTransactionService bonusTransactionService;
     private final SupplyService supplyService;
     private final ShipmentService shipmentService;
+    private final CommissionReportsService commissionReportsService;
     private final CustomerReturnsService customerReturnsService;
 
     public DataInitializer(ApplicationService applicationService,
@@ -139,6 +140,7 @@ public class DataInitializer {
         this.bonusTransactionService = bonusTransactionService;
         this.supplyService = supplyService;
         this.shipmentService = shipmentService;
+        this.commissionReportsService = commissionReportsService;
         this.customerReturnsService = customerReturnsService;
     }
 
@@ -175,6 +177,7 @@ public class DataInitializer {
         initBonusTransaction();
         initSupply();
         initShipment();
+        initCommissionReports();
     }
 
     private void initApplications() {
@@ -608,7 +611,7 @@ public class DataInitializer {
         }
     }
 
-    private void initLegalDetail() {
+    private void initLegalDetail(){
         try {
             legalDetailService.create(LegalDetailDto.builder()
                     .id(1L)
@@ -883,22 +886,20 @@ public class DataInitializer {
         }
 
     }
-
-    private void initSupply() {
-        try {
-            supplyService.create(SupplyDto.builder()
-                    .id(1L)
-                    .dateOfCreation(LocalDateTime.now())
-                    .contractorId(1L)
-                    .contractId(1L)
-                    .contractorId(1L)
-                    .companyId(1L)
-                    .productDtos(List.of(productService.getById(1L), productService.getById(2L)))
-                    .sum(BigDecimal.valueOf(555))
-                    .isSent(false)
-                    .isPrinted(true)
-                    .comment("text")
-                    .build());
+private void initSupply(){
+    try {
+        supplyService.create(SupplyDto.builder()
+                .id(1L)
+                .dateOfCreation(LocalDateTime.now())
+                .contractorId(1L)
+                .contractId(1L)
+                .companyId(1L)
+                .productDtos(List.of(productService.getById(1L),productService.getById(2L)))
+                .sum(BigDecimal.valueOf(555))
+                .isSent(false)
+                .isPrinted(true)
+                .comment("text")
+                .build());
 
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу supply", e);
@@ -927,6 +928,30 @@ public class DataInitializer {
 
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу shipment", e);
+        }
+    }
+    private void initCommissionReports(){
+        ContractDto contractDto = contractService.getById(1L);
+        ContractorDto contractorDto = contractorService.getById(1L);
+        CompanyDto companyDto = companyService.getById(1L);
+        try {
+            commissionReportsService.create(CommissionReportsDto.builder()
+                    .id(1L)
+                    .dateOfCreation(LocalDateTime.now())
+                    .contractDto(contractDto)
+                    .contractorDto(contractorDto)
+                    .companyDto(companyDto)
+                    .sum(BigDecimal.valueOf(555))
+                    .paid(BigDecimal.valueOf(333))
+                    .isSent(false)
+                    .isPrinted(true)
+                    .comment("commission")
+                    .periodStart(LocalDateTime.now())
+                    .reward(BigDecimal.valueOf(132))
+                    .build());
+
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу commissionReports", e);
         }
     }
 

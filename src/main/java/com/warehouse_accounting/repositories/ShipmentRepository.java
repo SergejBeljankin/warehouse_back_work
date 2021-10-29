@@ -15,16 +15,16 @@ import java.util.List;
 public interface ShipmentRepository extends JpaRepository<Shipment, Long>{
     @Query("SELECT NEW com.warehouse_accounting.models.dto.ShipmentDto(" +
             "sh.id," +
-            "sh.movingFields.dateOfCreation," +
-            "sh.movingFields.warehouse.id," +
-            "sh.movingFields.contract.id," +
-            "sh.movingFields.contractor.id," +
-            "sh.movingFields.company.id," +
-            "sh.movingFields.sum," +
-            "sh.movingFields.paid," +
-            "sh.movingFields.isSent," +
-            "sh.movingFields.isPrinted," +
-            "sh.movingFields.comment," +
+            "sh.dateOfCreation," +
+            "sh.warehouse.id," +
+            "sh.contract.id," +
+            "sh.contractor.id," +
+            "sh.company.id," +
+            "sh.sum," +
+            "sh.paid," +
+            "sh.isSent," +
+            "sh.isPrinted," +
+            "sh.comment," +
             "sh.consignee.id," +
             "sh.carrier.id," +
             "sh.isPaid," +
@@ -34,16 +34,16 @@ public interface ShipmentRepository extends JpaRepository<Shipment, Long>{
 
     @Query("SELECT NEW com.warehouse_accounting.models.dto.ShipmentDto(" +
             "sh.id," +
-            "sh.movingFields.dateOfCreation," +
-            "sh.movingFields.warehouse.id," +
-            "sh.movingFields.contract.id," +
-            "sh.movingFields.contractor.id," +
-            "sh.movingFields.company.id," +
-            "sh.movingFields.sum," +
-            "sh.movingFields.paid," +
-            "sh.movingFields.isSent," +
-            "sh.movingFields.isPrinted," +
-            "sh.movingFields.comment," +
+            "sh.dateOfCreation," +
+            "sh.warehouse.id," +
+            "sh.contract.id," +
+            "sh.contractor.id," +
+            "sh.company.id," +
+            "sh.sum," +
+            "sh.paid," +
+            "sh.isSent," +
+            "sh.isPrinted," +
+            "sh.comment," +
             "sh.consignee.id," +
             "sh.carrier.id," +
             "sh.isPaid," +
