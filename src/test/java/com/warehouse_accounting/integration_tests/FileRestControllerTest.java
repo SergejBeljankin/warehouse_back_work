@@ -94,8 +94,8 @@ public class FileRestControllerTest {
     @Test
     void update() throws Exception {
         FileDto fileDto = fileService.getById(1l);
-        fileDto.setName("Tovar");
-        fileDto.setLocation("Germany");
+//        fileDto.setName("Tovar");
+//        fileDto.setLocation("Germany");
 
         mockMvc.perform(get("/api/file/1"))
                 .andDo(print())

@@ -6,6 +6,7 @@ import com.warehouse_accounting.models.TypeOfAdjustment;
 import com.warehouse_accounting.models.TypeOfPayment;
 import com.warehouse_accounting.models.dto.*;
 import com.warehouse_accounting.services.interfaces.*;
+import com.warehouse_accounting.util.ConverterDto;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.poi.ss.usermodel.Row;
@@ -24,6 +25,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Component
@@ -66,6 +68,8 @@ public class DataInitializer {
     private final BonusTransactionService bonusTransactionService;
     private final SupplyService supplyService;
     private final ShipmentService shipmentService;
+    private final CommissionReportsService commissionReportsService;
+    private final CustomerReturnsService customerReturnsService;
 
     public DataInitializer(ApplicationService applicationService,
                            RoleService roleService,
@@ -100,7 +104,8 @@ public class DataInitializer {
                            FeedService feedService,
                            SupplyService supplyService,
                            ShipmentService shipmentService,
-                           BonusTransactionService bonusTransactionService) {
+                           BonusTransactionService bonusTransactionService,
+                           CustomerReturnsService customerReturnsService) {
         this.applicationService = applicationService;
         this.roleService = roleService;
         this.unitService = unitService;
@@ -135,6 +140,8 @@ public class DataInitializer {
         this.bonusTransactionService = bonusTransactionService;
         this.supplyService = supplyService;
         this.shipmentService = shipmentService;
+        this.commissionReportsService = commissionReportsService;
+        this.customerReturnsService = customerReturnsService;
     }
 
     @PostConstruct
@@ -170,6 +177,7 @@ public class DataInitializer {
         initBonusTransaction();
         initSupply();
         initShipment();
+        initCommissionReports();
     }
 
     private void initApplications() {
@@ -678,6 +686,7 @@ public class DataInitializer {
                 .whenСhanged(LocalDateTime.now())
                 .build());
     }
+
     private void initPayment() {
         try {
             ContractorDto contractorDto = contractorService.getById(1L);
@@ -829,7 +838,8 @@ public class DataInitializer {
             log.error("Не удалось заполнить таблицу subscription", e);
         }
     }
-    private void initProductGroup(){
+
+    private void initProductGroup() {
         try {
             productGroupService.create(ProductGroupDto.builder()
                     .id(1L)
@@ -883,7 +893,6 @@ private void initSupply(){
                 .dateOfCreation(LocalDateTime.now())
                 .contractorId(1L)
                 .contractId(1L)
-                .contractorId(1L)
                 .companyId(1L)
                 .productDtos(List.of(productService.getById(1L),productService.getById(2L)))
                 .sum(BigDecimal.valueOf(555))
@@ -892,11 +901,12 @@ private void initSupply(){
                 .comment("text")
                 .build());
 
-    } catch (Exception e) {
-        log.error("Не удалось заполнить таблицу supply", e);
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу supply", e);
+        }
     }
-}
-    private void  initShipment(){
+
+    private void initShipment() {
         try {
             shipmentService.create(ShipmentDto.builder()
                     .id(1L)
@@ -918,6 +928,53 @@ private void initSupply(){
 
         } catch (Exception e) {
             log.error("Не удалось заполнить таблицу shipment", e);
+        }
+    }
+    private void initCommissionReports(){
+        ContractDto contractDto = contractService.getById(1L);
+        ContractorDto contractorDto = contractorService.getById(1L);
+        CompanyDto companyDto = companyService.getById(1L);
+        try {
+            commissionReportsService.create(CommissionReportsDto.builder()
+                    .id(1L)
+                    .dateOfCreation(LocalDateTime.now())
+                    .contractDto(contractDto)
+                    .contractorDto(contractorDto)
+                    .companyDto(companyDto)
+                    .sum(BigDecimal.valueOf(555))
+                    .paid(BigDecimal.valueOf(333))
+                    .isSent(false)
+                    .isPrinted(true)
+                    .comment("commission")
+                    .periodStart(LocalDateTime.now())
+                    .reward(BigDecimal.valueOf(132))
+                    .build());
+
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу commissionReports", e);
+        }
+    }
+
+    private void initCustomerReturns() {
+        try {
+            customerReturnsService.create(CustomerReturnsDto
+                    .builder()
+                    .id(1l)
+                    .date(LocalDateTime.now())
+                    .sum(BigDecimal.valueOf(1000))
+                    .isPaid(true)
+                    .isSend(true)
+                    .comment("polucheno")
+                    .warehouseDto(null)
+                    .contractDto(contractService.getById(1l))
+                    .companyDto(companyService.getById(1l))
+                    .contractorDto(contractorService.getById(1l))
+                    .productDtos(List.of(productService.getById(1l)))
+                    .fileDtos(List.of(null))
+                    .taskDtos(List.of(taskService.getById(1l)))
+                    .build());
+        } catch (Exception e) {
+            log.error("Не удалось заполнить таблицу CustomerReturns "+ e);
         }
     }
 }
