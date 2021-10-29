@@ -59,7 +59,7 @@ public class SelectorRestController {
     public ResponseEntity<SelectorDto> getById(
             @ApiParam(name = "id", value = "Значение поля Id объекта которого хотим получить", example = "1", required = true)
             @PathVariable("id") Long id) {
-        checkEntityService.checkExistSelectorById(id);
+
         return ResponseEntity.ok(selectorService.getById(id));
     }
 
@@ -89,7 +89,7 @@ public class SelectorRestController {
     public ResponseEntity<?> update(
             @ApiParam(name = "SelectorDto", value = "Объект SelectorDto который нужно изменить в программе")
             @RequestBody SelectorDto selectorDto) {
-        checkEntityService.checkExistSelectorById(selectorDto.getId());
+
         selectorService.update(selectorDto);
         return ResponseEntity.ok().build();
     }
@@ -105,7 +105,7 @@ public class SelectorRestController {
     public ResponseEntity<?> deleteById(
             @ApiParam(name = "id", value = "Значение поля Id объекта который хотим удалить", example = "1", required = true)
             @PathVariable("id") long id) {
-        checkEntityService.checkExistSelectorById(id);
+
         selectorService.deleteById(id);
         return ResponseEntity.ok().build();
     }

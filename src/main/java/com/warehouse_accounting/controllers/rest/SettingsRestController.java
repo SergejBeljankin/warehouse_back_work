@@ -56,7 +56,7 @@ public class SettingsRestController {
     public ResponseEntity<SettingsDto> getById(
             @ApiParam(name = "id", value = "Значение поля Id объекта которого хотим получить", example = "1", required = true)
             @PathVariable("id") Long id) {
-        checkEntityService.checkExistSettingsById(id);
+
         return ResponseEntity.ok(settingService.getByIdEmployee(id));
     }
 
@@ -86,7 +86,7 @@ public class SettingsRestController {
     public ResponseEntity<?> update(
             @ApiParam(name = "SettingsDto", value = "Объект SettingsDto который нужно изменить в программе")
             @RequestBody SettingsDto settingsDto) {
-        checkEntityService.checkExistSettingsById(settingsDto.getId());
+
         settingService.update(settingsDto);
         return ResponseEntity.ok().build();
     }
@@ -102,7 +102,7 @@ public class SettingsRestController {
     public ResponseEntity<?> deleteById(
             @ApiParam(name = "id", value = "Значение поля Id объекта который хотим удалить", example = "1", required = true)
             @PathVariable("id") long id) {
-        checkEntityService.checkExistSettingsById(id);
+
         settingService.deleteById(id);
         return ResponseEntity.ok().build();
     }
