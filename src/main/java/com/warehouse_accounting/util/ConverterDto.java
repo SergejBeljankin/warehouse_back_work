@@ -3,6 +3,115 @@ package com.warehouse_accounting.util;
 import com.warehouse_accounting.models.*;
 import com.warehouse_accounting.models.dto.*;
 
+import com.warehouse_accounting.models.Adjustment;
+import com.warehouse_accounting.models.Application;
+import com.warehouse_accounting.models.AttributeOfCalculationObject;
+import com.warehouse_accounting.models.BankAccount;
+import com.warehouse_accounting.models.Call;
+import com.warehouse_accounting.models.Company;
+import com.warehouse_accounting.models.Contract;
+import com.warehouse_accounting.models.Contractor;
+import com.warehouse_accounting.models.ContractorGroup;
+import com.warehouse_accounting.models.Country;
+import com.warehouse_accounting.models.Currency;
+import com.warehouse_accounting.models.Department;
+import com.warehouse_accounting.models.Document;
+import com.warehouse_accounting.models.Employee;
+import com.warehouse_accounting.models.Feed;
+import com.warehouse_accounting.models.File;
+import com.warehouse_accounting.models.Image;
+import com.warehouse_accounting.models.Invoice;
+import com.warehouse_accounting.models.InvoiceEdit;
+import com.warehouse_accounting.models.InvoiceProduct;
+import com.warehouse_accounting.models.Language;
+import com.warehouse_accounting.models.LegalDetail;
+import com.warehouse_accounting.models.Memo;
+import com.warehouse_accounting.models.Movement;
+import com.warehouse_accounting.models.Notifications;
+import com.warehouse_accounting.models.Payment;
+import com.warehouse_accounting.models.PaymentExpenditure;
+import com.warehouse_accounting.models.Position;
+import com.warehouse_accounting.models.PrintingDocuments;
+import com.warehouse_accounting.models.Product;
+import com.warehouse_accounting.models.ProductGroup;
+import com.warehouse_accounting.models.ProductPrice;
+import com.warehouse_accounting.models.ProductionOrder;
+import com.warehouse_accounting.models.Project;
+import com.warehouse_accounting.models.RecycleBin;
+import com.warehouse_accounting.models.Requisites;
+import com.warehouse_accounting.models.Role;
+import com.warehouse_accounting.models.Selector;
+import com.warehouse_accounting.models.Settings;
+import com.warehouse_accounting.models.Shipment;
+import com.warehouse_accounting.models.StartScreen;
+import com.warehouse_accounting.models.Subscription;
+import com.warehouse_accounting.models.Supply;
+import com.warehouse_accounting.models.Tariff;
+import com.warehouse_accounting.models.Task;
+import com.warehouse_accounting.models.TaxSystem;
+import com.warehouse_accounting.models.TechnologicalMap;
+import com.warehouse_accounting.models.TechnologicalMapGroup;
+import com.warehouse_accounting.models.TechnologicalMapMaterial;
+import com.warehouse_accounting.models.TechnologicalMapProduct;
+import com.warehouse_accounting.models.TechnologicalOperation;
+import com.warehouse_accounting.models.TypeOfContractor;
+import com.warehouse_accounting.models.TypeOfInvoice;
+import com.warehouse_accounting.models.TypeOfPrice;
+import com.warehouse_accounting.models.Unit;
+import com.warehouse_accounting.models.Warehouse;
+import com.warehouse_accounting.models.dto.AdjustmentDto;
+import com.warehouse_accounting.models.dto.ApplicationDto;
+import com.warehouse_accounting.models.dto.AttributeOfCalculationObjectDto;
+import com.warehouse_accounting.models.dto.BankAccountDto;
+import com.warehouse_accounting.models.dto.CallDto;
+import com.warehouse_accounting.models.dto.CompanyDto;
+import com.warehouse_accounting.models.dto.ContractDto;
+import com.warehouse_accounting.models.dto.ContractorDto;
+import com.warehouse_accounting.models.dto.ContractorGroupDto;
+import com.warehouse_accounting.models.dto.CountryDto;
+import com.warehouse_accounting.models.dto.CurrencyDto;
+import com.warehouse_accounting.models.dto.DepartmentDto;
+import com.warehouse_accounting.models.dto.EmployeeDto;
+import com.warehouse_accounting.models.dto.FeedDto;
+import com.warehouse_accounting.models.dto.FileDto;
+import com.warehouse_accounting.models.dto.ImageDto;
+import com.warehouse_accounting.models.dto.InvoiceDto;
+import com.warehouse_accounting.models.dto.InvoiceEditDto;
+import com.warehouse_accounting.models.dto.InvoiceProductDto;
+import com.warehouse_accounting.models.dto.LanguageDto;
+import com.warehouse_accounting.models.dto.LegalDetailDto;
+import com.warehouse_accounting.models.dto.MemoDto;
+import com.warehouse_accounting.models.dto.MovementDto;
+import com.warehouse_accounting.models.dto.NotificationsDto;
+import com.warehouse_accounting.models.dto.PaymentDto;
+import com.warehouse_accounting.models.dto.PositionDto;
+import com.warehouse_accounting.models.dto.PrintingDocumentsDto;
+import com.warehouse_accounting.models.dto.ProductDto;
+import com.warehouse_accounting.models.dto.ProductGroupDto;
+import com.warehouse_accounting.models.dto.ProductPriceDto;
+import com.warehouse_accounting.models.dto.ProductionOrderDto;
+import com.warehouse_accounting.models.dto.ProjectDto;
+import com.warehouse_accounting.models.dto.RecycleBinDto;
+import com.warehouse_accounting.models.dto.RequisitesDto;
+import com.warehouse_accounting.models.dto.RoleDto;
+import com.warehouse_accounting.models.dto.SelectorDto;
+import com.warehouse_accounting.models.dto.SettingsDto;
+import com.warehouse_accounting.models.dto.ShipmentDto;
+import com.warehouse_accounting.models.dto.StartScreenDto;
+import com.warehouse_accounting.models.dto.SubscriptionDto;
+import com.warehouse_accounting.models.dto.SupplyDto;
+import com.warehouse_accounting.models.dto.TariffDto;
+import com.warehouse_accounting.models.dto.TaskDto;
+import com.warehouse_accounting.models.dto.TaxSystemDto;
+import com.warehouse_accounting.models.dto.TechnologicalMapDto;
+import com.warehouse_accounting.models.dto.TechnologicalMapGroupDto;
+import com.warehouse_accounting.models.dto.TechnologicalMapMaterialDto;
+import com.warehouse_accounting.models.dto.TechnologicalMapProductDto;
+import com.warehouse_accounting.models.dto.TechnologicalOperationDto;
+import com.warehouse_accounting.models.dto.TypeOfContractorDto;
+import com.warehouse_accounting.models.dto.TypeOfPriceDto;
+import com.warehouse_accounting.models.dto.UnitDto;
+import com.warehouse_accounting.models.dto.WarehouseDto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -220,9 +329,6 @@ public class ConverterDto {
     }
 
     public static UnitDto convertToDto(Unit unit) {
-        if(unit == null){
-            return null;
-        }
         return UnitDto.builder()
                 .id(unit.getId())
                 .shortName(unit.getShortName())
@@ -1319,6 +1425,7 @@ public class ConverterDto {
                 .contract(contract)
                 .contractor(contractor)
                 .company(company)
+                .products(new ArrayList<>())
                 .sum(supplyDto.getSum())
                 .paid(supplyDto.getPaid())
                 .isSent(supplyDto.getIsSent())
@@ -1558,6 +1665,137 @@ public class ConverterDto {
                 .requisites(convertToDto(subscription.getRequisites()))
                 .employee(convertToDto(subscription.getEmployee()))
                 .tariff(subscription.getTariffs().stream().map(ConverterDto::convertToDto).collect(Collectors.toSet()))
+                .build();
+    }
+    // Settings (Настройки пользователя)
+    public static Settings convertToModel(SettingsDto settingsDto) {
+
+        return Settings.builder()
+                .id(settingsDto.getId())
+                .employee(convertToModel(settingsDto.getEmployeeDto()))
+                .company(convertToModel(settingsDto.getCompanyDto()))
+                .warehouse(convertToModel(settingsDto.getWarehouseDto()))
+                .customer(convertToModel(settingsDto.getCustomerDto()))
+                .producer(convertToModel(settingsDto.getProducerDto()))
+                .project(convertToModel(settingsDto.getProjectDto()))
+                .language(convertToModel(settingsDto.getLanguageDto()))
+                .printingDocuments(convertToModel(settingsDto.getPrintingDocumentsDto()))
+                .startScreen(convertToModel(settingsDto.getStartScreenDto()))
+                .notifications(convertToModel(settingsDto.getNotificationsDto()))
+                .signatureInLetters(settingsDto.isSignatureInLetters())
+                .refreshReportsAuto(settingsDto.isRefreshReportsAuto())
+                .numberOfAdditionalFieldsPerLine(settingsDto.getNumberOfAdditionalFieldsPerLine())
+                .build();
+    }
+
+public static SettingsDto convertToDto(Settings settings) {
+
+    return SettingsDto.builder()
+            .id(settings.getId())
+            .employeeDto(convertToDto(settings.getEmployee()))
+            .companyDto(convertToDto(settings.getCompany()))
+            .warehouseDto(convertToDto(settings.getWarehouse()))
+            .customerDto(convertToDto(settings.getCustomer()))
+            .producerDto(convertToDto(settings.getProducer()))
+            .projectDto(convertToDto(settings.getProject()))
+            .languageDto(convertToDto(settings.getLanguage()))
+            .printingDocumentsDto(convertToDto(settings.getPrintingDocuments()))
+            .startScreenDto(convertToDto(settings.getStartScreen()))
+            .notificationsDto(convertToDto(settings.getNotifications()))
+            .signatureInLetters(settings.isSignatureInLetters())
+            .refreshReportsAuto(settings.isRefreshReportsAuto())
+            .numberOfAdditionalFieldsPerLine(settings.getNumberOfAdditionalFieldsPerLine())
+            .build();
+}
+
+    // Language
+    public static Language convertToModel(LanguageDto languageDto) {
+        return Language.builder()
+                .id(languageDto.getId())
+                .language(languageDto.getLanguage())
+                .build();
+    }
+    public static LanguageDto convertToDto (Language language) {
+        return LanguageDto.builder()
+                .id(language.getId())
+                .language(language.getLanguage())
+                .build();
+    }
+
+    // printingDocuments
+    public static PrintingDocuments convertToModel(PrintingDocumentsDto printingDocumentsDto) {
+        return PrintingDocuments.builder()
+                .id(printingDocumentsDto.getId())
+                .printDoc(printingDocumentsDto.getPrintDoc())
+                .build();
+    }
+    public static PrintingDocumentsDto convertToDto (PrintingDocuments printingDocuments) {
+        return PrintingDocumentsDto.builder()
+                .id(printingDocuments.getId())
+                .printDoc(printingDocuments.getPrintDoc())
+                .build();
+    }
+
+    // startScreen
+    public static StartScreen convertToModel(StartScreenDto startScreenDto) {
+        return StartScreen.builder()
+                .id(startScreenDto.getId())
+                .startScreen(startScreenDto.getStartScreen())
+                .build();
+    }
+
+    public static StartScreenDto convertToDto (StartScreen startScreen) {
+        return StartScreenDto.builder()
+                .id(startScreen.getId())
+                .startScreen(startScreen.getStartScreen())
+                .build();
+    }
+
+    // notification
+    public static Notifications convertToModel(NotificationsDto notificationsDto) {
+        return Notifications.builder()
+                .id(notificationsDto.getId())
+                .buyerOrders(convertToModel(notificationsDto.getBuyerOrders()))
+                .buyersInvoices(convertToModel(notificationsDto.getBuyersInvoices()))
+                .dataExchange(convertToModel(notificationsDto.getDataExchange()))
+                .onlineStores(convertToModel(notificationsDto.getOnlineStores()))
+                .remainder(convertToModel(notificationsDto.getRemainder()))
+                .tasks(convertToModel(notificationsDto.getTasks()))
+                .retail(convertToModel(notificationsDto.getRetail()))
+                .scripts(convertToModel(notificationsDto.getScripts()))
+                .build();
+    }
+
+    public static NotificationsDto convertToDto(Notifications notifications) {
+        return NotificationsDto.builder()
+                .id(notifications.getId())
+                .buyerOrders(convertToDto(notifications.getBuyerOrders()))
+                .buyersInvoices(convertToDto(notifications.getBuyersInvoices()))
+                .dataExchange(convertToDto(notifications.getDataExchange()))
+                .onlineStores(convertToDto(notifications.getOnlineStores()))
+                .remainder(convertToDto(notifications.getRemainder()))
+                .tasks(convertToDto(notifications.getTasks()))
+                .retail(convertToDto(notifications.getRetail()))
+                .scripts(convertToDto(notifications.getScripts()))
+                .build();
+    }
+
+    // selector
+    public static Selector convertToModel(SelectorDto selectorDto) {
+        return Selector.builder()
+                .id(selectorDto.getId())
+                .activate(selectorDto.isActivate())
+                .phone(selectorDto.isPhone())
+                .post(selectorDto.isPost())
+                .build();
+    }
+
+    public static SelectorDto convertToDto(Selector selector) {
+        return SelectorDto.builder()
+                .id(selector.getId())
+                .activate(selector.isActivate())
+                .phone(selector.isPhone())
+                .post(selector.isPost())
                 .build();
     }
 

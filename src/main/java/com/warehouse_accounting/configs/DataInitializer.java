@@ -105,6 +105,7 @@ public class DataInitializer {
                            SupplyService supplyService,
                            ShipmentService shipmentService,
                            BonusTransactionService bonusTransactionService,
+                           CommissionReportsService commissionReportsService,
                            CustomerReturnsService customerReturnsService) {
         this.applicationService = applicationService;
         this.roleService = roleService;

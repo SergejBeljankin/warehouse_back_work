@@ -17,4 +17,31 @@ public class CheckEntityServiceImpl implements CheckEntityService {
             throw new NotFoundEntityException(objectName + " с id=" + id + " не найден");
         }
     }
+
+
+    public void checkExistCustomerReturnsById(Long Id){
+
+    }
+    /*
+
+     */
+    public void checkExistSettingsById(Long settingsId){
+
+    }
+
+    public void checkExistLanguageById(Long settingsId){
+
+    }
+
+    public void checkExistPrintingDocumentsById(Long printingDocumentsId){
+
+    }
+
+    public void checkExistStartScreenById(Long startScreenId){
+
+    }
+
+    public void checkExistNotificationsById(Long notificationsId){
+
+    }
 }

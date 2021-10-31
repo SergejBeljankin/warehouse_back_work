@@ -1,11 +1,13 @@
 package com.warehouse_accounting.repositories;
 
+import com.warehouse_accounting.models.PrintingDocuments;
 import com.warehouse_accounting.models.dto.PrintingDocumentsDto;
 import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface PrintingDocumentsRepository {
+public interface PrintingDocumentsRepository extends JpaRepository<PrintingDocuments, Long> {
     @Query("SELECT NEW com.warehouse_accounting.models.dto.PrintingDocumentsDto("+
 
             "pd.id, " +

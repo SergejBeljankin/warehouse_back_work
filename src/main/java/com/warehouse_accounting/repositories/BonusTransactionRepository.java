@@ -36,4 +36,3 @@ public interface BonusTransactionRepository extends JpaRepository<BonusTransacti
             "bt.owner.id) FROM BonusTransaction bt where bt.id=:id")
     BonusTransactionDto getById(@Param("id") Long id);
 }
-
